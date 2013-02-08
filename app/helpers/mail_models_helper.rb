@@ -1,0 +1,2 @@
+module MailModelsHelper
+end
