@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
 
-gem 'accounts_client', '~> 0.0.8'
+gem 'accounts_client', '~> 0.0.10'
 
 # CAS authentication
 gem 'devise', '1.5.0'
