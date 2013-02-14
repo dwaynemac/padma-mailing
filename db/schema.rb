@@ -11,23 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130208142325) do
-
-  create_table "users", :force => true do |t|
-    t.string   "username"
-=======
 ActiveRecord::Schema.define(:version => 20130214212132) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
->>>>>>> 8370445-mail-templates
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-<<<<<<< HEAD
-=======
   create_table "templates", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -38,5 +29,10 @@ ActiveRecord::Schema.define(:version => 20130214212132) do
     t.datetime "updated_at",                      :null => false
   end
 
->>>>>>> 8370445-mail-templates
+  create_table "users", :force => true do |t|
+    t.string   "username"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
 end

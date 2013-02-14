@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   def require_padma_account
     if signed_in?
       unless current_user.padma_enabled?
-        render text: 'Access allowed to PADMA users only'
+        render text: 'Access allowed to PADMA users only - Think this is a mistake? Maybe PADMA Authentication service is down.'
       end
     end
   end
