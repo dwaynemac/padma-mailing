@@ -1,4 +1,4 @@
-class MailModelsController < ApplicationController
+class TemplatesController < ApplicationController
   def index
   end
 

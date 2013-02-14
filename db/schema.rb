@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130213182608) do
+ActiveRecord::Schema.define(:version => 20130214212132) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -19,14 +19,14 @@ ActiveRecord::Schema.define(:version => 20130213182608) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "mail_models", :force => true do |t|
+  create_table "templates", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.string   "subject"
     t.text     "content"
-    t.string   "account"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "local_account_id", :limit => 255
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
 end
