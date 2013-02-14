@@ -1,8 +1,10 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-
 gem 'accounts_client', '~> 0.0.10'
+gem 'activity_stream_client', '~> 0.0.10'
+gem 'ffi', '~> 1.0.11'
+
 
 # CAS authentication
 gem 'devise', '1.5.0'
@@ -17,6 +19,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
+  gem 'twitter-bootstrap-rails', '>= 2.2.3'
 end
 gem 'jquery-rails'
 
