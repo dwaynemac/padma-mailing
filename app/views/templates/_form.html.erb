@@ -1,0 +1,38 @@
+<%= form_for @template, :html => { :class => 'form-horizontal' } do |f| %>
+    <fieldset>
+      <legend><%= controller.action_name.capitalize %> Template</legend>
+
+      <div class="control-group">
+        <%= f.label :name, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :name, :class => 'text_field' %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :description, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :description, :class => 'text_field' %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :subject, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :subject, :class => 'text_field' %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :content, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :content, :class => 'text_field' %>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to 'Cancel', templates_path, :class => 'btn' %>
+      </div>
+    </fieldset>
+<% end %>

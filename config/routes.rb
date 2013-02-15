@@ -5,6 +5,8 @@ Mailing::Application.routes.draw do
     match '/logout', to: "devise/cas_sessions#destroy"
   end
 
+  resources :templates
+
   root to: 'application#home'
 
   # The priority is based upon order of creation:
