@@ -1,11 +1,11 @@
-class CreateMailModels < ActiveRecord::Migration
+class CreateTemplates < ActiveRecord::Migration
   def change
-    create_table :mail_models do |t|
+    create_table :templates do |t|
       t.string :name
       t.string :description
       t.string :subject
       t.text :content
-      t.integer :account_id
+      t.integer :local_account_id
 
       t.timestamps
     end
