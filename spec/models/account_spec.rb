@@ -12,6 +12,8 @@ describe Account do
   it {should validate_presence_of :name}
   it {should validate_uniqueness_of :name}
 
+  it { should have_many(:templates).with_foreign_key(:local_account_id)}
+
   describe "#padma" do
     it "should give access to padma accounts api" do
       @account.padma.should be_a(PadmaAccount)

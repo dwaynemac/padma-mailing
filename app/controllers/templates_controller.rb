@@ -1,6 +1,9 @@
 class TemplatesController < ApplicationController
+
+  load_and_authorize_resource
+
   def index
-    @templates = Template.all
+    # @templates initialized by load_and_authorize_resource
     @account = current_user.current_account
 
     # response.headers['Content-type'] = 'application/json; charset=utf-8'
@@ -8,15 +11,14 @@ class TemplatesController < ApplicationController
   end
 
   def show
-    @template = Template.find(params[:id])
+    # @template initialized by load_and_authorize_resource
     @account = current_user.current_account
 
     # render :json => @template.as_json(:account => @account, :include_masked => true)
   end
 
   def new
-    @template = Template.new
-
+    # @template initialized by load_and_authorize_resource
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @product }
@@ -24,11 +26,11 @@ class TemplatesController < ApplicationController
   end
 
   def edit
-    @template = Template.find(params[:id])
+    # @template initialized by load_and_authorize_resource
   end
 
   def create
-    @template = Template.new(params[:template])
+    # @template initialized by load_and_authorize_resource
     @template.update_attribute("local_account_id", current_user.current_account.id)
     @template.save!
 
@@ -37,7 +39,7 @@ class TemplatesController < ApplicationController
   end
 
   def update
-    @template = Template.find(params[:id])
+    # @template initialized by load_and_authorize_resource
     @template.update_attributes(params[:template])
 
     redirect_to @template
@@ -45,7 +47,7 @@ class TemplatesController < ApplicationController
   end
 
   def destroy
-    @template = Template.find(params[:id])
+    # @template initialized by load_and_authorize_resource
     @template.destroy
 
     redirect_to templates_url

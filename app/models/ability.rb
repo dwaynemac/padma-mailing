@@ -28,5 +28,7 @@ class Ability
     #
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
+
+    can :manage, Template, local_account_id: user.current_account_id
   end
 end

@@ -3,6 +3,8 @@ class Account < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name
 
+  has_many :templates, foreign_key: :local_account_id
+
   # Hook to Padma Account API
   # @param [TrueClass] cache: Specify if Cache should be used. default: true
   # @return [PadmaAccount]
