@@ -7,7 +7,7 @@ Mailing::Application.routes.draw do
 
   resources :templates
 
-  root to: 'application#home'
+  root to: 'templates#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mailing</title>
+  <title><%= content_for?(:title) ? yield(:title) : "Padma Mailing" %></title>
   <!--[if lt IE 9]>
   <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
   <![endif]-->
@@ -9,10 +9,27 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 <body>
+<%= render 'layouts/navbar' %>
 <div class="container">
-  <%= yield %>
+  <div class="content">
+    <div class="row">
+      <%#<div class="span2">
+            %= render 'layouts/side_bar' %
+          </div>%>
+      <div class="span12">
+        <%= yield %>
+      </div>
+
+    </div><!--/row-->
+  </div><!--/content-->
+
+  <footer>
+    <p>&copy; PADMA 2012</p>
+  </footer>
+
 </div>
 
 </body>
