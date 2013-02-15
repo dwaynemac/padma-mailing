@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   before_filter :mock_login
   before_filter :authenticate_user!
   before_filter :require_padma_account
+  before_filter :set_current_account
 
   def home
     msg = "welcome home #{current_user.username}"
@@ -43,4 +44,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_current_account
+    if signed_in? && current_user.padma_enabled?
+      current_user.current_account = Account.find_or_create_by_name(current_user.padma.enabled_accounts.first.name)
+    end
+  end
 end
