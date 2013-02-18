@@ -1,17 +1,20 @@
 class PadmaMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "afalkear@gmail.com"
 
-  def mail_model(model, recipient, bcc=nil, from=nil)
-    return if model.nil?
+  def mail_template(template, recipient, bcc=nil, from=nil)
+    return if template.nil?
     return if recipient.blank?
 
     @recipients = recipient
     @bcc = bcc
-    @from = (from.blank?)? "'#{model.account.name}' " : from
-    @subject = model.subject
+    @from = (from.blank?)? "'#{template.account.name}' " : from
+    @subject = template.subject
     @sent_on = Time.zone.now
     @content_type = 'multipart/mixed'
-    part :content_type => "text/html", :body => render_message( 'mail_model',
-                                                                :content => model.content)
+    mail( to: recipient,
+          subject: @subject,
+          content: template.content,
+          template_path: 'padma_mailer',
+          template_name: 'template')
   end
 end

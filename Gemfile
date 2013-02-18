@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'shoulda'
   gem 'factory_girl_rails'
+  gem 'capybara'
 
   gem 'yard', '~> 0.7.4'
   gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
