@@ -46,6 +46,19 @@ class TemplatesController < ApplicationController
     # render :json => "OK"
   end
 
+  def deliver
+    puts "ENTRE A DELIVER TEMPLATE, con el id: #{params.inspect}"
+    #return if params[:template].nil?
+    template = current_user.current_account.templates.find(params[:id])
+    to = "ailen.iglesias@gmail.com" #params[:model][:recipient]
+    #bcc = params[:model][:from] || current_user.email
+    from = "afalkear@gmail.com" #params[:model][:from]
+    puts "A PUNTO DE MANDAR MAIL"
+    PadmaMailer.mail_template(template, to, nil, from).deliver
+    puts "MANDO MAIL, AHORA DEBERIA REDIRIGIR"
+    redirect_to @template
+  end
+
   def destroy
     # @template initialized by load_and_authorize_resource
     @template.destroy

@@ -5,7 +5,12 @@ Mailing::Application.routes.draw do
     match '/logout', to: "devise/cas_sessions#destroy"
   end
 
-  resources :templates
+  resources :templates do
+    member do
+      get 'deliver'
+    end
+    #match '/templates/:id/deliver_template', to: 'templates#deliver_template'
+  end
 
   root to: 'templates#index'
 
