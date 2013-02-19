@@ -8,13 +8,12 @@
         <%= f.select :event_name, ['communication', 'subscription_change'], {} %>
       </div>
 
-      <div id="filters"></div>
-
       <div class="control-group">
         <div class="controls">
           <button id="add-filter" class="btn"><%= t('triggers.form.add_filter') %></button>
         </div>
       </div>
+      <div id="filters"></div>
 
       <div id="templates" class="controls">
         <ul></ul>
@@ -55,5 +54,6 @@
   <li>
     <span></span>
     <a class='remove-template btn btn-mini btn-danger'>x</a>
+    <input type="hidden" name="templates[][id]" value="" />
   </li>
 </template>

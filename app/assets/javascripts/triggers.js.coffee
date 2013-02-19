@@ -50,5 +50,7 @@ bindTemplateInstance = () ->
   $(".key_select").trigger('change')
 
 prefillTemplate = () ->
-  $("template#li_template li").prop('id',$("#select-template").val())
+  template_id = $("#select-template").val()
+  $("template#li_template li").prop('id', template_id)
+  $("template#li_template input").val(template_id)
   $("template#li_template li span").text($("#select-template option:selected").text())
