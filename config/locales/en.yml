@@ -10,3 +10,5 @@ en:
   triggers:
     form:
       add_filter: "Add filter"
+    new:
+      select_template: "Select a template"

@@ -22,7 +22,7 @@
       <div class="control-group">
         <div class="controls form-inline">
           <select id="select-template">
-            <option value=""></option>
+            <option value=""><%= t('triggers.new.select_template') %></option>
             <%- current_user.current_account.templates.each do |template| %>
               <option value="<%= template.id %>"><%= template.name %></option>
             <%- end %>
