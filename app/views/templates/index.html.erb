@@ -15,12 +15,12 @@
         <td><%= template.subject %></td>
         <td>
           <%= link_to 'Edit', edit_template_path(template), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', template_path(template), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+          <%= link_to 'Destroy', template_path(template), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>
         </td>
         <td>
           <%= form_tag("templates/#{template.id}/deliver", :method => :post, class: "send_email_form") do %>
               <%= text_field_tag :recipient, nil, class: "input-small search-query" %>
-              <%= submit_tag "Send email", class: "btn btn-mini"%>
+              <%= submit_tag "Send email", class: "btn btn-mini", confirm: t('confirm') %>
           <% end %>
         </td>
       </tr>
