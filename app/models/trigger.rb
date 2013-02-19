@@ -18,7 +18,6 @@ class Trigger < ActiveRecord::Base
 
   validates_presence_of :offset_unit, if: ->{!offset_number.blank?}
 
-
   # @return [Fixnum] offset in seconds
   def offset
     return nil unless valid_offset_unit?

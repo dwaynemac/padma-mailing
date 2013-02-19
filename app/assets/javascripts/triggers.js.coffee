@@ -2,6 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+$(document).ready ->
+  $("#add-filter").click ->
+    $("#filters").append($("template#new_filter").html())
+    bindTemplateInstance()
+    return false
+
+  $("#add-template").click ->
+    if $("#select-template").val() == ''
+      return false
+    prefillTemplate()
+    $("#select-template option:selected").hide()
+    $("#select-template").prop('value','')
+    $("#templates ul").append($("template#li_template").html())
+    $(".remove-template").click -> removeThisTemplate(this)
+    return false
+
 # Transforms array to <option>..</option>
 # @param [Array] array_options. Each element can be a string or an Array [value,label]
 # @return [String] html options
@@ -13,6 +29,11 @@ toSelectOptions = (array_options) ->
     else
       select_options = select_options+"<option value='"+i[0]+"'>"+i[1]+"</option>"
   return select_options
+
+removeThisTemplate = (e) ->
+  $(e).parents('li:first').remove()
+  id = $(e).parents('li:first').prop('id')
+  $("#select-template option[value="+id+"]").show()
 
 removeThisFilter = (e) ->
   $(e).parents('div.control-group:first').remove()
@@ -28,8 +49,6 @@ bindTemplateInstance = () ->
     setOptions(suggested_options[$(this).val()],$(this).siblings('select.value_select'))
   $(".key_select").trigger('change')
 
-$(document).ready ->
-  $("#add-filter").click ->
-    $("#filters").append($("template#new_filter").html())
-    bindTemplateInstance()
-    return false
+prefillTemplate = () ->
+  $("template#li_template li").prop('id',$("#select-template").val())
+  $("template#li_template li span").text($("#select-template option:selected").text())
