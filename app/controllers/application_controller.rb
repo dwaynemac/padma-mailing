@@ -27,11 +27,9 @@ class ApplicationController < ActionController::Base
 
   # Mocks CAS login in development
   def mock_login
-    def mock_login
-      if Rails.env.development?
-          user = User.find_or_create_by_username("mocked.user")
-          sign_in(user)
-      end
+    if Rails.env.development?
+      user = User.find_or_create_by_username("mocked.user")
+      sign_in(user)
     end
   end
 

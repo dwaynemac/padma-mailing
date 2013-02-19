@@ -7,6 +7,7 @@ describe TemplatesController do
         @account = FactoryGirl.create(:account)
         PadmaAccount.stub!(:find).and_return(PadmaAccount.new(:name => @account.name, :enabled => true))
         @user = FactoryGirl.create(:user)
+        sign_in(@user)
         get :index
       end
       it { should respond_with(:success) } # response.should be_success

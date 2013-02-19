@@ -2,5 +2,7 @@
 
 FactoryGirl.define do
   factory :trigger do
+    event_name 'event_name'
+    account
   end
 end
