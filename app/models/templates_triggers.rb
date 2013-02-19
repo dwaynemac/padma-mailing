@@ -9,7 +9,7 @@ class TemplatesTriggers < ActiveRecord::Base
 
   before_create :set_defaults
 
-  VALID_UNITS = %W(days hours weeks months)
+  VALID_UNITS = %W(days weeks months years)
   validates_presence_of :offset_unit, if: ->{!offset_number.blank?}
 
   VALID_REFERENCES = %W(now communicated_at)
