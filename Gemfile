@@ -4,7 +4,7 @@ gem 'rails', '3.2.11'
 gem 'activity_stream_client', '~> 0.0.10'
 gem 'ffi', '~> 1.0.11'
 
-gem 'accounts_client', '~> 0.0.10'
+gem 'accounts_client', '~> 0.0.12'
 
 # CAS authentication
 gem 'devise', '1.5.0'
