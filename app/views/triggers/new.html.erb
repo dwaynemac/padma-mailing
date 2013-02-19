@@ -1,6 +1,6 @@
 <%= form_for @trigger, :html => { :class => 'form-horizontal' } do |f| %>
   <fieldset>
-    <legend><%= controller.action_name.capitalize %> Template</legend>
+    <legend><%= t('triggers.new.title') %></legend>
 
     <div class="control-group">
       <%= f.label :event_name, :class => 'control-label' %>
@@ -15,9 +15,8 @@
       </div>
       <div id="filters"></div>
 
-      <div id="templates" class="controls">
-        <ul></ul>
-      </div>
+      <div id="templates"></div>
+
       <div class="control-group">
         <div class="controls form-inline">
           <select id="select-template">
@@ -43,17 +42,24 @@
       <label class="control-label">Filter</label>
       <div class="controls form-inline">
         <%= filter.select :key, %W(estimated_coefficient contact_gender), {}, class: 'key_select' %>
-        <%= filter.select :value, [1,2,3], {}, class: 'input-small', class: 'value_select' %>
+        <%= filter.select :value, [1,2,3], {}, class: 'input-small value_select' %>
         <a class="remove-filter btn btn-mini btn-danger" rel="nofollow">x</a>
       </div>
     </div>
   <% end %>
 </template>
 
-<template id="li_template" style="display:none">
-  <li>
-    <span></span>
-    <a class='remove-template btn btn-mini btn-danger'>x</a>
-    <input type="hidden" name="templates[][id]" value="" />
-  </li>
+<template id="new_trigger_template" style="display:none">
+  <%= fields_for 'trigger[templates_triggerses_attributes][]', @trigger.templates_triggerses.new do |template| %>
+  <div class="control-group">
+    <label class="control-label"><span></span></label>
+    <div class="controls form-inline">
+      <%= template.hidden_field :template_id %>
+      <%= template.text_field :offset_number, class: 'input-small', placeholder: t('trigger.offset_number') %>
+      <%= template.text_field :offset_unit, class: 'input-small', placeholder: t('trigger.offset_unit') %>
+      <%= template.text_field :offset_reference, class: 'input-small', placeholder: t('trigger.offset_reference') %>
+      <a class='remove-template btn btn-mini btn-danger'>x</a>
+    </div>
+  </div>
+  <%- end %>
 </template>

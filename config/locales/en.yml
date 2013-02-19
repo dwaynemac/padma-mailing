@@ -12,3 +12,8 @@ en:
       add_filter: "Add filter"
     new:
       select_template: "Select a template"
+      title: "New trigger"
+  trigger:
+    offset_number: "Offset #"
+    offset_unit: "offset unit"
+    offset_reference: "reference"

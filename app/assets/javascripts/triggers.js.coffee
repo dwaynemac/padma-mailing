@@ -14,7 +14,7 @@ $(document).ready ->
     prefillTemplate()
     $("#select-template option:selected").hide()
     $("#select-template").prop('value','')
-    $("#templates ul").append($("template#li_template").html())
+    $("#templates").append($("template#new_trigger_template").html())
     $(".remove-template").click -> removeThisTemplate(this)
     return false
 
@@ -31,8 +31,9 @@ toSelectOptions = (array_options) ->
   return select_options
 
 removeThisTemplate = (e) ->
-  $(e).parents('li:first').remove()
-  id = $(e).parents('li:first').prop('id')
+  div = $(e).parents('div.control-group:first')
+  id = div.prop('id')
+  div.remove()
   $("#select-template option[value="+id+"]").show()
 
 removeThisFilter = (e) ->
@@ -51,6 +52,7 @@ bindTemplateInstance = () ->
 
 prefillTemplate = () ->
   template_id = $("#select-template").val()
-  $("template#li_template li").prop('id', template_id)
-  $("template#li_template input").val(template_id)
-  $("template#li_template li span").text($("#select-template option:selected").text())
+  el = $("template#new_trigger_template")
+  el.find('div.control-group').prop('id', template_id)
+  el.find('input[type=hidden] ').val(template_id)
+  el.find('label span').text($("#select-template option:selected").text())
