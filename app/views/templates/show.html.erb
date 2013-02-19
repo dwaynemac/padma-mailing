@@ -21,7 +21,6 @@
 </p>
 
 <div class="form-actions">
-  <%= link_to 'Send Mail', deliver_template_path(@template), :class => 'btn' %>
   <%= link_to 'Back', templates_path, :class => 'btn'  %>
   <%= link_to 'Edit', edit_template_path(@template), :class => 'btn' %>
   <%= link_to 'Delete', template_path(@template), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>

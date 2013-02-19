@@ -47,16 +47,14 @@ class TemplatesController < ApplicationController
   end
 
   def deliver
-    puts "ENTRE A DELIVER TEMPLATE, con el id: #{params.inspect}"
-    #return if params[:template].nil?
+    return if params[:recipient].nil?
     template = current_user.current_account.templates.find(params[:id])
-    to = "ailen.iglesias@gmail.com" #params[:model][:recipient]
-    #bcc = params[:model][:from] || current_user.email
-    from = "afalkear@gmail.com" #params[:model][:from]
-    puts "A PUNTO DE MANDAR MAIL"
-    PadmaMailer.mail_template(template, to, nil, from).deliver
-    puts "MANDO MAIL, AHORA DEBERIA REDIRIGIR"
-    redirect_to @template
+    to = params[:recipient]
+    bcc = params[:from] || current_user.email
+    from = params[:from] || PadmaAccount.find(current_user.current_account.id).email
+    PadmaMailer.mail_template(template, to, bcc, from).deliver
+
+    redirect_to templates_url
   end
 
   def destroy

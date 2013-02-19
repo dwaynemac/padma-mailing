@@ -7,9 +7,8 @@ Mailing::Application.routes.draw do
 
   resources :templates do
     member do
-      get 'deliver'
+      post 'deliver'
     end
-    #match '/templates/:id/deliver_template', to: 'templates#deliver_template'
   end
 
   root to: 'templates#index'
