@@ -11,10 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215130932) do
+ActiveRecord::Schema.define(:version => 20130219012910) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "filters", :force => true do |t|
+    t.integer  "trigger_id"
+    t.string   "key"
+    t.string   "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -27,6 +35,18 @@ ActiveRecord::Schema.define(:version => 20130215130932) do
     t.integer  "local_account_id", :limit => 255
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+  end
+
+  create_table "templates_triggers", :force => true do |t|
+    t.integer "template_id"
+    t.integer "trigger_id"
+  end
+
+  create_table "triggers", :force => true do |t|
+    t.string   "event_name"
+    t.integer  "local_account_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "users", :force => true do |t|
