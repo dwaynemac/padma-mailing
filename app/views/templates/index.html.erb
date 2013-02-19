@@ -20,7 +20,7 @@
         <td>
           <%= form_tag("templates/#{template.id}/deliver", :method => :post, class: "send_email_form") do %>
               <%= text_field_tag :recipient, nil, class: "input-small search-query" %>
-              <%= submit_tag "Send email", class: "btn btn-mini", confirm: t('confirm') %>
+              <%= submit_tag t('templates.index.deliver'), class: "btn btn-mini", confirm: t('confirm') %>
           <% end %>
         </td>
       </tr>
