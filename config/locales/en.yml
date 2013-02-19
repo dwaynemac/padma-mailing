@@ -7,3 +7,6 @@ en:
   templates:
     index:
       deliver: "Send email"
+  triggers:
+    form:
+      add_filter: "Add filter"

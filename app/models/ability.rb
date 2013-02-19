@@ -31,5 +31,6 @@ class Ability
 
     # user can do everything on templates of his account.
     can :manage, Template, local_account_id: user.current_account_id
+    can :manage, Trigger, local_account_id: user.current_account_id
   end
 end

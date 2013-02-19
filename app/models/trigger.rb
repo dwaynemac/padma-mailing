@@ -3,7 +3,7 @@
 # Delivery will be scheduled according to speficied offset.
 # If no offset is set delivery will be in the moment.
 class Trigger < ActiveRecord::Base
-  attr_accessible :event_name, :local_account_id, :offset_number, :offset_reference, :offset_unit
+  attr_accessible :event_name, :local_account_id, :offset_number, :offset_reference, :offset_unit, :filte
 
   validates_presence_of :local_account_id
   belongs_to :account, :class_name => "Account", :foreign_key => :local_account_id
@@ -12,6 +12,7 @@ class Trigger < ActiveRecord::Base
   has_many :templates, through: :templates_triggerses
 
   has_many :filters, dependent: :destroy
+  accepts_nested_attributes_for :filters
 
   before_create :set_defaults
 

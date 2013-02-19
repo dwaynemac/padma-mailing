@@ -5,6 +5,8 @@ Mailing::Application.routes.draw do
     match '/logout', to: "devise/cas_sessions#destroy"
   end
 
+  resources :triggers
+
   resources :templates do
     member do
       post 'deliver'
