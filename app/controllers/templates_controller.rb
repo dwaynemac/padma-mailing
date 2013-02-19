@@ -5,16 +5,11 @@ class TemplatesController < ApplicationController
   def index
     # @templates initialized by load_and_authorize_resource
     @account = current_user.current_account
-
-    # response.headers['Content-type'] = 'application/json; charset=utf-8'
-    # render :json => { :collection => @templates, :total => total}.as_json(account: @account, except_linked:true, except_last_local_status: true)
   end
 
   def show
     # @template initialized by load_and_authorize_resource
     @account = current_user.current_account
-
-    # render :json => @template.as_json(:account => @account, :include_masked => true)
   end
 
   def new
@@ -35,7 +30,6 @@ class TemplatesController < ApplicationController
     @template.save!
 
     redirect_to @template
-    # render :json => { :id => @template.id }.to_json, :status => :created
   end
 
   def update
@@ -43,13 +37,13 @@ class TemplatesController < ApplicationController
     @template.update_attributes(params[:template])
 
     redirect_to @template
-    # render :json => "OK"
   end
 
   def deliver
     return if params[:recipient].nil?
-    account_email = PadmaAccount.find(current_user.current_account.name).email
     template = current_user.current_account.templates.find(params[:id])
+    authorize! :deliver, template
+    account_email = current_user.current_account.padma.email
     to = params[:recipient]
     bcc = params[:from] || current_user.email
     from = params[:from] || account_email

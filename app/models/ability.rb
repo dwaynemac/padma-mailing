@@ -29,6 +29,7 @@ class Ability
     # See the wiki for details:
     # https://github.com/ryanb/cancan/wiki/Defining-Abilities
 
+    # user can do everything on templates of his account.
     can :manage, Template, local_account_id: user.current_account_id
   end
 end
