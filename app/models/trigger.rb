@@ -5,6 +5,11 @@
 class Trigger < ActiveRecord::Base
   attr_accessible :event_name, :local_account_id, :filters_attributes, :templates_triggerses_attributes
 
+  VALID_EVENT_NAMES = [
+      'communication',
+      'subscription_change'
+  ]
+
   validates_presence_of :local_account_id
   belongs_to :account, :class_name => "Account", :foreign_key => :local_account_id
 

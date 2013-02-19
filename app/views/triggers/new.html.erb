@@ -5,7 +5,7 @@
     <div class="control-group">
       <%= f.label :event_name, :class => 'control-label' %>
       <div class="controls">
-        <%= f.select :event_name, ['communication', 'subscription_change'], {} %>
+        <%= f.select :event_name, Trigger::VALID_EVENT_NAMES, {} %>
       </div>
 
       <div class="control-group">
@@ -18,6 +18,9 @@
       <div id="templates"></div>
 
       <div class="control-group">
+        <div class="control-label">
+          <button id="add-template" class="btn" onclick="return false"><%= t('triggers.form.add_template') %></button>
+        </div>
         <div class="controls form-inline">
           <select id="select-template">
             <option value=""><%= t('triggers.new.select_template') %></option>
@@ -25,7 +28,6 @@
               <option value="<%= template.id %>"><%= template.name %></option>
             <%- end %>
           </select>
-          <button id="add-template" class="btn" onclick="return false"><%= t('triggers.form.add_template') %></button>
         </div>
       </div>
 
@@ -56,8 +58,11 @@
     <div class="controls form-inline">
       <%= template.hidden_field :template_id %>
       <%= template.text_field :offset_number, class: 'input-small', placeholder: t('trigger.offset_number') %>
-      <%= template.text_field :offset_unit, class: 'input-small', placeholder: t('trigger.offset_unit') %>
-      <%= template.text_field :offset_reference, class: 'input-small', placeholder: t('trigger.offset_reference') %>
+      <%= template.select :offset_unit, TemplatesTriggers::VALID_UNITS, {class: 'input-small'} %>
+      <div class="input-prepend">
+        <span class="add-on"><%= t('trigger.since') %></span>
+        <%= template.select :offset_reference, TemplatesTriggers::VALID_REFERENCES, class: 'input-small' %>
+      </div>
       <a class='remove-template btn btn-mini btn-danger'>x</a>
     </div>
   </div>
