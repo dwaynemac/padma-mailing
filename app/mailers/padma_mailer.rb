@@ -1,7 +1,7 @@
 class PadmaMailer < ActionMailer::Base
   default from: "afalkear@gmail.com"
 
-  def mail_template(template, recipient, bcc=nil, from=nil)
+  def template(template, recipient, bcc=nil, from=nil)
     return if template.nil?
     return if recipient.blank?
 
@@ -11,10 +11,13 @@ class PadmaMailer < ActionMailer::Base
     @subject = template.subject
     @sent_on = Time.zone.now
     @content_type = 'multipart/mixed'
+    @content = template.content
     mail( to: recipient,
           subject: @subject,
-          content: template.content,
+          content: @content,
           template_path: 'padma_mailer',
-          template_name: 'template')
+          template_name: 'template') do |format|
+      format.html
+    end
   end
 end

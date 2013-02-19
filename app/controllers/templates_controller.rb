@@ -48,11 +48,12 @@ class TemplatesController < ApplicationController
 
   def deliver
     return if params[:recipient].nil?
+    account_email = PadmaAccount.find(current_user.current_account.name).email
     template = current_user.current_account.templates.find(params[:id])
     to = params[:recipient]
     bcc = params[:from] || current_user.email
-    from = params[:from] || PadmaAccount.find(current_user.current_account.id).email
-    PadmaMailer.mail_template(template, to, bcc, from).deliver
+    from = params[:from] || account_email
+    PadmaMailer.template(template, to, bcc, from).deliver
 
     redirect_to templates_url
   end
