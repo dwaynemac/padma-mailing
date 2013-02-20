@@ -24,7 +24,23 @@ class Trigger < ActiveRecord::Base
   # @param key_name [String]
   # @param data [Hash]
   def self.catch_message(key_name, data)
+    where(event_name: key_name).each do |trigger|
+      if trigger.filters_match?(data)
+        trigger.templates_triggerses.each do |tt|
 
+          # schedule mail of template if offset
+        end
+      end
+    end
+  end
+
+  # @param data [Hash]
+  # @return [Boolean]
+  def filters_match?(data)
+    filter_count = self.filters.count
+    match_count = 0
+    self.filters.each{|f| match_count += 1 if data[f.key] == f.value }
+    filter_count == match_count
   end
 
 end
