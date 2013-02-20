@@ -21,4 +21,10 @@ class Trigger < ActiveRecord::Base
   has_many :filters, dependent: :destroy
   accepts_nested_attributes_for :filters
 
+  # @param key_name [String]
+  # @param data [Hash]
+  def self.catch_message(key_name, data)
+
+  end
+
 end

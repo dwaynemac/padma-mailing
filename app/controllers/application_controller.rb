@@ -6,11 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :require_padma_account
   before_filter :set_current_account
 
-  def home
-    msg = "welcome home #{current_user.username}"
-    msg << "\n#{Accounts::API_KEY}"
-    render text: msg
-  end
 
   rescue_from CanCan::AccessDenied do
     msg = "AccessDenied"

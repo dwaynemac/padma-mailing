@@ -13,6 +13,8 @@ Mailing::Application.routes.draw do
     end
   end
 
+  match 'message_door', to: 'message_door#catch'
+
   root to: 'templates#index'
 
   # The priority is based upon order of creation:
