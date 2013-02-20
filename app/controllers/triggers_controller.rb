@@ -15,4 +15,9 @@ class TriggersController < ApplicationController
     redirect_to triggers_url
   end
 
+  def destroy
+    @trigger.destroy
+    redirect_to triggers_url
+  end
+
 end

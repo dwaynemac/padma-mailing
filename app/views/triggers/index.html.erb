@@ -12,7 +12,7 @@
   <% @triggers.each do |trigger| %>
     <tr>
       <td><%= trigger.event_name %></td>
-      <td><%= trigger.filters.map{|f| "#{f.key}=#{f.value}" }.join(';') %></td>
+      <td><%= trigger.filters.map{|f| "#{f.key}=#{f.value}" }.join('; ') %></td>
       <td><%= trigger.templates.map{|t|t.name}.join(',') %></td>
       <td>
         <%= link_to 'Destroy', trigger_path(trigger), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>
