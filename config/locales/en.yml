@@ -18,3 +18,9 @@ en:
     offset_unit: "offset unit"
     offset_reference: "reference"
     since: "since"
+  filter:
+    suggested_values:
+      interview: 'Interview'
+      phone_call: 'Phonecall'
+      email: 'Email'
+      website_contact: 'Web'

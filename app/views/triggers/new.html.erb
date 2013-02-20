@@ -10,7 +10,7 @@
 
       <div class="control-group">
         <div class="controls">
-          <button id="add-filter" class="btn"><%= t('triggers.form.add_filter') %></button>
+          <button id="add-filter" class="btn" onclick="return false"><%= t('triggers.form.add_filter') %></button>
         </div>
       </div>
       <div id="filters"></div>
@@ -38,13 +38,13 @@
   </fieldset>
 <% end %>
 
-<template id="new_filter" style="display: none" data-options="<%= Filter::SUGGESTED_VALUES.to_json %>">
+<template id="new_filter" style="display: none" data-options="<%= {suggested_values: Filter::SUGGESTED_VALUES}.to_json %>">
   <%= fields_for 'trigger[filters_attributes][]', @trigger.filters.new do |filter| %>
     <div class="control-group">
       <label class="control-label">Filter</label>
       <div class="controls form-inline">
-        <%= filter.select :key, %W(estimated_coefficient contact_gender), {}, class: 'key_select' %>
-        <%= filter.select :value, [1,2,3], {}, class: 'input-small value_select' %>
+        <%= filter.select :key, [], {}, class: 'key_select' %>
+        <%= filter.select :value, [], {}, class: 'input-small value_select' %>
         <a class="remove-filter btn btn-mini btn-danger" rel="nofollow">x</a>
       </div>
     </div>

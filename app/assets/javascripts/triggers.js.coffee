@@ -3,10 +3,19 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready ->
+
+  previous_event_name = ''
+  $("#trigger_event_name").focus ->
+    previous_event_name = $(this).val()
+  $("#trigger_event_name").change ->
+    if !$('#filters:empty').length
+      if confirm("filters will be reseted.")
+        $("#filters").html('')
+      else
+        $(this).val(previous_event_name)
+
   $("#add-filter").click ->
-    $("#filters").append($("template#new_filter").html())
     bindTemplateInstance()
-    return false
 
   $("#add-template").click ->
     if $("#select-template").val() == ''
@@ -43,9 +52,13 @@ setOptions = (options,select) ->
   select.html(toSelectOptions(options))
 
 bindTemplateInstance = () ->
+  suggested_options = $("template#new_filter").data('options')['suggested_values'][$('#trigger_event_name').val()]
+  setOptions(Object.keys(suggested_options),$("template#new_filter .key_select"))
+
+  $("#filters").append($("template#new_filter").html())
+
   $('.remove-filter').click ->
     removeThisFilter(this)
-  suggested_options = $("template#new_filter").data('options')
   $(".key_select").change ->
     setOptions(suggested_options[$(this).val()],$(this).siblings('select.value_select'))
   $(".key_select").trigger('change')
