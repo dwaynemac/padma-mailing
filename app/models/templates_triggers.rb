@@ -12,7 +12,10 @@ class TemplatesTriggers < ActiveRecord::Base
   VALID_UNITS = %W(days weeks months years)
   validates_presence_of :offset_unit, if: ->{!offset_number.blank?}
 
-  VALID_REFERENCES = %W(now communicated_at)
+  VALID_REFERENCES = {
+      communication: %W(communicated_at),
+      subscription_change: %W(changed_at)
+  }
 
   # @return [Fixnum] offset in seconds
   def offset

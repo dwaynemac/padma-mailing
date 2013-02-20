@@ -51,7 +51,7 @@
   <% end %>
 </template>
 
-<template id="new_trigger_template" style="display:none">
+<template id="new_trigger_template" style="display:none" data-options="<%= {offset_references: TemplatesTriggers::VALID_REFERENCES}.to_json %>">
   <%= fields_for 'trigger[templates_triggerses_attributes][]', @trigger.templates_triggerses.new do |template| %>
   <div class="control-group">
     <label class="control-label"><span></span></label>
@@ -61,7 +61,7 @@
       <%= template.select :offset_unit, TemplatesTriggers::VALID_UNITS, {class: 'input-small'} %>
       <div class="input-prepend">
         <span class="add-on"><%= t('trigger.since') %></span>
-        <%= template.select :offset_reference, TemplatesTriggers::VALID_REFERENCES, class: 'input-small' %>
+        <%= template.select :offset_reference, [], class: 'input-small' %>
       </div>
       <a class='remove-template btn btn-mini btn-danger'>x</a>
     </div>

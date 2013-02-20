@@ -4,13 +4,16 @@
 
 $(document).ready ->
 
+  $("#trigger_event_name").trigger('change')
+
   previous_event_name = ''
   $("#trigger_event_name").focus ->
     previous_event_name = $(this).val()
   $("#trigger_event_name").change ->
-    if !$('#filters:empty').length
-      if confirm("filters will be reseted.")
+    if !$('#filters:empty').length or !$('#templates:empty').length
+      if confirm("filters and templates will be reseted.")
         $("#filters").html('')
+        $("#templates").html('')
       else
         $(this).val(previous_event_name)
 
@@ -68,4 +71,5 @@ prefillTemplate = () ->
   el = $("template#new_trigger_template")
   el.find('div.control-group').prop('id', template_id)
   el.find('input[type=hidden] ').val(template_id)
+  setOptions($("template#new_trigger_template").data('options')['offset_references'][$('#trigger_event_name').val()],el.find('#trigger_templates_triggerses_attributes__offset_reference'))
   el.find('label span').text($("#select-template option:selected").text())
