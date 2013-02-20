@@ -12,7 +12,7 @@ class TriggersController < ApplicationController
 
   def create
     @trigger.save!
-    render text: 'created'
+    redirect_to triggers_url
   end
 
 end

@@ -3,9 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready ->
-
-  $("#trigger_event_name").trigger('change')
-
   previous_event_name = ''
   $("#trigger_event_name").focus ->
     previous_event_name = $(this).val()
@@ -16,6 +13,8 @@ $(document).ready ->
         $("#templates").html('')
       else
         $(this).val(previous_event_name)
+
+  $("#trigger_event_name").trigger('change')
 
   $("#add-filter").click ->
     bindTemplateInstance()
