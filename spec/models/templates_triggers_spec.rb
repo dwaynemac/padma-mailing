@@ -40,17 +40,26 @@ describe TemplatesTriggers do
   end
   
   describe "#delivery_time" do
-    let(:trigger)
+    let(:tt){TemplatesTriggers.new(offset_unit: 'days', offset_number: 1, offset_reference: 'communicated_at')}
     context "with a data with needed data" do
       context "with a valid time" do
-        it "returns Time"
+        let(:data){{communicated_at: "2013-02-21 18:56:46 -0300"}}
+        it "returns Time" do
+          tt.delivery_time(data).should be_a(Time)
+        end
       end
       context "with an invalid time" do
-        it "returns nil"
+        let(:data){{communicated_at: "whatever"}}
+        it "returns nil" do
+          tt.delivery_time(data).should be_nil
+        end
       end
     end
     context "with a data without needed data" do
-      it "returns nil"
+      let(:data){{some: 'thing', else: 'here'}}
+      it "returns nil" do
+        tt.delivery_time(data).should be_nil
+      end
     end
   end
 end

@@ -31,4 +31,8 @@ describe Trigger do
     end
   end
 
+  describe ".catch_message" do
+    context "with :"
+  end
+
 end
