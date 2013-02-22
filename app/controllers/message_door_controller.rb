@@ -1,5 +1,10 @@
 class MessageDoorController < ApplicationController
 
+  skip_before_filter :mock_login
+  skip_before_filter :authenticate_user!
+  skip_before_filter :require_padma_account
+  skip_before_filter :set_current_account
+
   # @argument key_name [String]
   # @argument data [String] JSON encoded
   # @argument secret_key [String]
