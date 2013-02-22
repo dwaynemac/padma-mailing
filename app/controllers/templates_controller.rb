@@ -54,19 +54,19 @@ class TemplatesController < ApplicationController
     PadmaMailer.template(template, to, bcc, from).deliver
 
     # Notify Activity Stream
-    a = ActivityStream::Activity.new(target_id: contact_id, target_type: 'Contact',
-                                     object_id: follow.id, object_type: 'Follow',
-                                     generator: 'padma-mailing',
-                                     verb: 'deleted',
-                                     content: I18n.t('enrollment.follow_removed_due_to_enrollment',
-                                                     account_name: account_name),
-                                     public: false,
-                                     username: follow.username,
-                                     account_name: follow.account_name,
-                                     created_at: Time.zone.now,
-                                     updated_at: Time.zone.now
-    )
-    a.create(username: follow.username, account_name: follow.account_name)
+    #a = ActivityStream::Activity.new(target_id: contact_id, target_type: 'Contact',
+    #                                 object_id: follow.id, object_type: 'Follow',
+    #                                 generator: 'padma-mailing',
+    #                                 verb: 'deleted',
+    #                                 content: I18n.t('enrollment.follow_removed_due_to_enrollment',
+    #                                                 account_name: account_name),
+    #                                 public: false,
+    #                                 username: follow.username,
+    #                                 account_name: follow.account_name,
+    #                                 created_at: Time.zone.now,
+    #                                 updated_at: Time.zone.now
+    #)
+    #a.create(username: follow.username, account_name: follow.account_name)
 
     redirect_to templates_url
   end

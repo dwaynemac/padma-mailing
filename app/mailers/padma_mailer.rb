@@ -1,6 +1,4 @@
 class PadmaMailer < ActionMailer::Base
-  default from: "afalkear@gmail.com"
-
   def template(template, recipient, bcc=nil, from=nil)
     return if template.nil?
     return if recipient.blank?
