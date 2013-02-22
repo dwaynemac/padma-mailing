@@ -15,8 +15,6 @@
         <td><%= template.subject %></td>
         <td>
           <%= link_to 'Edit', "/editor" + edit_template_path(template),
-                      id:"edit_link",
-                      data: {save_url: mercury_update_template_path(template)},
                       class: 'btn btn-mini' %>
           <%= link_to 'Destroy', template_path(template), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
@@ -32,6 +30,4 @@
 </table>
 
 <%= link_to 'New', "/editor" + new_template_path,
-            id: "new_link",
-            data: {save_url: mercury_create_templates_path},
             class: 'btn btn-primary' %>
