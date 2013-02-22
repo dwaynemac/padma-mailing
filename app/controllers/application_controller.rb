@@ -6,11 +6,6 @@ class ApplicationController < ActionController::Base
   before_filter :require_padma_account
   before_filter :set_current_account
 
-  def home
-    msg = "welcome home #{current_user.username}"
-    msg << "\n#{Accounts::API_KEY}"
-    render text: msg
-  end
 
   rescue_from CanCan::AccessDenied do
     msg = "AccessDenied"
@@ -27,11 +22,9 @@ class ApplicationController < ActionController::Base
 
   # Mocks CAS login in development
   def mock_login
-    def mock_login
-      if Rails.env.development?
-          user = User.find_or_create_by_username("mocked.user")
-          sign_in(user)
-      end
+    if Rails.env.development?
+      user = User.find_or_create_by_username("mocked.user")
+      sign_in(user)
     end
   end
 

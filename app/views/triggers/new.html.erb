@@ -1,0 +1,70 @@
+<%= form_for @trigger, :html => { :class => 'form-horizontal' } do |f| %>
+  <fieldset>
+    <legend><%= t('triggers.new.title') %></legend>
+
+    <div class="control-group">
+      <%= f.label :event_name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.select :event_name, Trigger::VALID_EVENT_NAMES, {} %>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <button id="add-filter" class="btn" onclick="return false"><%= t('triggers.form.add_filter') %></button>
+        </div>
+      </div>
+      <div id="filters"></div>
+
+      <div class="control-group">
+        <div class="control-label">
+          <button id="add-template" class="btn" onclick="return false"><%= t('triggers.form.add_template') %></button>
+        </div>
+        <div class="controls form-inline">
+          <select id="select-template">
+            <option value=""><%= t('triggers.new.select_template') %></option>
+            <%- current_user.current_account.templates.each do |template| %>
+              <option value="<%= template.id %>"><%= template.name %></option>
+            <%- end %>
+          </select>
+        </div>
+      </div>
+
+      <div id="templates"></div>
+
+      <div class="form-actions">
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to 'Cancel', templates_path, :class => 'btn' %>
+      </div>
+  </fieldset>
+<% end %>
+
+<template id="new_filter" style="display: none" data-options="<%= {suggested_values: Filter::SUGGESTED_VALUES}.to_json %>">
+  <%= fields_for 'trigger[filters_attributes][]', @trigger.filters.new do |filter| %>
+    <div class="control-group">
+      <label class="control-label">Filter</label>
+      <div class="controls form-inline">
+        <%= filter.select :key, [], {}, class: 'key_select' %>
+        <%= filter.select :value, [], {}, class: 'input-small value_select' %>
+        <a class="remove-filter btn btn-mini btn-danger" rel="nofollow">x</a>
+      </div>
+    </div>
+  <% end %>
+</template>
+
+<template id="new_trigger_template" style="display:none" data-options="<%= {offset_references: TemplatesTriggers::VALID_REFERENCES}.to_json %>">
+  <%= fields_for 'trigger[templates_triggerses_attributes][]', @trigger.templates_triggerses.new do |template| %>
+  <div class="control-group">
+    <label class="control-label"><span></span></label>
+    <div class="controls form-inline">
+      <%= template.hidden_field :template_id %>
+      <%= template.text_field :offset_number, class: 'input-small', placeholder: t('trigger.offset_number') %>
+      <%= template.select :offset_unit, TemplatesTriggers::VALID_UNITS, {class: 'input-small'} %>
+      <div class="input-prepend">
+        <span class="add-on"><%= t('trigger.since') %></span>
+        <%= template.select :offset_reference, [], class: 'input-small' %>
+      </div>
+      <a class='remove-template btn btn-mini btn-danger'>x</a>
+    </div>
+  </div>
+  <%- end %>
+</template>

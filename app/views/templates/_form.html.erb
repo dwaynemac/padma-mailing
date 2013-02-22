@@ -1,38 +1,39 @@
-<%= form_for @template, :html => { :class => 'form-horizontal' } do |f| %>
-    <fieldset>
-      <legend><%= controller.action_name.capitalize %> Template</legend>
+<div class="control-group">
+  Name
+  <div class="controls template_fields" id="template_name" data-mercury="full" tabindex="0">
+    <%= @template.name unless @template.name.nil? %>
+  </div>
+</div>
 
-      <div class="control-group">
-        <%= f.label :name, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :name, :class => 'text_field' %>
-        </div>
-      </div>
+<div class="control-group">
+  Description
+  <div class="controls template_fields" id="template_description" data-mercury="full" tabindex="0">
+    <%= @template.description unless @template.description.nil? %>
+  </div>
+</div>
 
-      <div class="control-group">
-        <%= f.label :description, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :description, :class => 'text_field' %>
-        </div>
-      </div>
+<div class="control-group">
+  Subject
+  <div class="controls template_fields" id="template_subject" data-mercury="full" tabindex="0">
+    <%= @template.subject unless @template.subject.nil? %>
+  </div>
+</div>
 
-      <div class="control-group">
-        <%= f.label :subject, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_field :subject, :class => 'text_field' %>
-        </div>
-      </div>
+<div class="control-group">
+  Content
+  <div class="controls template_textarea" id="template_content" data-mercury="full">
+    <%= @template.content.html_safe unless @template.content.nil? %>
+  </div>
+</div>
 
-      <div class="control-group">
-        <%= f.label :content, :class => 'control-label' %>
-        <div class="controls">
-          <%= f.text_area :content, :class => 'text_area_field' %>
-        </div>
-      </div>
-
-      <div class="form-actions">
-        <%= f.submit nil, :class => 'btn btn-primary' %>
-        <%= link_to 'Cancel', templates_path, :class => 'btn' %>
-      </div>
-    </fieldset>
+<% if @template.id.nil? %>
+    <%= link_to 'Edit', "/editor" + new_template_path,
+                id:"edit_link",
+                data: {save_url: mercury_create_templates_path},
+                class: 'btn btn-mini' %>
+<% else %>
+    <%= link_to 'Edit', "/editor" + edit_template_path(@template),
+                id:"edit_link",
+                data: {save_url: mercury_update_template_path(@template)},
+                class: 'btn btn-mini' %>
 <% end %>

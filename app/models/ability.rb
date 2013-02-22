@@ -39,5 +39,7 @@ class Ability
     cannot :update, ActivityStream::Activity do |activity|
       (activity.updated_at.to_time < 1.day.ago) || (activity.local_deleted_object?)
     end
+    can :manage, Trigger, local_account_id: user.current_account_id
+    can :manage, ScheduledMail, local_account_id: user.current_account_id
   end
 end

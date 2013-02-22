@@ -1,15 +1,3 @@
 == Mailing WS
 
 Para empezar este modulo copiará la funcionalidad de mailing de Kshema. solamente.
-
-=== Brainstorm
-
-- Acceso via CAS, cuentas padma_enabled,
-
-- Templates
-
-
-- Triggers
-
-
-- Deliveries (template_id, contact_id, delivered_at) -- Historial de envios

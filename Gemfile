@@ -4,7 +4,9 @@ gem 'rails', '3.2.11'
 gem 'activity_stream_client', '~> 0.0.10'
 gem 'ffi', '~> 1.0.11'
 
+gem 'contacts_client'
 gem 'accounts_client', '~> 0.0.12'
+gem 'mercury-rails'
 
 # CAS authentication
 gem 'devise', '1.5.0'
@@ -40,3 +42,4 @@ group :development, :test do
   gem 'yard', '~> 0.7.4'
   gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
 end
+gem 'paperclip'

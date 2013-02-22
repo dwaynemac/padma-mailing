@@ -3,3 +3,24 @@
 
 en:
   hello: "Hello world"
+  confirm: "Are you sure?"
+  templates:
+    index:
+      deliver: "Send email"
+  triggers:
+    form:
+      add_filter: "Add filter"
+    new:
+      select_template: "Select a template"
+      title: "New trigger"
+  trigger:
+    offset_number: "Offset #"
+    offset_unit: "offset unit"
+    offset_reference: "reference"
+    since: "since"
+  filter:
+    suggested_values:
+      interview: 'Interview'
+      phone_call: 'Phonecall'
+      email: 'Email'
+      website_contact: 'Web'
