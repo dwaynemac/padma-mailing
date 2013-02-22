@@ -1,4 +1,5 @@
 class TemplatesController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
 
   load_and_authorize_resource
 
@@ -58,5 +59,30 @@ class TemplatesController < ApplicationController
 
     redirect_to templates_url
     # render :json => "OK"
+  end
+
+  def mercury_create
+
+    name = strip_tags(params[:content][:template_name][:value]).gsub(/&nbsp;/i, "")
+    description = strip_tags(params[:content][:template_description][:value]).gsub(/&nbsp;/i, "")
+    subject = strip_tags(params[:content][:template_subject][:value]).gsub(/&nbsp;/i, "")
+    content = params[:content][:template_content][:value]
+
+    @template = Template.new(name: name, description: description, subject: subject, content: content)
+    @template.account = current_user.current_account
+    @template.save!
+
+    render text: ""
+  end
+
+  def mercury_update
+    @template.update_attributes(
+        name: strip_tags(params[:content][:template_name][:value]).gsub(/&nbsp;/i, ""),
+        description: strip_tags(params[:content][:template_description][:value]).gsub(/&nbsp;/i, ""),
+        subject: strip_tags(params[:content][:template_subject][:value]).gsub(/&nbsp;/i, ""),
+        content: params[:content][:template_content][:value]
+    )
+
+    render text: ""
   end
 end

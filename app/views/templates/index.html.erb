@@ -14,13 +14,16 @@
         <td><%= template.description %></td>
         <td><%= template.subject %></td>
         <td>
-          <%= link_to 'Edit', edit_template_path(template), :class => 'btn btn-mini' %>
-          <%= link_to 'Destroy', template_path(template), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>
+          <%= link_to 'Edit', "/editor" + edit_template_path(template),
+                      id:"edit_link",
+                      data: {save_url: mercury_update_template_path(template)},
+                      class: 'btn btn-mini' %>
+          <%= link_to 'Destroy', template_path(template), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
         <td>
           <%= form_tag("templates/#{template.id}/deliver", :method => :post, class: "send_email_form") do %>
-              <%= text_field_tag :recipient, nil, class: "input-small search-query" %>
-              <%= submit_tag t('templates.index.deliver'), class: "btn btn-mini", confirm: t('confirm') %>
+            <%= text_field_tag :recipient, nil, class: "input-small search-query" %>
+            <%= submit_tag t('templates.index.deliver'), class: "btn btn-mini", confirm: t('confirm') %>
           <% end %>
         </td>
       </tr>
@@ -28,4 +31,7 @@
   </tbody>
 </table>
 
-<%= link_to 'New', new_template_path, :class => 'btn btn-primary' %>
+<%= link_to 'New', "/editor" + new_template_path,
+            id: "new_link",
+            data: {save_url: mercury_create_templates_path},
+            class: 'btn btn-primary' %>
