@@ -65,6 +65,9 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     commonjs (0.2.6)
+    contacts_client (0.0.10)
+      logical_model (~> 0.4.1)
+      railties (~> 3.1)
     devise (1.5.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -219,6 +222,7 @@ DEPENDENCIES
   cancan
   capybara
   coffee-rails (~> 3.2.1)
+  contacts_client
   devise (= 1.5.0)
   devise_cas_authenticatable (= 1.0.0.alpha13)
   factory_girl_rails

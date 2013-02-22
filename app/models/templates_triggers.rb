@@ -28,6 +28,8 @@ class TemplatesTriggers < ActiveRecord::Base
     %W(hours days weeks months).include? self.offset_unit.pluralize
   end
 
+  # @return [NilClass] if time not available
+  # @return [Time]
   def delivery_time(data)
     data.stringify_keys!
     unless data[self.offset_reference].blank?

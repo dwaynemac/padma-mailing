@@ -5,6 +5,11 @@ module Accounts
   API_KEY = ENV['accounts_key']
 end
 
+module Contacts
+  HYDRA = ::HYDRA
+  API_KEY = ENV['contacts_key']
+end
+
 module ActivityStream
   HYDRA = ::HYDRA
   API_KEY = ENV['activities_key']

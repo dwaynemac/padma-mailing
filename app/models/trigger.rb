@@ -24,22 +24,18 @@ class Trigger < ActiveRecord::Base
   # @param key_name [String]
   # @param data [Hash]
   def self.catch_message(key_name, data)
+    return unless (recipient_email = get_recipient_email(data))
+
     where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
-        trigger.templates_triggerses.each do |tt|
-
-          unless data[tt.offset_reference].blank?
-            ref_time = nil
-            begin
-              ref_time = data[tt.offset_reference].to_time
-            rescue ArgumentError
-              # if data[tt.offset_reference] is not valid time to_time will raise exception
-            end
-            if ref_time
-              send_at = data[tt.offset_reference]+tt.offset
-
-              # schedule mail of template at send_at
-            end
+        trigger.templates_triggerses.include(:template).each do |tt|
+          if (send_at = self.delivery_time(data))
+            ScheduledMail.create(
+                template_id: self.template_id,
+                local_account_id: self.template.local_account_id,
+                recipient_email: recipient_email,
+                send_at: send_at
+            )
           end
         end
       end
@@ -55,4 +51,20 @@ class Trigger < ActiveRecord::Base
     filter_count == match_count
   end
 
+  private
+
+  # @return [String] recipient email
+  # @return [NilClass] if no email found.
+  def get_recipient_email(data)
+    return nil unless data['contact_id'] || data['recipient_email']
+
+    recipient_email = data['recipient_email']
+    if recipient_email.blank?
+      if (contact = PadmaContact.find(data['contact_id']))
+        recipient_email = contact.email
+      end
+    end
+
+    recipient_email
+  end
 end
