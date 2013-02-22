@@ -1,0 +1,30 @@
+<h1><%= t('scheduled_mails.index.title') %></h1>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <td><%= t('scheduled_mail.attributes.template') %></td>
+    <td><%= t('scheduled_mail.attributes.recipient_email') %></td>
+    <td><%= t('scheduled_mail.attributes.send_at') %></td>
+    <td><%= t('scheduled_mail.attributes.delivered_at') %></td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @scheduled_mails.each do |sm| %>
+    <tr>
+      <td><%= sm.template.name %></td>
+      <td><%= sm.recipient_email %></td>
+      <td><%= l sm.send_at %></td>
+      <td>
+        <% if sm.delivered_at %>
+          <%= l sm.delivered_at %>
+        <% else %>
+          <%= t('scheduled_mails.index.pending') %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New', new_trigger_path, :class => 'btn btn-primary' %>
