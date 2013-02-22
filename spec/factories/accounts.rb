@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :account do
-    name "MyString"
+    name { generate(:random_string) }
   end
 end
