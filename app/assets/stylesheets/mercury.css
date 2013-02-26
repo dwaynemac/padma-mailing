@@ -22,3 +22,7 @@
  *= require mercury/mercury
  */
 
+#mercury_iframe {
+    top: 87px;
+}
+
