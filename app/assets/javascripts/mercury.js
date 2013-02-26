@@ -93,6 +93,7 @@ window.Mercury = {
     toolbars: {
       primary: {
         save:                  ['Save', 'Save this page'],
+        exit:                  ['Cancel', 'Leave this page'],
         preview:               ['Preview', 'Preview this page', { toggle: true, mode: true }],
         sep1:                  ' ',
         undoredo:              {
@@ -333,7 +334,16 @@ window.Mercury = {
     // This is a nice way to add functionality, when the behaviors aren't region specific.  These can be triggered by a
     // button, or manually with `Mercury.trigger('action', {action: 'barrelRoll'})`
     globalBehaviors: {
-      exit: function() { window.location.href = this.iframeSrc() },
+      exit: function() {
+          var location = window.location.href.replace(/\/editor\//i, '/');
+          if(Mercury.saveUrl != '/templates/mercury_create'){
+              window.location = location.replace(/\/edit/i, '/');
+          }
+          else
+          {
+              window.location = location.replace(/\/new/i, '');
+          }
+      },/*{ window.location.href = this.iframeSrc() },*/
       barrelRoll: function() { $('body').css({webkitTransform: 'rotate(360deg)'}) }
       },
 

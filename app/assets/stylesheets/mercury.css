@@ -22,7 +22,6 @@
  *= require mercury/mercury
  */
 
-#mercury_iframe {
-    top: 87px;
+.mercury-exit-button em {
+    background-image: url(mercury_remove.png);
 }
-
