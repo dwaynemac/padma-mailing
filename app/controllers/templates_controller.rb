@@ -45,9 +45,10 @@ class TemplatesController < ApplicationController
     # Set current local variables
     template = current_user.current_account.templates.find(params[:id])
     authorize! :deliver, template
+    user_email = current_user.email
     account_email = current_user.current_account.padma.email
     to = params[:recipient]
-    bcc = params[:from] || current_user.email
+    bcc = params[:from] || user_email
     from = params[:from] || account_email
 
     # Deliver mail

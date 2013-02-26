@@ -7,6 +7,7 @@ Mailing::Application.routes.draw do
     match "/login", :to => "devise/cas_sessions#new"
     match '/logout', to: "devise/cas_sessions#destroy"
   end
+  resources :scheduled_mails
   resources :triggers
   resources :templates do
     member do
@@ -15,6 +16,7 @@ Mailing::Application.routes.draw do
     end
     collection { put :mercury_create }
   end
+
   match 'message_door', to: 'message_door#catch'
   root to: 'templates#index'
 end

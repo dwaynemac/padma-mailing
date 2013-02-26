@@ -13,6 +13,8 @@ en:
     new:
       select_template: "Select a template"
       title: "New trigger"
+    index:
+      delay_warning: "Notifications may delay up to %{minutes} minutes to reach a trigger."
   trigger:
     offset_number: "Offset #"
     offset_unit: "offset unit"

@@ -15,3 +15,13 @@ en:
       save: "Save"
       new: "New"
       delete: "Delete"
+  scheduled_mails:
+    index:
+      title: "Scheduled Mails"
+      pending: "pending"
+  scheduled_mail:
+    attributes:
+      template: "Template"
+      send_at: "To send at"
+      delivered_at: "Delivered at"
+      recipient_email: "Send to"

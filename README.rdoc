@@ -1,3 +1,18 @@
 == Mailing WS
 
 Para empezar este modulo copiará la funcionalidad de mailing de Kshema. solamente.
+
+== Installation
+
+=== Environment variables
+
+This environment variables are needed:
+
+- accounts_key
+- activities_key
+- contacts_key
+- messaging_secret
+
+=== Scheduled tasks
+
+A task that checkes for due ScheduledMails should be setup
