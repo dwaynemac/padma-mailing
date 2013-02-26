@@ -26,6 +26,7 @@ class Trigger < ActiveRecord::Base
   def self.catch_message(key_name, data)
     return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
     return unless (recipient_email = get_recipient_email(data))
+    return if data['avoid_mailing_triggers']
 
     where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
