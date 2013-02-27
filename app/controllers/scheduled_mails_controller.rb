@@ -6,4 +6,9 @@ class ScheduledMailsController < ApplicationController
     @scheduled_mails = @scheduled_mails.includes(:template).order('send_at asc')
   end
 
+  def destroy
+    @scheduled_mail.destroy
+    redirect_to scheduled_mails_path
+  end
+
 end
