@@ -4,6 +4,7 @@ class Account < ActiveRecord::Base
   validates_uniqueness_of :name
 
   has_many :templates, foreign_key: :local_account_id
+  has_many :triggers, foreign_key: 'local_account_id'
 
   # Hook to Padma Account API
   # @param [TrueClass] cache: Specify if Cache should be used. default: true
