@@ -5,7 +5,10 @@ class TemplatesController < ApplicationController
 
   def index
     # @templates initialized by load_and_authorize_resource
+    # contact_ids =
+
     @account = current_user.current_account
+    # @contacts = PadmaContact.paginate(ids: contact_ids, per_page:999999)
   end
 
   def show
@@ -55,19 +58,9 @@ class TemplatesController < ApplicationController
     PadmaMailer.template(template, to, bcc, from).deliver
 
     # Notify Activity Stream
-    #a = ActivityStream::Activity.new(target_id: contact_id, target_type: 'Contact',
-    #                                 object_id: follow.id, object_type: 'Follow',
-    #                                 generator: 'padma-mailing',
-    #                                 verb: 'deleted',
-    #                                 content: I18n.t('enrollment.follow_removed_due_to_enrollment',
-    #                                                 account_name: account_name),
-    #                                 public: false,
-    #                                 username: follow.username,
-    #                                 account_name: follow.account_name,
-    #                                 created_at: Time.zone.now,
-    #                                 updated_at: Time.zone.now
-    #)
-    #a.create(username: follow.username, account_name: follow.account_name)
+    contact_id = "50feb3b39b27132a5e000007"
+    a = @template.creation_activity(contact_id, current_user)
+    a.create(username: current_user.username, account_name: current_user.current_account.name)
 
     redirect_to templates_url
   end
