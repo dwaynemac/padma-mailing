@@ -13,7 +13,7 @@ end
 module ActivityStream
   HYDRA = ::HYDRA
   API_KEY = ENV['activities_key']
-  LOCAL_APP_NAME = 'crm'
+  LOCAL_APP_NAME = 'mailing'
 end
 
 class LogicalModel

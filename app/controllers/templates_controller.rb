@@ -48,19 +48,16 @@ class TemplatesController < ApplicationController
     # Set current local variables
     template = current_user.current_account.templates.find(params[:id])
     authorize! :deliver, template
+
     user_email = current_user.email
     account_email = current_user.current_account.padma.email
     to = params[:recipient]
     bcc = params[:from] || user_email
     from = params[:from] || account_email
+    contact_id = params[:contact_id]
 
-    # Deliver mail
-    PadmaMailer.template(template, to, bcc, from).deliver
-
-    # Notify Activity Stream
-    contact_id = "50feb3b39b27132a5e000007"
-    a = @template.creation_activity(contact_id, current_user)
-    a.create(username: current_user.username, account_name: current_user.current_account.name)
+    # Deliver mail and notify activities
+    template.deliver(to, bcc, from, current_user, contact_id)
 
     redirect_to templates_url
   end

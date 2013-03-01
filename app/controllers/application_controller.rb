@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
   before_filter :require_padma_account
   before_filter :set_current_account
+  before_filter :set_timezone
 
 
   rescue_from CanCan::AccessDenied do
@@ -40,6 +41,12 @@ class ApplicationController < ActionController::Base
   def set_current_account
     if signed_in? && current_user.padma_enabled?
       current_user.current_account = Account.find_or_create_by_name(current_user.padma.enabled_accounts.first.name)
+    end
+  end
+
+  def set_timezone
+    if signed_in? && current_user.padma_enabled?
+      Time.zone = current_user.current_account.padma.timezone
     end
   end
 end
