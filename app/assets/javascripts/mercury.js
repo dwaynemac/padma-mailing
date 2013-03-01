@@ -337,7 +337,7 @@ window.Mercury = {
       exit: function() {
           var location = window.location.href.replace(/\/editor\//i, '/');
           if(Mercury.saveUrl != '/templates/mercury_create'){
-              window.location = location.replace(/\/edit/i, '/');
+              window.location = location.replace(/\/edit/i, '');
           }
           else
           {
