@@ -24,10 +24,14 @@ class Trigger < ActiveRecord::Base
   # @param key_name [String]
   # @param data [Hash]
   def self.catch_message(key_name, data)
+    return if data['avoid_mailing_triggers']
+    message_account = Account.find_by_name(data['account_name'])
+    return unless message_account
     return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
     return unless (recipient_email = get_recipient_email(data))
 
-    where(event_name: key_name).each do |trigger|
+
+    message_account.triggers.where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
           if (send_at = tt.delivery_time(data))

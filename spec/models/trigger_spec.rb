@@ -34,6 +34,7 @@ describe Trigger do
   describe ".catch_message" do
     let(:template){create(:template)}
     let(:trigger){create(:trigger,
+                         account: create(:account, name: 'my-account'),
                          event_name: 'communication',
                          templates_triggerses_attributes: [
                              {template_id: template.id,
@@ -42,18 +43,42 @@ describe Trigger do
                               offset_reference: 'communicated_at'}
                          ]
     )}
-    context "with :communication, {contact_id: 1234, communicated_at: now}" do
+    let(:other_trigger){create(:trigger,
+                         account: create(:account, name: 'other-account'),
+                         event_name: 'communication',
+                         templates_triggerses_attributes: [
+                             {template_id: template.id,
+                              offset_number: 1,
+                              offset_unit: 'day',
+                              offset_reference: 'communicated_at'}
+                         ]
+    )}
+    context "with data containing avoid_mailing_triggers: true" do
       let(:key){:communication}
-      let(:data){{contact_id: 1234, communicated_at: Time.now}.stringify_keys!}
+      let(:data){{avoid_mailing_triggers: true, contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
+      before do
+        trigger # create trigger
+      end
+      it "wont create a ScheduledEmail" do
+        expect{Trigger.catch_message(key,data)}.not_to change{ScheduledMail.count}
+      end
+    end
+    context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}" do
+      let(:key){:communication}
+      let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
       before do
         trigger # create trigger
         PadmaContact.should_receive(:find).with(1234).and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+      end
+      it "only matches triggers of 'my-account'" do
+        other_trigger
+        expect{Trigger.catch_message(key,data)}.should change{ScheduledMail.count}.by 1
       end
       it "calls PadmaContact" do
         Trigger.catch_message(key,data)
       end
       it "creates a ScheduledEmail" do
-        ->{Trigger.catch_message(key,data)}.should change{ScheduledMail.count}.by 1
+        expect{Trigger.catch_message(key,data)}.should change{ScheduledMail.count}.by 1
       end
       it "schedules email to now+1day" do
         Trigger.catch_message key, data
