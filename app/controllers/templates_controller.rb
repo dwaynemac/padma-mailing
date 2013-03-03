@@ -6,6 +6,7 @@ class TemplatesController < ApplicationController
   def index
     # @templates initialized by load_and_authorize_resource
     @account = current_user.current_account
+    @contact = PadmaContact.find(params[:contact_id]) unless params[:contact_id] == nil
   end
 
   def show
