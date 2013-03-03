@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require templates
-//= require_tree .
+//= require triggers
+//= require bootstrap
 
