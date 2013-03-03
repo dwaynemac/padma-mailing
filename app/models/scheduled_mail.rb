@@ -12,30 +12,35 @@ class ScheduledMail < ActiveRecord::Base
     PadmaMailer.template(template, recipient_email, nil, account.padma.email).deliver
     update_attribute :delivered_at, Time.now
 
-
+    # Send notification to activities
+    # TODO Hago que todos los scheduledMail tengan un contact.id asociado?
+    if !contact_id.nil?
+      a = creation_activity(contact_id)
+      a.create()
+    end
   end
 
-  def creation_activity(contact_id, user)
+  def creation_activity(contact_id)
     ActivityStream::Activity.new(target_id: contact_id, target_type: 'Contact',
                                  object_id: self.id, object_type: 'Template',
                                  generator: ActivityStream::LOCAL_APP_NAME,
                                  content: "Mail sent: #{self.name}",
                                  public: false,
-                                 username: user.username,
-                                 account_name: user.current_account.name,
+                                 username: "Mailing system",
+                                 account_name: "Mailing system",
                                  created_at: Time.zone.now.to_s,
                                  updated_at: Time.zone.now.to_s )
   end
 
-  def deliver(to, bcc, from, user, contact_id)
+  def deliver(to, bcc, from, contact_id)
 
     # Deliver mail
     self.deliver_now!
 
     # Send notification to activities
     if !contact_id.nil?
-      a = creation_activity(contact_id, user)
-      a.create(username: user.username, account_name: user.current_account.name)
+      a = creation_activity(contact_id)
+      a.create()
     end
   end
 end
