@@ -57,7 +57,7 @@ class TemplatesController < ApplicationController
     contact_id = params[:contact_id]
 
     # Deliver mail and notify activities
-    template.deliver(to, bcc, from, current_user, contact_id)
+    template.schedule_deliver(to, bcc, from, current_user, contact_id)
 
     redirect_to templates_url
   end

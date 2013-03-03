@@ -1,5 +1,4 @@
 class Template < ActiveRecord::Base
-  # include RegistersActivity
 
   attr_accessible :content, :description, :name, :subject
 
@@ -24,15 +23,11 @@ class Template < ActiveRecord::Base
                                  updated_at: Time.zone.now.to_s )
   end
 
-  def deliver(to, bcc, from, user, contact_id)
-
-    # Deliver mail
-    PadmaMailer.template(self, to, bcc, from).deliver
-
-    # Send notification to activities
-    if !contact_id.nil?
-      a = creation_activity(contact_id, user)
-      a.create(username: user.username, account_name: user.current_account.name)
-    end
+  def schedule_deliver(to, bcc, from, user, contact_id)
+    schedule = ScheduledMail.create(
+                                 template_id: this,
+                                 local_account_id: user.current_account.id,
+                                 recipient_email: to)
+    schedule.deliver(to, bcc, from, user, contact_id)
   end
 end
