@@ -1,14 +1,12 @@
 <h1>Templates</h1>
-<% if @contact && !@contact.email.blank? %>
-    <h3>
-      <%= t('templates.index.deliver_to_headline',
-              full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %>
-    </h3>
-    <% elsif @contact %>
-    <h3>
-      <%= t('templates.index.contact_has_no_mail',
-            full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %>
-    </h3>
+<% if @contact %>
+  <% if @contact.email.blank? %>
+    <h3><%= t('templates.index.contact_has_no_mail',
+            full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
+  <% else %>
+    <h3><%= t('templates.index.deliver_to_headline',
+            full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
+  <% end %>
 <% end %>
 <table class="table table-striped">
   <thead>
