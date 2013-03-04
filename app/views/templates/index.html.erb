@@ -1,5 +1,5 @@
 <h1>Templates</h1>
-<% if @contact && !@contact.email.nil? %>
+<% if @contact && !@contact.email.blank? %>
     <h3>
       <%= t('templates.index.deliver_to_headline',
               full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %>
