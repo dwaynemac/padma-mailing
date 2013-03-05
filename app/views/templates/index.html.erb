@@ -1,10 +1,21 @@
 <h1>Templates</h1>
+<% if @contact %>
+  <% if @contact.email.blank? %>
+    <h3><%= t('templates.index.contact_has_no_mail',
+            full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
+  <% else %>
+    <h3><%= t('templates.index.deliver_to_headline',
+            full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
+  <% end %>
+<% end %>
 <table class="table table-striped">
   <thead>
   <tr>
     <th>Name</th>
     <th>Description</th>
     <th>Subject</th>
+    <th></th>
+    <th>Mail</th>
   </tr>
   </thead>
   <tbody>
@@ -19,10 +30,7 @@
           <%= link_to 'Destroy', template_path(template), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
         </td>
         <td>
-          <%= form_tag("templates/#{template.id}/deliver", :method => :post, class: "send_email_form") do %>
-            <%= text_field_tag :recipient, nil, class: "input-small search-query" %>
-            <%= submit_tag t('templates.index.deliver'), class: "btn btn-mini", confirm: t('confirm') %>
-          <% end %>
+          <%= render partial: "index_form", locals: {template: template} %>
         </td>
       </tr>
   <% end %>

@@ -8,7 +8,10 @@ class TemplatesController < ApplicationController
     # contact_ids =
 
     @account = current_user.current_account
-    # @contacts = PadmaContact.paginate(ids: contact_ids, per_page:999999)
+
+    if params[:contact_id]
+      @contact = PadmaContact.find(params[:contact_id])
+    end
   end
 
   def show
