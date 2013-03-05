@@ -17,7 +17,7 @@ class ScheduledMail < ActiveRecord::Base
     # Send notification to activities
     if !self.contact_id.nil?
       a = creation_activity
-      a.create()
+      a.create(username: self.username, account_name: account.name)
     end
   end
 
