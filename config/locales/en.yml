@@ -7,6 +7,9 @@ en:
   templates:
     index:
       deliver: "Send email"
+      deliver_to: "Send mail to %{recipient}"
+      deliver_to_headline: "Send template to %{full_name}"
+      contact_has_no_mail: "Contact %{full_name} has no email. Enter a mail manually in the mail field"
   triggers:
     form:
       add_filter: "Add filter"
