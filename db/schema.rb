@@ -19,16 +19,6 @@ ActiveRecord::Schema.define(:version => 20130305143921) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "attachments", :force => true do |t|
-    t.string   "attachment_file_name"
-    t.string   "attachment_content_type"
-    t.integer  "attachment_file_size"
-    t.datetime "attachment_updated_at"
-    t.integer  "template_id"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
-  end
-
   create_table "filters", :force => true do |t|
     t.integer  "trigger_id"
     t.string   "key"
@@ -63,9 +53,9 @@ ActiveRecord::Schema.define(:version => 20130305143921) do
     t.string   "description"
     t.string   "subject"
     t.text     "content"
-    t.integer  "local_account_id", :limit => 255
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.integer  "local_account_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "templates_triggers", :force => true do |t|
