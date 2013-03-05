@@ -14,10 +14,10 @@
     <tr>
       <td><%= sm.template.name %></td>
       <td><%= sm.recipient_email %></td>
-      <td><%= l sm.send_at %></td>
+      <td><%= l( sm.send_at) if sm.send_at %></td>
       <td>
         <% if sm.delivered_at %>
-          <%= l sm.delivered_at %>
+          <%= l( sm.delivered_at) if sm.delivered_at%>
         <% else %>
           <%= t('scheduled_mails.index.pending') %>
         <% end %>
