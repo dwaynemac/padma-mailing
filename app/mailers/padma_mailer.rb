@@ -4,6 +4,7 @@ class PadmaMailer < ActionMailer::Base
     return if template.nil?
     return if recipient.blank?
 
+
     @recipients = recipient
     @bcc = bcc
     @from = (from.blank?)? "'#{template.account.name}' " : from

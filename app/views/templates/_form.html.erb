@@ -26,6 +26,25 @@
   </div>
 </div>
 
+<%= form_for @template, :html => { :multipart => true } do |f| %>
+    <%= f.fields_for :attachments do |attachment| %>
+        <% if attachment.object.new_record? %>
+            <p>
+                <%= attachment.file_field :attachment %>
+            </p>
+        <% end %>
+    <% end %>
+
+    <%= f.fields_for :attachments do |attachment| %>
+        <% unless attachment.object.new_record? %>
+            <p>
+              <%= attachment.object.attachment.url %>
+              <%= attachment.check_box :_destroy %>
+            </p>
+        <% end %>
+    <% end %>
+<% end %>
+
 <% if @template.id.nil? %>
     <%= link_to 'Edit', "/editor" + new_template_path,
                 id:"edit_link",

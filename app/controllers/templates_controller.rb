@@ -15,6 +15,8 @@ class TemplatesController < ApplicationController
 
   def new
     # @template initialized by load_and_authorize_resource
+    5.times { @template.attachments.build }
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @product }
@@ -23,6 +25,7 @@ class TemplatesController < ApplicationController
 
   def edit
     # @template initialized by load_and_authorize_resource
+    5.times { @template.attachments.build }
   end
 
   def create
@@ -69,8 +72,10 @@ class TemplatesController < ApplicationController
     description = strip_tags(params[:content][:template_description][:value]).gsub(/&nbsp;/i, "")
     subject = strip_tags(params[:content][:template_subject][:value]).gsub(/&nbsp;/i, "")
     content = params[:content][:template_content][:value]
+    attachments = params[:content][:attachments]
 
     @template = Template.new(name: name, description: description, subject: subject, content: content)
+    5.times { @template.attachments.build }
     @template.account = current_user.current_account
     @template.save!
 
@@ -78,6 +83,7 @@ class TemplatesController < ApplicationController
   end
 
   def mercury_update
+    5.times { @template.attachments.build }
     @template.update_attributes(
         name: strip_tags(params[:content][:template_name][:value]).gsub(/&nbsp;/i, ""),
         description: strip_tags(params[:content][:template_description][:value]).gsub(/&nbsp;/i, ""),
