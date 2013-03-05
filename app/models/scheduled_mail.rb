@@ -16,18 +16,18 @@ class ScheduledMail < ActiveRecord::Base
 
     # Send notification to activities
     if !self.contact_id.nil?
-      a = creation_activity(self.contact_id, self.username)
+      a = creation_activity
       a.create()
     end
   end
 
-  def creation_activity(contact_id, username)
-    ActivityStream::Activity.new(target_id: contact_id, target_type: 'Contact',
-                                 object_id: self.id, object_type: 'Template',
+  def creation_activity
+    ActivityStream::Activity.new(target_id: self.contact_id, target_type: 'Contact',
+                                 object_id: template.id, object_type: 'Template',
                                  generator: ActivityStream::LOCAL_APP_NAME,
-                                 content: "Mail sent: #{self.name}",
+                                 content: "Mail sent: #{template.name}",
                                  public: false,
-                                 username: username || "Mailing system",
+                                 username: self.username || "Mailing system",
                                  account_name: account.name,
                                  created_at: Time.zone.now.to_s,
                                  updated_at: Time.zone.now.to_s )
