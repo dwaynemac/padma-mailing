@@ -6,6 +6,8 @@ class ScheduledMail < ActiveRecord::Base
 
   validates_presence_of :recipient_email
 
+  scope :pending, where('delivered_at IS NULL')
+
   def deliver_now!
     return unless delivered_at.nil?
 

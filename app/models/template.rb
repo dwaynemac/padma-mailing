@@ -15,6 +15,7 @@ class Template < ActiveRecord::Base
   def deliver(data)
     user = data[:user]
     schedule = ScheduledMail.create(
+                                 send_at: Time.zone.now,
                                  template_id: self.id,
                                  local_account_id: user.current_account.id,
                                  recipient_email: data[:to],
