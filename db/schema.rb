@@ -11,12 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130222183701) do
+ActiveRecord::Schema.define(:version => 20130305143921) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "attachments", :force => true do |t|
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.integer  "template_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "filters", :force => true do |t|
@@ -44,6 +54,8 @@ ActiveRecord::Schema.define(:version => 20130222183701) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.datetime "delivered_at"
+    t.string   "contact_id"
+    t.string   "username"
   end
 
   create_table "templates", :force => true do |t|

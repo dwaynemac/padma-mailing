@@ -49,15 +49,10 @@ class TemplatesController < ApplicationController
     template = current_user.current_account.templates.find(params[:id])
     authorize! :deliver, template
 
-    user_email = current_user.email
-    account_email = current_user.current_account.padma.email
-    to = params[:recipient]
-    bcc = params[:from] || user_email
-    from = params[:from] || account_email
-    contact_id = params[:contact_id]
+    data = {to: params[:recipient], user: current_user, contact_id: params[:contact_id]}
 
     # Deliver mail and notify activities
-    template.schedule_deliver(to, bcc, from, current_user, contact_id)
+    template.deliver(data)
 
     redirect_to templates_url
   end
