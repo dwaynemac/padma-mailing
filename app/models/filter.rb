@@ -11,7 +11,7 @@ class Filter < ActiveRecord::Base
           media: %W(interview phone_call email website_contact),
           global_status: %W(student former_student prospect),
           local_status: %W(student former_student prospect),
-          estimated_coefficient: %W(unknown pmenos perfil pmas)
+          estimated_coefficient: %W(unknown fp pmenos perfil pmas)
       },
       subscription_change: {
           type: %W(Enrollment DropOut)
