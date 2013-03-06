@@ -57,7 +57,7 @@ class TemplatesController < ApplicationController
     # Deliver mail and notify activities
     template.deliver(data)
 
-    redirect_to templates_url
+    redirect_to templates_url, notice: I18n.t('templates.deliver.success')
   end
 
   def destroy

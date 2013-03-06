@@ -8,6 +8,11 @@ class ScheduledMail < ActiveRecord::Base
 
   scope :pending, where('delivered_at IS NULL')
 
+  # @return [Boolean]
+  def delivered?
+    !!delivered_at
+  end
+
   def deliver_now!
     return unless delivered_at.nil?
 

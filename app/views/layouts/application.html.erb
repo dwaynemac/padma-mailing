@@ -16,9 +16,11 @@
 <div class="container">
   <div class="content">
     <div class="row">
-      <%#<div class="span2">
-            %= render 'layouts/side_bar' %
-          </div>%>
+      <div class="span12" id="flash_messages">
+        <%= render 'shared/flash_messages' %>
+      </div>
+    </div>
+    <div class="row">
       <div class="span12">
         <%= yield %>
       </div>

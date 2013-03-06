@@ -23,7 +23,9 @@
         <% end %>
       </td>
       <td>
-        <%= link_to t('helpers.links.cancel'), scheduled_mail_path(sm), method: :delete, confirm: 'Are you sure?', class: 'btn btn-mini btn-danger' %>
+        <% unless sm.delivered? %>
+          <%= link_to t('helpers.links.cancel'), scheduled_mail_path(sm), method: :delete, confirm: 'Are you sure?', class: 'btn btn-mini btn-danger' %>
+        <% end %>
       </td>
     </tr>
   <% end %>
