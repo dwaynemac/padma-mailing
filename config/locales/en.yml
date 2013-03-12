@@ -10,6 +10,8 @@ en:
       deliver_to: "Send mail to %{recipient}"
       deliver_to_headline: "Send template to %{full_name}"
       contact_has_no_mail: "Contact %{full_name} has no email. Enter a mail manually in the mail field"
+    deliver:
+      success: "Template delivered"
   triggers:
     form:
       add_filter: "Add filter"
@@ -29,3 +31,6 @@ en:
       phone_call: 'Phonecall'
       email: 'Email'
       website_contact: 'Web'
+  scheduled_mails:
+    destroy:
+      success: "Delivery canceled"

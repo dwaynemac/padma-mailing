@@ -1,5 +1,4 @@
 class PadmaMailer < ActionMailer::Base
-
   def template(template, recipient, bcc, from)
     return if template.nil?
     return if recipient.blank?

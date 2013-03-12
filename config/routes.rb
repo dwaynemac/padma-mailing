@@ -17,6 +17,7 @@ Mailing::Application.routes.draw do
     end
     collection { put :mercury_create }
   end
+  resources :activities, only: [:destroy, :index]
 
   match 'message_door', to: 'message_door#catch'
   root to: 'templates#index'

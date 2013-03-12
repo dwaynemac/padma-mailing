@@ -5,7 +5,10 @@ class TemplatesController < ApplicationController
 
   def index
     # @templates initialized by load_and_authorize_resource
+    # contact_ids =
+
     @account = current_user.current_account
+
     if params[:contact_id]
       @contact = PadmaContact.find(params[:contact_id])
     end
@@ -52,17 +55,16 @@ class TemplatesController < ApplicationController
 
   def deliver
     return if params[:recipient].nil?
+    # Set current local variables
     template = current_user.current_account.templates.find(params[:id])
     authorize! :deliver, template
-    user_email = current_user.email
-    account_email = current_user.current_account.padma.email
-    to = params[:recipient]
-    bcc = params[:from] || user_email
-    from = params[:from] || account_email
 
-    PadmaMailer.template(template, to, bcc, from).deliver
+    data = {to: params[:recipient], user: current_user, contact_id: params[:contact_id]}
 
-    redirect_to templates_url
+    # Deliver mail and notify activities
+    template.deliver(data)
+
+    redirect_to templates_url, notice: I18n.t('templates.deliver.success')
   end
 
   def destroy

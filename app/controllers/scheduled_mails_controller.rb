@@ -8,7 +8,7 @@ class ScheduledMailsController < ApplicationController
 
   def destroy
     @scheduled_mail.destroy
-    redirect_to scheduled_mails_path
+    redirect_to scheduled_mails_path, notice: I18n.t('scheduled_mails.destroy.success')
   end
 
 end
