@@ -6,7 +6,7 @@ class PadmaMailer < ActionMailer::Base
 
     @recipients = recipient
     @bcc = bcc
-    @from = (from.blank?)? "'#{template.account.name}' " : from
+    @from = "\"#{template.account.name}\" <#{template.account.padma.email}>"
     @subject = template.subject
     @sent_on = Time.zone.now
     @content = template.content
