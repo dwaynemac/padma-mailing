@@ -23,8 +23,12 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
   gem 'twitter-bootstrap-rails', '>= 2.2.3'
+  gem 'jquery-fileupload-rails'
 end
 gem 'jquery-rails'
+
+# Mercury requires paperclip to use the image uploader
+gem 'paperclip'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -42,4 +46,3 @@ group :development, :test do
   gem 'yard', '~> 0.7.4'
   gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
 end
-gem 'paperclip'
