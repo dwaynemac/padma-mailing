@@ -10,6 +10,7 @@ Mailing::Application.routes.draw do
   resources :scheduled_mails
   resources :triggers
   resources :templates do
+    resources :attachments
     member do
       post 'deliver'
       put :mercury_update
