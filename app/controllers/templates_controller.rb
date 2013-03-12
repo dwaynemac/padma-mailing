@@ -13,12 +13,12 @@ class TemplatesController < ApplicationController
 
   def show
     # @template initialized by load_and_authorize_resource
+    @attachment = @template.attachments.build
     @account = current_user.current_account
   end
 
   def new
     # @template initialized by load_and_authorize_resource
-    5.times { @template.attachments.build }
 
     respond_to do |format|
       format.html # new.html.erb
@@ -28,7 +28,6 @@ class TemplatesController < ApplicationController
 
   def edit
     # @template initialized by load_and_authorize_resource
-    5.times { @template.attachments.build }
   end
 
   def create
@@ -41,9 +40,14 @@ class TemplatesController < ApplicationController
 
   def update
     # @template initialized by load_and_authorize_resource
+    @template.attachments.create(params[:template][:attachment])
+    params[:template].delete :attachment
     @template.update_attributes(params[:template])
 
-    redirect_to @template
+    respond_to do |format|
+      format.html { redirect_to @template }
+      format.js
+    end
   end
 
   def deliver
@@ -78,7 +82,6 @@ class TemplatesController < ApplicationController
     attachments = params[:content][:attachments]
 
     @template = Template.new(name: name, description: description, subject: subject, content: content)
-    5.times { @template.attachments.build }
     @template.account = current_user.current_account
     @template.save!
 
@@ -86,7 +89,6 @@ class TemplatesController < ApplicationController
   end
 
   def mercury_update
-    5.times { @template.attachments.build }
     @template.update_attributes(
         name: strip_tags(params[:content][:template_name][:value]).gsub(/&nbsp;/i, ""),
         description: strip_tags(params[:content][:template_description][:value]).gsub(/&nbsp;/i, ""),

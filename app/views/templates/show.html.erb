@@ -20,6 +20,38 @@
   <%= @template.content.html_safe %>
 </p>
 
+<b>Attachments</b>
+<table id="att-table" class="table table-condensed table-hover" >
+  <% @template.attachments.each do |att|%>
+      <% if !att.id.nil? %>
+          <tr id="attachment_<%= att.id %>">
+            <td>
+              <i class="icon-file"></i>
+              <%= att.attachment_file_name %>
+            </td>
+            <td>
+              <%= link_to 'Destroy', template_attachment_path(@template, att), :method => :delete, remote: true, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+            </td>
+          </tr>
+      <% end %>
+  <% end %>
+</table>
+
+<%= form_for @template, :html => {id: "fileupload"} do |f| %>
+    <%= f.fields_for @template.attachments.new do |builder| %>
+        <%= builder.file_field :attachment %>
+    <% end %>
+<% end %>
+
+
+<script id="template-upload" type="text/x-tmpl">
+  <div id="upload-file-name" class="upload">
+    {%=o.name%}
+    <div class="progress"><div class="bar" style="width: 0%"></div></div>
+  </div>
+</script>
+
+
 <div class="form-actions">
   <%= link_to 'Back', templates_path, :class => 'btn'  %>
   <%= link_to 'Edit', "/editor" + edit_template_path(@template),

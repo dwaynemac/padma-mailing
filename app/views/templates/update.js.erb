@@ -1,0 +1,18 @@
+$(document).ready(function(){
+    <% if @template.new_record? %>
+    alert("Failed to upload attachment");
+    <% else %>
+    $("#att-table > tbody:last").append(
+            "<tr>" +
+                    "<td>" +
+                    "<i class='icon-file'></i> <%= j @template.attachments.last.attachment_file_name  %>"   +
+                    "</td>" +
+                    "<td>" +
+                    "<%= j link_to 'Destroy', template_attachment_path(@template, @template.attachments.last.id), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>" +
+                    "</td>" +
+            "</tr>"
+    );
+    $("#upload-file-name").empty();
+    $(".bar").width( 0 );
+    <% end %>
+});
