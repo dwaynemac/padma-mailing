@@ -30,6 +30,9 @@ gem 'jquery-rails'
 # Mercury requires paperclip to use the image uploader
 gem 'paperclip'
 
+# Using amazon S3 to store the attachments
+gem 'aws-sdk'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 group :production do
