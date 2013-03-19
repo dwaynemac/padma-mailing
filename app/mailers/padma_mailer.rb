@@ -1,4 +1,7 @@
+# encoding: utf-8
 class PadmaMailer < ActionMailer::Base
+  require 'mail'
+
   def template(template, recipient, bcc, from)
     return if template.nil?
     return if recipient.blank?
@@ -6,7 +9,12 @@ class PadmaMailer < ActionMailer::Base
 
     @recipients = recipient
     @bcc = bcc
-    @from = "\"#{template.account.name}\" <#{template.account.padma.email}>"
+
+    address = Mail::Address.new template.account.padma.email
+    address.display_name = template.account.padma.full_name
+    address.format
+
+    @from =  address
     @subject = template.subject
     @sent_on = Time.zone.now
     @content = template.content
