@@ -5,7 +5,7 @@ gem 'activity_stream_client', '~> 0.0.10'
 gem 'ffi', '~> 1.0.11'
 
 gem 'contacts_client'
-gem 'accounts_client', '~> 0.0.12'
+gem 'accounts_client', '~> 0.0.13'
 gem 'mercury-rails'
 
 # CAS authentication

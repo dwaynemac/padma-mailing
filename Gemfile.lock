@@ -8,7 +8,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    accounts_client (0.0.12)
+    accounts_client (0.0.13)
       gravtastic
       logical_model (~> 0.4.5)
       railties (~> 3.1)
@@ -230,7 +230,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  accounts_client (~> 0.0.12)
+  accounts_client (~> 0.0.13)
   activity_stream_client (~> 0.0.10)
   cancan
   capybara
