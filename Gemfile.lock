@@ -43,6 +43,10 @@ GEM
       logical_model (~> 0.4.0)
       railties (~> 3.1)
     arel (3.0.2)
+    aws-sdk (1.8.5)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
     bourne (1.1.2)
       mocha (= 0.10.5)
@@ -219,6 +223,7 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
+    uuidtools (2.1.3)
     warden (1.2.1)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -232,6 +237,7 @@ PLATFORMS
 DEPENDENCIES
   accounts_client (~> 0.0.12)
   activity_stream_client (~> 0.0.10)
+  aws-sdk
   cancan
   capybara
   coffee-rails (~> 3.2.1)

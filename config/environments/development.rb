@@ -41,4 +41,14 @@ Mailing::Application.configure do
       ENV[key.to_s] = value
     end if File.exists?(env_file)
   end
+
+  # Use Amazon S3 to store files
+  config.paperclip_defaults = {
+      :storage => :s3,
+      :s3_credentials => {
+          :bucket => ENV['AWS_BUCKET_DEV'],
+          :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+          :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+      }
+  }
 end
