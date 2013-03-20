@@ -1,5 +1,16 @@
 HYDRA = Typhoeus::Hydra.new
 
+CRM_HOST =case Rails.env
+  when "production"
+    "padma-crm.herokuapp.com"
+  when "staging"
+    "padma-crm-staging.herokuapp.com"
+  when "development"
+    "localhost:3000"
+  when "test"
+    "localhost:3000"
+end
+
 module Accounts
   HYDRA = ::HYDRA
   API_KEY = ENV['accounts_key']
