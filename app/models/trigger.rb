@@ -39,6 +39,7 @@ class Trigger < ActiveRecord::Base
                 template_id: tt.template_id,
                 local_account_id: tt.template.local_account_id,
                 recipient_email: recipient_email,
+                contact_id: data['contact_id'],
                 send_at: send_at
             )
           end
