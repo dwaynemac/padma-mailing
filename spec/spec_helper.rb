@@ -36,6 +36,8 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+
+  config.include Devise::TestHelpers, :type => :controller
   config.include(FactoryGirl::Syntax::Methods)
   config.include(MailerMacros)
   config.before(:each) { reset_email }

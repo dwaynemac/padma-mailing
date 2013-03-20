@@ -9,7 +9,7 @@ describe PadmaMailer do
     template.account = account
     template.save!
 
-    PadmaMailer.mail_template(template, recipient).deliver
+    PadmaMailer.template(template, recipient).deliver
     last_email.to.should include(recipient)
     last_email.subject.should eq(@subject)
   end
