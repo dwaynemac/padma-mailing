@@ -13,7 +13,7 @@
   <% @scheduled_mails.each do |sm| %>
     <tr>
       <td><%= sm.template.name %></td>
-      <td><%= sm.recipient_email %></td>
+      <td><%= link_to_if sm.contact_id, sm.recipient_email, "http://#{Contacts::HOST}/contacts/#{sm.contact_id}" %></td>
       <td><%= l( sm.send_at) if sm.send_at %></td>
       <td>
         <% if sm.delivered_at %>
