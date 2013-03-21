@@ -10,6 +10,7 @@ en:
       deliver_to: "Send mail to %{recipient}"
       deliver_to_headline: "Send template to %{full_name}"
       contact_has_no_mail: "Contact %{full_name} has no email. Enter a mail manually in the mail field"
+      add_attachemnts: "Add attachment"
     deliver:
       success: "Template delivered"
   triggers:
@@ -34,3 +35,6 @@ en:
   scheduled_mails:
     destroy:
       success: "Delivery canceled"
+  edit: "Edit"
+  destroy: "Delete"
+  new: "New"
