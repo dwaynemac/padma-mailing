@@ -7,7 +7,8 @@ class Trigger < ActiveRecord::Base
 
   VALID_EVENT_NAMES = [
       'communication',
-      'subscription_change'
+      'subscription_change',
+      'trial_lesson'
   ]
 
   validates_presence_of :local_account_id
