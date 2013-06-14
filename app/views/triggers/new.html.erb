@@ -38,7 +38,7 @@
   </fieldset>
 <% end %>
 
-<template id="new_filter" style="display: none" data-options="<%= {suggested_values: Filter::SUGGESTED_VALUES}.to_json %>">
+<div id="new_filter" style="display: none" data-options="<%= {suggested_values: Filter::SUGGESTED_VALUES}.to_json %>">
   <%= fields_for 'trigger[filters_attributes][]', @trigger.filters.new do |filter| %>
     <div class="control-group">
       <label class="control-label">Filter</label>
@@ -49,9 +49,9 @@
       </div>
     </div>
   <% end %>
-</template>
+</div>
 
-<template id="new_trigger_template" style="display:none" data-options="<%= {offset_references: TemplatesTriggers::VALID_REFERENCES}.to_json %>">
+<div id="new_trigger_template" style="display:none" data-options="<%= {offset_references: TemplatesTriggers::VALID_REFERENCES}.to_json %>">
   <%= fields_for 'trigger[templates_triggerses_attributes][]', @trigger.templates_triggerses.new do |template| %>
   <div class="control-group">
     <label class="control-label"><span></span></label>
@@ -67,4 +67,4 @@
     </div>
   </div>
   <%- end %>
-</template>
+</div>

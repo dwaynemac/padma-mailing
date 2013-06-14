@@ -25,7 +25,7 @@ $(document).ready ->
     prefillTemplate()
     $("#select-template option:selected").hide()
     $("#select-template").prop('value','')
-    $("#templates").append($("template#new_trigger_template").html())
+    $("#templates").append($("div#new_trigger_template").html())
     $(".remove-template").click -> removeThisTemplate(this)
     return false
 
@@ -54,10 +54,10 @@ setOptions = (options,select) ->
   select.html(toSelectOptions(options))
 
 bindTemplateInstance = () ->
-  suggested_options = $("template#new_filter").data('options')['suggested_values'][$('#trigger_event_name').val()]
-  setOptions(Object.keys(suggested_options),$("template#new_filter .key_select"))
+  suggested_options = $("div#new_filter").data('options')['suggested_values'][$('#trigger_event_name').val()]
+  setOptions(Object.keys(suggested_options),$("div#new_filter .key_select"))
 
-  $("#filters").append($("template#new_filter").html())
+  $("#filters").append($("div#new_filter").html())
 
   $('.remove-filter').click ->
     removeThisFilter(this)
@@ -67,8 +67,8 @@ bindTemplateInstance = () ->
 
 prefillTemplate = () ->
   template_id = $("#select-template").val()
-  el = $("template#new_trigger_template")
+  el = $("div#new_trigger_template")
   el.find('div.control-group').prop('id', template_id)
   el.find('input[type=hidden] ').val(template_id)
-  setOptions($("template#new_trigger_template").data('options')['offset_references'][$('#trigger_event_name').val()],el.find('#trigger_templates_triggerses_attributes__offset_reference'))
+  setOptions($("div#new_trigger_template").data('options')['offset_references'][$('#trigger_event_name').val()],el.find('#trigger_templates_triggerses_attributes__offset_reference'))
   el.find('label span').text($("#select-template option:selected").text())
