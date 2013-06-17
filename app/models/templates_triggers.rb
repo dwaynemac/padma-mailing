@@ -15,7 +15,7 @@ class TemplatesTriggers < ActiveRecord::Base
   VALID_REFERENCES = {
       communication: %W(communicated_at),
       subscription_change: %W(changed_at),
-      trial_lesson: %W(trial_on)
+      trial_lesson: %W(trial_at)
   }
 
   # @return [Fixnum] offset in seconds
