@@ -40,4 +40,13 @@ class ScheduledMail < ActiveRecord::Base
                                  updated_at: Time.zone.now.to_s )
   end
 
+  def as_json(options = nil)
+    options ||= {}
+
+    options = options.merge({:except => [:template_id]})
+    json = super options
+
+    json[:template_name] = self.template.name
+    json
+  end
 end

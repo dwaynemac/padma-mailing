@@ -7,6 +7,13 @@ Mailing::Application.routes.draw do
     match "/login", :to => "devise/cas_sessions#new"
     match '/logout', to: "devise/cas_sessions#destroy"
   end
+
+  namespace :api do
+    namespace 'v0' do
+      resources :scheduled_mails
+    end
+  end
+
   resources :scheduled_mails
   resources :triggers
   resources :templates do

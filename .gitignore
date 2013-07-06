@@ -17,4 +17,5 @@
 /config/local_env.yml
 Procfile.dev
 .env
+.ruby-version
 /public/*

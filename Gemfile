@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-gem 'activity_stream_client', '~> 0.0.10'
+gem 'activity_stream_client', '~> 0.0.11'
 gem 'ffi', '~> 1.0.11'
 
 gem 'contacts_client'
-gem 'accounts_client', '~> 0.0.13'
+gem 'accounts_client', '~> 0.0.16'
 gem 'mercury-rails'
 
 # CAS authentication
@@ -14,6 +14,8 @@ gem 'devise_cas_authenticatable', '1.0.0.alpha13'
 
 # authorization
 gem 'cancan'
+
+gem 'logical_model', '~> 0.5.1'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
