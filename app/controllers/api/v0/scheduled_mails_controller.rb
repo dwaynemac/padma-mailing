@@ -22,9 +22,9 @@ class Api::V0::ScheduledMailsController < Api::V0::ApiController
     def set_scope
       @scope = if params[:account_name]
         local_account = Account.where(name: params[:account_name])
-        local_account.empty? ? ScheduledMail.all : ScheduledMail.where(local_account_id: local_account.first.id)
+        local_account.empty? ? ScheduledMail : ScheduledMail.where(local_account_id: local_account.first.id)
       else
-        ScheduledMail.all
+        ScheduledMail
       end
     end
 end
