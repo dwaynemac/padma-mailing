@@ -5,10 +5,10 @@ class Api::V0::ScheduledMailsController < Api::V0::ApiController
 
   def index
     if params[:where]
-      # Sets delivered_at as nil if it is send as empty string
+      # Sets delivered_at as nil if it is send as an empty string
       params[:where][:delivered_at] = nil if params[:where][:delivered_at].blank?
 
-      @scheduled_mails = @scope.where(params[:where])
+      @scheduled_mails = @scope.where(params[:where]) unless @scope.empty?
     else
       @scheduled_mails = @scope
     end
@@ -22,9 +22,9 @@ class Api::V0::ScheduledMailsController < Api::V0::ApiController
     def set_scope
       @scope = if params[:account_name]
         local_account = Account.where(name: params[:account_name])
-        local_account.empty? ? ScheduledMail : ScheduledMail.where(local_account_id: local_account.first.id)
+        local_account.empty? ? [] : ScheduledMail.where(local_account_id: local_account.first.id)
       else
-        ScheduledMail
+        ScheduledMail.scoped
       end
     end
 end
