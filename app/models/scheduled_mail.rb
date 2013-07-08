@@ -43,7 +43,6 @@ class ScheduledMail < ActiveRecord::Base
   def as_json(options = nil)
     options ||= {}
 
-    options = options.merge({:except => [:template_id]})
     json = super options
 
     json[:template_name] = self.template.name
