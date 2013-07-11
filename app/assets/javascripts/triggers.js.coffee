@@ -70,5 +70,7 @@ prefillTemplate = () ->
   el = $("div#new_trigger_template")
   el.find('div.control-group').prop('id', template_id)
   el.find('input[type=hidden] ').val(template_id)
-  setOptions($("div#new_trigger_template").data('options')['offset_references'][$('#trigger_event_name').val()],el.find('#trigger_templates_triggerses_attributes__offset_reference'))
+  setOptions(
+    $("div#new_trigger_template").data('options')['offset_references'][$('#trigger_event_name').val()],
+    el.find('#trigger_templates_triggerses_attributes__offset_reference'))
   el.find('label span').text($("#select-template option:selected").text())

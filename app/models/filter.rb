@@ -15,6 +15,12 @@ class Filter < ActiveRecord::Base
       },
       subscription_change: {
           type: %W(Enrollment DropOut)
+      },
+      birthday: {
+          global_status: %W(student former_student prospect),
+          local_status: %W(student former_student prospect),
+          estimated_coefficient: %W(unknown fp pmenos perfil pmas),
+          gender: %W(male female)
       }
   }
 
