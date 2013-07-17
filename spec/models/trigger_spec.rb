@@ -100,13 +100,16 @@ describe Trigger do
     context "with :birthday, {contact_id: 1234, birthday_at: now, account_name: 'my-account'}" do
       describe "if contact is a student of the account" do
         let(:key){"birthday"}
-        let(:data){{contact_id: 1234, birthday_at: Time.now, account_name: 'my-account'}.stringify_keys!}
+        let(:data){{
+                      contact_id: 1234, 
+                      birthday_at: Time.now, 
+                      account_name: 'my-account',
+                      'local_status_for_my-account' => 'student',
+                      status: 'student'}.stringify_keys!}
         before do
           birthday_trigger
           PadmaContact.should_receive(:find).with(1234).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com', status: 'student', local_status: 'student'))
-          PadmaContact.should_receive(:find).with(1234, {:account_name =>"my-account"}).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com', status: 'student', local_status: 'student'))
+              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         it "calls PadmaContact" do
           Trigger.catch_message(key,data)
@@ -118,13 +121,16 @@ describe Trigger do
 
       describe "if contact is not a student of the current account, but student of another school" do
         let(:key){"birthday"}
-        let(:data){{contact_id: 1234, birthday_at: Time.now, account_name: 'my-account'}.stringify_keys!}
+        let(:data){{
+                      contact_id: 1234, 
+                      birthday_at: Time.now, 
+                      account_name: 'my-account',
+                      'local_status_for_my-account' => 'prospect',
+                      status: 'student'}.stringify_keys!}
         before do
           birthday_trigger
           PadmaContact.should_receive(:find).with(1234).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com', status: 'student', local_status: 'prospect'))
-          PadmaContact.should_receive(:find).with(1234, {:account_name =>"my-account"}).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com', status: 'student', local_status: 'prospect'))
+              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         it "calls PadmaContact" do
           Trigger.catch_message(key,data)
@@ -136,13 +142,16 @@ describe Trigger do
 
       describe "if contact is not a student of the current account, but no student of any other school" do
         let(:key){"birthday"}
-        let(:data){{contact_id: 1234, birthday_at: Time.now, account_name: 'my-account'}.stringify_keys!}
+        let(:data){{
+                      contact_id: 1234, 
+                      birthday_at: Time.now, 
+                      account_name: 'my-account',
+                      'local_status_for_my-account' => 'prospect',
+                      status: 'prospect'}.stringify_keys!}
         before do
           birthday_trigger
           PadmaContact.should_receive(:find).with(1234).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com', status: 'prospect', local_status: 'prospect'))
-          PadmaContact.should_receive(:find).with(1234, {:account_name =>"my-account"}).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com', status: 'prospect', local_status: 'prospect'))
+              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         it "calls PadmaContact" do
           Trigger.catch_message(key,data)

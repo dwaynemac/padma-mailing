@@ -27,12 +27,12 @@ class Trigger < ActiveRecord::Base
   # @param data [Hash]
   def self.catch_message(key_name, data)
     return if data['avoid_mailing_triggers']
-    message_account = Account.find_by_name(data['account_name'])
-    return unless message_account
     return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
     return unless (recipient_email = get_recipient_email(data))
 
-    message_account.triggers.where(event_name: key_name).each do |trigger|
+    message_account = Account.find_by_name(data['account_name'])
+    trigger_scope = message_account.nil? ? Trigger : message_account.triggers
+    trigger_scope.where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
           if (send_at = tt.delivery_time(data))
@@ -83,9 +83,8 @@ class Trigger < ActiveRecord::Base
   # @return true if contact is not listed as a student in another School, while being former_student or prospect
   # false otherwise.
   def is_not_another_schools_student(data)
-    contact = PadmaContact.find(data['contact_id'], account_name: data['account_name'])
     # If contact is former_student, it should be able to send the email
-    return !(contact.local_status != "student" && contact.status == "student")
+    return !(data["local_status_for_#{account.name}"] != "student" && data['status'] == "student")
   end
 
   # check if it has to make additional checks
