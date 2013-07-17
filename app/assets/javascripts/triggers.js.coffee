@@ -13,6 +13,10 @@ $(document).ready ->
         $("#templates").html('')
       else
         $(this).val(previous_event_name)
+    if $(this).val() == 'birthday'
+      $('#alert-message').show()
+    else
+      $('#alert-message').hide()
 
   $("#trigger_event_name").trigger('change')
 

@@ -6,8 +6,9 @@
       <%= f.label :event_name, :class => 'control-label' %>
       <div class="controls">
         <%= f.select :event_name, Trigger::VALID_EVENT_NAMES, {} %>
+        <span id="alert-message" class="alert"><%= t('triggers.birthday.warning') %></span>
       </div>
-
+      
       <div class="control-group">
         <div class="controls">
           <button id="add-filter" class="btn" onclick="return false"><%= t('triggers.form.add_filter') %></button>
