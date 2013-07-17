@@ -36,16 +36,14 @@ class Trigger < ActiveRecord::Base
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
           if (send_at = tt.delivery_time(data))
-            if schedule_mail_can_be_created(key_name, data)
-              ScheduledMail.create(
-                  template_id: tt.template_id,
-                  local_account_id: tt.template.local_account_id,
-                  recipient_email: recipient_email,
-                  contact_id: data['contact_id'],
-                  username: data['username'],
-                  send_at: send_at
-              )
-            end
+            ScheduledMail.create(
+                template_id: tt.template_id,
+                local_account_id: tt.template.local_account_id,
+                recipient_email: recipient_email,
+                contact_id: data['contact_id'],
+                username: data['username'],
+                send_at: send_at
+            )
           end
         end
       end
@@ -55,10 +53,14 @@ class Trigger < ActiveRecord::Base
   # @param data [Hash]
   # @return [Boolean]
   def filters_match?(data)
-    filter_count = self.filters.count
-    match_count = 0
-    self.filters.each{|f| match_count += 1 if data[f.key] == f.value }
-    filter_count == match_count
+    if passes_internal_filters(data)
+      filter_count = self.filters.count
+      match_count = 0
+      self.filters.each{|f| match_count += 1 if data[f.key] == f.value }
+      filter_count == match_count
+    else
+      false
+    end
   end
 
   private
@@ -80,15 +82,15 @@ class Trigger < ActiveRecord::Base
 
   # @return true if contact is not listed as a student in another School, while being former_student or prospect
   # false otherwise.
-  def self.is_not_another_schools_student(data)
+  def is_not_another_schools_student(data)
     contact = PadmaContact.find(data['contact_id'], account_name: data['account_name'])
     # If contact is former_student, it should be able to send the email
     return !(contact.local_status != "student" && contact.status == "student")
   end
 
   # check if it has to make additional checks
-  def self.schedule_mail_can_be_created(key_name, data)
-    if(key_name == 'birthday')
+  def passes_internal_filters(data)
+    if(event_name == 'birthday')
       return is_not_another_schools_student(data)
     else
       true
