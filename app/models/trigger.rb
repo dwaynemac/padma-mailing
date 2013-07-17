@@ -32,19 +32,20 @@ class Trigger < ActiveRecord::Base
     return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
     return unless (recipient_email = get_recipient_email(data))
 
-
     message_account.triggers.where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
           if (send_at = tt.delivery_time(data))
-            ScheduledMail.create(
-                template_id: tt.template_id,
-                local_account_id: tt.template.local_account_id,
-                recipient_email: recipient_email,
-                contact_id: data['contact_id'],
-                username: data['username'],
-                send_at: send_at
-            )
+            if schedule_mail_can_be_created(key_name, data)
+              ScheduledMail.create(
+                  template_id: tt.template_id,
+                  local_account_id: tt.template.local_account_id,
+                  recipient_email: recipient_email,
+                  contact_id: data['contact_id'],
+                  username: data['username'],
+                  send_at: send_at
+              )
+            end
           end
         end
       end
@@ -75,5 +76,22 @@ class Trigger < ActiveRecord::Base
     end
 
     recipient_email
+  end
+
+  # @return true if contact is not listed as a student in another School, while being former_student or prospect
+  # false otherwise.
+  def self.is_not_another_schools_student(data)
+    contact = PadmaContact.find(data['contact_id'], account_name: data['account_name'])
+    # If contact is former_student, it should be able to send the email
+    return !(contact.local_status != "student" && contact.status == "student")
+  end
+
+  # check if it has to make additional checks
+  def self.schedule_mail_can_be_created(key_name, data)
+    if(key_name == 'birthday')
+      return is_not_another_schools_student(data)
+    else
+      true
+    end
   end
 end

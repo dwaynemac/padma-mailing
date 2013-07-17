@@ -16,7 +16,7 @@ class TemplatesTriggers < ActiveRecord::Base
       communication: %W(communicated_at),
       subscription_change: %W(changed_at),
       trial_lesson: %W(trial_at),
-      birthday: %W(birthday)
+      birthday: %W(birthday_at)
   }
 
   # @return [Fixnum] offset in seconds
