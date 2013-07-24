@@ -4,7 +4,7 @@ gem 'rails', '3.2.11'
 gem 'activity_stream_client', '~> 0.0.11'
 gem 'ffi', '~> 1.0.11'
 
-gem 'contacts_client'
+gem 'contacts_client', '~> 0.0.17'
 gem 'accounts_client', '~> 0.0.16'
 gem 'mercury-rails'
 

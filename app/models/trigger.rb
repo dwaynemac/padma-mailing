@@ -68,7 +68,7 @@ class Trigger < ActiveRecord::Base
 
     recipient_email = data['recipient_email']
     if recipient_email.blank?
-      if (contact = PadmaContact.find(data['contact_id']))
+      if (contact = PadmaContact.find(data['contact_id'], select: [:email]))
         recipient_email = contact.email
       end
     end
