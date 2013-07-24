@@ -8,7 +8,8 @@ class Trigger < ActiveRecord::Base
   VALID_EVENT_NAMES = [
       'communication',
       'subscription_change',
-      'trial_lesson'
+      'trial_lesson',
+      'birthday'
   ]
 
   validates_presence_of :local_account_id
@@ -26,13 +27,12 @@ class Trigger < ActiveRecord::Base
   # @param data [Hash]
   def self.catch_message(key_name, data)
     return if data['avoid_mailing_triggers']
-    message_account = Account.find_by_name(data['account_name'])
-    return unless message_account
     return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
     return unless (recipient_email = get_recipient_email(data))
 
-
-    message_account.triggers.where(event_name: key_name).each do |trigger|
+    message_account = Account.find_by_name(data['account_name'])
+    trigger_scope = message_account.nil? ? Trigger : message_account.triggers
+    trigger_scope.where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
           if (send_at = tt.delivery_time(data))
@@ -53,10 +53,14 @@ class Trigger < ActiveRecord::Base
   # @param data [Hash]
   # @return [Boolean]
   def filters_match?(data)
-    filter_count = self.filters.count
-    match_count = 0
-    self.filters.each{|f| match_count += 1 if data[f.key] == f.value }
-    filter_count == match_count
+    if passes_internal_filters(data)
+      filter_count = self.filters.count
+      match_count = 0
+      self.filters.each{|f| match_count += 1 if data[f.key] == f.value }
+      filter_count == match_count
+    else
+      false
+    end
   end
 
   private
@@ -74,5 +78,21 @@ class Trigger < ActiveRecord::Base
     end
 
     recipient_email
+  end
+
+  # @return true if contact is not listed as a student in another School, while being former_student or prospect
+  # false otherwise.
+  def is_not_another_schools_student(data)
+    # If contact is former_student, it should be able to send the email
+    return !(data["local_status_for_#{account.name}"] != "student" && data['status'] == "student")
+  end
+
+  # check if it has to make additional checks
+  def passes_internal_filters(data)
+    if(event_name == 'birthday')
+      return is_not_another_schools_student(data)
+    else
+      true
+    end
   end
 end

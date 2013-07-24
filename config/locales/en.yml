@@ -21,6 +21,8 @@ en:
       title: "New trigger"
     index:
       delay_warning: "Notifications may delay up to %{minutes} minutes to reach a trigger."
+    birthday:
+      warning: "Warning: students of another school won't receive emails"
   trigger:
     offset_number: "Offset #"
     offset_unit: "offset unit"
