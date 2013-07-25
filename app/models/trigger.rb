@@ -9,7 +9,8 @@ class Trigger < ActiveRecord::Base
       'communication',
       'subscription_change',
       'trial_lesson',
-      'birthday'
+      'birthday',
+      'membership'
   ]
 
   validates_presence_of :local_account_id
