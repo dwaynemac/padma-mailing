@@ -8,7 +8,11 @@ class Api::V0::ScheduledMailsController < Api::V0::ApiController
       # Sets delivered_at as nil if it is send as an empty string
       params[:where][:delivered_at] = nil if params[:where][:delivered_at].blank?
 
-      @scheduled_mails = @scope.where(params[:where]) unless @scope.empty?
+      if @scope.empty?
+        @scheduled_mails = []
+      else
+        @scheduled_mails = @scope.where(params[:where])
+      end
     else
       @scheduled_mails = @scope
     end
