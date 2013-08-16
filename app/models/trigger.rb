@@ -13,6 +13,9 @@ class Trigger < ActiveRecord::Base
       'membership'
   ]
 
+  # This events don't need to come with an account_name. All others MUST.
+  GLOBAL_EVENTS = %W(birthday)
+
   validates_presence_of :local_account_id
   belongs_to :account, :class_name => "Account", :foreign_key => :local_account_id
 
@@ -32,7 +35,10 @@ class Trigger < ActiveRecord::Base
     return unless (recipient_email = get_recipient_email(data))
 
     message_account = Account.find_by_name(data['account_name'])
-    trigger_scope = message_account.nil? ? Trigger : message_account.triggers
+    return if message_account.nil? && !key_name.in?(GLOBAL_EVENTS)
+
+    trigger_scope = message_account.present?? message_account.triggers : Trigger
+
     trigger_scope.where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
@@ -66,6 +72,10 @@ class Trigger < ActiveRecord::Base
 
   private
 
+  ##
+  # Gets recipient email looking:
+  #   1st at data[:recipient_email]
+  #   2nd at PadmaContact with id data[:contact_id]
   # @return [String] recipient email
   # @return [NilClass] if no email found.
   def self.get_recipient_email(data)
@@ -90,7 +100,7 @@ class Trigger < ActiveRecord::Base
 
   # check if it has to make additional checks
   def passes_internal_filters(data)
-    if(event_name == 'birthday')
+    if event_name.in?(GLOBAL_EVENTS)
       return is_not_another_schools_student(data)
     else
       true
