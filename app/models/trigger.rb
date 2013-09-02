@@ -91,17 +91,28 @@ class Trigger < ActiveRecord::Base
     recipient_email
   end
 
-  # @return true if contact is not listed as a student in another School, while being former_student or prospect
+  # @return [Boolean]
+  # true if contact is not listed as a student in another School, while being former_student or prospect
   # false otherwise.
-  def is_not_another_schools_student(data)
+  def is_not_another_schools_student?(data)
     # If contact is former_student, it should be able to send the email
     return !(data["local_status_for_#{account.name}"] != "student" && data['status'] == "student")
+  end
+
+  ##
+  # Checks if in message data if contact specified by data is linked to trigger's account
+  # This will simply use data[:linked_accounts_names], contacts-ws is not called
+  # @return [Boolean]
+  def is_linked_to_account?(data)
+    if data['linked_accounts_names']
+      data['linked_accounts_names'].include?(account.name)
+    end
   end
 
   # check if it has to make additional checks
   def passes_internal_filters(data)
     if event_name.in?(GLOBAL_EVENTS)
-      return is_not_another_schools_student(data)
+      return is_linked_to_account?(data) && is_not_another_schools_student?(data)
     else
       true
     end
