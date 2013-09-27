@@ -1,6 +1,15 @@
 <h1><%= t('mailchimp.show.your_mailchimp_lists') %></h1>
 <ul>
-<% @mailchimp_lists.each do |list| -%>
-  <li><%= list["name"] %></li>
+<%= form_for :mailchimp_sync, method: 'PUT' do |f|  %>  
+
+  <% @mailchimp_lists.each do |list| -%>
+    <li>
+      <%= list["name"] %>
+      -
+      <%= f.select "local_list_for[#{list["id"]}]", @local_list_names, selected: ListSync.where(local_account_id: current_user.current_account.id, mailchimp_list_id: list["id"]).first.try(:local_list_name) %>
+    </li>
+  <% end -%>
+
+  <%= f.submit nil, class: 'btn btn-primary' %>
 <% end -%>
 </ul>

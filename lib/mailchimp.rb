@@ -1,5 +1,5 @@
 class Mailchimp
-  
+
   def initialize(account)
     @account = account
   end

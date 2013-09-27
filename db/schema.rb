@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926202404) do
+ActiveRecord::Schema.define(:version => 20130927041600) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(:version => 20130926202404) do
     t.string   "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "list_syncs", :force => true do |t|
+    t.integer  "mailchimp_list_id"
+    t.string   "local_list_name"
+    t.string   "local_account_id"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "mercury_images", :force => true do |t|
@@ -64,9 +72,9 @@ ActiveRecord::Schema.define(:version => 20130926202404) do
     t.string   "description"
     t.string   "subject"
     t.text     "content"
-    t.integer  "local_account_id", :limit => 255
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.integer  "local_account_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "templates_triggers", :force => true do |t|
