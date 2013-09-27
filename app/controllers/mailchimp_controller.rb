@@ -2,17 +2,15 @@ class MailchimpController < ApplicationController
 
   SYSTEM_LISTS = [:students, :p_prospects, :former_students]
 
+  before_filter :require_api_key, except: [:new, :create]
+
   def show
-    @mailchimp = current_user.current_account.mailchimp_integration
-    if @mailchimp.nil?
-      redirect_to new_mailchimp_path
-    else
-      respond_to do |format|
-        format.html do
-          @mailchimp_lists = [{"id" => "", "name" => ""}] + @mailchimp.lists
-        end
-      end
-    end
+    @mailchimp_lists = [{"id" => "", "name" => ""}] + @mailchimp.lists
+  end
+
+  def check
+    @students = @mailchimp.students if @mailchimp.students_list_id
+    @p_former_students = @mailchimp.p_former_students if @mailchimp.p_former_students_list_id
   end
 
   def new
@@ -32,13 +30,23 @@ class MailchimpController < ApplicationController
   end
 
   def update
-    current_user.current_account.mailchimp_integration.update_attributes(params[:mailchimp_integration])
+    @mailchimp.update_attributes(params[:mailchimp_integration])
     redirect_to mailchimp_path
   end
 
   def destroy
-    current_user.current_account.mailchimp_integration.destroy
+    @mailchimp.destroy
     redirect_to mailchimp_path
+  end
+
+  private
+
+  def require_api_key
+    @mailchimp = current_user.current_account.mailchimp_integration
+    if @mailchimp.nil?
+      redirect_to new_mailchimp_path
+      return
+    end
   end
     
 end

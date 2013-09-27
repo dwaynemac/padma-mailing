@@ -94,8 +94,6 @@ class MailchimpIntegration < ActiveRecord::Base
     members
   end
 
-  private
-
   def students
     @students ||= PadmaContact.search(account_name: self.account.name, where: {local_status: 'student'})
   end

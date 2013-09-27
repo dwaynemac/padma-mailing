@@ -14,7 +14,11 @@ Mailing::Application.routes.draw do
     end
   end
 
-  resource  :mailchimp, controller: 'mailchimp'
+  resource  :mailchimp, controller: 'mailchimp', except: [:edit] do
+    member do
+      get :check
+    end
+  end
 
   resources :scheduled_mails
   resources :triggers

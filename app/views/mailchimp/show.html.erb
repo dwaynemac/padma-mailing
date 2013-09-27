@@ -1,3 +1,4 @@
+<%= link_to 'Check', check_mailchimp_path, class: 'btn btn-mini' %>
 <%= form_for @mailchimp, url: mailchimp_path, method: 'PUT' do |f|  %>  
   <fieldset>
     <legend><%= t('mailchimp.show.list_syncronization') %></legend>
