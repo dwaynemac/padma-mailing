@@ -23,8 +23,12 @@ class MailchimpController < ApplicationController
     @mailchimp = MailchimpIntegration.new
     @mailchimp.local_account_id = current_user.current_account.id
     @mailchimp.api_key = params[:mailchimp_integration][:api_key]
-    @mailchimp.save
-    redirect_to mailchimp_path
+    if @mailchimp.lists.nil?
+      redirect_to mailchimp_path, alert: 'error'
+    else
+      @mailchimp.save
+      redirect_to mailchimp_path
+    end
   end
 
   def update
