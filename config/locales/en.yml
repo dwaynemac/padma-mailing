@@ -40,3 +40,13 @@ en:
   edit: "Edit"
   destroy: "Delete"
   new: "New"
+  mailchimp:
+    show:
+      list_syncronization: "List syncronization with mailchimp"
+      list_on_mailchimp_for:
+        students: 'List for students'
+        all: 'List with all contacts'
+        p_former_students: 'List for Former Students (P)'
+    new:
+      setup_mailchimp_api_key: 'Setup Mailchimp api key'
+      api_key: 'Api Key'

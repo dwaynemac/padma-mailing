@@ -53,6 +53,7 @@ group :development do
 
   gem 'foreman'
   gem 'subcontractor', '0.6.1'
+  gem 'debugger'
 end
 
 group :development, :test do

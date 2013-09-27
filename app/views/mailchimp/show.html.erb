@@ -1,15 +1,17 @@
-<h1><%= t('mailchimp.show.your_mailchimp_lists') %></h1>
-<ul>
-<%= form_for :mailchimp_sync, method: 'PUT' do |f|  %>  
+<%= form_for @mailchimp, url: mailchimp_path, method: 'PUT' do |f|  %>  
+  <fieldset>
+    <legend><%= t('mailchimp.show.list_syncronization') %></legend>
 
-  <% @mailchimp_lists.each do |list| -%>
-    <li>
-    <b><%= list["name"] %></b>
-      maps: 
-      <%= f.select "local_list_for[#{list["id"]}]", @local_list_names, selected: ListSync.where(local_account_id: current_user.current_account.id, mailchimp_list_id: list["id"]).first.try(:local_list_name) %>
-    </li>
-  <% end -%>
+    <label for="students_list_id"><%= t('mailchimp.show.list_on_mailchimp_for.students') %></label>
+    <%= f.select :students_list_id, @mailchimp_lists.map{|l| [l["name"],l["id"]]} %>
 
+    <label for="all_list_id"><%= t('mailchimp.show.list_on_mailchimp_for.all') %></label>
+    <%= f.select :all_list_id, @mailchimp_lists.map{|l| [l["name"],l["id"]]} %>
+
+    <label for="p_former_students_list_id"><%= t('mailchimp.show.list_on_mailchimp_for.p_former_students') %></label>
+    <%= f.select :p_former_students_list_id, @mailchimp_lists.map{|l| [l["name"],l["id"]]} %>
+    
+  </fieldset>
+  
   <%= f.submit nil, class: 'btn btn-primary' %>
 <% end -%>
-</ul>

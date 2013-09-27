@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130305143921) do
+ActiveRecord::Schema.define(:version => 20130927130227) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -35,6 +35,19 @@ ActiveRecord::Schema.define(:version => 20130305143921) do
     t.string   "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "mailchimp_integrations", :force => true do |t|
+    t.integer  "local_account_id"
+    t.string   "api_key"
+    t.string   "students_list_id"
+    t.string   "p_former_students_list_id"
+    t.string   "p_prospects_list_id"
+    t.string   "p_nonstudents_list_id"
+    t.string   "all_nonstudents_list_id"
+    t.string   "all_list_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
   create_table "mercury_images", :force => true do |t|
