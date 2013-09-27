@@ -11,13 +11,21 @@ class MailchimpIntegration < ActiveRecord::Base
 
   # @return [Gibbon:API]
   def api
-    @mailchimp_api ||= Gibbon::API.new api_key
+    if @mailchimp_api.nil?
+      @mailchimp_api = Gibbon::API.new api_key
+      @mailchimp_api.throw_exceptions = false
+    end
+    @mailchimp_api
   end
 
   # @return [Array <Hash>] lists
   def lists
     response = api.lists.list
-    response["data"]
+    if response["status"] == "error"
+      nil
+    else
+      response["data"]
+    end
   end
 
   def sync
