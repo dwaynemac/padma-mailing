@@ -5,6 +5,9 @@
 
     <label for="api_key"><%= t('mailchimp.new.api_key') %></label>
     <%= f.text_field :api_key %>
+    <p class="help-block">
+      <%= link_to t('mailchimp.new.api_key_help'), "http://kb.mailchimp.com/article/where-can-i-find-my-api-key", target: '_blank' %>
+    </p>
     
   </fieldset>
   
