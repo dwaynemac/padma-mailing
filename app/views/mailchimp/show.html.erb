@@ -4,8 +4,8 @@
 
   <% @mailchimp_lists.each do |list| -%>
     <li>
-      <%= list["name"] %>
-      -
+    <b><%= list["name"] %></b>
+      maps: 
       <%= f.select "local_list_for[#{list["id"]}]", @local_list_names, selected: ListSync.where(local_account_id: current_user.current_account.id, mailchimp_list_id: list["id"]).first.try(:local_list_name) %>
     </li>
   <% end -%>

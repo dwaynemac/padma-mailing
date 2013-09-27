@@ -50,6 +50,9 @@ group :development do
   gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
 
   gem 'git-pivotal-tracker-integration'
+
+  gem 'foreman'
+  gem 'subcontractor', '0.6.1'
 end
 
 group :development, :test do
