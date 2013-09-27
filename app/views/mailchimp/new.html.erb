@@ -1,7 +1,9 @@
-<h1>EXPERIMENTAL - WARNING</h1>
 <%= form_for @mailchimp, url: mailchimp_path do |f|  %>  
   <fieldset>
     <legend><%= t('mailchimp.new.setup_mailchimp_api_key') %></legend>
+    <p>
+      <%= t('mailchimp.new.sync_times') %>
+    </p>
 
     <label for="api_key"><%= t('mailchimp.new.api_key') %></label>
     <%= f.text_field :api_key %>

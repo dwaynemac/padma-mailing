@@ -48,6 +48,7 @@ en:
         all: 'List with all contacts'
         p_former_students: 'List for Former Students (P)'
     new:
+      sync_times: 'Syncronization with mailchimp is done nighly.'
       setup_mailchimp_api_key: 'Setup Mailchimp api key'
       api_key: 'Api Key'
       api_key_help: "See here how to get your ApiKey."
