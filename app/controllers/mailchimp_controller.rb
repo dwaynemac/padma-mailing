@@ -27,6 +27,11 @@ class MailchimpController < ApplicationController
       else
         nil
     end
+
+    mailchimp_emails = @mailchimp.list_members(@list_id).map{|member| member["email"] }
+    contacts_emails  = @contacts.map{|c| c.email}
+
+    @extra_emails = mailchimp_emails - contacts_emails
   end
 
   def new

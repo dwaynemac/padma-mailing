@@ -6,4 +6,10 @@
       <td><%= (present)? 'ok' : 'MISSING' %></td>
     </tr>
   <% end -%>
+  <% @extra_emails.each do |email| -%>
+    <tr class="error">
+      <td><%= email %></td>
+      <td>EXTRA</td>
+    </tr>
+  <% end -%>
 </table>
