@@ -20,17 +20,35 @@ class MailchimpIntegration < ActiveRecord::Base
     response["data"]
   end
 
+  def sync
+    unless students_list_id.blank?
+      subscribe(students_list_id, students)
+      unsubscribe(students_list_id, former_students)
+    end
+
+    unless p_former_students_list_id.blank?
+      subscribe(p_former_students_list_id, p_former_students)
+      unsubscribe(p_former_students_list_id, students)
+    end
+
+    unless all_list_id.blank?
+      subscribe(all_list_id, all)
+    end
+  end
+
   # @return [Hash] mailchimp response
   def subscribe(list_id, contacts)
-    batch = contact.map do |c|
-      {
-        email: {email: c.email},
-        FNAME: c.first_name,
-        LNAME: c.last_name
-      }
+    batch = contacts.map do |c|
+      if c.email
+        {
+          email: {email: c.email},
+          FNAME: c.first_name,
+          LNAME: c.last_name
+        }
+      end
     end
     api.lists.batch_subscribe(id: list_id,
-                              batch: batch,
+                              batch: batch.compact,
                               update_existing: true,
                               double_optin: false
                              )
@@ -38,13 +56,15 @@ class MailchimpIntegration < ActiveRecord::Base
 
   # @return [Hash] mailchimp response
   def unsubscribe(list_id, contacts)
-    batch = contact.map do |c|
-      {
-        email: c.email,
-      }
+    batch = contacts.map do |c|
+      if c.email
+        {
+          email: c.email,
+        }
+      end
     end
     api.lists.batch_unsubscribe(id: list_id,
-                                batch: batch,
+                                batch: batch.compact,
                                 delete_member: false,
                                 send_goodbay: false,
                                 send_notify: false)
@@ -64,5 +84,23 @@ class MailchimpIntegration < ActiveRecord::Base
       members = instance_variable_get("@list_#{list_id}")
     end
     members
+  end
+
+  private
+
+  def students
+    @students ||= PadmaContact.paginate(account_name: self.account.name, where: {local_status: 'student'})
+  end
+
+  def former_students
+    @former_students ||= PadmaContact.paginate(account_name: self.account.name, where: {local_status: 'former_student'})
+  end
+
+  def p_former_students
+    @p_former_students ||= PadmaContact.paginate(account_name: self.account.name, where: {local_status: 'former_student', local_coefficient: %W(pmenos perfil pmas)})
+  end
+
+  def all
+    @all ||= PadmaContact.paginate(account_name: self.account.name)
   end
 end
