@@ -1,0 +1,11 @@
+<%= form_for @mailchimp, url: mailchimp_path do |f|  %>  
+  <fieldset>
+    <legend><%= t('mailchimp.new.setup_mailchimp_api_key') %></legend>
+
+    <label for="api_key"><%= t('mailchimp.new.api_key') %></label>
+    <%= f.text_field :api_key %>
+    
+  </fieldset>
+  
+  <%= f.submit nil, class: 'btn btn-primary' %>
+<% end -%>

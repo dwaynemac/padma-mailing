@@ -19,3 +19,5 @@ Procfile.dev
 .env
 .ruby-version
 /public/*
+*.swp
+*.swo
