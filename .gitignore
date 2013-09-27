@@ -20,3 +20,4 @@ Procfile.dev
 .ruby-version
 /public/*
 *.swp
+*.swo
