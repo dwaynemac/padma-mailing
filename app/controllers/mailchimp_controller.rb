@@ -1,7 +1,5 @@
 class MailchimpController < ApplicationController
 
-  SYSTEM_LISTS = [:students, :p_prospects, :former_students]
-
   before_filter :require_api_key, except: [:new, :create]
 
   def show
@@ -9,8 +7,26 @@ class MailchimpController < ApplicationController
   end
 
   def check
-    @students = @mailchimp.students if @mailchimp.students_list_id
-    @p_former_students = @mailchimp.p_former_students if @mailchimp.p_former_students_list_id
+    @contacts = case params[:list_sys_name]
+      when 'students'
+        @mailchimp.students
+      when 'p_former_students'
+        @mailchimp.p_former_students
+      when 'all'
+        @mailchimp.all
+      else
+        nil
+    end
+    @list_id = case params[:list_sys_name]
+      when 'students'
+        @mailchimp.students_list_id
+      when 'p_former_students'
+        @mailchimp.p_former_students_list_id
+      when 'all'
+        @mailchimp.all_list_id
+      else
+        nil
+    end
   end
 
   def new
