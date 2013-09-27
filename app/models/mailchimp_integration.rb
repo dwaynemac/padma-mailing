@@ -103,7 +103,7 @@ class MailchimpIntegration < ActiveRecord::Base
   end
 
   def p_former_students
-    @p_former_students ||= PadmaContact.search(account_name: self.account.name, where: {local_status: 'former_student', local_coefficient: %W(pmenos perfil pmas)})
+    @p_former_students ||= PadmaContact.search(account_name: self.account.name, where: {local_status: 'former_student', coefficient: %W(pmenos perfil pmas)})
   end
 
   def all
