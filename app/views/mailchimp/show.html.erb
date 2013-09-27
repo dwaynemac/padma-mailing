@@ -1,16 +1,25 @@
-<%= link_to 'Check', check_mailchimp_path, class: 'btn btn-mini' %>
+
 <%= form_for @mailchimp, url: mailchimp_path, method: 'PUT' do |f|  %>  
   <fieldset>
     <legend><%= t('mailchimp.show.list_syncronization') %></legend>
 
     <label for="students_list_id"><%= t('mailchimp.show.list_on_mailchimp_for.students') %></label>
     <%= f.select :students_list_id, @mailchimp_lists.map{|l| [l["name"],l["id"]]} %>
+    <% unless @mailchimp.students_list_id.blank? -%>
+      <%= link_to 'Check', check_mailchimp_path(list_sys_name: 'students'), class: 'btn btn-mini' %>
+    <% end -%>
 
     <label for="all_list_id"><%= t('mailchimp.show.list_on_mailchimp_for.all') %></label>
     <%= f.select :all_list_id, @mailchimp_lists.map{|l| [l["name"],l["id"]]} %>
+    <% unless @mailchimp.all_list_id.blank? -%>
+      <%= link_to 'Check', check_mailchimp_path(list_sys_name: 'all'), class: 'btn btn-mini' %>
+    <% end -%>
 
     <label for="p_former_students_list_id"><%= t('mailchimp.show.list_on_mailchimp_for.p_former_students') %></label>
     <%= f.select :p_former_students_list_id, @mailchimp_lists.map{|l| [l["name"],l["id"]]} %>
+    <% unless @mailchimp.p_former_students_list_id.blank? -%>
+      <%= link_to 'Check', check_mailchimp_path(list_sys_name: 'p_former_students'), class: 'btn btn-mini' %>
+    <% end -%>
     
   </fieldset>
   

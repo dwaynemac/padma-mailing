@@ -1,25 +1,9 @@
-<% if @mailchimp.students_list_id -%>
-<legend><%= t('mailchimp.local_lists.students') %></legend>
 <table class="table table-striped">
-  <% @students.each do |c| -%>
-    <% present = @mailchimp.contact_in_list?(@mailchimp.students_list_id, c) -%>
+  <% @contacts.each do |c| -%>
+    <% present = @mailchimp.contact_in_list?(@list_id, c) -%>
     <tr class="<%= (present)? 'success' : 'error' %>">
       <td><%= c.first_name + " " + c.last_name %></td>
       <td><%= (present)? 'ok' : 'MISSING' %></td>
     </tr>
   <% end -%>
 </table>
-<% end -%>
-
-
-<% if @mailchimp.p_former_students_list_id -%>
-<legend><%= t('mailchimp.local_lists.p_former_students') %></legend>
-<table class="table">
-  <% @p_former_students.each do |c| -%>
-    <tr>
-      <td><%= c.first_name + " " + c.last_name %></td>
-      <td><%= @mailchimp.contact_in_list?(@mailchimp.p_former_students_list_id, c)? 'ok' : 'MISSING' %></td>
-    </tr>
-  <% end -%>
-</table>
-<% end -%>
