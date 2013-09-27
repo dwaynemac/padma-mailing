@@ -4,8 +4,13 @@ gem 'rails', '3.2.11'
 gem 'activity_stream_client', '~> 0.0.11'
 gem 'ffi', '~> 1.0.11'
 
+gem 'logical_model', '~> 0.5.8'
 gem 'contacts_client', '~> 0.0.17'
 gem 'accounts_client', '~> 0.0.16'
+
+gem 'gibbon'
+# gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
+
 gem 'mercury-rails'
 
 # CAS authentication
@@ -15,7 +20,6 @@ gem 'devise_cas_authenticatable', '1.0.0.alpha13'
 # authorization
 gem 'cancan'
 
-gem 'logical_model', '~> 0.5.1'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -41,13 +45,17 @@ group :production do
   gem 'pg'
 end
 
+group :development do
+  gem 'yard', '~> 0.7.4'
+  gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
+
+  gem 'git-pivotal-tracker-integration'
+end
+
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'capybara'
-
-  gem 'yard', '~> 0.7.4'
-  gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
 end

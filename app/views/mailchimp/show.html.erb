@@ -1,0 +1,6 @@
+<h1><%= t('mailchimp.show.your_mailchimp_lists') %></h1>
+<ul>
+<% @mailchimp_lists.each do |list| -%>
+  <li><%= list["name"] %></li>
+<% end -%>
+</ul>
