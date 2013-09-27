@@ -31,5 +31,10 @@ class MailchimpController < ApplicationController
     current_user.current_account.mailchimp_integration.update_attributes(params[:mailchimp_integration])
     redirect_to mailchimp_path
   end
+
+  def destroy
+    current_user.current_account.mailchimp_integration.destroy
+    redirect_to mailchimp_path
+  end
     
 end
