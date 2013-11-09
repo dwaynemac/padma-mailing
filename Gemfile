@@ -5,7 +5,7 @@ gem 'activity_stream_client', '~> 0.0.11'
 gem 'ffi', '~> 1.0.11'
 
 gem 'logical_model', '~> 0.5.8'
-gem 'contacts_client', '~> 0.0.17'
+gem 'contacts_client', '~> 0.0.21'
 gem 'accounts_client', '~> 0.0.16'
 
 gem 'gibbon'
