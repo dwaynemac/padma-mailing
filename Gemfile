@@ -20,7 +20,6 @@ gem 'devise_cas_authenticatable', '1.0.0.alpha13'
 # authorization
 gem 'cancan'
 
-
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -62,4 +61,8 @@ group :development, :test do
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'capybara'
+end
+
+group :test do
+  gem 'rake'
 end

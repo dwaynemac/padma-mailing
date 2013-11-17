@@ -301,6 +301,7 @@ DEPENDENCIES
   paperclip
   pg
   rails (= 3.2.11)
+  rake
   rspec-rails
   sass-rails (~> 3.2.3)
   shoulda
