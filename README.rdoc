@@ -1,4 +1,4 @@
-== Mailing WS
+== Mailgin WS {<img src="https://travis-ci.org/dwaynemac/padma-mailing.png" />}[https://travis-ci.org/dwaynemac/padma-mailing] {<img src="https://codeclimate.com/github/dwaynemac/padma-mailing.png" />}[https://codeclimate.com/github/dwaynemac/padma-mailing] {<img src="https://gemnasium.com/dwaynemac/padma-mailing.png" alt="Dependecies" />}[https://gemnasium.com/dwaynemac/padma-mailing] {<img src="https://coveralls.io/repos/dwaynemac/padma-mailing/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/dwaynemac/padma-mailing]
 
 Para empezar este modulo copiará la funcionalidad de mailing de Kshema. solamente.
 
