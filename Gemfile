@@ -44,10 +44,12 @@ group :production do
   gem 'pg'
 end
 
-group :development do
+group :doc do
   gem 'yard', '~> 0.7.4'
   gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
+end
 
+group :development do
   gem 'git-pivotal-tracker-integration'
 
   gem 'foreman'
