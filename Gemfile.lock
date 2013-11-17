@@ -74,6 +74,12 @@ GEM
     contacts_client (0.0.21)
       logical_model (~> 0.5.8)
       railties (>= 3.1)
+    coveralls (0.7.0)
+      multi_json (~> 1.3)
+      rest-client
+      simplecov (>= 0.7)
+      term-ansicolor
+      thor
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
     debugger (1.6.1)
@@ -90,6 +96,7 @@ GEM
       devise (>= 1.0.6)
       rubycas-client (>= 2.2.1)
     diff-lcs (1.1.3)
+    docile (1.1.0)
     dotenv (0.9.0)
     erubis (2.7.0)
     ethon (0.4.2)
@@ -140,6 +147,7 @@ GEM
       less (~> 2.2.0)
     libv8 (3.11.8.13)
     libxml-ruby (2.7.0)
+    lockfile (2.1.0)
     logical_model (0.5.8)
       activemodel
       activesupport
@@ -241,6 +249,12 @@ GEM
     shoulda-matchers (1.4.2)
       activesupport (>= 3.0.0)
       bourne (~> 1.1.2)
+    simplecov (0.8.1)
+      docile (~> 1.1.0)
+      lockfile (>= 2.1.0)
+      multi_json
+      simplecov-html (~> 0.8.0)
+    simplecov-html (0.8.0)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -248,11 +262,14 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
     subcontractor (0.6.1)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
     therubyracer (0.11.3)
       libv8 (~> 3.11.8.12)
       ref
     thor (0.18.1)
     tilt (1.4.1)
+    tins (0.13.1)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -285,6 +302,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 3.2.1)
   contacts_client (~> 0.0.21)
+  coveralls
   debugger
   devise (= 1.5.0)
   devise_cas_authenticatable (= 1.0.0.alpha13)

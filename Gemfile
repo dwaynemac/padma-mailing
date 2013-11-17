@@ -65,4 +65,5 @@ end
 
 group :test do
   gem 'rake'
+  gem 'coveralls', require: false
 end

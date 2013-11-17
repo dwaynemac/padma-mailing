@@ -21,3 +21,4 @@ Procfile.dev
 /public/*
 *.swp
 *.swo
+/coverage
