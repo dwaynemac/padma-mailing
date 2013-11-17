@@ -16,13 +16,15 @@ describe Api::V0::ScheduledMailsController do
 
   describe "#index" do
     before do
-      PadmaAccount.stub!(:find).and_return(PadmaAccount.new(:name => @account.name, :enabled => true))
       @user = FactoryGirl.create(:user)
-      sign_in(@user)
-      get :index, format: :json, app_key: 'f06634e2ccb74104f3e8c8f56a136268', account_name: @account.name, username: @user.username,
-          where: {recipient_email: @email}
+      get :index,
+        format: :json,
+        app_key: ENV['app_key'],
+        account_name: @account.name,
+        username: @user.username,
+        where: {recipient_email: @email}
     end
-    it { response.should be_success }
+    it { should respond_with 200 }
     it "should return an array with one scheduled mail and a total number of 1" do
       body = JSON.parse(response.body)
       body.should include('total')
