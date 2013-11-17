@@ -46,7 +46,7 @@ end
 
 group :doc do
   gem 'yard', '~> 0.7.4'
-  gem 'yard-rest', git: 'git@github.com:dwaynemac/yard-rest-plugin.git'
+  gem 'yard-rest', github: 'dwaynemac/yard-rest-plugin'
 end
 
 group :development do
