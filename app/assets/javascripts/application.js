@@ -15,6 +15,5 @@
 //= require twitter/bootstrap
 //= require templates
 //= require triggers
-//= require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
