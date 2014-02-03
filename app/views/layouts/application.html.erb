@@ -12,26 +12,28 @@
 
 </head>
 <body>
-<%= render 'layouts/navbar' %>
-<div class="container">
-  <div class="content">
-    <div class="row">
-      <div class="span12" id="flash_messages">
-        <%= render 'shared/flash_messages' %>
+<div class="row">
+  <%= render 'layouts/navbar' %>
+  <div class="container">
+    <div class="content">
+      <div class="row">
+        <div class="span12" id="flash_messages">
+          <%= render 'shared/flash_messages' %>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="span12">
-        <%= yield %>
-      </div>
+      <div class="row">
+        <div class="span12">
+          <%= yield %>
+        </div>
 
-    </div><!--/row-->
-  </div><!--/content-->
+      </div><!--/row-->
+    </div><!--/content-->
 
-  <footer>
-    <p>&copy; PADMA 2012</p>
-  </footer>
+    <footer>
+      <p>&copy; PADMA 2012</p>
+    </footer>
 
+  </div>
 </div>
 
 </body>
