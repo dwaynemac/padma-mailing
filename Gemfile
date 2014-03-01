@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 ruby '1.9.3'
 
-ruby '1.9.3'
-
 gem 'rails', '3.2.11'
 gem 'activity_stream_client', '~> 0.0.11'
 gem 'ffi', '~> 1.0.11'
