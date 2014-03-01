@@ -14,7 +14,9 @@ describe TemplatesController do
         get :index
       end
       it { should respond_with(:success) } # response.should be_success
-      it { should assign_to(:templates) }
+      it "should assign to templates" do
+        assigns(:templates).should_not be_nil
+      end
     end
   end
 
