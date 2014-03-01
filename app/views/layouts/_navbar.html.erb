@@ -37,12 +37,11 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
-      <%= link_to image_tag('logo_30px.png'), root_url, class: "navbar-brand" %>
     </button>
   </div>
   <div class="collapse navbar-collapse navbar-ex2-collapse">
     <ul class="nav navbar-nav">
-      <%= link_to image_tag('logo_30px.png'), root_url, class: "navbar-brand fix-logo-height" %>
+      <%= link_to image_tag('logo_30px.png'), root_url, class: "navbar-brand fix-logo-height hidden-xs" %>
       <%= content_tag :li, link_to(t('layouts.navbar.templates'), templates_url), class: ('active' if controller_name == 'templates') %>
       <%= content_tag :li, link_to(t('layouts.navbar.triggers'), triggers_url), class: ('active' if controller_name == 'triggers') %>
       <%= content_tag :li, link_to(t('layouts.navbar.scheduled_mails'), scheduled_mails_url), class: ('active' if controller_name == 'scheduled_mails') %>
