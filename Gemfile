@@ -54,6 +54,7 @@ end
 
 group :development do
   gem 'git-pivotal-tracker-integration'
+  gem 'padma-deployment'
 
   gem 'foreman'
   gem 'subcontractor', '0.6.1'
