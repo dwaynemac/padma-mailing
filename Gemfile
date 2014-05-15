@@ -13,6 +13,8 @@ gem 'accounts_client', '~> 0.0.16'
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 
+gem 'localeapp'
+
 gem 'mercury-rails'
 
 # CAS authentication
