@@ -152,6 +152,7 @@ GEM
       less-rails (~> 2.4.2)
     libv8 (3.16.14.3)
     libxml-ruby (2.7.0)
+    liquid (2.6.1)
     localeapp (0.7.2)
       gli
       i18n
@@ -317,6 +318,7 @@ DEPENDENCIES
   jquery-rails
   less-rails
   less-rails-bootstrap (~> 3.0.6)
+  liquid
   localeapp
   logical_model (~> 0.5.8)
   mercury-rails
