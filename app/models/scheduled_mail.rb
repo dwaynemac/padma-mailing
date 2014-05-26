@@ -18,7 +18,7 @@ class ScheduledMail < ActiveRecord::Base
 
     bcc = PadmaUser.find(self.username).try(:email) if self.username
 
-    PadmaMailer.template(template, recipient_email, bcc, account.padma.email).deliver
+    PadmaMailer.template(template, data_hash, recipient_email, bcc, account.padma.email).deliver
     update_attribute :delivered_at, Time.now
 
     # Send notification to activities
@@ -47,5 +47,17 @@ class ScheduledMail < ActiveRecord::Base
 
     json[:template_name] = self.template.name
     json
+  end
+
+  def data_hash
+    data_hash = ActiveSupport::JSON.decode(data)
+
+    contact = PadmaContact.find(data_hash['contact_id'], select: [:email, :first_name, :last_name, :gender, :global_teacher_username])
+    contact_drop = ContactDrop.new(contact);
+    
+    return {
+      'persona' => contact_drop,
+      'contact' => contact_drop
+    }
   end
 end
