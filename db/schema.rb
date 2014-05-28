@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140528140306) do
+ActiveRecord::Schema.define(:version => 20140528142018) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(:version => 20140528140306) do
     t.integer  "trigger_id"
     t.string   "key"
     t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "import_details", :force => true do |t|
+    t.integer  "value"
+    t.integer  "import_id"
+    t.string   "type"
+    t.text     "message"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
