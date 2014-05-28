@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140528142018) do
+ActiveRecord::Schema.define(:version => 20140528150741) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -51,9 +51,12 @@ ActiveRecord::Schema.define(:version => 20140528142018) do
     t.integer  "account_id"
     t.string   "status"
     t.text     "headers"
-    t.string   "csv_file"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.string   "csv_file_file_name"
+    t.string   "csv_file_content_type"
+    t.integer  "csv_file_file_size"
+    t.datetime "csv_file_updated_at"
   end
 
   create_table "mailchimp_integrations", :force => true do |t|

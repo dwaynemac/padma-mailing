@@ -47,32 +47,14 @@ class Api::V0::ImportsController < Api::V0::ApiController
   # @required import[object] valid values: TimeSlot, Attendance, TrialLesson
   # @required import[csv_file] CSV file
   # @required import[headers]
-  #           valid values for TimeSlot
-  #                                external_id
-  #                                name
-  #                                padma_uid
-  #                                start_at
-  #                                end_at
-  #                                monday
-  #                                tuesday
-  #                                wednesday
-  #                                thursday
-  #                                friday
-  #                                saturday
-  #                                sunday
-  #                                cultural_activity
-  #                                observations
-  #           valid values for Attendance                     
-  #                                attendance_on
-  #                                time_slot_external_id
-  #                                contact_external_id
-  #           valid values for TrialLesson
-  #                                contact_external_id
-  #                                time_slot_external_id
-  #                                trial_on
-  #                                padma_uid
-  #                                assisted
-  #                                archived
+  #           valid values
+  #                       name
+  #                       description
+  #                       subject
+  #                       content
+  #                       trigger
+  #                       header_image_url
+  #                       footer_image_url
   # @required import[account_name]
   #
   # @response_field id Import id
@@ -130,13 +112,7 @@ class Api::V0::ImportsController < Api::V0::ApiController
   private
 
   def initialize_import
-    ot = params[:import].delete(:object)
-    scope = case ot
-    when 'TimeSlot', 'Attendance', 'TrialLesson'
-      @account.send("#{ot.underscore}_imports")
-    else
-      @account.imports
-    end
+    scope = @account.imports
     scope.new(import_params)
   end
 

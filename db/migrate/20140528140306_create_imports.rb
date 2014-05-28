@@ -5,7 +5,6 @@ class CreateImports < ActiveRecord::Migration
       t.integer :account_id
       t.string :status
       t.text :headers
-      t.string :csv_file
 
       t.timestamps
     end
