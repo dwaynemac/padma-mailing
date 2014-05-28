@@ -5,7 +5,7 @@ class UserDrop < Liquid::Drop
   end
 
   def name
-    @padma_user.user_name.split('.').map(&:camelcase).join(' ')
+    @padma_user.username.split('.').map(&:camelcase).join(' ')
   end
   alias_method :nombre, :name
 
