@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140525160359) do
+ActiveRecord::Schema.define(:version => 20140527202115) do
 
   create_table "accounts", :force => true do |t|
     t.string    "name"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20140525160359) do
     t.string    "contact_id"
     t.string    "username"
     t.text      "data"
+    t.string    "event_key"
   end
 
   create_table "templates", :force => true do |t|
