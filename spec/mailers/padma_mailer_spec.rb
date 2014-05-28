@@ -21,7 +21,7 @@ describe PadmaMailer do
     account = FactoryGirl.create(:account)
     account.stub(:padma).and_return PadmaAccount.new email: 'asd@mail.com'
 
-    template = Template.new(name: "new_template", subject: @subject, content: "Hola {{persona.nombre_completo}}")
+    template = Template.new(name: "new_template", subject: @subject, content: "Hola {{persona.nombre_completo}} y {{persona.instructor.nombre}}")
     template.account = account
     template.save!
 
@@ -31,5 +31,6 @@ describe PadmaMailer do
 
     PadmaMailer.template(template, data_hash, recipient,'bcc@mail.com','from@mail.com').deliver
     last_email.body.raw_source.should include "Homer Simpson"
+    last_email.body.raw_source.should include "Alex Falke"
   end
 end
