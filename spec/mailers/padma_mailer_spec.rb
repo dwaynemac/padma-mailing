@@ -26,7 +26,7 @@ describe PadmaMailer do
     template.save!
 
     data_hash = {
-        'persona' => ContactDrop.new(PadmaContact.new(id: "1234", first_name: "Homer", last_name: "Simpson"))
+        'persona' => ContactDrop.new(PadmaContact.new(id: "1234", first_name: "Homer", last_name: "Simpson"), PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"))
     }
 
     PadmaMailer.template(template, data_hash, recipient,'bcc@mail.com','from@mail.com').deliver

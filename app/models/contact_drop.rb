@@ -1,7 +1,8 @@
 class ContactDrop < Liquid::Drop
 
-  def initialize(contact)
+  def initialize(contact, user)
     @contact = contact
+    @user_drop = UserDrop.new(user)
   end
 
   def full_name
@@ -28,11 +29,12 @@ class ContactDrop < Liquid::Drop
     gender == :female ? 'a' : 'o'
   end
 
+  def instructor
+    @user_drop
+  end
+
   #horario
     #horario.nombre, horario.hora, horario.instructor
-
-  #instructor
-    #instructor.nombre, instructor.genero, instructor.firma, instructor.mail, instructor.a_u_o
 
   #plan_vigente
     #plan_vigente.nombre, plan_vigente.fecha_inicio, plan_vigente.fecha_fin
