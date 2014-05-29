@@ -5,7 +5,7 @@ class PadmaMailer < ActionMailer::Base
   require 'uri'
   require 'open-uri'
 
-  def template(template, recipient, bcc, from)
+  def template(template, data_hash, recipient, bcc, from)
     return if template.nil?
     return if recipient.blank?
 
@@ -19,7 +19,7 @@ class PadmaMailer < ActionMailer::Base
     @from =  address
     @subject = template.subject
     @sent_on = Time.zone.now
-    @content = template.content
+    @content = Liquid::Template.parse(template.content).render(data_hash)
     template.attachments.each do |att|
       uri = att.attachment.s3_object(nil).url_for(:read, secure: true).to_s
       attachments[att.attachment_file_name] = open(uri).read

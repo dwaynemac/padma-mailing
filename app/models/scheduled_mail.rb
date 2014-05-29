@@ -1,5 +1,5 @@
 class ScheduledMail < ActiveRecord::Base
-  attr_accessible :local_account_id, :send_at, :template_id, :recipient_email, :delivered_at, :contact_id, :username
+  attr_accessible :local_account_id, :send_at, :template_id, :recipient_email, :delivered_at, :contact_id, :username, :event_key, :data
 
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
   belongs_to :template
@@ -16,9 +16,9 @@ class ScheduledMail < ActiveRecord::Base
   def deliver_now!
     return unless delivered_at.nil?
 
-    bcc = PadmaUser.find(self.username).try(:email) if self.username
+    bcc = padma_user.try(:email) if self.username
 
-    PadmaMailer.template(template, recipient_email, bcc, account.padma.email).deliver
+    PadmaMailer.template(template, data_hash, recipient_email, bcc, account.padma.email).deliver
     update_attribute :delivered_at, Time.now
 
     # Send notification to activities
@@ -47,5 +47,39 @@ class ScheduledMail < ActiveRecord::Base
 
     json[:template_name] = self.template.name
     json
+  end
+
+  def padma_user
+    unless @padma_user
+       @padma_user = PadmaUser.find(self.username)
+    end
+    return @padma_user
+  end
+
+  def data_hash
+    data_hash = {}
+    data_from_messaging = ActiveSupport::JSON.decode(data)
+
+    contact = PadmaContact.find(data_from_messaging['contact_id'], select: [:email, :first_name, :last_name, :gender, :global_teacher_username])
+    contact_drop = ContactDrop.new(contact, padma_user);
+    
+    data_hash.merge({
+      'persona' => contact_drop,
+      'contact' => contact_drop
+    })
+
+    case event_key.to_sym
+      #when :subscription_change
+      #when :communication
+      when :trial_lesson
+        trial_at = data_from_messaging[:trial_at]
+        trial_lesson_drop = TrialLessonDrop.new(trial_at, padma_user)
+        data_hash.merge({
+          'trial_lesson' => trial_lesson_drop,
+          'clase_prueba' => trial_lesson_drop
+        })
+      #when :birthday
+      #when :membership
+    end
   end
 end

@@ -10,8 +10,27 @@ describe PadmaMailer do
     template.account = account
     template.save!
 
-    PadmaMailer.template(template, recipient,'bcc@mail.com','from@mail.com').deliver
+    PadmaMailer.template(template, {}, recipient,'bcc@mail.com','from@mail.com').deliver
     last_email.to.should include(recipient)
     last_email.subject.should eq(@subject)
+  end
+
+  it "should use liquid to replace variables" do
+    @subject = "Hola Luis"
+    recipient = "luisperichon@gmail.com"
+    account = FactoryGirl.create(:account)
+    account.stub(:padma).and_return PadmaAccount.new email: 'asd@mail.com'
+
+    template = Template.new(name: "new_template", subject: @subject, content: "Hola {{persona.nombre_completo}} y {{persona.instructor.nombre}}")
+    template.account = account
+    template.save!
+
+    data_hash = {
+        'persona' => ContactDrop.new(PadmaContact.new(id: "1234", first_name: "Homer", last_name: "Simpson"), PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"))
+    }
+
+    PadmaMailer.template(template, data_hash, recipient,'bcc@mail.com','from@mail.com').deliver
+    last_email.body.raw_source.should include "Homer Simpson"
+    last_email.body.raw_source.should include "Alex Falke"
   end
 end

@@ -24,6 +24,8 @@ gem 'devise_cas_authenticatable', '1.0.0.alpha13'
 # authorization
 gem 'cancan'
 
+gem 'liquid'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
