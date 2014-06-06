@@ -1,0 +1,16 @@
+<%= f.fields_for :templates_triggerses, @trigger.templates_triggerses.new do |template| %>
+  <div class="control-group">
+    <label class="control-label"><span></span></label>
+    <div class="controls form-inline">
+      <%= template.hidden_field :template_id, id: 'template_id' %>
+      <%= template.text_field :offset_number, class: 'offset_number', placeholder: t('trigger.offset_number') %>
+      <%= template.select :offset_unit, TemplatesTriggers::VALID_UNITS, {}, class: 'selectpicker offset_unit', "data-live-search"=>"true", "data-width"=>"91px" %>
+      <div class = "right-arrow glyphicon glyphicon-play template-right-arrow"></div>
+      <div class="input-prepend offset_reference_block">
+        <span class="add-on"><%= t('trigger.since') %></span>
+        <%= template.select :offset_reference, [], {}, class: 'selectpicker offset_reference', "data-live-search"=>"true", "data-width"=>"275px"%>
+      </div>
+      <a data-association="templates_triggerses" class="remove_nested_fields btn btn-mini btn-danger remove_template_reference" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>
+    </div>
+  </div>
+  <%- end %>

@@ -1,80 +1,110 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
-
 $(document).ready ->
-  previous_event_name = ''
+  previous_event_name = undefined
+  add_count = 0
+  previous_event_name = ""
+  $(".selectpicker").selectpicker showSubtext: true
+  $(".selectpicker").addClass "set-background"
+  $(".event_names .filter-option").text "Select event name"
+  $(".select-template .filter-option").text "Select a template"
+  $(document).on "nested:fieldAdded", (event) ->
+    
+    # this field was just inserted into your form
+    bindFilterInstance()
+    $(".key_select").trigger "change"
+    $(".key_select").selectpicker "refresh"
+    return
+
   $("#trigger_event_name").focus ->
     previous_event_name = $(this).val()
+
   $("#trigger_event_name").change ->
-    if !$('#filters:empty').length or !$('#templates:empty').length
-      if confirm("filters and templates will be reseted.")
-        $("#filters").html('')
-        $("#templates").html('')
-      else
-        $(this).val(previous_event_name)
-    if $(this).val() == 'birthday'
-      $('#alert-message').show()
-    else
-      $('#alert-message').hide()
-
-  $("#trigger_event_name").trigger('change')
-
-  $("#add-filter").click ->
-    bindTemplateInstance()
-
-  $("#add-template").click ->
-    if $("#select-template").val() == ''
-      return false
+    $("#filters").html ""
+    $("#templates").html ""
     prefillTemplate()
-    $("#select-template option:selected").hide()
-    $("#select-template").prop('value','')
-    $("#templates").append($("div#new_trigger_template").html())
-    $(".remove-template").click -> removeThisTemplate(this)
-    return false
-
-# Transforms array to <option>..</option>
-# @param [Array] array_options. Each element can be a string or an Array [value,label]
-# @return [String] html options
-toSelectOptions = (array_options) ->
-  select_options = ""
-  for i in array_options
-    if typeof i == 'string'
-      select_options = select_options+"<option>"+i+"</option>"
+    enableContinue()
+    if $(this).val() is "birthday"
+      $("#alert-message").show()
     else
-      select_options = select_options+"<option value='"+i[0]+"'>"+i[1]+"</option>"
-  return select_options
+      $("#alert-message").hide()
+    if $(this).val() is "trial_lesson" or $(this).val() is "membership"
+      $("#add_more_filter").hide()
+      return
+    $("#add_more_filter").click()
+    return
 
-removeThisTemplate = (e) ->
-  div = $(e).parents('div.control-group:first')
-  id = div.prop('id')
-  div.remove()
-  $("#select-template option[value="+id+"]").show()
+  $("#select-template").change ->
+    prefillTemplate()
+    refreshOffsetReference()
+    enableSubmitTrigger()
+    return
 
-removeThisFilter = (e) ->
-  $(e).parents('div.control-group:first').remove()
+  $("#continue-part2").on "click", ->
+    if $("#trigger_event_name").val() is ""
+      false
+    else
+      $(".part2").show()
+      $(this).hide()
+    return
 
-setOptions = (options,select) ->
-  select.html(toSelectOptions(options))
+  $(".submit_trigger").on "click", ->
+    if $("#select-template").val() is ""
+      disableSubmitTrigger()
+      false
 
-bindTemplateInstance = () ->
-  suggested_options = $("div#new_filter").data('options')['suggested_values'][$('#trigger_event_name').val()]
-  setOptions(Object.keys(suggested_options),$("div#new_filter .key_select"))
+  prefillTemplate = ->
+    template_id = undefined
+    $("select.offset_reference").empty()
+    if $("select#select-template").val() is ""
+      refreshOffsetReference()
+      return
+    template_id = $("#select-template").val()
+    $("#template_id").val template_id
+    setOptions $("div#new_trigger_template").data("options")["offset_references"][$("#trigger_event_name").val()], $("select.offset_reference")
+    refreshOffsetReference()
+    return
 
-  $("#filters").append($("div#new_filter").html())
+  bindFilterInstance = ->
+    suggested_options = undefined
+    suggested_options = $("div#new_filter").data("options")["suggested_values"][$("#trigger_event_name").val()]
+    setOptions Object.keys(suggested_options), $("#filters select.key_select:last")
+    $(".key_select").selectpicker "refresh"
+    $("#add_more_filter").show()
+    $("select.key_select").change ->
+      select_box = $(this).siblings("select.value_select")
+      $(select_box).empty()
+      setOptions suggested_options[$(this).val()], select_box
+      $(select_box).selectpicker "refresh"
+      return
 
-  $('.remove-filter').click ->
-    removeThisFilter(this)
-  $(".key_select").change ->
-    setOptions(suggested_options[$(this).val()],$(this).siblings('select.value_select'))
-  $(".key_select").trigger('change')
+    return
 
-prefillTemplate = () ->
-  template_id = $("#select-template").val()
-  el = $("div#new_trigger_template")
-  el.find('div.control-group').prop('id', template_id)
-  el.find('input[type=hidden] ').val(template_id)
-  setOptions(
-    $("div#new_trigger_template").data('options')['offset_references'][$('#trigger_event_name').val()],
-    el.find('#trigger_templates_triggerses_attributes__offset_reference'))
-  el.find('label span').text($("#select-template option:selected").text())
+  setOptions = (options, select) ->
+    $.each options, (key, value) ->
+      $(select).append $("<option></option>").attr("value", value).text(value)
+      return
+
+    return
+
+  refreshOffsetReference = ->
+    $(".offset_reference").selectpicker "refresh"
+    return
+
+  disableContinueButton = ->
+    $("#continue-part2").attr "disabled", true
+    return
+
+  enableContinue = ->
+    $("#continue-part2").attr "disabled", false
+    return
+
+  disableSubmitTrigger = ->
+    $(".submit_trigger").attr "disabled", true
+    return
+
+  enableSubmitTrigger = ->
+    $(".submit_trigger").attr "disabled", false
+    return
+
+  disableContinueButton()
+  disableSubmitTrigger()
+  return

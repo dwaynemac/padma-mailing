@@ -1,0 +1,14 @@
+<%= f.fields_for :filters, @trigger.filters.new do |filter| %>
+  <div class="control-group">
+    <label class="control-label">Filter</label>
+    <div class="controls form-inline">
+      <%= filter.select :key, [], {}, class: 'selectpicker key_select', "data-live-search"=>"true", "data-width"=>"320px" %>
+      <div class = "right-arrow glyphicon glyphicon-play"></div>
+      <%= filter.select :value, [], {}, class: 'selectpicker value_select', "data-live-search"=>"true", "data-width"=>"320px" %>
+      <!-- <a class="remove-filter btn btn-mini btn-danger" rel="nofollow">x</a> -->
+      <a data-association="filters" class="remove_nested_fields btn btn-mini btn-danger" href="javascript:void(0)">
+        <i class="glyphicon glyphicon-remove"></i>
+      </a>
+    </div>
+  </div>
+<% end %>

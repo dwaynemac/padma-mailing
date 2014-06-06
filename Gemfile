@@ -25,6 +25,7 @@ gem 'devise_cas_authenticatable', '1.0.0.alpha13'
 gem 'cancan'
 
 gem 'liquid'
+gem "nested_form"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
