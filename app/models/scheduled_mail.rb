@@ -1,5 +1,7 @@
 class ScheduledMail < ActiveRecord::Base
-  attr_accessible :local_account_id, :send_at, :template_id, :recipient_email, :delivered_at, :contact_id, :username, :event_key, :data
+  attr_accessible :local_account_id, :send_at, :template_id,
+                  :recipient_email, :delivered_at, :contact_id,
+                  :username, :event_key, :data
 
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
   belongs_to :template
@@ -58,7 +60,7 @@ class ScheduledMail < ActiveRecord::Base
 
   def data_hash
     data_hash = {}
-    data_from_messaging = ActiveSupport::JSON.decode(data)
+    data_from_messaging = data.blank?? {} : ActiveSupport::JSON.decode(data)
 
     contact = PadmaContact.find(data_from_messaging['contact_id'], select: [:email, :first_name, :last_name, :gender, :global_teacher_username])
     contact_drop = ContactDrop.new(contact, padma_user);
@@ -68,18 +70,20 @@ class ScheduledMail < ActiveRecord::Base
       'contact' => contact_drop
     })
 
-    case event_key.to_sym
-      #when :subscription_change
-      #when :communication
-      when :trial_lesson
-        trial_at = data_from_messaging[:trial_at]
-        trial_lesson_drop = TrialLessonDrop.new(trial_at, padma_user)
-        data_hash.merge({
-          'trial_lesson' => trial_lesson_drop,
-          'clase_prueba' => trial_lesson_drop
-        })
-      #when :birthday
-      #when :membership
+    unless event_key.blank?
+      case event_key.to_sym
+        #when :subscription_change
+        #when :communication
+        when :trial_lesson
+          trial_at = data_from_messaging[:trial_at]
+          trial_lesson_drop = TrialLessonDrop.new(trial_at, padma_user)
+          data_hash.merge({
+            'trial_lesson' => trial_lesson_drop,
+            'clase_prueba' => trial_lesson_drop
+          })
+        #when :birthday
+        #when :membership
+      end
     end
   end
 end
