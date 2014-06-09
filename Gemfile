@@ -24,6 +24,9 @@ gem 'devise_cas_authenticatable', '1.0.0.alpha13'
 # authorization
 gem 'cancan'
 
+# Delayed Job
+gem 'delayed_job_active_record' # must be declared after 'protected_attributes' gem
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
