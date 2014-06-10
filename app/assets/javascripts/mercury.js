@@ -30,6 +30,7 @@ window.Mercury = {
 
   // # Mercury Configuration
   config: {
+    
     // ## Toolbars
     //
     // This is where you can customize the toolbars by adding or removing buttons, or changing them and their
@@ -105,7 +106,7 @@ window.Mercury = {
         insertMedia:           ['Media', 'Insert Media (images and videos)', { modal: '/mercury/modals/media.html', regions: ['full', 'markdown'] }],
         insertTable:           ['Table', 'Insert Table', { modal: '/mercury/modals/table.html', regions: ['full', 'markdown'] }],
         insertCharacter:       ['Character', 'Special Characters', { modal: '/mercury/modals/character.html', regions: ['full', 'markdown'] }],
-        snippetPanel:          ['Snippet', 'Snippet Panel', { panel: '/mercury/panels/snippets.html' }],
+        snippetPanel:          ['Merge tags', 'Tags panel', { panel: '/mercury/panels/snippets.html' }],
         /*sep2:                  ' ',
         historyPanel:          ['History', 'Page Version History', { panel: '/mercury/panels/history.html' }],
         sep3:                  ' ',
@@ -187,9 +188,9 @@ window.Mercury = {
       snippets: {
         _custom:               true,
         actions:               {
-          editSnippet:         ['Edit Snippet Settings'],
+          editSnippet:         ['Edit Tag'],
           sep1:                ' ',
-          removeSnippet:       ['Remove Snippet']
+          removeSnippet:       ['Remove Tag']
           }
         }
       },
@@ -471,6 +472,10 @@ $(window).bind('mercury:ready', function() {
     Mercury.saveUrl = link.data('save-url');
 
     link.hide();
+    
+    Mercury.Snippet.load({
+      snippet_0: {name: 'example', options: {'favorite_beer': "Bells Hopslam", 'first_name': "Jeremy"}}
+    });
 });
 
 $(window).bind('mercury:saved', function() {

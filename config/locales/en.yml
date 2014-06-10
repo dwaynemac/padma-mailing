@@ -10,6 +10,15 @@ en:
       add_attachemnts: Add attachment
     deliver:
       success: Template delivered
+    mercury:
+      snippets:
+        panel:
+          info: Please select your tag by drag and drop
+          contact: Contact
+          instructor: Instructor
+          trial_lesson: Trial Lesson
+          time_slot: Time Slot
+      lorem_ispum: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
   triggers:
     form:
       add_filter: Add filter
@@ -69,9 +78,17 @@ en:
         event_name: Event name
       trigger/templates_triggerses:
         template: Templates triggerses template
+      scheduled_mail:
+        recipient_email: Recipient email
+      template:
+        name: Name
+        subject: Subject
     models:
       templates_triggers: Templates triggers
       trigger: Trigger
+      mailchimp_integration: Mailchimp integration
+      scheduled_mail: Scheduled mail
+      template: Template
   date:
     abbr_day_names:
     - Sun
@@ -274,6 +291,8 @@ en:
       trigger:
         create: Create Trigger
       update: Update %{model}
+      mailchimp_integration:
+        create: Create Mailchimp integration
     titles:
       delete: Delete
       edit: Edit

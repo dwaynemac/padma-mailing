@@ -6,8 +6,8 @@
       <div class="control-group string optional">
         <label class="string optional control-label" for="options_first_name">Select Time Slot Tag</label>
         <div class="controls">
-          <% time_slot_options = [ ["Time", "time_slot.time"], 
-                                   ["Name", "time_slot.name"]] 
+          <% time_slot_options = [ ["Time", "%{time_slot.time}"], 
+                                   ["Name", "%{time_slot.name}"]] 
            %>
            <%= select_tag "time_slots", options_for_select(time_slot_options, params[:time_slots]), :class=>'span6'%>
         </div>

@@ -4,15 +4,15 @@
 
     <fieldset>
       <div class="control-group string optional">
-        <label class="string optional control-label" for="options_first_name">Select Contact Tag</label>
+        <label class="string optional control-label" >Select Contact Tag</label>
         <div class="controls">
-          <% contact_options = [["Full Name", "contact.full_name"],
-                ["First Name", "contact.first_name"],
-                ["Last Name", "contact.last_name"],
-                ["Gender", "contact.gender"], 
-                ["a_u_o", "contact.a_u_o"], 
-                ["Instructor Name", "contact.instructor.name"], 
-                ["Instructor Email", "contact.instructor.email"]] 
+          <% contact_options = [["Full Name", "%{contact.full_name}%"],
+                ["First Name", "%{contact.first_name}"],
+                ["Last Name", "%{contact.last_name}"],
+                ["Gender", "%{contact.gender}"], 
+                ["a_u_o", "%{contact.a_u_o}"], 
+                ["Instructor Name", "%{contact.instructor.name}"], 
+                ["Instructor Email", "%{contact.instructor.email}"]] 
            %>
            <%= select_tag "contacts", options_for_select(contact_options, params[:contacts]), :class=>'span6'%>
         </div>
