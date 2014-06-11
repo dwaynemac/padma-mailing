@@ -472,10 +472,10 @@ $(window).bind('mercury:ready', function() {
     Mercury.saveUrl = link.data('save-url');
 
     link.hide();
-    
-    Mercury.Snippet.load({
-      snippet_0: {name: 'example', options: {'favorite_beer': "Bells Hopslam", 'first_name': "Jeremy"}}
-    });
+    var tag_init_values = $("#mercury_iframe").contents().find('#tags_values').data("init-values")
+    Mercury.Snippet.load(
+      tag_init_values
+    );
 });
 
 $(window).bind('mercury:saved', function() {
