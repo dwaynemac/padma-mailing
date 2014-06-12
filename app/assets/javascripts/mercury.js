@@ -489,3 +489,20 @@ $(window).bind('mercury:saved', function() {
     }
 
 });
+
+$(document).ready(function(){
+  $(document).on('change','.mercury-modal select', function (e) {
+    set_description($("option:selected", this).val());
+  })
+})
+
+$(document).ajaxSuccess(function() {
+  if($(".mercury-modal").length){
+    set_description($(".mercury-modal select option:selected").val());
+  }
+});
+
+function set_description(str){
+  var data_description = $("#mercury_iframe").contents().find('#tag_description').data("tag_description")
+  $(".mercury-modal .description").text(data_description[str]);
+}

@@ -33,3 +33,8 @@
 .panel-info h4{
   margin: 0 0 10px !important;
 }
+
+.mercury-modal .description{
+  margin-left: 25px;
+  margin-top: 2px;
+}
