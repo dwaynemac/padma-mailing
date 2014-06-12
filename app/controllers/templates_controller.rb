@@ -114,6 +114,7 @@ class TemplatesController < ApplicationController
       return unless snippet
       new_snippet_value = params[:content][:template_content][:snippets][snippet].values.last rescue nil
       return unless new_snippet_value
+      new_snippet_value = new_snippet_value.values.last if new_snippet_value.is_a? Hash
       div.content = new_snippet_value
     end
     params[:content][:template_content][:value] = doc.inner_html
@@ -138,7 +139,7 @@ class TemplatesController < ApplicationController
     when "time_slot"
       {"Name"=> "%{time_slot.name}"}
     when "contact"
-      {"Full Name" => "%{contact.full_name}%"}
+      {"Full Name" => "%{contact.full_name}"}
     when "instructor"
       {"Name" => "%{instructor.name}"}
     when "trial_lesson"
