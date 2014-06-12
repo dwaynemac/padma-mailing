@@ -115,7 +115,7 @@ class TemplatesController < ApplicationController
       new_snippet_value = params[:content][:template_content][:snippets][snippet].values.last rescue nil
       return unless new_snippet_value
       new_snippet_value = new_snippet_value.values.last if new_snippet_value.is_a? Hash
-      div.content = new_snippet_value
+      div.content = Template.convert_tag_into_liquid_format(new_snippet_value)
     end
     params[:content][:template_content][:value] = doc.inner_html
   end
@@ -130,20 +130,22 @@ class TemplatesController < ApplicationController
                   options: tag_options_hash(name)
                 }
       )
+      div.content = Template.convert_tag_into_liquid_format(div.text, false)
     end
+    @template.content = doc.to_s
     hash.to_json
   end
 
   def tag_options_hash(name)
     case name
     when "time_slot"
-      {"Name"=> "%{time_slot.name}"}
+      {"Name"=> "[Time Slot's Name]"}
     when "contact"
-      {"Full Name" => "%{contact.full_name}"}
+      {"Full Name" => "[Contact's Full Name]"}
     when "instructor"
-      {"Name" => "%{instructor.name}"}
+      {"Name" => "[Instructor's Name]"}
     when "trial_lesson"
-      {"Date" => "%{trial_lesson.date}"}
+      {"Date" => "[Trial Lesson's Date]"}
     end
   end
 

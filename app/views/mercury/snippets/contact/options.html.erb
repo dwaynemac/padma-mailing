@@ -6,13 +6,13 @@
       <div class="control-group string optional">
         <label class="string optional control-label" >Select Contact Tag</label>
         <div class="controls">
-          <% contact_options = [["Full Name", "%{contact.full_name}%"],
-                ["First Name", "%{contact.first_name}"],
-                ["Last Name", "%{contact.last_name}"],
-                ["Gender", "%{contact.gender}"], 
-                ["a_u_o", "%{contact.a_u_o}"], 
-                ["Instructor Name", "%{contact.instructor.name}"], 
-                ["Instructor Email", "%{contact.instructor.email}"]] 
+          <% contact_options = [["Full Name", "[Contact's Full Name]"],
+                ["First Name", "[Contact's First Name]"],
+                ["Last Name", "[Contact's Last Name]"],
+                ["Gender", "[Contact's Gender]"], 
+                ["a_u_o", "[Contact's a_u_o]"], 
+                ["Instructor Name", "[Contact's Instructor Name]"], 
+                ["Instructor Email", "[Contact's Instructor Email]"]] 
            %>
            <%= select_tag "contacts", options_for_select(contact_options, params[:contacts]), :class=>'span6'%>
         </div>

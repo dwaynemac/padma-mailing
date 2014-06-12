@@ -6,11 +6,11 @@
       <div class="control-group string optional">
         <label class="string optional control-label" for="options_first_name">Select Trial Lesson Tag</label>
         <div class="controls">
-          <% trial_lesson_options = [ ["Date", "%{trial_lesson.date}"], 
-                                      ["Instructor Name", "%{instructor.trial_lesson.name}"],
-                                      ["Instructor Email", "%{instructor.trial_lesson.email}"],
-                                      ["Time Slot Time", "%{instructor.time_slot.time}"],
-                                      ["Time Slot Name", "%{instructor.trial_lesson.name}"]] 
+          <% trial_lesson_options = [ ["Date", "[Trial Lesson's Date]"], 
+                                      ["Instructor Name", "[Instructor's Trial Lesson's Name]"],
+                                      ["Instructor Email", "[Instructor's Trial Lesson's Email]"],
+                                      ["Time Slot Time", "[Instructor's Time Slot Time]"],
+                                      ["Time Slot Name", "[Instructor's Trial Lesson Name]"]] 
            %>
            <%= select_tag "trial_lesson", options_for_select(trial_lesson_options, params[:trial_lesson]), :class=>'span6'%>
         </div>

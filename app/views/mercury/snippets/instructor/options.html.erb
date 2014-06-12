@@ -6,8 +6,8 @@
       <div class="control-group string optional">
         <label class="string optional control-label" for="options_first_name">Select Instructor Tag</label>
         <div class="controls">
-          <% instructor_options = [["Name", "%{instructor.name}"], 
-                ["Email", "%{instructor.email}"]] 
+          <% instructor_options = [["Name", "[Instructor's Name]"], 
+                ["Email", "[Instructor's email]"]] 
            %>
            <%= select_tag "instructor", options_for_select(instructor_options, params[:instructor]), :class=>'span6'%>
         </div>
