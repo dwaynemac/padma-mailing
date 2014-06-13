@@ -23,7 +23,7 @@
 
 <div class="control-group">
   Content
-  <div class="controls template_textarea" id="template_content" data-mercury="full">
+  <div class="controls template_textarea" id="template_content" data-mercury="full", class="mercury-region" data-type="editable">
     <%= @template.content.html_safe unless @template.content.nil? %>
   </div>
 </div>

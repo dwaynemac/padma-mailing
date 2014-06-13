@@ -17,8 +17,10 @@
 
 <p>
   <b>Content</b><br>
-  <%= @template.content.html_safe %>
 </p>
+<div>
+  <%= @template.content.html_safe %>
+</div>
 
 <b>Attachments</b>
 <table id="att-table" class="table table-condensed table-hover" >
@@ -60,3 +62,4 @@
               class: 'btn' %>
   <%= link_to 'Delete', template_path(@template), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
 </div>
+

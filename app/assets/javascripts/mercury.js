@@ -413,7 +413,7 @@ window.Mercury = {
         tr:     [],
         th:     ['colspan', 'rowspan'],
         td:     ['colspan', 'rowspan'],
-        div:    ['class'],
+        div:    ['class', 'style'],
         span:   ['class'],
         ul:     [],
         ol:     [],
@@ -447,7 +447,8 @@ window.Mercury = {
       '[data-mercury] th    { border: 1px dotted red; min-width: 6px; }' +
       '[data-mercury] td    { border: 1px dotted red; min-width: 6px; }' +
       '[data-mercury] .mercury-textarea       { border: 0; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; resize: none; }' +
-      '[data-mercury] .mercury-textarea:focus { outline: none; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }'
+      '[data-mercury] .mercury-textarea:focus { outline: none; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }' +
+      '#template_content div {color: red; display: inline-block;}'
   },
 
   // ## Silent Mode
