@@ -120,11 +120,48 @@ class Import < ActiveRecord::Base
   private
 
   def build_template_content(content)
-    # hacer un grep y reemplazar la variable liquid header y footer por los valores pasados en el csv
+    header = self.mail_header
+    if !self.mail_header.nil?
+      header_image_tag = %(<img src="#{self.mail_header.url}" border="0" /><br/>)
+      content.gsub(/{{header}}/, header_image_tag)
+    end
+    if |self.mail_footer.nil?
+      footer_image_tag = %(<br/><img src="#{self.mail_footer.url}" border="0" />)
+      content.gsub(/{{footer}}/, footer_image_tag)
+    end
+    content
   end
 
   def build_template_trigger(trigger_name)
-    #TODO
+    trigger = Trigger.new
+    trigger.local_account_id = self.account.id
+
+    case trigger_name
+      when 'birthday_alumnos'
+        trigger.event_name = 'birthday'
+        trigger.save
+        filter = Filter.create(trigger: trigger, key: 'local_status', value: 'student')
+      when 'birthday_prospects'
+        trigger.event_name = 'birthday'
+        trigger.save
+        filter = Filter.create(trigger: trigger, key: 'local_status', value: 'prospect')
+      when 'bienvenida'
+        trigger.event_name = 'subscription_change'
+        trigger.save
+        filter = Filter.create(trigger: trigger, key: 'type', value: 'enrollment')
+      when 'fin_plan'
+        #
+      when 'remind_prueba'
+        trigger.event_name = 'trial_lesson'
+        trigger.save
+      when 'post_visita'
+        #
+      when 'post_first_month'
+        #
+      when 'post_a_month_of_visit_not_signed_in'
+        #
+    end
+    trigger 
   end
 
   def csv_file_handle
@@ -151,11 +188,11 @@ class Import < ActiveRecord::Base
     original_mail_footer_url = value_for(first_row, 'mail_footer')
 
     if !original_mail_header_url.blank?
-      # download and store image in s3
+      # TODO download and store image in s3
     end
 
     if !original_mail_footer_url.blank?
-      # download and store image in s3
+      # TODO download and store image in s3
     end
     
   end
