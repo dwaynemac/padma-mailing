@@ -23,7 +23,7 @@
 
 <div class="control-group">
   Content
-  <div class="controls template_textarea" id="template_content" data-mercury="full">
+  <div class="controls template_textarea" id="template_content" data-mercury="full", class="mercury-region" data-type="editable">
     <%= @template.content.html_safe unless @template.content.nil? %>
   </div>
 </div>
@@ -39,3 +39,6 @@
                 data: {save_url: mercury_update_template_path(@template)},
                 class: 'btn btn-mini' %>
 <% end %>
+
+<div class="hide" id="tags_values" data-init-values = "<%= @initialize_tags %>"></div>
+<div class="hide" id="tag_description" data-tag_description = "<%= tags_description.to_json %>"></div>

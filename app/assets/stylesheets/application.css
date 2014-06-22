@@ -12,4 +12,6 @@
  *= require twitter/bootstrap
  *= require menu
  *= require templates
+ *= require bootstrap-select.min
+ *= require triggers
  */

@@ -26,6 +26,8 @@ gem 'cancan'
 
 # Delayed Job
 gem 'delayed_job_active_record' # must be declared after 'protected_attributes' gem
+gem 'liquid'
+gem "nested_form"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

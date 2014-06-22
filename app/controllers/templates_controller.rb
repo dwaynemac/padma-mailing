@@ -2,6 +2,7 @@ class TemplatesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   load_and_authorize_resource
+  before_filter :modified_mercury_editor_tag_text, only: [:mercury_create, :mercury_update]
 
   def index
     # @templates initialized by load_and_authorize_resource
@@ -32,6 +33,7 @@ class TemplatesController < ApplicationController
   end
 
   def edit
+    @initialize_tags = mercury_tags_json
     # @template initialized by load_and_authorize_resource
   end
 
@@ -78,7 +80,6 @@ class TemplatesController < ApplicationController
   end
 
   def mercury_create
-
     name = strip_tags(params[:content][:template_name][:value]).gsub(/&nbsp;/i, "")
     description = strip_tags(params[:content][:template_description][:value]).gsub(/&nbsp;/i, "")
     subject = strip_tags(params[:content][:template_subject][:value]).gsub(/&nbsp;/i, "")
@@ -102,4 +103,50 @@ class TemplatesController < ApplicationController
 
     render text: ""
   end
+
+  private
+
+  def modified_mercury_editor_tag_text
+    doc = Nokogiri::HTML::DocumentFragment.parse(params[:content][:template_content][:value])
+    divs = doc.css('div')
+    divs.each do |div|
+      snippet = div.attributes["data-snippet"].try(:value)
+      return unless snippet
+      new_snippet_value = params[:content][:template_content][:snippets][snippet].values.last rescue nil
+      return unless new_snippet_value
+      new_snippet_value = new_snippet_value.values.last if new_snippet_value.is_a? Hash
+      div.content = Template.convert_tag_into_liquid_format(new_snippet_value)
+    end
+    params[:content][:template_content][:value] = doc.inner_html
+  end
+
+  def mercury_tags_json
+    hash = {}
+    doc = Nokogiri::HTML::DocumentFragment.parse(@template.content)
+    divs = doc.css('div')
+    divs.each do |div|
+      name = div.attributes["class"].value.split("-snippet").first
+      hash.merge!("#{div.attributes["data-snippet"].value}"=>{name: name, 
+                  options: tag_options_hash(name)
+                }
+      )
+      div.content = Template.convert_tag_into_liquid_format(div.text, false)
+    end
+    @template.content = doc.to_s
+    hash.to_json
+  end
+
+  def tag_options_hash(name)
+    case name
+    when "time_slot"
+      {"Name"=> "[Time Slot's Name]"}
+    when "contact"
+      {"Full Name" => "[Contact's Full Name]"}
+    when "instructor"
+      {"Name" => "[Instructor's Name]"}
+    when "trial_lesson"
+      {"Date" => "[Trial Lesson's Date]"}
+    end
+  end
+
 end

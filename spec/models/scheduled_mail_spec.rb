@@ -5,4 +5,11 @@ describe ScheduledMail do
   it { should belong_to(:template) }
 
   it { should validate_presence_of :recipient_email }
+
+  describe "data_hash" do
+    it "works if data is blank" do
+      sm = create(:scheduled_mail, data: nil)
+      expect{sm.data_hash}.not_to raise_exception
+    end
+  end
 end

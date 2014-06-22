@@ -30,6 +30,7 @@ window.Mercury = {
 
   // # Mercury Configuration
   config: {
+    
     // ## Toolbars
     //
     // This is where you can customize the toolbars by adding or removing buttons, or changing them and their
@@ -104,9 +105,9 @@ window.Mercury = {
         insertLink:            ['Link', 'Insert Link', { modal: '/mercury/modals/link.html', regions: ['full', 'markdown'] }],
         insertMedia:           ['Media', 'Insert Media (images and videos)', { modal: '/mercury/modals/media.html', regions: ['full', 'markdown'] }],
         insertTable:           ['Table', 'Insert Table', { modal: '/mercury/modals/table.html', regions: ['full', 'markdown'] }],
-        insertCharacter:       ['Character', 'Special Characters', { modal: '/mercury/modals/character.html', regions: ['full', 'markdown'] }]
-        /*snippetPanel:          ['Snippet', 'Snippet Panel', { panel: '/mercury/panels/snippets.html' }],
-        sep2:                  ' ',
+        insertCharacter:       ['Character', 'Special Characters', { modal: '/mercury/modals/character.html', regions: ['full', 'markdown'] }],
+        snippetPanel:          ['Merge tags', 'Tags panel', { panel: '/mercury/panels/snippets.html' }],
+        /*sep2:                  ' ',
         historyPanel:          ['History', 'Page Version History', { panel: '/mercury/panels/history.html' }],
         sep3:                  ' ',
         notesPanel:            ['Notes', 'Page Notes', { panel: '/mercury/panels/notes.html' }] */
@@ -187,9 +188,9 @@ window.Mercury = {
       snippets: {
         _custom:               true,
         actions:               {
-          editSnippet:         ['Edit Snippet Settings'],
+          editSnippet:         ['Edit Tag'],
           sep1:                ' ',
-          removeSnippet:       ['Remove Snippet']
+          removeSnippet:       ['Remove Tag']
           }
         }
       },
@@ -412,7 +413,7 @@ window.Mercury = {
         tr:     [],
         th:     ['colspan', 'rowspan'],
         td:     ['colspan', 'rowspan'],
-        div:    ['class'],
+        div:    ['class', 'style'],
         span:   ['class'],
         ul:     [],
         ol:     [],
@@ -471,6 +472,10 @@ $(window).bind('mercury:ready', function() {
     Mercury.saveUrl = link.data('save-url');
 
     link.hide();
+    var tag_init_values = $("#mercury_iframe").contents().find('#tags_values').data("init-values")
+    Mercury.Snippet.load(
+      tag_init_values
+    );
 });
 
 $(window).bind('mercury:saved', function() {
@@ -484,3 +489,20 @@ $(window).bind('mercury:saved', function() {
     }
 
 });
+
+$(document).ready(function(){
+  $(document).on('change','.mercury-modal select', function (e) {
+    set_description($("option:selected", this).val());
+  })
+})
+
+$(document).ajaxSuccess(function() {
+  if($(".mercury-modal").length){
+    set_description($(".mercury-modal select option:selected").val());
+  }
+});
+
+function set_description(str){
+  var data_description = $("#mercury_iframe").contents().find('#tag_description').data("tag_description")
+  $(".mercury-modal .description").text(data_description[str]);
+}
