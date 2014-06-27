@@ -54,9 +54,6 @@ $(document).ready ->
   prefillTemplate = ->
     template_id = undefined
     $("select.offset_reference").empty()
-    if $("select#select-template").val() is ""
-      refreshOffsetReference()
-      return
     template_id = $("#select-template").val()
     $("#template_id").val template_id
     setOptions $("div#new_trigger_template").data("options")["offset_references"][$("#trigger_event_name").val()], $("select.offset_reference")
