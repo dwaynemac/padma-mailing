@@ -324,6 +324,7 @@ DEPENDENCIES
   logical_model (~> 0.5.8)
   mercury-rails
   nested_form
+  nokogiri
   padma-deployment
   paperclip
   pg

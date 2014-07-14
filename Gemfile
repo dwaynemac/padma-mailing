@@ -17,6 +17,8 @@ gem 'localeapp'
 
 gem 'mercury-rails'
 
+gem 'nokogiri'
+
 # CAS authentication
 gem 'devise', '1.5.0'
 gem 'devise_cas_authenticatable', '1.0.0.alpha13'
