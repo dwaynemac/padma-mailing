@@ -109,7 +109,7 @@ window.Mercury = {
         insertCharacter:       ['Character', 'Special Characters', { modal: '/mercury/modals/character.html', regions: ['full', 'markdown'] }],
 */
         sep:                   ' ',
-        snippetPanel:          ['Dynamic tags','Dinamic data to personlize template. Eg: contact name, etc', { panel: '/mercury/panels/snippets.html' }],
+        //snippetPanel:          ['Dynamic tags','Dinamic data to personlize template. Eg: contact name, etc', { panel: '/mercury/panels/snippets.html' }],
         /*sep2:                  ' ',
         historyPanel:          ['History', 'Page Version History', { panel: '/mercury/panels/history.html' }],
         sep3:                  ' ',
