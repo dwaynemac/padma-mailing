@@ -111,9 +111,9 @@ class TemplatesController < ApplicationController
     divs = doc.css('div')
     divs.each do |div|
       snippet = div.attributes["data-snippet"].try(:value)
-      return unless snippet
+      next if snippet.nil?
       new_snippet_value = params[:content][:template_content][:snippets][snippet].values.last rescue nil
-      return unless new_snippet_value
+      next if new_snippet_value.nil?
       new_snippet_value = new_snippet_value.values.last if new_snippet_value.is_a? Hash
       div.content = Template.convert_tag_into_liquid_format(new_snippet_value)
     end
@@ -125,8 +125,11 @@ class TemplatesController < ApplicationController
     doc = Nokogiri::HTML::DocumentFragment.parse(@template.content)
     divs = doc.css('div')
     divs.each do |div|
-      name = div.attributes["class"].value.split("-snippet").first
-      hash.merge!("#{div.attributes["data-snippet"].value}"=>{name: name, 
+      name = div.attributes["class"].value.split("-snippet").first rescue nil
+      next if name.nil?
+
+      next if div.attributes["data-snippet"].nil?
+      hash.merge!(div.attributes["data-snippet"].value =>{name: name, 
                   options: tag_options_hash(name)
                 }
       )
