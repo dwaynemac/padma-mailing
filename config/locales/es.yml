@@ -1,0 +1,198 @@
+es:
+  activerecord:
+    attributes:
+      scheduled_mail:
+        recipient_email: 
+      template:
+        name: 
+        subject: 
+      templates_triggers:
+        template: 
+      trigger:
+        event_name: 
+      trigger/templates_triggerses:
+        template: 
+    models:
+      mailchimp_integration: 
+      scheduled_mail: 
+      template: 
+      templates_triggers: 
+      trigger: 
+  confirm: 
+  destroy: 
+  devise:
+    confirmations:
+      confirmed: 
+      send_instructions: 
+      send_paranoid_instructions: 
+    failure:
+      already_authenticated: 
+      inactive: 
+      invalid: 
+      invalid_token: 
+      locked: 
+      timeout: 
+      unauthenticated: 
+      unconfirmed: 
+    mailer:
+      confirmation_instructions:
+        subject: 
+      reset_password_instructions:
+        subject: 
+      unlock_instructions:
+        subject: 
+    omniauth_callbacks:
+      failure: 
+      success: 
+    passwords:
+      send_instructions: 
+      send_paranoid_instructions: 
+      updated: 
+      updated_not_active: 
+    registrations:
+      destroyed: 
+      inactive_signed_up: 
+      reasons:
+        inactive: 
+        locked: 
+        unconfirmed: 
+      signed_up: 
+      updated: 
+    sessions:
+      signed_in: 
+      signed_out: 
+    unlocks:
+      send_instructions: 
+      send_paranoid_instructions: 
+      unlocked: 
+  edit: 
+  errors:
+    messages:
+      already_confirmed: 
+      expired: 
+      not_found: 
+      not_locked: 
+      not_saved: 
+  filter:
+    suggested_values:
+      email: 
+      interview: 
+      phone_call: 
+      website_contact: 
+  hello: 
+  helpers:
+    actions: 
+    label:
+      trigger:
+        event_name: 
+    links:
+      back: 
+      cancel: 
+      confirm: 
+      destroy: 
+      new: 
+    submit:
+      mailchimp_integration:
+        create: 
+        update: 
+      trigger:
+        create: 
+    titles:
+      delete: 
+      edit: 
+      new: 
+      save: 
+  layouts:
+    navbar:
+      mailchimp: 
+      scheduled_mails: 
+      templates: 
+      triggers: 
+  mailchimp:
+    new:
+      api_key: 
+      api_key_help: 
+      setup_mailchimp_api_key: 
+      sync_times: 
+    show:
+      list_on_mailchimp_for:
+        all: 
+        p_former_students: 
+        students: 
+      list_syncronization: 
+  new: 
+  number:
+    human:
+      decimal_units:
+        units:
+          unit: ''
+      format:
+        delimiter: ''
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  scheduled_mail:
+    attributes:
+      delivered_at: 
+      recipient_email: 
+      send_at: 
+      template: 
+  scheduled_mails:
+    destroy:
+      success: 
+    index:
+      pending: 
+      title: 
+  templates:
+    deliver:
+      success: 
+    index:
+      add_attachemnts: 
+      contact_has_no_mail: 
+      deliver: 
+      deliver_to: 
+      deliver_to_headline: 
+    mercury:
+      snippets:
+        panel:
+          contact: Contacto
+      contact_description: ! 'Datos del contacto que recibe el email. ej: nombre, apellido, etc.'
+      instructor_description: Datos del instructor
+      time_slot_description: Datos del horario de clase como nombre y horario
+      trial_lesson_description: Datos de la clase de prueba
+      contact:
+        options:
+          select_tag: Seleccione el valor
+  trigger:
+    offset_number: 
+    offset_reference: 
+    offset_unit: 
+    since: 
+  triggers:
+    birthday:
+      warning: 
+    form:
+      add_filter: 
+      add_template: 
+    index:
+      delay_warning: 
+    new:
+      select_template: 
+      title: 
+  contact:
+    mercury:
+      tags:
+        a_u_o: A u O
+        first_name: Nombres
+        full_name: Nombre completo
+        gender: Género
+        instructor_email: Email del instructor
+        instructor_name: Nombre del instructor
+        last_name: Apellidos
+  mercury:
+    toolbar:
+      merge_tags_description: Datos dinámicos para personalizar la plantilla
+      merge_tags_title: Datos dinámicos

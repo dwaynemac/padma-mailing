@@ -1,6 +1,15 @@
 en:
-  hello: Hello world
   confirm: Are you sure?
+  contact:
+    mercury:
+      tags:
+        full_name: Full name
+        first_name: First name
+        last_name: Last name
+        gender: Gender
+        a_u_o: a or u
+        instructor_name: Contact's teacher name
+        instructor_email: Contact's teacher email
   templates:
     index:
       deliver: Send email
@@ -11,14 +20,22 @@ en:
     deliver:
       success: Template delivered
     mercury:
+      select_tag: Select value to insert
+      insert_tag: Insert tag in template
       snippets:
         panel:
           info: Please select your tag by drag and drop
           contact: Contact
+          contact_description: Tags with values of your contact like first or last name, gender, his teacher's name, etc.
           instructor: Instructor
+          instructor_description: Tags with values of the instructor that sends the email like name and email.
           trial_lesson: Trial Lesson
+          trial_lesson_description: Trial lesson tags like date, trial lesson's time slot's name, time slot time, etc.
           time_slot: Time Slot
-      lorem_ispum: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+          time_slot_description: Time Slot tags like time and name
+      contact:
+        options:
+          select_tag: 
   triggers:
     form:
       add_filter: Add filter
@@ -293,6 +310,7 @@ en:
       update: Update %{model}
       mailchimp_integration:
         create: Create Mailchimp integration
+        update: Update Mailchimp integration
     titles:
       delete: Delete
       edit: Edit
@@ -363,3 +381,7 @@ en:
       long: ! '%B %d, %Y %H:%M'
       short: ! '%d %b %H:%M'
     pm: pm
+  mercury:
+    toolbar:
+      merge_tags_description: 
+      merge_tags_title: 
