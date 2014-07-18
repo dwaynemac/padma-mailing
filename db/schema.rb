@@ -75,8 +75,9 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
   create_table "mailchimps", :force => true do |t|
     t.string   "api_key"
     t.string   "list"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "local_account_id"
   end
 
   create_table "mercury_images", :force => true do |t|
