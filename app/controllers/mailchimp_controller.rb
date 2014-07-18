@@ -35,19 +35,16 @@ class MailchimpController < ApplicationController
   end
 
   def new
-    @mailchimp = MailchimpIntegration.new
+    @mailchimp = Mailchimp.new
   end
 
   def create
-    @mailchimp = MailchimpIntegration.new
+    @mailchimp = Mailchimp.new
     @mailchimp.local_account_id = current_user.current_account.id
-    @mailchimp.api_key = params[:mailchimp_integration][:api_key]
-    if @mailchimp.lists.nil?
-      redirect_to mailchimp_path, alert: 'error'
-    else
-      @mailchimp.save
-      redirect_to mailchimp_path
-    end
+    @mailchimp.api_key = params[:mailchimp][:api_key]
+    @mailchimp.save
+
+    redirect_to mailchimp_path
   end
 
   def update
@@ -63,7 +60,7 @@ class MailchimpController < ApplicationController
   private
 
   def require_api_key
-    @mailchimp = current_user.current_account.mailchimp_integration
+    @mailchimp = current_user.current_account.mailchimp
     if @mailchimp.nil?
       redirect_to new_mailchimp_path
       return

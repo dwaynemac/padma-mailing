@@ -7,7 +7,7 @@ class Account < ActiveRecord::Base
   has_many :triggers, foreign_key: 'local_account_id'
   has_many :imports, foreign_key: :local_account_id
 
-  has_one :mailchimp_integration, foreign_key: :local_account_id
+  has_one :mailchimp, foreign_key: :local_account_id
 
   # Hook to Padma Account API
   # @param [TrueClass] cache: Specify if Cache should be used. default: true
