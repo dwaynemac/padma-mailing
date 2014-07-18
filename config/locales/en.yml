@@ -80,7 +80,8 @@ en:
       sync_times: Syncronization with mailchimp is done nighly.
       setup_mailchimp_api_key: Setup Mailchimp api key
       api_key: Api Key
-      api_key_help: See here how to get your ApiKey.
+      api_key_help: What is an ApiKey?
+      get_api_key: Get your ApiKey!
   layouts:
     navbar:
       templates: Templates

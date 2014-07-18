@@ -256,6 +256,10 @@ fr:
         p_former_students: 
         students: 
       list_syncronization: 
+  mercury:
+    toolbar:
+      merge_tags_description: 
+      merge_tags_title: 
   new: 
   number:
     currency:
@@ -374,7 +378,3 @@ fr:
         instructor_email: 
         instructor_name: 
         last_name: 
-  mercury:
-    toolbar:
-      merge_tags_description: 
-      merge_tags_title: 
