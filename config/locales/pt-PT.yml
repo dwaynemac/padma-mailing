@@ -18,6 +18,7 @@ pt-PT:
       template: 
       templates_triggers: 
       trigger: 
+      mailchimp: 
   confirm: 
   contact:
     mercury:
@@ -235,6 +236,8 @@ pt-PT:
       trigger:
         create: 
       update: Actualizar %{model}
+      mailchimp:
+        create: 
     titles:
       delete: 
       edit: 
@@ -252,6 +255,7 @@ pt-PT:
       api_key_help: 
       setup_mailchimp_api_key: 
       sync_times: 
+      get_api_key: 
     show:
       list_on_mailchimp_for:
         all: 

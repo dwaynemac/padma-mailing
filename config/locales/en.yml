@@ -107,6 +107,7 @@ en:
       mailchimp_integration: Mailchimp integration
       scheduled_mail: Scheduled mail
       template: Template
+      mailchimp: Mailchimp
   date:
     abbr_day_names:
     - Sun
@@ -312,6 +313,8 @@ en:
       mailchimp_integration:
         create: Create Mailchimp integration
         update: Update Mailchimp integration
+      mailchimp:
+        create: Create Mailchimp
     titles:
       delete: Delete
       edit: Edit
