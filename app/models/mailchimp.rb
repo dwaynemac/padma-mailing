@@ -1,7 +1,8 @@
 class Mailchimp < ActiveRecord::Base
   attr_accessible :api_key
-  attr_accessible :list
+  
   belongs_to :account, foreign_key: :local_account_id
+  has_many :lists
   
   # @return [Gibbon:API]
   def api
