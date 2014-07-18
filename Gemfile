@@ -35,10 +35,11 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem "less-rails"
   gem 'therubyracer', :platforms => :ruby
+  gem 'less-rails-bootstrap', '~> 3.0.6'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-fileupload-rails'
-  gem 'less-rails-bootstrap', '~> 3.0.6'
 end
+
 gem 'jquery-rails'
 
 # Mercury requires paperclip to use the image uploader
@@ -62,10 +63,9 @@ end
 group :development do
   gem 'git-pivotal-tracker-integration'
   gem 'padma-deployment'
-
+  gem 'debugger'
   gem 'foreman'
   gem 'subcontractor', '0.6.1'
-  gem 'debugger'
 end
 
 group :development, :test do
