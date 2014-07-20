@@ -263,6 +263,11 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.8)
+    strong_parameters (0.2.3)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
+      activesupport (~> 3.0)
+      railties (~> 3.0)
     subcontractor (0.6.1)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
@@ -330,6 +335,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   shoulda
   sqlite3
+  strong_parameters
   subcontractor (= 0.6.1)
   therubyracer
   uglifier (>= 1.0.3)

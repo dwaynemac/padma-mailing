@@ -82,6 +82,12 @@ en:
       api_key: Api Key
       api_key_help: What is an ApiKey?
       get_api_key: Get your ApiKey!
+    primary_list:
+      set_up_primary_list: Choose the list you want to sync with Padma
+      list: List
+      no_list: It seems you dont have any list created.
+      create_one: Create a list!
+      dont_know: Don't know how to create one?
   layouts:
     navbar:
       templates: Templates
@@ -315,6 +321,7 @@ en:
         update: Update Mailchimp integration
       mailchimp:
         create: Create Mailchimp
+        update: Update Mailchimp
     titles:
       delete: Delete
       edit: Edit

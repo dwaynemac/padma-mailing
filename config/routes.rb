@@ -22,6 +22,7 @@ Mailing::Application.routes.draw do
   resource  :mailchimp, controller: 'mailchimp', except: [:edit] do
     member do
       get :check
+      get :primary_list
     end
   end
 

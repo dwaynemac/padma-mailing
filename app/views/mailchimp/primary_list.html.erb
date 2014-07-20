@@ -1,0 +1,25 @@
+<%= form_for @mailchimp, url: mailchimp_path(@mailchimp) , method: :put do |f|  %>  
+  <fieldset>
+    <legend>
+      <%= t('mailchimp.primary_list.set_up_primary_list') %>
+    </legend>
+    
+
+    <% if !@lists.empty? %>
+      <label for="list_id">
+        <%= t('mailchimp.primary_list.list') %>
+      </label>
+      <%= f.select :primary_list_id, @lists.map {|list| [list.name, list.id]} %>
+    <% else %>
+      <label for="list_id">
+        <%= t('mailchimp.primary_list.no_list') %>
+        <%= link_to t('mailchimp.primary_list.create_one'), "https://us8.admin.mailchimp.com/lists/new-list/", target: '_blank'%>
+      </label>
+    <p class="help-block">
+      <%= link_to t('mailchimp.primary_list.dont_know'), "http://kb.mailchimp.com/article/how-do-i-create-a-new-list/", target: '_blank' %>
+    </p>
+    <% end %>
+  </fieldset>
+  
+  <%= f.submit nil, class: 'btn btn-primary' %>
+<% end -%>

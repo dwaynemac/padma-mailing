@@ -238,6 +238,7 @@ pt-PT:
       update: Actualizar %{model}
       mailchimp:
         create: 
+        update: 
     titles:
       delete: 
       edit: 

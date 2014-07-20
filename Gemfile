@@ -16,6 +16,7 @@ gem 'gibbon'
 gem 'mercury-rails'
 
 gem 'nokogiri'
+gem 'strong_parameters'
 
 # CAS authentication
 gem 'devise', '1.5.0'

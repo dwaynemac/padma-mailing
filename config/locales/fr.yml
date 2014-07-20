@@ -236,6 +236,7 @@ fr:
       update: Modifier ce(tte) %{model}
       mailchimp:
         create: 
+        update: 
     titles:
       delete: 
       edit: 
