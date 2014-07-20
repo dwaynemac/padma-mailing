@@ -1,6 +1,7 @@
 class Segment < ActiveRecord::Base
   attr_accessible :api_id, :query
-  has_one :mailchimp
+  belongs_to :list
   
   serialize :query, Hash
+  
 end

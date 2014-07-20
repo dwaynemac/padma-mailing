@@ -114,9 +114,9 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
   create_table "segments", :force => true do |t|
     t.text     "query"
     t.string   "api_id"
-    t.integer  "mailchimp_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "list_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "sessions", :force => true do |t|
