@@ -69,6 +69,21 @@ en:
   edit: Edit
   destroy: Delete
   new: New
+  list:
+    segments:
+      segments: Create your Segments
+      exstudent: Ex-Student
+      student: Student
+      prospect: Prospect
+      status: Status
+      only_man: Only Man
+      gender: Gender
+      coefficient: Coefficient
+      all: All
+      fp: FP
+      perfil: Target
+      pmas: Only PMAS
+      name: Name
   mailchimp:
     show:
       list_syncronization: List syncronization with mailchimp
@@ -83,7 +98,7 @@ en:
       api_key_help: What is an ApiKey?
       get_api_key: Get your ApiKey!
     primary_list:
-      set_up_primary_list: Choose the list you want to sync with Padma
+      set_up_primary_list: 
       list: List
       no_list: It seems you dont have any list created.
       create_one: Create a list!
@@ -114,6 +129,7 @@ en:
       scheduled_mail: Scheduled mail
       template: Template
       mailchimp: Mailchimp
+      list: List
   date:
     abbr_day_names:
     - Sun
@@ -322,6 +338,8 @@ en:
       mailchimp:
         create: Create Mailchimp
         update: Update Mailchimp
+      list:
+        update: Update List
     titles:
       delete: Delete
       edit: Edit

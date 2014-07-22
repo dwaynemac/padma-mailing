@@ -1,0 +1,67 @@
+<%= form_for @primary_list, url: lists_path(@primary_list), method: :put do |f|  %>  
+  <fieldset>
+    <legend>
+      <%= t('list.segments.segments') %>
+    </legend>
+    
+    <%= text_field :query, :count, size: 20 ,value: "2", hidden: 'true'%>
+    <% 2.times do |index|%> 
+
+      <%= text_field :query, "name_" + index.to_s, size: 20 , placeholder: t('list.segments.name')%>
+      <label for="status">
+        <%= t('list.segments.status')%>:
+      </label>
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary">
+          <%= check_box "status_" + index.to_s, "exstudent" %>
+          <%= t('list.segments.exstudent')%>
+        </label>
+        <label class="btn btn-primary">
+          <%= check_box "status_" + index.to_s, "student" %>
+          <%= t('list.segments.student')%>
+        </label>
+        <label class="btn btn-primary">
+          <%= check_box "status_" + index.to_s, "prospect" %>
+          <%= t('list.segments.prospect')%>
+        </label>
+      </div>
+    
+      <label for="gender">
+        <%= t('list.segments.gender')%>:
+      </label>
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary">
+          <%= check_box "gender_" + index.to_s, "only_man" %>
+          <%= t('list.segments.only_man')%>
+        </label>
+      </div>
+      
+      <label for="coefficient">
+        <%= t('list.segments.coefficient')%>:
+      </label>
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary active">
+          <%= radio_button :query, "coefficient_" + index.to_s, "all", {checked: "checked"}%>
+          <%= t('list.segments.all')%>
+        </label>
+        <label class="btn btn-primary">
+          <%= radio_button :query, "coefficient_" + index.to_s, "fp"%>
+          <%= t('list.segments.fp')%>
+        </label>
+        <label class="btn btn-primary">
+          <%= radio_button :query, "coefficient_" + index.to_s, "perfil"%>
+          <%= t('list.segments.perfil')%>
+        </label>
+        <label class="btn btn-primary">
+          <%= radio_button :query, "coefficient_" + index.to_s, "pmas"%>
+          <%= t('list.segments.pmas')%>
+        </label>
+      </div>
+      </br>
+      </br>
+    <% end %>
+
+  </fieldset>
+  <%= f.submit nil, class: 'btn btn-success' %>
+  
+<% end -%>

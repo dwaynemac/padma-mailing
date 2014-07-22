@@ -278,7 +278,7 @@ es:
         last_name: Apellido
   mercury:
     toolbar:
-      merge_tags_description: Datos dinámicos
+      merge_tags_description: Datos dinámicos para personalizar la plantilla
       merge_tags_title: Datos dinámicos
   date:
     abbr_day_names:

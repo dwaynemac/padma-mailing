@@ -82,6 +82,8 @@ class MailchimpController < ApplicationController
       redirect_to new_mailchimp_path
     elsif @mailchimp.primary_list.nil?
       redirect_to primary_list_mailchimp_path
+    elsif @mailchimp.primary_list.segments.empty?
+      redirect_to segments_lists_path
     end
   end
   

@@ -1,4 +1,6 @@
 Mailing::Application.routes.draw do
+  get "lists/segments"
+
   namespace :mercury do
      resources :images
   end
@@ -23,6 +25,12 @@ Mailing::Application.routes.draw do
     member do
       get :check
       get :primary_list
+    end
+  end
+  
+  resource :lists, only: [:update] do
+    member do
+      get :segments
     end
   end
 

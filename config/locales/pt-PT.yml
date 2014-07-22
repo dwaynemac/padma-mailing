@@ -19,6 +19,7 @@ pt-PT:
       templates_triggers: 
       trigger: 
       mailchimp: 
+      list: 
   confirm: 
   contact:
     mercury:
@@ -239,6 +240,8 @@ pt-PT:
       mailchimp:
         create: 
         update: 
+      list:
+        update: 
     titles:
       delete: 
       edit: 
@@ -263,6 +266,8 @@ pt-PT:
         p_former_students: 
         students: 
       list_syncronization: 
+    primary_list:
+      set_up_primary_list: 
   mercury:
     toolbar:
       merge_tags_description: 
@@ -383,3 +388,6 @@ pt-PT:
     new:
       select_template: 
       title: 
+  list:
+    segments:
+      segments: 

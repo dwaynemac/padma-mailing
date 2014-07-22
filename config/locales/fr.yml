@@ -19,6 +19,7 @@ fr:
       templates_triggers: 
       trigger: 
       mailchimp: 
+      list: 
   confirm: 
   date:
     abbr_day_names:
@@ -237,6 +238,8 @@ fr:
       mailchimp:
         create: 
         update: 
+      list:
+        update: 
     titles:
       delete: 
       edit: 
@@ -261,6 +264,8 @@ fr:
         p_former_students: 
         students: 
       list_syncronization: 
+    primary_list:
+      set_up_primary_list: 
   mercury:
     toolbar:
       merge_tags_description: 
