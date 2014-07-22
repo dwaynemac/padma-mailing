@@ -117,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.integer  "list_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "name"
   end
 
   create_table "sessions", :force => true do |t|
