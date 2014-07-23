@@ -21,10 +21,11 @@ Mailing::Application.routes.draw do
     end
   end
 
-  resource  :mailchimp, controller: 'mailchimp', except: [:edit] do
-    member do
-      get :check
-      get :primary_list
+  namespace :mailchimp do
+    resource :configuration do
+      member do
+        get :primary_list
+      end
     end
   end
   

@@ -67,25 +67,12 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "updated_at",   :null => false
   end
 
-  create_table "mailchimp_integrations", :force => true do |t|
-    t.integer  "local_account_id"
+  create_table "mailchimp_configurations", :force => true do |t|
     t.string   "api_key"
-    t.string   "students_list_id"
-    t.string   "p_former_students_list_id"
-    t.string   "p_prospects_list_id"
-    t.string   "p_nonstudents_list_id"
-    t.string   "all_nonstudents_list_id"
-    t.string   "all_list_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
-  create_table "mailchimps", :force => true do |t|
-    t.string   "api_key"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
     t.integer  "local_account_id"
     t.integer  "primary_list_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "mercury_images", :force => true do |t|
