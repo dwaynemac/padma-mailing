@@ -8,4 +8,5 @@ class Mailchimp::List < ActiveRecord::Base
   attr_accessible :name
   
   belongs_to :mailchimp_configuration, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::Configuration" 
+  has_many :mailchimp_segments, foreign_key: :mailchimp_list_id, class_name: "Mailchimp::Segment"
 end

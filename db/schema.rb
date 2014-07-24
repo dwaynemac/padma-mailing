@@ -75,6 +75,15 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "updated_at",                 :null => false
   end
 
+  create_table "mailchimp_segments", :force => true do |t|
+    t.text     "query"
+    t.string   "api_id"
+    t.integer  "mailchimp_list_id"
+    t.string   "name"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "mercury_images", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -96,15 +105,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.string   "username"
     t.text     "data"
     t.string   "event_key"
-  end
-
-  create_table "segments", :force => true do |t|
-    t.text     "query"
-    t.string   "api_id"
-    t.integer  "list_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-    t.string   "name"
   end
 
   create_table "sessions", :force => true do |t|
