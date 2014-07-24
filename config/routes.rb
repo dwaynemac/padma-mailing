@@ -22,17 +22,19 @@ Mailing::Application.routes.draw do
   end
 
   namespace :mailchimp do
+
     resource :configuration do
       member do
         get :primary_list
       end
     end
-  end
-  
-  resource :lists, only: [:update] do
-    member do
-      get :segments
+
+    resources :lists, only: [:update] do
+      member do
+        get :segments
+      end
     end
+
   end
 
   resources :scheduled_mails

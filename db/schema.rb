@@ -75,6 +75,14 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "updated_at",       :null => false
   end
 
+  create_table "mailchimp_lists", :force => true do |t|
+    t.string   "api_id"
+    t.integer  "mailchimp_configuration_id"
+    t.string   "name"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
   create_table "mercury_images", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"

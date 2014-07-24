@@ -22,15 +22,15 @@ class Mailchimp::Configuration < ActiveRecord::Base
   end
 
   def primary_list
-    List.find(primary_list_id) 
+    Mailchimp::List.find(primary_list_id) 
   end
   
   private
   
   def sync_lists
     api.lists.list['data'].each do |list_hash|
-      if List.where(api_id: list_hash['id']).empty?    
-        List.create(
+      if Mailchimp::List.where(api_id: list_hash['id']).empty?    
+        Mailchimp::List.create(
           api_id: list_hash['id'],
           name: list_hash['name'],
           mailchimp_configuration_id: id

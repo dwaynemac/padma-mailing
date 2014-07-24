@@ -1,9 +1,5 @@
 class RemoveListFromMailchimps < ActiveRecord::Migration
-  def up
-    remove_column :mailchimps, :list
-  end
-
-  def down
-    add_column :mailchimps, :list, :string
+  def change
+    remove_column :mailchimps, :list if table_exists?(:mailchimps)
   end
 end
