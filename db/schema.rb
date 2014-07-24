@@ -59,14 +59,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "csv_file_updated_at"
   end
 
-  create_table "lists", :force => true do |t|
-    t.string   "api_id"
-    t.integer  "mailchimp_id"
-    t.string   "name"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "mailchimp_configurations", :force => true do |t|
     t.string   "api_key"
     t.integer  "local_account_id"
