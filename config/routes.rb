@@ -1,5 +1,4 @@
 Mailing::Application.routes.draw do
-  get "lists/segments"
 
   namespace :mercury do
      resources :images

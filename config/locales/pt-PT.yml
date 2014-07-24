@@ -20,6 +20,7 @@ pt-PT:
       trigger: 
       mailchimp: 
       list: 
+      mailchimp/configuration: 
   confirm: 
   contact:
     mercury:
@@ -242,6 +243,9 @@ pt-PT:
         update: 
       list:
         update: 
+      mailchimp_configuration:
+        create: 
+        update: 
     titles:
       delete: 
       edit: 
@@ -391,3 +395,5 @@ pt-PT:
   list:
     segments:
       segments: 
+      name: 
+      status: 

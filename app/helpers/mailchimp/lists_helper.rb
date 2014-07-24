@@ -1,0 +1,2 @@
+module Mailchimp::ListsHelper
+end

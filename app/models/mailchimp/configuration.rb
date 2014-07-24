@@ -8,7 +8,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   attr_accessible :primary_list_id
   
   belongs_to :account, foreign_key: :local_account_id
-  has_many :lists
+  has_many :mailchimp_lists, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::List"
   
   after_create :sync_lists
   

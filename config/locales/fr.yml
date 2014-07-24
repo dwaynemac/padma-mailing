@@ -20,6 +20,7 @@ fr:
       trigger: 
       mailchimp: 
       list: 
+      mailchimp/configuration: 
   confirm: 
   date:
     abbr_day_names:
@@ -240,6 +241,9 @@ fr:
         update: 
       list:
         update: 
+      mailchimp_configuration:
+        create: 
+        update: 
     titles:
       delete: 
       edit: 
@@ -388,3 +392,8 @@ fr:
         instructor_email: 
         instructor_name: 
         last_name: 
+  list:
+    segments:
+      segments: 
+      name: 
+      status: 

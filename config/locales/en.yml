@@ -75,7 +75,7 @@ en:
       exstudent: Ex-Student
       student: Student
       prospect: Prospect
-      status: Status
+      status: 
       only_man: Only Man
       gender: Gender
       coefficient: Coefficient
@@ -83,7 +83,7 @@ en:
       fp: FP
       perfil: Target
       pmas: Only PMAS
-      name: Name
+      name: 
   mailchimp:
     show:
       list_syncronization: List syncronization with mailchimp
@@ -130,6 +130,7 @@ en:
       template: Template
       mailchimp: Mailchimp
       list: List
+      mailchimp/configuration: Configuration
   date:
     abbr_day_names:
     - Sun
@@ -340,6 +341,9 @@ en:
         update: Update Mailchimp
       list:
         update: Update List
+      mailchimp_configuration:
+        create: Create Configuration
+        update: Update Configuration
     titles:
       delete: Delete
       edit: Edit

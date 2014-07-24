@@ -11,19 +11,20 @@ class Mailchimp::ConfigurationsController < ApplicationController
   end
 
   def create
+    debugger
     @configuration = Mailchimp::Configuration.create(
       local_account_id: current_user.current_account.id,
-      api_key: params[:configuration][:api_key]
+      api_key: params[:mailchimp_configuration][:api_key]
     )
     redirect_to primary_list_mailchimp_configuration_path @configuration
   end
 
   def primary_list
-    @lists = @configuration.lists
+    @lists = @configuration.mailchimp_lists
   end
   
   def update
-    @configuration.update_attributes(configuration_params)
+    @configuration.update_attributes(params[:mailchimp_configuration])
     redirect_to mailchimp_configuration_path
   end
 
@@ -48,7 +49,7 @@ class Mailchimp::ConfigurationsController < ApplicationController
     end
   end
   
-  def configuration_params
-    params.require(:configuration).permit(:primary_list_id)
-  end
+  #def configuration_params
+   # params.require(:configuration).permit(:primary_list_id)
+  #end
 end
