@@ -12,6 +12,8 @@ fr:
         event_name: 
       trigger/templates_triggerses:
         template: 
+      mailchimp/segment:
+        name: 
     models:
       mailchimp_integration: 
       scheduled_mail: 
@@ -21,6 +23,8 @@ fr:
       mailchimp: 
       list: 
       mailchimp/configuration: 
+      mailchimp/list: 
+      mailchimp/segment: 
   confirm: 
   date:
     abbr_day_names:
@@ -244,6 +248,8 @@ fr:
       mailchimp_configuration:
         create: 
         update: 
+      mailchimp_list:
+        update: 
     titles:
       delete: 
       edit: 
@@ -270,6 +276,9 @@ fr:
       list_syncronization: 
     primary_list:
       set_up_primary_list: 
+    list:
+      segments:
+        status: 
   mercury:
     toolbar:
       merge_tags_description: 

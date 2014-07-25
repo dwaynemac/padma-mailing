@@ -69,21 +69,6 @@ en:
   edit: Edit
   destroy: Delete
   new: New
-  list:
-    segments:
-      segments: Create your Segments
-      exstudent: Ex-Student
-      student: Student
-      prospect: Prospect
-      status: 
-      only_man: Only Man
-      gender: Gender
-      coefficient: Coefficient
-      all: All
-      fp: FP
-      perfil: Target
-      pmas: Only PMAS
-      name: 
   mailchimp:
     show:
       list_syncronization: List syncronization with mailchimp
@@ -103,6 +88,22 @@ en:
       no_list: It seems you dont have any list created.
       create_one: Create a list!
       dont_know: Don't know how to create one?
+    list:
+      segments:
+        segments: Create your Segments
+        exstudent: Ex-Student
+        student: Student
+        prospect: Prospect
+        status: Status
+        only_man: Only Man
+        gender: Gender
+        coefficient: Coefficient
+        all: All
+        fp: FP
+        perfil: Target
+        pmas: Only PMAS
+        name: Name
+        destroy: Destroy
   layouts:
     navbar:
       templates: Templates
@@ -122,6 +123,8 @@ en:
       template:
         name: Name
         subject: Subject
+      mailchimp/segment:
+        name: Name
     models:
       templates_triggers: Templates triggers
       trigger: Trigger
@@ -131,6 +134,8 @@ en:
       mailchimp: Mailchimp
       list: List
       mailchimp/configuration: Configuration
+      mailchimp/list: List
+      mailchimp/segment: Segment
   date:
     abbr_day_names:
     - Sun
@@ -344,6 +349,8 @@ en:
       mailchimp_configuration:
         create: Create Configuration
         update: Update Configuration
+      mailchimp_list:
+        update: Update List
     titles:
       delete: Delete
       edit: Edit

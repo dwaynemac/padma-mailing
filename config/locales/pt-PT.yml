@@ -12,6 +12,8 @@ pt-PT:
         event_name: 
       trigger/templates_triggerses:
         template: 
+      mailchimp/segment:
+        name: 
     models:
       mailchimp_integration: 
       scheduled_mail: 
@@ -21,6 +23,8 @@ pt-PT:
       mailchimp: 
       list: 
       mailchimp/configuration: 
+      mailchimp/list: 
+      mailchimp/segment: 
   confirm: 
   contact:
     mercury:
@@ -246,6 +250,8 @@ pt-PT:
       mailchimp_configuration:
         create: 
         update: 
+      mailchimp_list:
+        update: 
     titles:
       delete: 
       edit: 
@@ -272,6 +278,9 @@ pt-PT:
       list_syncronization: 
     primary_list:
       set_up_primary_list: 
+    list:
+      segments:
+        status: 
   mercury:
     toolbar:
       merge_tags_description: 

@@ -44,12 +44,9 @@ class Mailchimp::ConfigurationsController < ApplicationController
       redirect_to new_mailchimp_configuration_path
     elsif @configuration.primary_list.nil?
       redirect_to primary_list_mailchimp_configuration_path
-    elsif @configuration.primary_list.segments.empty?
-      redirect_to segments_lists_path
+    elsif @configuration.primary_list.mailchimp_segments.empty?
+      redirect_to segments_mailchimp_list_path @configuration.primary_list 
     end
   end
   
-  #def configuration_params
-   # params.require(:configuration).permit(:primary_list_id)
-  #end
 end
