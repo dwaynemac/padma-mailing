@@ -11,7 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20141027174049) do
+=======
+ActiveRecord::Schema.define(:version => 20140724201929) do
+>>>>>>> [#75113332] Change query hash for individual fields
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -76,12 +80,16 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
   end
 
   create_table "mailchimp_segments", :force => true do |t|
-    t.text     "query"
     t.string   "api_id"
     t.integer  "mailchimp_list_id"
     t.string   "name"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.boolean  "student"
+    t.boolean  "exstudent"
+    t.boolean  "prospect"
+    t.string   "coefficient"
+    t.boolean  "only_man"
   end
 
   create_table "mercury_images", :force => true do |t|
