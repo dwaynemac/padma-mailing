@@ -8,7 +8,7 @@ gem 'ffi', '~> 1.0.11'
 
 gem 'logical_model', '~> 0.5.8'
 gem 'contacts_client', '~> 0.0.21'
-gem 'accounts_client', '~> 0.0.16'
+gem 'accounts_client', '0.2.5'
 
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
@@ -16,6 +16,8 @@ gem 'gibbon'
 gem 'localeapp'
 
 gem 'mercury-rails'
+
+gem 'nokogiri'
 
 # CAS authentication
 gem 'devise', '1.5.0'

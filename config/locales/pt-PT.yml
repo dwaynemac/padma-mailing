@@ -1,0 +1,380 @@
+pt-PT:
+  activerecord:
+    attributes:
+      scheduled_mail:
+        recipient_email: 
+      template:
+        name: 
+        subject: 
+      templates_triggers:
+        template: 
+      trigger:
+        event_name: 
+      trigger/templates_triggerses:
+        template: 
+    models:
+      mailchimp_integration: 
+      scheduled_mail: 
+      template: 
+      templates_triggers: 
+      trigger: 
+  confirm: 
+  date:
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
+    abbr_month_names:
+    - 
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda
+    - Terça
+    - Quarta
+    - Quinta
+    - Sexta
+    - Sábado
+    formats:
+      default: ! '%d/%m/%Y'
+      long: ! '%d de %B de %Y'
+      short: ! '%d de %B'
+    month_names:
+    - 
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximadamente 1 hora
+        other: aproximadamente %{count} horas
+      about_x_months:
+        one: aproximadamente 1 mês
+        other: aproximadamente %{count} meses
+      about_x_years:
+        one: aproximadamente 1 ano
+        other: aproximadamente %{count} anos
+      almost_x_years:
+        one: quase 1 ano
+        other: quase %{count} anos
+      half_a_minute: meio minuto
+      less_than_x_minutes:
+        one: menos de um minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: mais de 1 ano
+        other: mais de %{count} anos
+      x_days:
+        one: 1 dia
+        other: ! '%{count} dias'
+      x_minutes:
+        one: 1 minuto
+        other: ! '%{count} minutos'
+      x_months:
+        one: 1 mês
+        other: ! '%{count} meses'
+      x_seconds:
+        one: 1 segundo
+        other: ! '%{count} segundos'
+    prompts:
+      day: Dia
+      hour: Hora
+      minute: Minuto
+      month: Mês
+      second: Segundo
+      year: Ano
+  destroy: 
+  devise:
+    confirmations:
+      confirmed: 
+      send_instructions: 
+      send_paranoid_instructions: 
+    failure:
+      already_authenticated: 
+      inactive: 
+      invalid: 
+      invalid_token: 
+      locked: 
+      timeout: 
+      unauthenticated: 
+      unconfirmed: 
+    mailer:
+      confirmation_instructions:
+        subject: 
+      reset_password_instructions:
+        subject: 
+      unlock_instructions:
+        subject: 
+    omniauth_callbacks:
+      failure: 
+      success: 
+    passwords:
+      send_instructions: 
+      send_paranoid_instructions: 
+      updated: 
+      updated_not_active: 
+    registrations:
+      destroyed: 
+      inactive_signed_up: 
+      reasons:
+        inactive: 
+        locked: 
+        unconfirmed: 
+      signed_up: 
+      updated: 
+    sessions:
+      signed_in: 
+      signed_out: 
+    unlocks:
+      send_instructions: 
+      send_paranoid_instructions: 
+      unlocked: 
+  edit: 
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: tem de ser aceite
+      already_confirmed: 
+      blank: não pode estar em branco
+      confirmation: não coincide com a confirmação
+      empty: não pode estar vazio
+      equal_to: tem de ser igual a %{count}
+      even: tem de ser par
+      exclusion: é reservado
+      expired: 
+      greater_than: tem de ser maior que %{count}
+      greater_than_or_equal_to: tem de ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: é inválido
+      less_than: tem de ser menor que %{count}
+      less_than_or_equal_to: tem de ser menor ou igual a %{count}
+      not_an_integer: tem de ser um inteiro
+      not_a_number: não é um número
+      not_found: 
+      not_locked: 
+      not_saved: 
+      odd: tem de ser ímpar
+      record_invalid: ! 'A validação falhou: %{errors}'
+      taken: não está disponível
+      too_long: é demasiado grande (o máximo é de %{count} caracteres)
+      too_short: é demasiado pequeno (o mínimo é de %{count} caracteres)
+      wrong_length: comprimento errado (deve ter %{count} caracteres)
+    template:
+      body: ! 'Por favor, verifique os seguintes campos:'
+      header:
+        one: ! 'Não foi possível guardar %{model}: 1 erro'
+        other: ! 'Não foi possível guardar %{model}: %{count} erros'
+  filter:
+    suggested_values:
+      email: 
+      interview: 
+      phone_call: 
+      website_contact: 
+  hello: 
+  helpers:
+    actions: 
+    label:
+      trigger:
+        event_name: 
+    links:
+      back: 
+      cancel: 
+      confirm: 
+      destroy: 
+      new: 
+    select:
+      prompt: Por favor seleccione
+    submit:
+      create: Criar %{model}
+      mailchimp_integration:
+        create: 
+        update: 
+      submit: Salvar %{model}
+      trigger:
+        create: 
+      update: Actualizar %{model}
+    titles:
+      delete: 
+      edit: 
+      new: 
+      save: 
+  layouts:
+    navbar:
+      mailchimp: 
+      scheduled_mails: 
+      templates: 
+      triggers: 
+  mailchimp:
+    new:
+      api_key: 
+      api_key_help: 
+      setup_mailchimp_api_key: 
+      sync_times: 
+    show:
+      list_on_mailchimp_for:
+        all: 
+        p_former_students: 
+        students: 
+      list_syncronization: 
+  new: 
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: ! '%u%n'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: €
+    format:
+      delimiter: .
+      precision: 3
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion:
+            one: mil milhões
+            other: mil milhões
+          million:
+            one: milhão
+            other: milhões
+          quadrillion:
+            one: mil biliões
+            other: mil biliões
+          thousand: mil
+          trillion:
+            one: bilião
+            other: biliões
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  scheduled_mail:
+    attributes:
+      delivered_at: 
+      recipient_email: 
+      send_at: 
+      template: 
+  scheduled_mails:
+    destroy:
+      success: 
+    index:
+      pending: 
+      title: 
+  support:
+    array:
+      last_word_connector: ! ', e'
+      two_words_connector: ! ' e '
+      words_connector: ! ', '
+  templates:
+    deliver:
+      success: 
+    index:
+      add_attachemnts: 
+      contact_has_no_mail: 
+      deliver: 
+      deliver_to: 
+      deliver_to_headline: 
+    mercury:
+      snippets:
+        panel:
+          contact: 
+      contact_description: 
+      instructor_description: 
+      time_slot_description: 
+      trial_lesson_description: 
+      contact:
+        options:
+          select_tag: 
+  time:
+    am: am
+    formats:
+      default: ! '%A, %d de %B de %Y, %H:%Mh'
+      long: ! '%A, %d de %B de %Y, %H:%Mh'
+      short: ! '%d/%m, %H:%M hs'
+    pm: pm
+  trigger:
+    offset_number: 
+    offset_reference: 
+    offset_unit: 
+    since: 
+  triggers:
+    birthday:
+      warning: 
+    form:
+      add_filter: 
+      add_template: 
+    index:
+      delay_warning: 
+    new:
+      select_template: 
+      title: 
+  contact:
+    mercury:
+      tags:
+        a_u_o: 
+        first_name: 
+        full_name: 
+        gender: 
+        instructor_email: 
+        instructor_name: 
+        last_name: 
+  mercury:
+    toolbar:
+      merge_tags_description: 
+      merge_tags_title: 

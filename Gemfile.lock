@@ -8,7 +8,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    accounts_client (0.0.22)
+    accounts_client (0.2.5)
       gravtastic
       logical_model (~> 0.5.8)
       railties (>= 3.1)
@@ -303,7 +303,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  accounts_client (~> 0.0.16)
+  accounts_client (= 0.2.5)
   activity_stream_client (~> 0.0.11)
   appsignal
   aws-sdk
@@ -330,6 +330,7 @@ DEPENDENCIES
   logical_model (~> 0.5.8)
   mercury-rails
   nested_form
+  nokogiri
   padma-deployment
   paperclip
   pg

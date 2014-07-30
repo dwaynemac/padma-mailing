@@ -4,6 +4,13 @@ Para empezar este modulo copiará la funcionalidad de mailing de Kshema. solamen
 
 == Installation
 
+```
+    rvm use $(cat .ruby-version) --install
+    bundle install --without assets:production:doc:development
+    cp config/local_env.yml.example config/local_env.yml
+    bundle exec rake db:schema:load
+```
+
 === Environment variables
 
 This environment variables are needed:

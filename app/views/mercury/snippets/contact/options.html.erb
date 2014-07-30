@@ -4,25 +4,27 @@
 
     <fieldset>
       <div class="control-group string optional">
-        <label class="string optional control-label" >Select Contact Tag</label>
+        <label class="string optional control-label" ><%= t('templates.mercury.select_tag') %></label>
         <div class="controls">
-          <% contact_options = [["Full Name", "[Contact's Full Name]"],
-                ["First Name", "[Contact's First Name]"],
-                ["Last Name", "[Contact's Last Name]"],
-                ["Gender", "[Contact's Gender]"], 
-                ["a_u_o", "[Contact's a_u_o]"], 
-                ["Instructor Name", "[Contact's Instructor Name]"], 
-                ["Instructor Email", "[Contact's Instructor Email]"]] 
+          <% contact_options = [
+                [t('contact.mercury.tags.full_name'), "[Contact's Full Name]"],
+                [t('contact.mercury.tags.first_name'), "[Contact's First Name]"],
+                [t('contact.mercury.tags.last_name'), "[Contact's Last Name]"],
+                [t('contact.mercury.tags.gender'), "[Contact's Gender]"], 
+                [t('contact.mercury.tags.a_u_o'), "[Contact's a_u_o]"], 
+                [t('contact.mercury.tags.instructor_name'), "[Contact's Instructor Name]"], 
+                [t('contact.mercury.tags.instructor_email'), "[Contact's Instructor Email]"]] 
            %>
            <%= select_tag "contacts", options_for_select(contact_options, params[:contacts]), :class=>'span6'%>
         </div>
-        <div class="description"></div>
+        <!-- hide descriptions until lorem ipsum removed -->
+        <div class="description" style="display: none"></div>
       </div>
     </fieldset>
   </div>
 
   <div class="form-actions mercury-display-controls">
-    <input class="btn btn-primary" name="commit" type="submit" value="Add Tag"/>
+    <input class="btn btn-primary" name="commit" type="submit" value="<%= t('templates.mercury.insert_tag') %>"/>
   </div>
 
 <% end %>

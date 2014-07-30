@@ -1,4 +1,27 @@
 
+<div>
+    <legend>Elegí tus segmentos</legend>
+
+    <legend>nuevo segmento</legend>
+
+    <div class="btn-group">
+       <button type="button" class="btn btn-default">prospect</button>
+       <button type="button" class="btn btn-default">exalumnos</button>
+       <button type="button" class="btn btn-default">alumnos</button>
+     </div>
+
+    <div class="btn-group">
+       <button type="button" class="btn btn-default">solo hombres</button>
+     </div>
+    
+    <div class="btn-group">
+       <button type="button" class="btn btn-default">todos</button>
+       <button type="button" class="btn btn-default">fp</button>
+       <button type="button" class="btn btn-default">perfil (include p y p+)</button>
+       <button type="button" class="btn btn-default">solo pmas</button>
+     </div>
+</div>
+
 <%= form_for @mailchimp, url: mailchimp_path, method: 'PUT' do |f|  %>  
   <fieldset>
     <legend><%= t('mailchimp.show.list_syncronization') %></legend>

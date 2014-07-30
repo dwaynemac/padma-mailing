@@ -104,9 +104,12 @@ window.Mercury = {
           },
         insertLink:            ['Link', 'Insert Link', { modal: '/mercury/modals/link.html', regions: ['full', 'markdown'] }],
         insertMedia:           ['Media', 'Insert Media (images and videos)', { modal: '/mercury/modals/media.html', regions: ['full', 'markdown'] }],
+/*
         insertTable:           ['Table', 'Insert Table', { modal: '/mercury/modals/table.html', regions: ['full', 'markdown'] }],
         insertCharacter:       ['Character', 'Special Characters', { modal: '/mercury/modals/character.html', regions: ['full', 'markdown'] }],
-        snippetPanel:          ['Merge tags', 'Tags panel', { panel: '/mercury/panels/snippets.html' }],
+*/
+        sep:                   ' ',
+        snippetPanel:          ['Dynamic tags','Dinamic data to personlize template. Eg: contact name, etc', { panel: '/mercury/panels/snippets.html' }],
         /*sep2:                  ' ',
         historyPanel:          ['History', 'Page Version History', { panel: '/mercury/panels/history.html' }],
         sep3:                  ' ',
