@@ -104,6 +104,11 @@ en:
         pmas: Only PMAS
         name: Name
         destroy: Destroy
+    segment:
+      gender: Gender
+      man: Man
+      
+      
   layouts:
     navbar:
       templates: Templates
