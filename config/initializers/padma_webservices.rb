@@ -19,6 +19,9 @@ end
 module Contacts
   HYDRA = ::HYDRA
   API_KEY = ENV['contacts_key']
+  if Rails.env.development?
+    HOST = "localhost:3002"
+  end
 end
 
 module ActivityStream
