@@ -128,7 +128,7 @@ class Import < ActiveRecord::Base
       header_image_tag = %(<img src="#{self.mail_header.url}" border="0" /><br/>)
       content.gsub(/{{header}}/, header_image_tag)
     end
-    if |self.mail_footer.nil?
+    if !self.mail_footer.nil?
       footer_image_tag = %(<br/><img src="#{self.mail_footer.url}" border="0" />)
       content.gsub(/{{footer}}/, footer_image_tag)
     end
