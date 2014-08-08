@@ -1,3 +1,5 @@
+require "open-uri"
+
 class Import < ActiveRecord::Base
   attr_accessible :account_id, :csv_file, :headers, :status, :type
 
@@ -56,7 +58,8 @@ class Import < ActiveRecord::Base
     template.content = build_template_content(value_for(row, 'content'))
     template.account = self.account
     
-    template.triggers << build_template_trigger(value_for(row, 'trigger'))
+    template.triggers << build_template_trigger( value_for(row, 'trigger'))
+    set_template_offset(template, value_for(row, 'trigger'))
   end
 
   def process_CSV
@@ -136,32 +139,65 @@ class Import < ActiveRecord::Base
     trigger = Trigger.new
     trigger.local_account_id = self.account.id
 
+    filters = []
+    trigger_name = nil
+
     case trigger_name
       when 'birthday_alumnos'
-        trigger.event_name = 'birthday'
-        trigger.save
-        filter = Filter.create(trigger: trigger, key: 'local_status', value: 'student')
+        trigger_name = 'birthday'
+        filters << {key: 'local_status', value: 'student'}
       when 'birthday_prospects'
-        trigger.event_name = 'birthday'
-        trigger.save
-        filter = Filter.create(trigger: trigger, key: 'local_status', value: 'prospect')
+        trigger_name = 'birthday'
+        filters << {key: 'local_status', value: 'prospect'}
       when 'bienvenida'
-        trigger.event_name = 'subscription_change'
-        trigger.save
-        filter = Filter.create(trigger: trigger, key: 'type', value: 'enrollment')
+        trigger_name = 'subscription_change'
+        filters << {key: 'type', value: 'enrollment'}
       when 'fin_plan'
-        #
+        trigger_name = 'membership'
       when 'remind_prueba'
-        trigger.event_name = 'trial_lesson'
-        trigger.save
+        trigger_name = 'trial_lesson'
       when 'post_visita'
-        #
+        trigger_name = 'communication'
+        filters << {key: 'media', value: 'interview'}
       when 'post_first_month'
-        #
+        trigger_name = 'subscription_change'
+        filters << {key: 'type', value: 'enrollment'}
       when 'post_a_month_of_visit_not_signed_in'
-        #
+        # mes después de la visita si no se ienscribe y es perfil
+        trigger_name = 'communication'
+        filters << {key: 'local_status', value: 'prospect'}
+        filters << {key: 'global_status', value: 'prospect'}
+        filters << {key: 'estimated_coefficient', value: 'perfil'}
+        filters << {key: 'estimated_coefficient', value: 'pmas'}
     end
+    
+    trigger.event_name = trigger_name
+    filters.each do |f|
+      trigger.filters.create(trigger: trigger, key: f[:key], value: f[:value])
+    end
+    trigger.save
+    
     trigger 
+  end
+
+  def set_template_offset(template, trigger_name)
+    offset_number = 0
+    offset_unit = "days"
+    offset_reference = nil
+    case trigger_name
+      when 'remind_prueba'
+        offset_reference = "trial_at"
+        offset_number = 1
+      when 'post_first_month'
+        offset_reference = "changed_at"
+        offset_number = 1
+        offset_unit = "months"
+      when 'post_a_month_of_visit_not_signed_in'
+        offset_reference = "communicated_at"
+        offset_number = 1
+        offset_unit = "months"
+    end
+    template.templates_triggerses.first.update_attributes(offset_number: offset_number, offset_unit: offset_unit, offset_reference: offset_reference) unless offset_reference.nil?
   end
 
   def csv_file_handle
@@ -188,11 +224,11 @@ class Import < ActiveRecord::Base
     original_mail_footer_url = value_for(first_row, 'mail_footer')
 
     if !original_mail_header_url.blank?
-      # TODO download and store image in s3
+      self.mail_header = original_mail_header_url
     end
 
     if !original_mail_footer_url.blank?
-      # TODO download and store image in s3
+      self.mail_footer = original_mail_footer_url
     end
     
   end
