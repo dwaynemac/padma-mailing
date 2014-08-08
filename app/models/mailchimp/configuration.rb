@@ -10,7 +10,8 @@ class Mailchimp::Configuration < ActiveRecord::Base
   belongs_to :account, foreign_key: :local_account_id
   has_many :mailchimp_lists, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::List"
   
-  after_create :sync_lists
+  after_create :create_lists_in_mailchimp
+  after_create :create_contacts_synchronizer
   
   # @return [Gibbon:API]
   def api
@@ -24,10 +25,25 @@ class Mailchimp::Configuration < ActiveRecord::Base
   def primary_list
     Mailchimp::List.find(primary_list_id) 
   end
+
+  def create_contacts_synchronizer
+    debugger
+    list = primary_list
+
+    response = RestClient.post Contacts::HOST + '/v0/mailchimp_synchronizers',
+      app_key: Contacts::API_KEY,
+      account_name: account.name,
+      synchronizer: {
+        api_key: api_key,
+        list_id: primary_list_id,
+      }
+    
+    puts response
+  end
   
   private
   
-  def sync_lists
+  def create_lists_in_mailchimp
     api.lists.list['data'].each do |list_hash|
       if Mailchimp::List.where(api_id: list_hash['id']).empty?    
         Mailchimp::List.create(
