@@ -1,3 +1,5 @@
+require 'rest_client'
+
 class Mailchimp::Segment < ActiveRecord::Base
   attr_accessible :api_id
   attr_accessible :mailchimp_list_id
@@ -13,6 +15,8 @@ class Mailchimp::Segment < ActiveRecord::Base
   
   validate :segment_must_restrict_list
   validates :name, presence: true
+
+  before_create :create_segment_in_contacts
   
   def segment_must_restrict_list
     if !status_restricted? && !only_man &&
@@ -35,6 +39,38 @@ class Mailchimp::Segment < ActiveRecord::Base
         }
       }
     })
+  end
+  
+  def create_segment_in_contacts
+    config = get_configuration
+
+    response = RestClient.post Contacts::HOST + '/v0/mailchimp_segments',
+      app_key: Contacts::API_KEY,
+      account_name: config.account.name,
+      synchronizer: {id: config.synchronizer_id},
+      segment: segment_params
+    
+    self.contact_segment_id = JSON.parse(response)['id']
+  end
+  
+  def segment_params
+    segment_hash = {}
+    
+    statuses = []
+    statuses << :prospect if prospect 
+    statuses << :former_student if exstudent
+    statuses << :student if student
+    segment_hash[:statuses] = statuses if !statuses.empty?
+    
+    coefficients = []
+    coefficients << 'fp' if coefficient == 'fp'
+    coefficients << ['perfil', 'pmas'] if coefficient == 'perfil'
+    coefficients << ['pmas'] if coefficient == 'pmas'
+    segment_hash[:coefficients] = coefficients if !coefficients.empty?
+    
+    segment_hash[:gender] = 'male' if only_man
+    
+    segment_hash
   end
   
   def get_conditions
