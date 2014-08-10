@@ -86,13 +86,14 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.string   "api_id"
     t.integer  "mailchimp_list_id"
     t.string   "name"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.boolean  "student"
     t.boolean  "exstudent"
     t.boolean  "prospect"
     t.string   "coefficient"
     t.boolean  "only_man"
+    t.string   "contact_segment_id"
   end
 
   create_table "mailchimps", :force => true do |t|
