@@ -30,6 +30,8 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
+gem 'rest-client'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
