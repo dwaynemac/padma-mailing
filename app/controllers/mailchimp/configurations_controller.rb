@@ -11,7 +11,6 @@ class Mailchimp::ConfigurationsController < ApplicationController
   end
 
   def create
-    debugger
     @configuration = Mailchimp::Configuration.create(
       local_account_id: current_user.current_account.id,
       api_key: params[:mailchimp_configuration][:api_key]
@@ -25,6 +24,7 @@ class Mailchimp::ConfigurationsController < ApplicationController
   
   def update
     @configuration.update_attributes(params[:mailchimp_configuration])
+    @configuration.update_synchronizer
     redirect_to mailchimp_configuration_path
   end
 
