@@ -17,6 +17,7 @@ class Mailchimp::Segment < ActiveRecord::Base
   validates :name, presence: true
 
   before_create :create_segment_in_contacts
+  before_destroy :destroy_segment_in_contacts
   
   def segment_must_restrict_list
     if !status_restricted? && !only_man &&
@@ -32,7 +33,8 @@ class Mailchimp::Segment < ActiveRecord::Base
       app_key: Contacts::API_KEY,
       account_name: config.account.name,
       synchronizer: {id: config.synchronizer_id},
-      segment: segment_params
+      segment: segment_params,
+      name: name
     
     self.contact_segment_id = JSON.parse(response)['id']
   end
