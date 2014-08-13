@@ -5,6 +5,7 @@ class Account < ActiveRecord::Base
 
   has_many :templates, foreign_key: :local_account_id
   has_many :triggers, foreign_key: 'local_account_id'
+  has_many :imports, foreign_key: :local_account_id
 
   has_one :mailchimp_integration, foreign_key: :local_account_id
 

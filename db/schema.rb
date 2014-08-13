@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(:version => 20140528150741) do
 
   create_table "imports", :force => true do |t|
     t.string   "type"
-    t.integer  "account_id"
+    t.integer  "local_account_id"
     t.string   "status"
     t.text     "headers"
     t.datetime "created_at",            :null => false
