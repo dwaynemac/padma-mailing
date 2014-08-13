@@ -25,22 +25,6 @@ class Mailchimp::Segment < ActiveRecord::Base
     end 
   end
   
-  def create_segment_in_mailchimp
-    @config = get_configuration
-    I18n.locale = @config.account.padma.locale
-    @config.api.lists.segment_add({
-      id: self.mailchimp_list.api_id,
-      opts: {
-        type: 'saved',
-        name: self.name,
-        segment_opts: {
-          match: 'all',
-          conditions: self.get_conditions
-        }
-      }
-    })
-  end
-  
   def create_segment_in_contacts
     config = get_configuration
 
@@ -52,6 +36,15 @@ class Mailchimp::Segment < ActiveRecord::Base
     
     self.contact_segment_id = JSON.parse(response)['id']
   end
+  
+  def destroy_segment_in_contacts
+    config = get_configuration
+
+    response = RestClient.delete Contacts::HOST + '/v0/mailchimp_segments/' + self.contact_segment_id.to_s,
+      app_key: Contacts::API_KEY,
+      account_name: config.account.name,
+      segment: {id: contact_segment_id}
+  end 
   
   def segment_params
     segment_hash = {}
@@ -70,45 +63,9 @@ class Mailchimp::Segment < ActiveRecord::Base
     
     segment_hash[:gender] = 'male' if only_man
     
+    segment_hash[:name] = name
+    
     segment_hash
-  end
-  
-  def get_conditions
-    conditions = []
-    conditions.push status_condition
-    conditions.push gender_condition if only_man
-    conditions.push coefficient_condition if coefficient != 'all'
-    conditions
-  end
-  
-  # The order here is IMPORTANT 
-  def status_condition
-    value = '|'
-    value << 'p' if prospect
-    value << 's' if student
-    value << 'f' if exstudent
-    value << '|'
-    {
-      field: 'SYSSTATUS',
-      op: 'contains',
-      value: value
-    }
-  end
-  
-  def gender_condition
-    {
-      field: 'GENDER',
-      op: 'is',
-      value: I18n.t('mailchimp.segment.man')
-    }
-  end
-  
-  def coefficient_condition
-    {
-      field: 'SYSCOEFF',
-      op: 'is',
-      value: coefficient
-    }
   end
   
   private  
