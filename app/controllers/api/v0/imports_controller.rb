@@ -44,7 +44,6 @@ class Api::V0::ImportsController < Api::V0::ApiController
   # @action POST
   #
   # @required [String] app_key
-  # @required import[object] valid values: TimeSlot, Attendance, TrialLesson
   # @required import[csv_file] CSV file
   # @required import[headers]
   #           valid values
@@ -61,11 +60,10 @@ class Api::V0::ImportsController < Api::V0::ApiController
   #
   def create
     if @account
-
       @import = initialize_import
-
       if @import.save
-        @import.delay.process_CSV
+        # TODO agregar el delay a import a través de delayed job
+        @import.process_CSV
         render json: { id: @import.id }, status: 201
       else
         Rails.logger.debug "Couldnt create import. Errors: #{@import.errors.messages}"
@@ -113,19 +111,15 @@ class Api::V0::ImportsController < Api::V0::ApiController
 
   def initialize_import
     scope = @account.imports
-    scope.new(import_params)
+    scope.new(params[:import])
   end
 
 
   def get_account
-    if params[:import]
+    if params[:account_name]
       account_name = params[:account_name]
-      @account = Account.find_or_create_by(name: account_name)
+      @account = Account.find_or_create_by_name(account_name)
     end
-  end
-
-  def import_params
-    params.require(:import)
   end
 
 end
