@@ -3,5 +3,5 @@ class Attachment < ActiveRecord::Base
   belongs_to :template
   has_attached_file :attachment
 
-  do_not_validate_attachment_file_type :csv_file
+  do_not_validate_attachment_file_type :attachment
 end
