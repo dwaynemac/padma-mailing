@@ -73,6 +73,20 @@
     </br></br>
   <% end %>
     
+  <label for="filter_method">
+    <%= t('mailchimp.list.segments.filter_method')%>:
+  </label>
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-primary">
+      <input type="radio" name="filter_method", value="all">
+      <%= t('mailchimp.list.segments.all')%>
+    </label>
+
+    <label class="btn btn-primary">
+      <input type="radio" name="filter_method", value="segments">
+      <%= t('mailchimp.list.segments.segments')%>
+    </label>
+  </div>
       
   </fieldset>
   <%= f.submit nil, class: 'btn btn-success' %>

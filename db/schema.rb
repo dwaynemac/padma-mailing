@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "synchronizer_id"
+    t.string   "filter_method"
   end
 
   create_table "mailchimp_integrations", :force => true do |t|

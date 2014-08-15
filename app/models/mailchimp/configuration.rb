@@ -9,6 +9,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   attr_accessible :local_account_id
   attr_accessible :primary_list_id
   attr_accessible :synchronizer_id
+  attr_accessible :filter_method
   
   belongs_to :account, foreign_key: :local_account_id
   has_many :mailchimp_lists, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::List"
@@ -45,7 +46,8 @@ class Mailchimp::Configuration < ActiveRecord::Base
       account_name: account.name,
       synchronizer: {
         api_key: api_key,
-        list_id: primary_list.api_id
+        list_id: primary_list.api_id,
+        filter_method: filter_method 
       }
   end
   

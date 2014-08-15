@@ -11,6 +11,9 @@ class Mailchimp::Segment < ActiveRecord::Base
   attr_accessible :coefficient
   attr_accessible :name
 
+  attr_accessor :_destroy
+  attr_accessible :_destroy
+
   belongs_to :mailchimp_list, foreign_key: :mailchimp_list_id, class_name: "Mailchimp::List"
   
   validate :segment_must_restrict_list
@@ -33,8 +36,7 @@ class Mailchimp::Segment < ActiveRecord::Base
       app_key: Contacts::API_KEY,
       account_name: config.account.name,
       synchronizer: {id: config.synchronizer_id},
-      segment: segment_params,
-      name: name
+      segment: segment_params
     
     self.contact_segment_id = JSON.parse(response)['id']
   end
@@ -43,9 +45,11 @@ class Mailchimp::Segment < ActiveRecord::Base
     config = get_configuration
 
     response = RestClient.delete Contacts::HOST + '/v0/mailchimp_segments/' + self.contact_segment_id.to_s,
-      app_key: Contacts::API_KEY,
-      account_name: config.account.name,
-      segment: {id: contact_segment_id}
+      {:params => {           
+        app_key: Contacts::API_KEY,
+        id: contact_segment_id,
+        account_name: config.account.name
+      }}
   end 
   
   def segment_params
