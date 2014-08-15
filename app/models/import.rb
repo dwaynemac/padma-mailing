@@ -20,9 +20,7 @@ class Import < ActiveRecord::Base
   after_create :set_defaults
   validate :validate_headers
 
-  has_attached_file :csv_file,
-        :path => "/system/import/:id/:filename",
-        :url => "/system/import/:id/:filename"
+  has_attached_file :csv_file
 
   do_not_validate_attachment_file_type :csv_file
   
