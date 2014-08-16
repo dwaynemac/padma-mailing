@@ -12,7 +12,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   attr_accessible :filter_method
   
   belongs_to :account, foreign_key: :local_account_id
-  has_many :mailchimp_lists, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::List"
+  has_many :mailchimp_lists, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::List", dependent: :destroy
   
   before_create :create_synchronizer
   after_create :create_mailchimp_lists_locally
@@ -27,12 +27,16 @@ class Mailchimp::Configuration < ActiveRecord::Base
   end
 
   def create_synchronizer
-    response = RestClient.post Contacts::HOST + '/v0/mailchimp_synchronizers',
+    response = Typhoeus.post Contacts::HOST + '/v0/mailchimp_synchronizers', body: {
       app_key: Contacts::API_KEY,
       account_name: account.name,
-      synchronizer: {api_key: api_key}
+      synchronizer: {api_key: api_key}}
     
-    self.synchronizer_id = JSON.parse(response)['id']   
+    if response
+      self.synchronizer_id = JSON.parse(response.body)['id']   
+    else
+      return false
+    end
   end
   
   def primary_list
