@@ -72,6 +72,7 @@ Mailing::Application.configure do
           :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
           :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
       },
+      :url => ':s3_alias_url',
       :s3_host_alias => 'mailing-prod.s3.amazonaws.com'
   }
 
