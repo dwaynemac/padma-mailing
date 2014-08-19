@@ -209,7 +209,7 @@ class Import < ActiveRecord::Base
     case trigger_name
       when 'remind_prueba'
         offset_reference = "trial_at"
-        offset_number = 1
+        offset_number = -1
       when 'post_first_month'
         offset_reference = "changed_at"
         offset_number = 1
@@ -226,7 +226,7 @@ class Import < ActiveRecord::Base
         offset_reference = "changed_at"
       when 'fin_plan'
         offset_reference = "ends_on"
-        offset_number = 1
+        offset_number = -1
         offset_unit = "months"
       when 'post_visita'
         offset_reference = "communicated_at"
