@@ -1,5 +1,7 @@
 require "open-uri"
 require "csv"
+OpenURI::Buffer.send :remove_const, 'StringMax' if OpenURI::Buffer.const_defined?('StringMax')
+OpenURI::Buffer.const_set 'StringMax', 0
 
 class Import < ActiveRecord::Base
   attr_accessible :csv_file, :headers, :status, :type
@@ -63,10 +65,9 @@ class Import < ActiveRecord::Base
     template.subject = value_for(row, 'subject')
     template.content = build_template_content(value_for(row, 'content'))
     template.account = self.account
-    
+        
     trigger = build_template_trigger( value_for(row, 'trigger'))
     #template.templates_triggerses.new(trigger_id: trigger.id)
-
     if template.save
       if !trigger.nil?
         trigger.templates_triggerses.create(template_id: template.id)
@@ -91,9 +92,8 @@ class Import < ActiveRecord::Base
       unless csv_file_handle.nil?
         # set header and footer
         first_row = CSV.open(csv_file_handle, "rb",{:headers => true}) {|csv| csv.first}
-
         set_import_header_and_footer(value_for(first_row, 'header_image_url'),value_for(first_row, 'footer_image_url'))
-        
+
         row_i = 1 # start at 1 because first row is skipped
         CSV.foreach(csv_file_handle, encoding:"UTF-8:UTF-8", headers: :first_row) do |row|
           log "row #{row_i}"
