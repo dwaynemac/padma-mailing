@@ -25,10 +25,17 @@
         <td><%= template.description %></td>
         <td><%= template.subject %></td>
         <td>
-          <%= link_to t('templates.index.add_attachemnts'), template, class: 'btn btn-mini' %>
-          <%= link_to t('edit'), "/editor" + edit_template_path(template),
+          <%= link_to t('templates.index.add_attachemnts'),
+                      template,
                       class: 'btn btn-mini' %>
-          <%= link_to t('destroy'), template_path(template), :method => :delete, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+          <%= link_to t('edit'),
+                      "/editor" + edit_template_path(template),
+                      class: 'btn btn-mini' %>
+          <%= link_to t('destroy'),
+                      template_path(template),
+                      method: :delete,
+                      confirm: t('confirm'),
+                      class: 'btn btn-mini btn-danger' %>
         </td>
         <td>
           <%= render partial: "index_form", locals: {template: template} %>

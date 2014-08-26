@@ -19,7 +19,7 @@ es:
       template: 
       templates_triggers: 
       trigger: 
-  confirm: 
+  confirm: ¿Estas seguro?
   destroy: 
   devise:
     confirmations:
