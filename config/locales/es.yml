@@ -4,8 +4,9 @@ es:
       scheduled_mail:
         recipient_email: 
       template:
-        name: 
-        subject: 
+        name: Nombre
+        description: Descripción
+        subject: Asunto
       templates_triggers:
         template: 
       trigger:
