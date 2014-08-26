@@ -7,6 +7,46 @@ describe Template do
   it { should belong_to(:account).with_foreign_key(:local_account_id)}
   it { should validate_presence_of :account }
 
+  describe "#needed_data" do
+    subject{template.needed_data}
+    let(:template){build(:template, content: content)}
+    context "when content has multiple tags" do
+      let(:content){"%{header} hello %{contact.first_name}, this is a mail {false variabl}. %{contact.instructor.signature}"}
+      it "returns liquid variables used in content" do
+        should eq [
+          'header',
+          'contact' => [
+            'first_name',
+            'instructor' => ['signature']
+          ]
+        ] 
+      end
+      it "returns a Array" do
+        should be_a Array
+      end
+    end
+    shared_examples_for 'no content' do
+      it "returns be empty" do
+        should be_empty
+      end
+      it "returns a Array" do
+        should be_a Array
+      end
+    end
+    context "when content has no tags" do
+      let(:content){"text withou {valid} tags"}
+      include_examples 'no content'
+    end
+    context "when content is empty" do
+      let(:content){""}
+      include_examples 'no content'
+    end
+    context "when content is nil" do
+      let(:content){nil}
+      include_examples 'no content'
+    end
+  end
+  
   describe "a normal template" do
     it "should be able to save a large content" do
       content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dui odio, tincidunt nec vulputate sit amet, malesuada in quam. Integer congue felis nec mauris feugiat eu tristique augue eleifend. Duis auctor est eu sapien ultrices pellentesque. In ut lorem mi. Aenean at velit ac metus fermentum interdum. Curabitur condimentum nisl vitae dolor cursus interdum. Donec tristique, mauris et euismod dignissim, libero elit dignissim est, sed imperdiet mi est id nisi. In cursus volutpat mattis. Mauris commodo malesuada risus vel eleifend. Mauris et eros libero.

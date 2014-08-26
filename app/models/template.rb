@@ -25,6 +25,14 @@ class Template < ActiveRecord::Base
     schedule.deliver_now!
   end
 
+  # @return [Array] liquid tags needed by content.
+  def needed_data
+    return [] if content.nil?
+    content.scan(/%{([\w|\.]+)}/).map do |i|
+      string_to_hash(i[0])
+    end
+  end
+
   def self.tag_options_list
     tags={}
 
@@ -51,6 +59,17 @@ class Template < ActiveRecord::Base
 
   def self.convert_tag_into_liquid_format(new_snippet_value, search_by_key = true)
     search_by_key ? self.tag_options_list[new_snippet_value] : self.tag_options_list.invert[new_snippet_value]
+  end
+
+  private
+
+  def string_to_hash(str)
+    tokens = str.split('.',2)
+    if tokens.size == 1
+      tokens[0]
+    elsif tokens.size == 2
+      { tokens[0] => string_to_hash(tokens[1]) }
+    end
   end
 
 end
