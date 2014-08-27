@@ -14,14 +14,16 @@ class Template < ActiveRecord::Base
   accepts_nested_attributes_for :attachments, :reject_if => lambda { |a| a[:file].nil? }, :allow_destroy => true
 
   def deliver(data)
-    user = data[:user]
+    user = data.delete(:user)
     schedule = ScheduledMail.create(
                                  send_at: Time.zone.now,
                                  template_id: self.id,
                                  local_account_id: user.current_account.id,
-                                 recipient_email: data[:to],
+                                 recipient_email: data.delete(:to),
                                  contact_id: data[:contact_id],
-                                 username: user.username)
+                                 username: user.username,
+                                 data: ActiveSupport::JSON.encode(data)
+    )
     schedule.deliver_now!
   end
 

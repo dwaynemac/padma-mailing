@@ -7,6 +7,54 @@ describe Template do
   it { should belong_to(:account).with_foreign_key(:local_account_id)}
   it { should validate_presence_of :account }
 
+
+  describe "#deliver", :focus do
+    before do
+      PadmaAccount.stub!(:find).and_return{PadmaAccount.new()}
+      ScheduledMail.any_instance.stub(:deliver_now!).and_return true
+    end
+    let(:user){create(:user, current_account: create(:account))}
+    let(:data){{to: 'email@ser.com', user: user, contact_id: 'cid' }}
+    let(:template){create(:template)}
+    it "creates a scheduled_mail" do
+      expect{template.deliver(data)}.to change{ScheduledMail.count}.by(1)
+    end
+    it "forwards unkown data keys into ScheduledMail#data" do
+      data.merge!({unknown_key: '1'})
+      template.deliver(data)
+      last_sm_data = ActiveSupport::JSON.decode(ScheduledMail.last.data)
+      expect(last_sm_data['unknown_key']).to eq data[:unknown_key]
+    end
+    it "forwards data[:contact_id] into ScheduledMail#data[:contact_id]" do
+      template.deliver(data)
+      last_sm_data = ActiveSupport::JSON.decode(ScheduledMail.last.data)
+      expect(last_sm_data['contact_id']).to eq data[:contact_id]
+    end
+    it "forwards data[:to] to ScheduledMail#recipient_email" do
+      to = data[:to]
+      template.deliver(data)
+      expect(ScheduledMail.last.recipient_email).to eq to
+    end
+    it "does NOT forward data[:to] into ScheduledMail#data[:to]" do
+      to = data[:to]
+      template.deliver(data)
+      last_sm_data = ActiveSupport::JSON.decode(ScheduledMail.last.data)
+      expect(last_sm_data['to']).not_to eq to
+    end
+    it "forwards data[:contact_id] to ScheduledMail#contact_id" do
+      template.deliver(data)
+      expect(ScheduledMail.last.contact_id).to eq data[:contact_id]
+    end
+    it "forwards data[:user].current_account.id to ScheduledMail.local_account_id" do
+      template.deliver(data)
+      expect(ScheduledMail.last.local_account_id).to eq user.current_account.id
+    end
+    it "forwards data[:user].username to ScheduledMail.username" do
+      template.deliver(data)
+      expect(ScheduledMail.last.username).to eq user.username
+    end
+  end
+
   describe "#needs_data?" do
     subject{template.needs_data?}
     let(:template){build(:template, content: content)}
