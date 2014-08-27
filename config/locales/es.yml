@@ -156,6 +156,8 @@ es:
       deliver: Enviar
       deliver_to: Enviar a %{recipient}
       deliver_to_headline: 
+    send_to_contact:
+      cant_send: No se puede enviar manualmente.
     send_to_mail:
       cant_send: No puede enviar sin contacto.
       needs_data: Este modelo tiene etiquetas dinámicas. No puede ser enviado manualmente a una dirección de email. Si quiere enviarlo a un contacto ingrese a su perfil y utilice la opción 'enviar modelo de mail'
