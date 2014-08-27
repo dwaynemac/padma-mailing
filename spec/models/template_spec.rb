@@ -7,6 +7,20 @@ describe Template do
   it { should belong_to(:account).with_foreign_key(:local_account_id)}
   it { should validate_presence_of :account }
 
+  describe "#needs_data?" do
+    subject{template.needs_data?}
+    let(:template){build(:template, content: content)}
+    context "if template has merge tags" do
+      let(:content){"%{header} %{another.level} hello %{contact.first_name}, this is a mail from %{contact.instructor.name} {false variabl}. We expect you at %{contact.trial.time_slot} %{contact.instructor.signature}"}
+      it { should be_true }
+    end
+    context "if template has NO merge tags" do
+      let(:content){"text withou {valid} tags"}
+      it { should be_false }
+    end
+
+  end
+
   describe "#needed_data" do
     subject{template.needed_data}
     let(:template){build(:template, content: content)}

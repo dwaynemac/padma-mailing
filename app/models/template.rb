@@ -43,6 +43,11 @@ class Template < ActiveRecord::Base
     merge_as_tree(direct_map)
   end
 
+  # @return [Boolean]
+  def needs_data?
+    not needed_data.empty?
+  end
+
   def self.tag_options_list
     tags={}
 
