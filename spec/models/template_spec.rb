@@ -10,7 +10,7 @@ describe Template do
 
   describe "#deliver" do
     before do
-      PadmaAccount.stub!(:find).and_return{PadmaAccount.new()}
+      PadmaAccount.stub(:find).and_return{PadmaAccount.new()}
       ScheduledMail.any_instance.stub(:deliver_now!).and_return true
     end
     let(:user){create(:user, current_account: create(:account))}
@@ -67,6 +67,23 @@ describe Template do
       it { should be_false }
     end
 
+  end
+
+  describe "#needed_drops" do
+    subject{ template.needed_drops }
+    let(:template){build(:template, content: content)}
+    context "if template has 'instructor' tag" do
+      let(:content){"%{instructor.name}"}
+      it { should include 'user' }
+    end
+    context "if template has 'persona' tag" do
+      let(:content){"%{persona.name}"}
+      it { should include 'contact' }
+    end
+    context "if template has 'contact' tag" do
+      let(:content){"%{contact.name}"}
+      it { should include 'contact' }
+    end
   end
 
   describe "#needed_data" do

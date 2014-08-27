@@ -1,5 +1,6 @@
 class Template < ActiveRecord::Base
-  attr_accessible :content, :description, :name, :subject, :attachments_attributes, :attachments
+  attr_accessible :content, :description, :name, :subject,
+                  :attachments_attributes, :attachments
 
   validates_presence_of :subject
   validates_presence_of :name
@@ -11,7 +12,9 @@ class Template < ActiveRecord::Base
   has_many :triggers, through: :templates_triggerses, class_name: 'TemplatesTriggers'
   has_many :attachments
 
-  accepts_nested_attributes_for :attachments, :reject_if => lambda { |a| a[:file].nil? }, :allow_destroy => true
+  accepts_nested_attributes_for :attachments,
+                                :reject_if => lambda { |a| a[:file].nil? },
+                                :allow_destroy => true
 
   def deliver(data)
     user = data.delete(:user)
@@ -48,6 +51,19 @@ class Template < ActiveRecord::Base
   # @return [Boolean]
   def needs_data?
     not needed_data.empty?
+  end
+
+  def needed_drops
+    needed_data.map{|i| i.is_a?(Hash)? i.keys.first : i }.map do |tag|
+      case tag
+      when 'instructor'
+        'user'
+      when 'persona'
+        'contact'
+      else
+        tag
+      end
+    end
   end
 
   def self.tag_options_list

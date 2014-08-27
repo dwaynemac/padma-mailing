@@ -63,7 +63,9 @@ class TemplatesController < ApplicationController
     template = current_user.current_account.templates.find(params[:id])
     authorize! :deliver, template
 
-    data = {to: params[:recipient], user: current_user, contact_id: params[:contact_id]}
+    data = {to: params[:recipient],
+            user: current_user,
+            contact_id: params[:contact_id]}
 
     # Deliver mail and notify activities
     template.deliver(data)

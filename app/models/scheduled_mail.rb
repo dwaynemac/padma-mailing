@@ -20,7 +20,11 @@ class ScheduledMail < ActiveRecord::Base
 
     bcc = padma_user.try(:email) if self.username
 
-    PadmaMailer.template(template, data_hash, recipient_email, bcc, account.padma.email).deliver
+    PadmaMailer.template(template,
+                         data_hash,
+                         recipient_email,
+                         bcc,
+                         account.padma.email).deliver
     update_attribute :delivered_at, Time.now
 
     # Send notification to activities
@@ -31,8 +35,10 @@ class ScheduledMail < ActiveRecord::Base
   end
 
   def creation_activity
-    ActivityStream::Activity.new(target_id: self.contact_id, target_type: 'Contact',
-                                 object_id: template.id, object_type: 'Template',
+    ActivityStream::Activity.new(target_id: self.contact_id,
+                                 target_type: 'Contact',
+                                 object_id: template.id,
+                                 object_type: 'Template',
                                  generator: ActivityStream::LOCAL_APP_NAME,
                                  content: "Mail sent: #{template.name}",
                                  public: false,

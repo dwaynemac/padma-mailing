@@ -154,9 +154,9 @@ es:
       add_attachemnts: 
       contact_has_no_mail: 
       deliver: Enviar
-      deliver_to: 
+      deliver_to: Enviar a %{recipient}
       deliver_to_headline: 
-    index_form:
+    send_to_mail:
       cant_send: No puede enviar sin contacto.
       needs_data: Este modelo tiene etiquetas dinámicas. No puede ser enviado manualmente a una dirección de email. Si quiere enviarlo a un contacto ingrese a su perfil y utilice la opción 'enviar modelo de mail'
     mercury:
