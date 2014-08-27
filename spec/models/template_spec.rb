@@ -8,7 +8,7 @@ describe Template do
   it { should validate_presence_of :account }
 
 
-  describe "#deliver", :focus do
+  describe "#deliver" do
     before do
       PadmaAccount.stub!(:find).and_return{PadmaAccount.new()}
       ScheduledMail.any_instance.stub(:deliver_now!).and_return true
