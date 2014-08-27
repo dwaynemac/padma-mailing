@@ -11,14 +11,16 @@ describe Template do
     subject{template.needed_data}
     let(:template){build(:template, content: content)}
     context "when content has multiple tags" do
-      let(:content){"%{header} hello %{contact.first_name}, this is a mail {false variabl}. %{contact.instructor.signature}"}
+      let(:content){"%{header} %{another.level} hello %{contact.first_name}, this is a mail from %{contact.instructor.name} {false variabl}. We expect you at %{contact.trial.time_slot} %{contact.instructor.signature}"}
       it "returns liquid variables used in content" do
         should eq [
           'header',
-          'contact' => [
+          {'another' => 'level'},
+          {'contact' => [
             'first_name',
-            'instructor' => ['signature']
-          ]
+            {'instructor' => ['name','signature']},
+            {'trial' => 'time_slot'}
+          ]}
         ] 
       end
       it "returns a Array" do
