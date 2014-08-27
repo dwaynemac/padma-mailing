@@ -59,7 +59,7 @@ describe Template do
     subject{template.needs_data?}
     let(:template){build(:template, content: content)}
     context "if template has merge tags" do
-      let(:content){"%{header} %{another.level} hello %{contact.first_name}, this is a mail from %{contact.instructor.name} {false variabl}. We expect you at %{contact.trial.time_slot} %{contact.instructor.signature}"}
+      let(:content){"{{header}} {{another.level}} hello {{contact.first_name}}, this is a mail from {{contact.instructor.name}} {false variabl}. We expect you at {{contact.trial.time_slot}} {{contact.instructor.signature}}"}
       it { should be_true }
     end
     context "if template has NO merge tags" do
@@ -73,15 +73,15 @@ describe Template do
     subject{ template.needed_drops }
     let(:template){build(:template, content: content)}
     context "if template has 'instructor' tag" do
-      let(:content){"%{instructor.name}"}
+      let(:content){"{{instructor.name}}"}
       it { should include 'user' }
     end
     context "if template has 'persona' tag" do
-      let(:content){"%{persona.name}"}
+      let(:content){"{{persona.name}}"}
       it { should include 'contact' }
     end
     context "if template has 'contact' tag" do
-      let(:content){"%{contact.name}"}
+      let(:content){"{{contact.name}}"}
       it { should include 'contact' }
     end
   end
@@ -90,7 +90,7 @@ describe Template do
     subject{template.needed_data}
     let(:template){build(:template, content: content)}
     context "when content has multiple tags" do
-      let(:content){"%{header} %{another.level} hello %{contact.first_name}, this is a mail from %{contact.instructor.name} {false variabl}. We expect you at %{contact.trial.time_slot} %{contact.instructor.signature}"}
+      let(:content){"{{header}} {{another.level}} hello {{contact.first_name}}, this is a mail from {{contact.instructor.name}} {false variabl}. We expect you at {{contact.trial.time_slot}} {{contact.instructor.signature}}"}
       it "returns liquid variables used in content" do
         should eq [
           'header',
