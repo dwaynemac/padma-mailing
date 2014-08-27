@@ -4,8 +4,9 @@ es:
       scheduled_mail:
         recipient_email: 
       template:
-        name: 
-        subject: 
+        name: Nombre
+        description: Descripción
+        subject: Asunto
       templates_triggers:
         template: 
       trigger:
@@ -18,7 +19,7 @@ es:
       template: 
       templates_triggers: 
       trigger: 
-  confirm: 
+  confirm: ¿Estas seguro?
   destroy: 
   devise:
     confirmations:
@@ -152,9 +153,14 @@ es:
     index:
       add_attachemnts: 
       contact_has_no_mail: 
-      deliver: 
-      deliver_to: 
+      deliver: Enviar
+      deliver_to: Enviar a %{recipient}
       deliver_to_headline: 
+    send_to_contact:
+      cant_send: No se puede enviar manualmente.
+    send_to_mail:
+      cant_send: No puede enviar sin contacto.
+      needs_data: Este modelo tiene etiquetas dinámicas. No puede ser enviado manualmente a una dirección de email. Si quiere enviarlo a un contacto ingrese a su perfil y utilice la opción 'enviar modelo de mail'
     mercury:
       snippets:
         panel:

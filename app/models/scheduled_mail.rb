@@ -20,7 +20,11 @@ class ScheduledMail < ActiveRecord::Base
 
     bcc = padma_user.try(:email) if self.username
 
-    PadmaMailer.template(template, data_hash, recipient_email, bcc, account.padma.email).deliver
+    PadmaMailer.template(template,
+                         data_hash,
+                         recipient_email,
+                         bcc,
+                         account.padma.email).deliver
     update_attribute :delivered_at, Time.now
 
     # Send notification to activities
@@ -31,8 +35,10 @@ class ScheduledMail < ActiveRecord::Base
   end
 
   def creation_activity
-    ActivityStream::Activity.new(target_id: self.contact_id, target_type: 'Contact',
-                                 object_id: template.id, object_type: 'Template',
+    ActivityStream::Activity.new(target_id: self.contact_id,
+                                 target_type: 'Contact',
+                                 object_id: template.id,
+                                 object_type: 'Template',
                                  generator: ActivityStream::LOCAL_APP_NAME,
                                  content: "Mail sent: #{template.name}",
                                  public: false,
@@ -53,31 +59,44 @@ class ScheduledMail < ActiveRecord::Base
 
   def padma_user
     unless @padma_user
-       @padma_user = PadmaUser.find(self.username)
+       @padma_user = PadmaUser.find(self.username) if self.username
     end
     return @padma_user
   end
 
   def data_hash
     data_hash = {}
-    data_from_messaging = data.blank?? {} : ActiveSupport::JSON.decode(data)
+    json_data = data.blank?? {} : ActiveSupport::JSON.decode(data)
 
-    contact = PadmaContact.find(data_from_messaging['contact_id'], select: [:email, :first_name, :last_name, :gender, :global_teacher_username])
-    contact_drop = ContactDrop.new(contact, padma_user);
-    
-    data_hash.merge({
-      'persona' => contact_drop,
-      'contact' => contact_drop
-    })
+    contact_id = json_data['contact_id'] || self.contact_id
+    if contact_id
+      contact = PadmaContact.find(contact_id,
+                                select: [:email,
+                                         :first_name,
+                                         :last_name,
+                                         :gender,
+                                         :global_teacher_username
+                                        ]
+                               )
+      contact_drop = ContactDrop.new(contact, padma_user);
+      data_hash.merge!({
+        'persona' => contact_drop,
+        'contact' => contact_drop,
+      })
+    end
+    user = (json_data['username'])? PadmaUser.find(json_data['username']) : padma_user
+    if user
+      data_hash.merge!({'instructor' => UserDrop.new(padma_user)})
+    end
 
     unless event_key.blank?
       case event_key.to_sym
         #when :subscription_change
         #when :communication
         when :trial_lesson
-          trial_at = data_from_messaging[:trial_at]
+          trial_at = json_data['trial_at']
           trial_lesson_drop = TrialLessonDrop.new(trial_at, padma_user)
-          data_hash.merge({
+          data_hash.merge!({
             'trial_lesson' => trial_lesson_drop,
             'clase_prueba' => trial_lesson_drop
           })
@@ -85,5 +104,7 @@ class ScheduledMail < ActiveRecord::Base
         #when :membership
       end
     end
+
+    data_hash
   end
 end

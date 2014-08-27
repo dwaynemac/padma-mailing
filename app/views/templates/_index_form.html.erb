@@ -1,12 +1,5 @@
 <% if @contact && !@contact.email.blank?%>
-    <%= form_tag("templates/#{template.id}/deliver", :method => :post, class: "send_email_form") do %>
-        <%= hidden_field_tag "recipient", @contact.email %>
-        <%= hidden_field_tag "contact_id", @contact.id %>
-        <%= submit_tag t('templates.index.deliver_to', recipient: @contact.email), class: "btn btn-mini", confirm: t('confirm') %>
-    <% end %>
+  <%= render partial: "send_to_contact", locals: {template: template} %>
 <% else %>
-    <%= form_tag( deliver_template_path(template.id), :method => :post, class: "send_email_form") do %>
-        <%= text_field_tag :recipient, nil, class: "input-small search-query" %>
-        <%= submit_tag t('templates.index.deliver'), class: "btn btn-mini", confirm: t('confirm') %>
-    <% end %>
+  <%= render partial: "send_to_mail", locals: {template: template} %>
 <% end %>

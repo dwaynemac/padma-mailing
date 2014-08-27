@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :require_padma_account
   before_filter :set_current_account
   before_filter :set_timezone
-
+  before_filter :set_locale
 
   rescue_from CanCan::AccessDenied do
     msg = "AccessDenied"
@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_locale
+    I18n.locale = current_user.try :locale
+    # If locale is sent by params override all
+    I18n.locale = params[:locale]
+  end
 
   # Mocks CAS login in development
   def mock_login

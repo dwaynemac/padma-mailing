@@ -1,5 +1,9 @@
 module TemplatesHelper
 
+  def can_send_manually_to_contact?(template)
+    (template.needed_drops - %W(contact user)).empty?
+  end
+
   def tags_description
     tags={}
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
