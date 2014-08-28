@@ -19,7 +19,7 @@ class PadmaMailer < ActionMailer::Base
     @from =  address
     @subject = template.subject
     @sent_on = Time.zone.now
-    @content = Liquid::Template.parse(template.content).render(data_hash)
+    @content = merge_content_data(template.content,data_hash)
     template.attachments.each do |att|
       uri = att.attachment.s3_object(nil).url_for(:read, secure: true).to_s
       attachments[att.attachment_file_name] = open(uri).read
@@ -32,5 +32,15 @@ class PadmaMailer < ActionMailer::Base
           template_name: 'template') do |format|
       format.html
     end
+  end
+
+  private
+
+  def merge_content_data(content,data)
+    Liquid::Template.parse(clean_snippets_html(content)).render(data)
+  end
+
+  def clean_snippets_html(content)
+    content.gsub(/<div class=".*?-snippet" .*?>(.*?)<\/div>/,'\\1')
   end
 end

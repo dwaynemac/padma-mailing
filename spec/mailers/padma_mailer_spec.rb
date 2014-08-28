@@ -46,7 +46,7 @@ describe PadmaMailer do
     end
     it "replaces <div class=\"contact-snippet\" data-snippet=\"snippet_0\">{{contact.full_name}}</div> with contact's full name" do
       t = create(:template, name: 'template-name', subject: 'template-subject',
-                content: "hello <div class=\"contact-snippet\" data-snippet=\"snippet_0\">{{contact.full_name}}</div>")
+                content: "hello <div class=\"contact-snippet\" data-snippet=\"snippet_0\">{{contact.full_name}}</div><div class=\"contact-snippet\" data-snippet=\"snippet_0\">.</div>")
 
       expect do
         t.deliver(contact_id: 123,
@@ -61,14 +61,14 @@ describe PadmaMailer do
                            'a@b.c').deliver
       expected_result = <<HTML_CODE
 <!DOCTYPE html>
-       <html>
-           <head>
-             <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-           </head>
-           <body>
-               hello dw mac
-           </body>
-       </html>
+<html>
+    <head>
+      <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    </head>
+    <body>
+      hello dw mac.
+    </body>
+</html>
 HTML_CODE
       expect(last_email.body.raw_source).to eq expected_result
     end
