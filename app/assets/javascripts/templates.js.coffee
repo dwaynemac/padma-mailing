@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 jQuery ->
+
+  $("[data-toggle='popover']").popover()
+
   $('#fileupload').fileupload
     dataType: "script"
     add: (e, data) ->

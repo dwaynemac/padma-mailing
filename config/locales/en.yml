@@ -35,11 +35,11 @@ en:
           time_slot_description: Time Slot tags like time and name
       contact:
         options:
-          select_tag: 
+          select_tag: Select tag
   triggers:
     form:
       add_filter: Add filter
-      add_template: 
+      add_template: Add template
     new:
       select_template: Select a template
       title: New trigger
@@ -293,7 +293,7 @@ en:
     actions: Actions
     label:
       trigger:
-        event_name: 
+        event_name: Event name
     links:
       back: Back
       cancel: Cancel
@@ -341,9 +341,9 @@ en:
           quadrillion: Quadrillion
           thousand: Thousand
           trillion: Trillion
-          unit: ''
+          unit: 
       format:
-        delimiter: ''
+        delimiter: 
         precision: 3
         significant: true
         strip_insignificant_zeros: true
@@ -359,10 +359,10 @@ en:
           tb: TB
     percentage:
       format:
-        delimiter: ''
+        delimiter: 
     precision:
       format:
-        delimiter: ''
+        delimiter: 
   scheduled_mail:
     attributes:
       delivered_at: Delivered at
@@ -383,5 +383,5 @@ en:
     pm: pm
   mercury:
     toolbar:
-      merge_tags_description: 
-      merge_tags_title: 
+      merge_tags_description: Dinamic tags
+      merge_tags_title: Merge tags
