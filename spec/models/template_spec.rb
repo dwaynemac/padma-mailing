@@ -7,6 +7,127 @@ describe Template do
   it { should belong_to(:account).with_foreign_key(:local_account_id)}
   it { should validate_presence_of :account }
 
+
+  describe "#deliver" do
+    before do
+      PadmaAccount.stub(:find).and_return{PadmaAccount.new()}
+      ScheduledMail.any_instance.stub(:deliver_now!).and_return true
+    end
+    let(:user){create(:user, current_account: create(:account))}
+    let(:data){{to: 'email@ser.com', user: user, contact_id: 'cid' }}
+    let(:template){create(:template)}
+    it "creates a scheduled_mail" do
+      expect{template.deliver(data)}.to change{ScheduledMail.count}.by(1)
+    end
+    it "forwards unkown data keys into ScheduledMail#data" do
+      data.merge!({unknown_key: '1'})
+      template.deliver(data)
+      last_sm_data = ActiveSupport::JSON.decode(ScheduledMail.last.data)
+      expect(last_sm_data['unknown_key']).to eq data[:unknown_key]
+    end
+    it "forwards data[:contact_id] into ScheduledMail#data[:contact_id]" do
+      template.deliver(data)
+      last_sm_data = ActiveSupport::JSON.decode(ScheduledMail.last.data)
+      expect(last_sm_data['contact_id']).to eq data[:contact_id]
+    end
+    it "forwards data[:to] to ScheduledMail#recipient_email" do
+      to = data[:to]
+      template.deliver(data)
+      expect(ScheduledMail.last.recipient_email).to eq to
+    end
+    it "does NOT forward data[:to] into ScheduledMail#data[:to]" do
+      to = data[:to]
+      template.deliver(data)
+      last_sm_data = ActiveSupport::JSON.decode(ScheduledMail.last.data)
+      expect(last_sm_data['to']).not_to eq to
+    end
+    it "forwards data[:contact_id] to ScheduledMail#contact_id" do
+      template.deliver(data)
+      expect(ScheduledMail.last.contact_id).to eq data[:contact_id]
+    end
+    it "forwards data[:user].current_account.id to ScheduledMail.local_account_id" do
+      template.deliver(data)
+      expect(ScheduledMail.last.local_account_id).to eq user.current_account.id
+    end
+    it "forwards data[:user].username to ScheduledMail.username" do
+      template.deliver(data)
+      expect(ScheduledMail.last.username).to eq user.username
+    end
+  end
+
+  describe "#needs_data?" do
+    subject{template.needs_data?}
+    let(:template){build(:template, content: content)}
+    context "if template has merge tags" do
+      let(:content){"{{header}} {{another.level}} hello {{contact.first_name}}, this is a mail from {{contact.instructor.name}} {false variabl}. We expect you at {{contact.trial.time_slot}} {{contact.instructor.signature}}"}
+      it { should be_true }
+    end
+    context "if template has NO merge tags" do
+      let(:content){"text withou {valid} tags"}
+      it { should be_false }
+    end
+
+  end
+
+  describe "#needed_drops" do
+    subject{ template.needed_drops }
+    let(:template){build(:template, content: content)}
+    context "if template has 'instructor' tag" do
+      let(:content){"{{instructor.name}}"}
+      it { should include 'user' }
+    end
+    context "if template has 'persona' tag" do
+      let(:content){"{{persona.name}}"}
+      it { should include 'contact' }
+    end
+    context "if template has 'contact' tag" do
+      let(:content){"{{contact.name}}"}
+      it { should include 'contact' }
+    end
+  end
+
+  describe "#needed_data" do
+    subject{template.needed_data}
+    let(:template){build(:template, content: content)}
+    context "when content has multiple tags" do
+      let(:content){"{{header}} {{another.level}} hello {{contact.first_name}}, this is a mail from {{contact.instructor.name}} {false variabl}. We expect you at {{contact.trial.time_slot}} {{contact.instructor.signature}}"}
+      it "returns liquid variables used in content" do
+        should eq [
+          'header',
+          {'another' => 'level'},
+          {'contact' => [
+            'first_name',
+            {'instructor' => ['name','signature']},
+            {'trial' => 'time_slot'}
+          ]}
+        ] 
+      end
+      it "returns a Array" do
+        should be_a Array
+      end
+    end
+    shared_examples_for 'no content' do
+      it "returns be empty" do
+        should be_empty
+      end
+      it "returns a Array" do
+        should be_a Array
+      end
+    end
+    context "when content has no tags" do
+      let(:content){"text withou {valid} tags"}
+      include_examples 'no content'
+    end
+    context "when content is empty" do
+      let(:content){""}
+      include_examples 'no content'
+    end
+    context "when content is nil" do
+      let(:content){nil}
+      include_examples 'no content'
+    end
+  end
+  
   describe "a normal template" do
     it "should be able to save a large content" do
       content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dui odio, tincidunt nec vulputate sit amet, malesuada in quam. Integer congue felis nec mauris feugiat eu tristique augue eleifend. Duis auctor est eu sapien ultrices pellentesque. In ut lorem mi. Aenean at velit ac metus fermentum interdum. Curabitur condimentum nisl vitae dolor cursus interdum. Donec tristique, mauris et euismod dignissim, libero elit dignissim est, sed imperdiet mi est id nisi. In cursus volutpat mattis. Mauris commodo malesuada risus vel eleifend. Mauris et eros libero.
