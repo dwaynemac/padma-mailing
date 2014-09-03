@@ -110,8 +110,7 @@ class Import < ActiveRecord::Base
         end
       end
 
-      self.update_attribute(:status, :working)
-      self.save
+      self.update_attribute(:status, :finished)
     rescue Exception => e
       Rails.logger.warn e.message
       self.update_attribute(:status, :failed)
