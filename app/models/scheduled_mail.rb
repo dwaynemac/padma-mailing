@@ -81,7 +81,7 @@ class ScheduledMail < ActiveRecord::Base
       contact_drop = ContactDrop.new(contact, padma_user);
       data_hash.merge!({
         'persona' => contact_drop,
-        'contact' => contact_drop,
+        'contact' => contact_drop
       })
     end
     user = (json_data['username'])? PadmaUser.find(json_data['username']) : padma_user
