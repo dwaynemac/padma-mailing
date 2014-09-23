@@ -80,6 +80,10 @@ describe Template do
       let(:content){"{{persona.name}}"}
       it { should include 'contact' }
     end
+    context "if template has 'clase_prueba' tag" do
+      let(:content){"{{clase_prueba.horario.instructor.nombre}}"}
+      it { should include 'trial_lesson' }
+    end
     context "if template has 'contact' tag" do
       let(:content){"{{contact.name}}"}
       it { should include 'contact' }

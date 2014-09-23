@@ -60,6 +60,8 @@ class Template < ActiveRecord::Base
         'user'
       when 'persona'
         'contact'
+      when 'clase_prueba'
+        'trial_lesson'
       else
         tag
       end
