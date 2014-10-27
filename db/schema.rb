@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140528150741) do
+ActiveRecord::Schema.define(:version => 20141027174049) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -59,6 +59,16 @@ ActiveRecord::Schema.define(:version => 20140528150741) do
     t.datetime "csv_file_updated_at"
   end
 
+  create_table "mailchimp_configurations", :force => true do |t|
+    t.string   "api_key"
+    t.integer  "local_account_id"
+    t.integer  "primary_list_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "synchronizer_id"
+    t.string   "filter_method"
+  end
+
   create_table "mailchimp_integrations", :force => true do |t|
     t.integer  "local_account_id"
     t.string   "api_key"
@@ -70,6 +80,28 @@ ActiveRecord::Schema.define(:version => 20140528150741) do
     t.string   "all_list_id"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
+  end
+
+  create_table "mailchimp_lists", :force => true do |t|
+    t.string   "api_id"
+    t.integer  "mailchimp_configuration_id"
+    t.string   "name"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "mailchimp_segments", :force => true do |t|
+    t.string   "api_id"
+    t.integer  "mailchimp_list_id"
+    t.string   "name"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.boolean  "student"
+    t.boolean  "exstudent"
+    t.boolean  "prospect"
+    t.string   "coefficient"
+    t.boolean  "only_man"
+    t.string   "contact_segment_id"
   end
 
   create_table "mercury_images", :force => true do |t|
@@ -94,6 +126,16 @@ ActiveRecord::Schema.define(:version => 20140528150741) do
     t.text     "data"
     t.string   "event_key"
   end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "templates", :force => true do |t|
     t.string   "name"
