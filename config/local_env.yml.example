@@ -7,3 +7,4 @@ messaging_secret: 'xxxxxxxxxxxxxxxxxxxxxx'
 contacts_key: "xxxxxxxxxxxxxxxxxxxxxxxx"
 GMAIL_USERNAME: "cucu@gmail.com"
 GMAIL_PASSWORD: "1234"
+doorbellio_key: secret
