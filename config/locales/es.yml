@@ -234,7 +234,7 @@ es:
           contact_description: Datos del contacto como nombre, apellido, género, nombre de su instructor, etc.
           info: Inserte la etiqueta arrastrándola dentro del email.
           instructor: Instructor
-          instructor_description: Datos del usuario que envía el emial como nombre o email.
+          instructor_description: Datos del usuario que envía el email como nombre o email.
           time_slot: Horario
           time_slot_description: Datos del horario como hora y nombre
           trial_lesson: Clase de prueba

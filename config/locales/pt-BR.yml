@@ -1,0 +1,398 @@
+pt-BR:
+  activerecord:
+    attributes:
+      scheduled_mail:
+        recipient_email: Email destino
+      template:
+        name: Nome
+        description: Descriçāo
+        subject: Asunto
+      templates_triggers:
+        template: Modelo
+      trigger:
+        event_name: Nome do evento
+      trigger/templates_triggerses:
+        template: 
+    models:
+      mailchimp_integration: Integraçāo com mailchimp
+      scheduled_mail: Mails programados
+      template: Modelo
+      templates_triggers: Disparadores de modelos
+      trigger: Disparador
+  confirm: Certeza?
+  date:
+    abbr_day_names:
+    - Dom
+    - Seg
+    - Ter
+    - Qua
+    - Qui
+    - Sex
+    - Sáb
+    abbr_month_names:
+    - 
+    - Jan
+    - Fev
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Out
+    - Nov
+    - Dez
+    day_names:
+    - Domingo
+    - Segunda
+    - Terça
+    - Quarta
+    - Quinta
+    - Sexta
+    - Sábado
+    formats:
+      default: ! '%d/%m/%Y'
+      long: ! '%d de %B de %Y'
+      short: ! '%d de %B'
+    month_names:
+    - 
+    - Janeiro
+    - Fevereiro
+    - Março
+    - Abril
+    - Maio
+    - Junho
+    - Julho
+    - Agosto
+    - Setembro
+    - Outubro
+    - Novembro
+    - Dezembro
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximadamente 1 hora
+        other: aproximadamente %{count} horas
+      about_x_months:
+        one: aproximadamente 1 mês
+        other: aproximadamente %{count} meses
+      about_x_years:
+        one: aproximadamente 1 ano
+        other: aproximadamente %{count} anos
+      almost_x_years:
+        one: quase 1 ano
+        other: quase %{count} anos
+      half_a_minute: meio minuto
+      less_than_x_minutes:
+        one: menos de um minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: mais de 1 ano
+        other: mais de %{count} anos
+      x_days:
+        one: 1 dia
+        other: ! '%{count} dias'
+      x_minutes:
+        one: 1 minuto
+        other: ! '%{count} minutos'
+      x_months:
+        one: 1 mês
+        other: ! '%{count} meses'
+      x_seconds:
+        one: 1 segundo
+        other: ! '%{count} segundos'
+    prompts:
+      day: Dia
+      hour: Hora
+      minute: Minuto
+      month: Mês
+      second: Segundo
+      year: Ano
+  destroy: apagar
+  devise:
+    confirmations:
+      confirmed: 
+      send_instructions: 
+      send_paranoid_instructions: 
+    failure:
+      already_authenticated: 
+      inactive: 
+      invalid: 
+      invalid_token: 
+      locked: 
+      timeout: 
+      unauthenticated: 
+      unconfirmed: 
+    mailer:
+      confirmation_instructions:
+        subject: 
+      reset_password_instructions:
+        subject: 
+      unlock_instructions:
+        subject: 
+    omniauth_callbacks:
+      failure: 
+      success: 
+    passwords:
+      send_instructions: 
+      send_paranoid_instructions: 
+      updated: 
+      updated_not_active: 
+    registrations:
+      destroyed: 
+      inactive_signed_up: 
+      reasons:
+        inactive: 
+        locked: 
+        unconfirmed: 
+      signed_up: 
+      updated: 
+    sessions:
+      signed_in: 
+      signed_out: 
+    unlocks:
+      send_instructions: 
+      send_paranoid_instructions: 
+      unlocked: 
+  edit: 
+  errors:
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: tem de ser aceite
+      already_confirmed: 
+      blank: não pode estar em branco
+      confirmation: não coincide com a confirmação
+      empty: não pode estar vazio
+      equal_to: tem de ser igual a %{count}
+      even: tem de ser par
+      exclusion: é reservado
+      expired: 
+      greater_than: tem de ser maior que %{count}
+      greater_than_or_equal_to: tem de ser maior ou igual a %{count}
+      inclusion: não está incluído na lista
+      invalid: é inválido
+      less_than: tem de ser menor que %{count}
+      less_than_or_equal_to: tem de ser menor ou igual a %{count}
+      not_an_integer: tem de ser um inteiro
+      not_a_number: não é um número
+      not_found: 
+      not_locked: 
+      not_saved: 
+      odd: tem de ser ímpar
+      record_invalid: ! 'A validação falhou: %{errors}'
+      taken: não está disponível
+      too_long: é demasiado grande (o máximo é de %{count} caracteres)
+      too_short: é demasiado pequeno (o mínimo é de %{count} caracteres)
+      wrong_length: comprimento errado (deve ter %{count} caracteres)
+    template:
+      body: ! 'Por favor, verifique os seguintes campos:'
+      header:
+        one: ! 'Não foi possível guardar %{model}: 1 erro'
+        other: ! 'Não foi possível guardar %{model}: %{count} erros'
+  filter:
+    suggested_values:
+      email: 
+      interview: 
+      phone_call: 
+      website_contact: 
+  hello: 
+  helpers:
+    actions: 
+    label:
+      trigger:
+        event_name: 
+    links:
+      back: 
+      cancel: 
+      confirm: 
+      destroy: 
+      new: 
+    select:
+      prompt: Por favor seleccione
+    submit:
+      create: Criar %{model}
+      mailchimp_integration:
+        create: 
+        update: 
+      submit: Salvar %{model}
+      trigger:
+        create: 
+      update: Actualizar %{model}
+    titles:
+      delete: 
+      edit: 
+      new: 
+      save: 
+  layouts:
+    navbar:
+      mailchimp: 
+      scheduled_mails: 
+      templates: 
+      triggers: 
+  mailchimp:
+    new:
+      api_key: 
+      api_key_help: 
+      setup_mailchimp_api_key: 
+      sync_times: 
+    show:
+      list_on_mailchimp_for:
+        all: 
+        p_former_students: 
+        students: 
+      list_syncronization: 
+  new: 
+  number:
+    currency:
+      format:
+        delimiter: .
+        format: ! '%u%n'
+        precision: 2
+        separator: ! ','
+        significant: false
+        strip_insignificant_zeros: false
+        unit: €
+    format:
+      delimiter: .
+      precision: 3
+      separator: ! ','
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          billion:
+            one: mil milhões
+            other: mil milhões
+          million:
+            one: milhão
+            other: milhões
+          quadrillion:
+            one: mil biliões
+            other: mil biliões
+          thousand: mil
+          trillion:
+            one: bilião
+            other: biliões
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  scheduled_mail:
+    attributes:
+      delivered_at: 
+      recipient_email: 
+      send_at: 
+      template: 
+  scheduled_mails:
+    destroy:
+      success: 
+    index:
+      pending: 
+      title: 
+  support:
+    array:
+      last_word_connector: ! ', e'
+      two_words_connector: ! ' e '
+      words_connector: ! ', '
+  templates:
+    deliver:
+      success: Modelo enviado
+    index:
+      add_attachemnts: Adjuntar arquivo
+      contact_has_no_mail: O contato %{full_name} nāo tem email. Ingrese manualmente.
+      deliver: Enviar email
+      deliver_to: Enviar a %{recipient}
+      deliver_to_headline: Enviar modelo a %{full_name}
+    send_to_contact:
+      cant_send: Nāo é possivel enviar manualmente.
+    send_to_mail:
+      cant_send: Preciso do contato para enviar.
+      needs_data: Este modelo tem variávels dinámicas. Nāo pode ser enviado manualmente para um email. Para envia a um contato ingrese no perfil dele e utilice a opçāo 'enviar modelo de mail'
+    mercury:
+      snippets:
+        panel:
+          contact: contato
+          contact_description: Dados do contato como nome, sobre nome, sexo, nome do instrutor, etc.
+          info: Inserte a variável arrastrando dentro do email.
+          instructor: Instrutor
+          instructor_description: Dados do usuario que envia o email como nomo ou email.
+          time_slot: Turma
+          time_slot_description: Dados da turma como hora e nome.
+          trial_lesson: Aula experimental
+          trial_lesson_description: Dados da aula experimental como a data, o nome da turma, o horario, etc.
+      contact_description: ! 'Datos del contacto que recibe el email. ej: nombre, apellido, etc.'
+      instructor_description: Dados do instrutor
+      time_slot_description: Dados da turma 
+      trial_lesson_description: Dados da aula experimental
+      contact:
+        options:
+          select_tag: Selecione o dado
+      insert_tag: Insertar etiqueta dinámica en el modelo
+      select_tag: Elija el valor a insertar
+  time:
+    am: am
+    formats:
+      default: ! '%A, %d de %B de %Y, %H:%Mh'
+      long: ! '%A, %d de %B de %Y, %H:%Mh'
+      short: ! '%d/%m, %H:%M hs'
+    pm: pm
+  trigger:
+    offset_number: Diferencia
+    offset_reference: referencia
+    offset_unit: unidad da diferencia
+    since: desde
+  triggers:
+    birthday:
+      warning: ! 'Atençāo: os alunos de outras escolas nāo receberam estes emails.'
+    form:
+      add_filter: Agregar filtro
+      add_template: Agregar modelo
+    index:
+      delay_warning: Eventos podem demorar ate %{minutes} minutos em ativar o disparador.
+    new:
+      select_template: Selecione o modelo
+      title: Novo disparador
+      event_select_message: Elija um evento e filtros
+      template_select_message: Elija un modelo
+  contact:
+    mercury:
+      tags:
+        a_u_o: a u o
+        first_name: Primer nombre
+        full_name: Nombre Completo
+        gender: Género
+        instructor_email: Email del instructor del contacto
+        instructor_name: Nombre del instructor del contacto
+        last_name: Apellido
+  mercury:
+    toolbar:
+      merge_tags_description: Datos dinámicos
+      merge_tags_title: Datos dinámicos
