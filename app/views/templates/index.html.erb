@@ -8,12 +8,13 @@
             full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
   <% end %>
 <% end %>
-<table class="table table-striped">
+<table class="table table-striped" id="templates">
   <thead>
   <tr>
     <th><%= t('activerecord.attributes.template.name') %></th>
     <th><%= t('activerecord.attributes.template.description') %></th>
     <th><%= t('activerecord.attributes.template.subject') %></th>
+    <th></th>
     <th></th>
     <th></th>
   </tr>
@@ -25,20 +26,22 @@
         <td><%= template.description %></td>
         <td><%= template.subject %></td>
         <td>
+          <%= render partial: "index_form", locals: {template: template} %>
+        </td>
+        <td>
           <%= link_to t('templates.index.add_attachemnts'),
                       template,
-                      class: 'btn btn-mini' %>
+                      class: 'btn btn-mini btn-default' %>
           <%= link_to t('edit'),
                       "/editor" + edit_template_path(template),
-                      class: 'btn btn-mini' %>
+                      class: 'btn btn-mini btn-default' %>
+        </td>
+        <td>
           <%= link_to t('destroy'),
                       template_path(template),
                       method: :delete,
                       confirm: t('confirm'),
-                      class: 'btn btn-mini btn-danger' %>
-        </td>
-        <td>
-          <%= render partial: "index_form", locals: {template: template} %>
+                      class: 'delete-btn btn btn-mini btn-link' %>
         </td>
       </tr>
   <% end %>

@@ -27,3 +27,11 @@
 .contact-snippet, .instructor-snippet, .time_slot-snippet, .trial_lesson-snippet {
   display: inline-block;
 }
+
+.delete-btn, .delete-btn:hover, .delete-btn:visited {
+  color: red;
+}
+
+table#templates td:last-child {
+  text-align: right;
+}
