@@ -155,6 +155,9 @@ es:
         p_former_students: Lista con ex-alumnos (p)
         students: Lista con alumnos
       list_syncronization: Lista para sincronizar con mailchimp
+    list:
+      segments:
+        name: Nombre del segmento
   new: Nuevo
   number:
     human:
