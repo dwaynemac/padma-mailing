@@ -19,6 +19,7 @@ class Mailchimp::ConfigurationsController < ApplicationController
   end
 
   def primary_list
+    @configuration.create_mailchimp_lists_locally # fetch mailchimp lists
     @lists = @configuration.mailchimp_lists
   end
   

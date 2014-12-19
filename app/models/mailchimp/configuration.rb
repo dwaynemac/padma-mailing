@@ -13,6 +13,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   belongs_to :account, foreign_key: :local_account_id
 
   # List with which PADMA is synced
+  attr_accessible :primary_list_id
   belongs_to :primary_list, foreign_key: :primary_list_id, class_name: 'Mailchimp::List'
 
   has_many :mailchimp_segments, through: :primary_list
@@ -56,8 +57,6 @@ class Mailchimp::Configuration < ActiveRecord::Base
         filter_method: filter_method 
       }
   end
-  
-  private
   
   def create_mailchimp_lists_locally
     api.lists.list['data'].each do |list_hash|
