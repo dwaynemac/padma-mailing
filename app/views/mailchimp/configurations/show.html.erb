@@ -1,0 +1,24 @@
+<ul>
+  <li><label>api key:</label> <%= @configuration.api_key %></li>
+  <li><label>filter method:</label> <%= @configuration.filter_method %></li>
+  <li><label>Lists in mailchimp:</label>
+    <ul>
+      <% @configuration.mailchimp_lists.each do |list| -%>
+        <li>
+          <%= "<strong>".html_safe if list.primary? -%>
+          <%= list.name %>
+          <%= " (primary) </strong>".html_safe if list.primary? -%>
+        </li>
+      <% end -%>
+    </ul>
+  </li>
+  <li><label>Segments</label>
+    <ul>
+      <% @configuration.mailchimp_segments.each do |segment| -%>
+        <li>
+        <%= segment.name %>
+        </li>
+      <% end -%>
+    </ul>
+  </li>
+</ul>

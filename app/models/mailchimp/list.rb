@@ -12,4 +12,8 @@ class Mailchimp::List < ActiveRecord::Base
     reject_if: proc { |attr|
       !Mailchimp::Segment.new(attr).valid?
     }
+
+  def primary?
+    self.id == self.mailchimp_configuration.primary_list_id
+  end
 end

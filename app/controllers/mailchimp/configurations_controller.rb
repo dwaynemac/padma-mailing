@@ -3,7 +3,7 @@ class Mailchimp::ConfigurationsController < ApplicationController
   before_filter :require_set_up, only: [:show]
   
   def show
-    render text: "Mailchimp show"
+    # @configuration setted by get_configuration
   end
 
   def new

@@ -3,7 +3,9 @@ require 'rest_client'
 class Mailchimp::Segment < ActiveRecord::Base
   attr_accessible :api_id
   attr_accessible :mailchimp_list_id
-  attr_accessible :contact_segment_id
+  attr_accessible :contact_segment_id # this segment mapped in contacts-ws
+
+  # CONDITIONS FOR SEGMENT
   attr_accessible :prospect
   attr_accessible :exstudent
   attr_accessible :student

@@ -7,11 +7,17 @@ class Mailchimp::Configuration < ActiveRecord::Base
   
   attr_accessible :api_key
   attr_accessible :local_account_id
-  attr_accessible :primary_list_id
   attr_accessible :synchronizer_id
   attr_accessible :filter_method
   
   belongs_to :account, foreign_key: :local_account_id
+
+  # List with which PADMA is synced
+  belongs_to :primary_list, foreign_key: :primary_list_id, class_name: 'Mailchimp::List'
+
+  has_many :mailchimp_segments, through: :primary_list
+
+  # Lists the account has in mailchimp
   has_many :mailchimp_lists, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::List", dependent: :destroy
   
   before_create :create_synchronizer
@@ -37,10 +43,6 @@ class Mailchimp::Configuration < ActiveRecord::Base
     else
       return false
     end
-  end
-  
-  def primary_list
-    Mailchimp::List.find(primary_list_id)
   end
   
   def update_synchronizer
