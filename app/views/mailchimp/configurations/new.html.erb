@@ -3,9 +3,6 @@
     <legend>
       <%= t('mailchimp.new.setup_mailchimp_api_key') %>
     </legend>
-    <p>
-      <%= t('mailchimp.new.sync_times') %>
-    </p>
 
     <label for="api_key">
       <%= t('mailchimp.new.api_key') %>
@@ -15,8 +12,13 @@
     <p class="help-block">
       <%= link_to t('mailchimp.new.api_key_help'), "http://kb.mailchimp.com/article/where-can-i-find-my-api-key", target: '_blank' %>
     </p>
-    
   </fieldset>
   
-  <%= f.submit nil, class: 'btn btn-primary' %>
+  <p>
+  <%= f.submit t('mailchimp.new.connect_with_mailchimp'), class: 'btn btn-primary' %>
+  </p>
+
+  <p class="alert alert-info">
+    <%= t('mailchimp.new.sync_times') %>
+  </p>
 <% end -%>

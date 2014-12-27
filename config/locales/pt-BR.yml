@@ -238,6 +238,9 @@ pt-BR:
       templates: 
       triggers: 
   mailchimp:
+    primary_list:
+      whant_a_new_one: Se você nāo quer syncronizar com uma de estas listas.
+      create_one: Crie uma nova lista em mailchimp
     new:
       api_key: 
       api_key_help: 

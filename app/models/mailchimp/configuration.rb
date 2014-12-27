@@ -9,6 +9,8 @@ class Mailchimp::Configuration < ActiveRecord::Base
   attr_accessible :local_account_id
   attr_accessible :synchronizer_id
   attr_accessible :filter_method
+
+  validates_presence_of :api_key
   
   belongs_to :account, foreign_key: :local_account_id
 

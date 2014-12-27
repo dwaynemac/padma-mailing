@@ -9,6 +9,6 @@ class Mailchimp::ListsController < ApplicationController
     @list.mailchimp_configuration.update_attribute(:filter_method ,params[:filter_method])
     @list.mailchimp_configuration.update_synchronizer
     
-    render text: "OK"
+    redirect_to @list.mailchimp_configuration
   end
 end

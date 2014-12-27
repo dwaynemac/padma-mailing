@@ -144,11 +144,19 @@ es:
       templates: Modelos
       triggers: Automatización
   mailchimp:
+    primary_list:
+      setup_primary_list: Elija la lista de mailchimp con la que sincronizar sus contactos
+      whant_a_new_one: 'Si no quiere sincronizar con ninguna de estas:'
+      create_one: Cree una nueva lista en mailchimp
+      reload_when_finished: Recargue esta página al finalizar
+      sync_with_chosen_list: Utilizar la lista seleccionada
     new:
-      api_key: Api Key
-      api_key_help: Dónde encontrar la Api Key
-      setup_mailchimp_api_key: Api Key en mailchimp
+      api_key: "Coloque aquí su api key:"
+      get_api_key: "Abrir ventana con mi api key"
+      api_key_help: "Más ayuda sobre la api key: ¿qué es? ¿dónde encontrarla?"
+      setup_mailchimp_api_key: Configurar integración con Mailchimp
       sync_times: La sincronización con mailchimp es realizada cada noche
+      connect_with_mailchimp: Conectar con mi cuenta de mailchimp
     show:
       list_on_mailchimp_for:
         all: Lista con todos los contactos

@@ -11,11 +11,16 @@ class Mailchimp::ConfigurationsController < ApplicationController
   end
 
   def create
-    @configuration = Mailchimp::Configuration.create(
+    @configuration = Mailchimp::Configuration.new(
       local_account_id: current_user.current_account.id,
       api_key: params[:mailchimp_configuration][:api_key]
     )
-    redirect_to primary_list_mailchimp_configuration_path @configuration
+    if @configuration.save
+      redirect_to primary_list_mailchimp_configuration_path @configuration
+    else
+      flash.alert = @configuration.errors.messages.to_a.flatten.join(' ')
+      render :new
+    end
   end
 
   def primary_list
