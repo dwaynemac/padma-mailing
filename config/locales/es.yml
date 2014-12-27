@@ -143,6 +143,8 @@ es:
       scheduled_mails: Emails programados
       templates: Modelos
       triggers: Automatización
+  mailchimp_configuration:
+    api_key_is_not_valid: 'no es válida. Revise en mailchimp.'
   mailchimp:
     primary_list:
       setup_primary_list: Elija la lista de mailchimp con la que sincronizar sus contactos

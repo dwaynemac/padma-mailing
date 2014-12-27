@@ -11,6 +11,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   attr_accessible :filter_method
 
   validates_presence_of :api_key
+  validate :api_key_is_valid
   
   belongs_to :account, foreign_key: :local_account_id
 
@@ -69,6 +70,18 @@ class Mailchimp::Configuration < ActiveRecord::Base
           mailchimp_configuration_id: id
         )
       end
+    end
+  end
+
+  def api_key_is_valid
+    return if api_key.blank?
+
+    begin
+      if api.lists.list['data'].nil?
+        self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
+      end
+    rescue OpenSSL::SSL::SSLError
+      self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
     end
   end
 
