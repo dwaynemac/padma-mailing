@@ -238,6 +238,10 @@ pt-BR:
       templates: 
       triggers: 
   mailchimp:
+    list:
+      segments:
+        name: Nome do segmento
+        perfil_explained: "'Perfil' é P e SP"
     primary_list:
       whant_a_new_one: Se você nāo quer syncronizar com uma de estas listas.
       create_one: Crie uma nova lista em mailchimp
