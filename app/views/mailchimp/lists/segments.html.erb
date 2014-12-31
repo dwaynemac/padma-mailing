@@ -39,26 +39,31 @@
     <label for="coefficient">
       <%= t('mailchimp.list.segments.coefficient')%>:
     </label>
-    <div class="btn-group" data-toggle="buttons">
-      <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'all') %>" >
-        <%= ff.radio_button :coefficient, "all"%>
-        <%= t('mailchimp.list.segments.all')%>
-      </label>
+    <div class="btn-group">
+      <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'all') %>" >
+          <%= ff.radio_button :coefficient, "all"%>
+          <%= t('mailchimp.list.segments.all')%>
+        </label>
 
-      <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'fp') %>" >
-        <%= ff.radio_button :coefficient, "fp"%>
-        <%= t('mailchimp.list.segments.fp')%>
-      </label>
+        <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'fp') %>" >
+          <%= ff.radio_button :coefficient, "fp"%>
+          <%= t('mailchimp.list.segments.fp')%>
+        </label>
 
-      <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'perfil') %>" >
-        <%= ff.radio_button :coefficient, "perfil" %>
-        <%= t('mailchimp.list.segments.perfil')%>
-      </label>
+        <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'perfil') %>" data-toggle='tooltip' data-placement='top' title='<%= I18n.t('mailchimp.list.segments.perfil_explained') %>' >
+          <%= ff.radio_button :coefficient, "perfil" %>
+          <%= t('mailchimp.list.segments.perfil')%>
+        </label>
 
-      <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'pmas') %>" >
-        <%= ff.radio_button :coefficient, "pmas"%>
-        <%= t('mailchimp.list.segments.pmas')%>
-      </label>
+        <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'pmas') %>" >
+          <%= ff.radio_button :coefficient, "pmas"%>
+          <%= t('mailchimp.list.segments.pmas')%>
+        </label>
+      </div>
+      <p class="hint">
+        
+      </p>
     </div>
     
     <% if ff.object.persisted? %>

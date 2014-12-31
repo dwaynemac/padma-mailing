@@ -168,6 +168,8 @@ es:
     list:
       segments:
         name: Nombre del segmento
+        perfil: Perfil
+        perfil_explained: "'Perfil' incluye P y P+"
   new: Nuevo
   number:
     human:
