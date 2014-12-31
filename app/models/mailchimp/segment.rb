@@ -1,5 +1,10 @@
 require 'rest_client'
 
+##
+#
+# Coeficient
+#   perfil = p + pmas
+#
 class Mailchimp::Segment < ActiveRecord::Base
   attr_accessible :api_id
   attr_accessible :mailchimp_list_id
