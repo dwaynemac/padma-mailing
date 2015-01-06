@@ -40,11 +40,13 @@ class Mailchimp::Configuration < ActiveRecord::Base
     response = Typhoeus.post Contacts::HOST + '/v0/mailchimp_synchronizers', body: {
       app_key: Contacts::API_KEY,
       account_name: account.name,
-      synchronizer: {api_key: api_key}}
+      synchronizer: {api_key: api_key}
+    }
     
-    if response
+    if response.code == 201
       self.synchronizer_id = JSON.parse(response.body)['id']   
     else
+      self.errors.add(:synchronizer_id, I18n.t('mailchimp_configuration.synchronizer_not_created'))
       return false
     end
   end
