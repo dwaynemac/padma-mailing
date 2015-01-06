@@ -145,12 +145,13 @@ es:
       triggers: Automatización
   mailchimp_configuration:
     api_key_is_not_valid: 'no es válida. Revise en mailchimp.'
+    synchronizer_not_created: 'Error interno. No se creó el sincronizador.'
   mailchimp:
     primary_list:
       setup_primary_list: Elija la lista de mailchimp con la que sincronizar sus contactos
       whant_a_new_one: 'Si no quiere sincronizar con ninguna de estas:'
       create_one: Cree una nueva lista en mailchimp
-      reload_when_finished: Recargue esta página al finalizar
+      reload_when_finished: Recargue esta página después de crear la nueva lista.
       sync_with_chosen_list: Utilizar la lista seleccionada
     new:
       api_key: "Coloque aquí su api key:"
@@ -167,6 +168,8 @@ es:
       list_syncronization: Lista para sincronizar con mailchimp
     list:
       segments:
+        segments: Segmentos
+        explanation: Sus contactos de PADMA estarán en la lista <b>%{list_name}</b> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc. 
         name: Nombre del segmento
         perfil: Perfil
         perfil_explained: "'Perfil' incluye P y P+"

@@ -1,4 +1,7 @@
 pt-BR:
+  mailchimp_configuration:
+    synchronizer_not_created: 'erro interno. synchronizer nāo criado'
+    api_key_is_not_valid: 'a API key nāo é válida'
   activerecord:
     attributes:
       scheduled_mail:

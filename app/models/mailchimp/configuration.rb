@@ -43,7 +43,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
       synchronizer: {api_key: api_key}
     }
     
-    if response.code == 201
+    if response.success?
       self.synchronizer_id = JSON.parse(response.body)['id']   
     else
       self.errors.add(:synchronizer_id, I18n.t('mailchimp_configuration.synchronizer_not_created'))

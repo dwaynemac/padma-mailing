@@ -1,3 +1,20 @@
 // Place all the styles related to the Mailchimp::Lists controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#templateForm .mailchimp_segment_fields {
+  display: none;
+  // background-color: red;
+}
+
+.bs-callout-info {
+  border-left-color: #5bc0de !important;
+}
+
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid #eee;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
