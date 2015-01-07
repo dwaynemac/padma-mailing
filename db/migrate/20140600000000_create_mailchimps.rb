@@ -6,7 +6,7 @@ class CreateMailchimps < ActiveRecord::Migration
     create_table :segments do |t|
       t.integer :mailchimp_id
     end
-    create_table :mailchimp_integrations do |t|
+    create_table :mailchimp_integrations, force: true do |t|
     end 
     create_table :lists do |t|
     end 
