@@ -26,6 +26,8 @@ class Mailchimp::Configuration < ActiveRecord::Base
   
   before_create :create_synchronizer
   after_create :create_mailchimp_lists_locally
+
+  after_destroy :destroy_synchronizer
   
   # @return [Gibbon:API]
   def api
@@ -49,6 +51,14 @@ class Mailchimp::Configuration < ActiveRecord::Base
       self.errors.add(:synchronizer_id, I18n.t('mailchimp_configuration.synchronizer_not_created'))
       return false
     end
+  end
+
+  def destroy_synchronizer
+    response = Typhoeus.delete Contacts::HOST + "/v0/mailchimp_synchronizers/#{self.synchronizer_id}", body: {
+      app_key: Contacts::API_KEY,
+      account_name: account.name,
+      synchronizer: {api_key: api_key}
+    }
   end
   
   def update_synchronizer
