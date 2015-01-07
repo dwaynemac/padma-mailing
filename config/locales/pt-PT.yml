@@ -1,4 +1,6 @@
 pt-PT:
+  save_changes: salvar
+  cancel: cancelar
   activerecord:
     attributes:
       scheduled_mail:

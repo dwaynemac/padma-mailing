@@ -172,6 +172,12 @@ es:
       update:
         couldnt_update_segments: No se pudo actualizar la configuración de segmentos.
       segments:
+        filter_methods:
+          title: Sincronización de contactos
+          explanation: Aquí puede seleccionar que se sincronicen todos los contactos de cuenta o sólo aquellos que se encuentran dentro de los criterios de sus segmentos. Si decide sincronizar todos los contactos considere que Mailchimp permite sólo 2000 contactos, si su cuenta tiene más de 2000 contactos deberá subscribirse a un plan pago de mailchimp.
+          all: todos
+          segments: sólo los segmentos
+          more_about_mailchimp_pricing: Más información sobre los planes de Mailchimp
         segments: Segmentos
         explanation: Sus contactos de PADMA estarán en la lista <b>%{list_name}</b> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc. 
         name: Nombre del segmento

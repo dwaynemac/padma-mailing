@@ -1,5 +1,5 @@
 pt-BR:
-  save_changes: guardar cambios
+  save_changes: salvar
   cancel: cancelar
   mailchimp_configuration:
     synchronizer_not_created: 'erro interno. synchronizer nāo criado'
