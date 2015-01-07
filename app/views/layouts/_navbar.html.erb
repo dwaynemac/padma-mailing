@@ -45,7 +45,7 @@
       <%= content_tag :li, link_to(t('layouts.navbar.templates'), templates_url), class: ('active' if controller_name == 'templates') %>
       <%= content_tag :li, link_to(t('layouts.navbar.triggers'), triggers_url), class: ('active' if controller_name == 'triggers') %>
       <%= content_tag :li, link_to(t('layouts.navbar.scheduled_mails'), scheduled_mails_url), class: ('active' if controller_name == 'scheduled_mails') %>
-      <%= content_tag :li, link_to(t('layouts.navbar.mailchimp'), mailchimp_configuration_url), class: ('active' if controller_name == 'mailchimp') %>
+      <% content_tag :li, link_to(t('layouts.navbar.mailchimp'), mailchimp_configuration_url), class: ('active' if controller_name == 'mailchimp') %>
     </ul>
   </div>
 </nav> 
