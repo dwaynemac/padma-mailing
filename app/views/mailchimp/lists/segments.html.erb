@@ -1,9 +1,4 @@
-<%= form_for Mailchimp::Segment.new, url: '', html: {id: 'templateForm'} do |template| %>
-  <!-- form for templating -->
-  <%= render partial: 'mailchimp_segment_fields', locals: { ff: template } %>
-<% end -%>
-
-<%= form_for set_up(@list), url: mailchimp_list_path(@list), method: :put do |f|  %>  
+<%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), method: :put do |f|  %>  
   <legend>
     <%= t('mailchimp.list.segments.segments') %>
   </legend>
@@ -18,8 +13,8 @@
     
   <% end %>
 
-  <%= link_to t('mailchimp.list.segments.add_segment'),
-              'javascript: addSegment();',
+  <%= f.link_to_add t('mailchimp.list.segments.add_segment'),
+              :mailchimp_segments,
               class: 'btn btn-primary' %>
     
   <div id="filter_method">

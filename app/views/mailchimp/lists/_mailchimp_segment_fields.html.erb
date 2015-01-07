@@ -69,9 +69,7 @@
       </label>
     </div>
   <% else -%>
-    <%= link_to 'x', "#",
-                onclick: 'removeSegment(this);',
-                class: "btn btn-xs btn-danger" %>
+    <%= ff.link_to_remove 'x', class: "btn btn-xs btn-danger" %>
   <% end %>
 
   </br></br>

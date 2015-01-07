@@ -167,6 +167,8 @@ es:
         students: Lista con alumnos
       list_syncronization: Lista para sincronizar con mailchimp
     list:
+      update:
+        couldnt_update_segments: No se pudo actualizar la configuración de segmentos.
       segments:
         segments: Segmentos
         explanation: Sus contactos de PADMA estarán en la lista <b>%{list_name}</b> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc. 

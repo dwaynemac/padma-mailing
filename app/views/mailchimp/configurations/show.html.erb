@@ -9,6 +9,9 @@
         <%= segment.name %>
         </li>
       <% end -%>
+      <li>
+        <%= link_to t('edit'), segments_mailchimp_list_url(@configuration.primary_list) %>
+      </li>
     </ul>
   </li>
 </ul>
