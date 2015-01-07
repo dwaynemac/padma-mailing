@@ -15,4 +15,5 @@
  *= require bootstrap-select.min
  *= require triggers
  *= require mailchimp/lists
+ *= require mailchimp/configurations
  */

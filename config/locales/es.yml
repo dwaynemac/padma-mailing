@@ -149,6 +149,10 @@ es:
     api_key_is_not_valid: 'no es válida. Revise en mailchimp.'
     synchronizer_not_created: 'Error interno. No se creó el sincronizador.'
   mailchimp:
+    configuration:
+      edit_segments: Editar mis segmentos.
+      edit_api_key: Modificar mi api key.
+      edit_primary_list: Cambiar lista de malchimp.
     primary_list:
       setup_primary_list: Elija la lista de mailchimp con la que sincronizar sus contactos
       whant_a_new_one: 'Si no quiere sincronizar con ninguna de estas:'
