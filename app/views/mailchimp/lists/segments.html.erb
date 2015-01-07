@@ -1,6 +1,10 @@
 <%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), method: :put do |f|  %>  
   <legend>
     <%= t('mailchimp.list.segments.segments') %>
+    <%= link_to t('save_changes'),
+                "javascript:$('form.edit_mailchimp_list').submit();",
+                class: 'btn btn-success btn-xs pull-right' %>
+    <%= link_to t('cancel'), @list.mailchimp_configuration, class: 'delete-btn btn btn-link btn-danger btn-xs pull-right' %>
   </legend>
     <div class="bs-callout bs-callout-info">
       <p>
@@ -16,8 +20,9 @@
   <%= f.link_to_add t('mailchimp.list.segments.add_segment'),
               :mailchimp_segments,
               class: 'btn btn-primary' %>
-    
-  <div id="filter_method">
+  </fieldset>
+
+  <fieldset id="filter_method">
     <label for="filter_method">
       <%= t('mailchimp.list.segments.filter_method')%>:
     </label>
@@ -32,9 +37,5 @@
         <%= t('mailchimp.list.segments.segments')%>
       </label>
     </div>
-  </div>
   </fieldset>
-
-  <%= f.submit nil, class: 'btn btn-success' %>
-  
 <% end -%>

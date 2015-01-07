@@ -1,4 +1,6 @@
 es:
+  save_changes: guardar cambios
+  cancel: cancelar
   activerecord:
     attributes:
       scheduled_mail:
