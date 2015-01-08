@@ -249,7 +249,7 @@ pt-BR:
       edit_primary_list: Trocar lista de Mailchimp
     primary_list:
       setup_primary_list: Escolha a lista de mailchimp para sincronizar seus contatos
-      whant_a_new_one: Se você nāo quiçer utilizar estas listas:
+      whant_a_new_one: "Se você nāo quiçer utilizar estas listas:"
       create_one: Crie uma nova lista em mailchimp
       reload_when_finished: Recarregue esta tela depois de criar a nova lista.
       sync_with_chosen_list: Sincroniçar com a lista escolhida
@@ -259,7 +259,7 @@ pt-BR:
       segments:
         filter_methods:
           title: Sincronizaçāo de contatos
-          explanation: Você pode escolher: sincornizar todos os contatos de seu PADMA ou só aquilos que estam nos segmentos que você criou aquí. Se você quer sincronizar todos lembre que Mailchimp permite atê 2000 contatos de forma gratuita, se você tem mais do que isso terá que ter uma conta paga no Mailchimp.
+          explanation: "Você pode escolher: sincornizar todos os contatos de seu PADMA ou só aquilos que estam nos segmentos que você criou aquí. Se você quer sincronizar todos lembre que Mailchimp permite atê 2000 contatos de forma gratuita, se você tem mais do que isso terá que ter uma conta paga no Mailchimp."
           all: Todos
           segments: só segmentos
           more_about_mailchimp_pricing: Mais informaçāo dos planos do Mailchimp
@@ -269,7 +269,7 @@ pt-BR:
         perfil: Perfil
         perfil_explained: "'Perfil' é P e SP"
     new:
-      api_key: Cole aquí sua api key:
+      api_key: "Cole aquí sua api key:"
       api_key_help: Mais informaçāo sobre api key. O qué é?Onde encontro?
       get_api_key: Abrir janela de mailchimp para copiar minha api key
       setup_mailchimp_api_key: Configuraçāo de integraçāo com Mailchimp
