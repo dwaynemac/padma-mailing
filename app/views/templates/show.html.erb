@@ -31,9 +31,6 @@
               <i class="icon-file"></i>
               <%= att.attachment_file_name %>
             </td>
-            <td>
-              <%= link_to 'Destroy', template_attachment_path(@template, att), :method => :delete, remote: true, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
-            </td>
           </tr>
       <% end %>
   <% end %>
