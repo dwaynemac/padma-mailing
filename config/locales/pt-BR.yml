@@ -363,6 +363,9 @@ pt-BR:
       deliver: Enviar email
       deliver_to: Enviar a %{recipient}
       deliver_to_headline: Enviar modelo a %{full_name}
+      delete_template_modal:
+        warning: ATENÇĀO!!
+        youre_about_to_delete_template: Você esta por apagar o modelo <em>'%{template_name}'</em>. Este modelo nāo poderá ser recuperado depois de apagá-lo.
     send_to_contact:
       cant_send: Nāo é possivel enviar manualmente.
     send_to_mail:
