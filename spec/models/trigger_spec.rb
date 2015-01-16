@@ -83,8 +83,11 @@ describe Trigger do
       let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
       before do
         trigger # create trigger
-        PadmaContact.should_receive(:find).with(1234,select: [:email]).and_return(
-                                          PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+        PadmaContact.should_receive(:find)
+                    .with(1234,
+                          select: [:email],
+                          account_name: 'my-account')
+                    .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
       end
       it "only matches triggers of 'my-account'" do
         other_trigger
@@ -123,7 +126,7 @@ describe Trigger do
                       status: 'student'}.stringify_keys!}
         before do
           birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email]).and_return(
+          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
               PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         it "calls PadmaContact" do
@@ -144,7 +147,7 @@ describe Trigger do
                       status: 'student'}.stringify_keys!}
         before do
           birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email]).and_return(
+          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
               PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         it "calls PadmaContact" do
@@ -165,7 +168,7 @@ describe Trigger do
                       status: 'prospect'}.stringify_keys!}
         before do
           birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email]).and_return(
+          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
           PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         it "calls PadmaContact" do
@@ -185,7 +188,7 @@ describe Trigger do
         }
         before do
           birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email]).and_return(
+          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
             PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
           )
         end
@@ -204,7 +207,7 @@ describe Trigger do
         }
         before do
           birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email]).and_return(
+          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
             PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
           )
         end
