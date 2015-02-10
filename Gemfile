@@ -13,6 +13,8 @@ gem 'accounts_client', '0.2.5'
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 
+gem 'intercom-rails'
+
 gem 'mercury-rails'
 
 gem 'nokogiri'
