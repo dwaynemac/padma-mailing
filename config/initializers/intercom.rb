@@ -61,7 +61,7 @@ IntercomRails.config do |config|
   # in your controllers. 'Companies' are generic groupings of users, so this
   # could be a company, app or group.
   #
-  config.company.current = Proc.new { current_account }
+  config.company.current = Proc.new { current_user.current_account }
 
   # == Company Custom Data
   # A hash of additional data you wish to send about a company.
