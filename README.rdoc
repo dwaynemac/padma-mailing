@@ -24,3 +24,5 @@ This environment variables are needed:
 
 A task that checkes for due ScheduledMails should be setup
 A task that syncs mailchimp lists daily should be setup
+
+.
