@@ -2,7 +2,7 @@ class TimeSlotDrop < Liquid::Drop
 
   #For now we recieve the time and user, we should recieve the time_slot_id and get the values from the attendance module
   def initialize(trial_at, padma_user)
-    @trial_at = DateTime.parse(@trial_at)
+    @trial_at = DateTime.parse(trial_at)
     @user = UserDrop.new(padma_user)
   end
 

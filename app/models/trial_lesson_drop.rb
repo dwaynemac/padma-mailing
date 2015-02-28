@@ -1,7 +1,7 @@
 class TrialLessonDrop < Liquid::Drop
 
   def initialize(trial_at, padma_user)
-    @trial_at = DateTime.parse(@trial_at)
+    @trial_at = DateTime.parse(trial_at)
     @user = UserDrop.new(padma_user)
     #For now we use the time and user, we should use the time_slot_id
     @time_slot = TimeSlotDrop.new(trial_at, padma_user)
