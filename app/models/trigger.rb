@@ -43,7 +43,7 @@ class Trigger < ActiveRecord::Base
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
           if (send_at = tt.delivery_time(data))
-            ScheduledMail.create(
+            sm = ScheduledMail.new(
                 template_id: tt.template_id,
                 local_account_id: tt.template.local_account_id,
                 recipient_email: recipient_email,
@@ -52,10 +52,16 @@ class Trigger < ActiveRecord::Base
                 send_at: send_at,
                 data: ActiveSupport::JSON.encode(data)
             )
+            unless sm.save
+              Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+            end
           end
         end
       end
     end
+  rescue => e
+    Rails.logger.warn "[notify-sysadmin] Catching #{key_name} with load: #{data} failed with exception: #{e.message}"
+    raise e
   end
 
   # @param data [Hash]

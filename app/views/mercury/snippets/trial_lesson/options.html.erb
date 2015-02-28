@@ -7,10 +7,10 @@
         <label class="string optional control-label" ><%= t('templates.mercury.select_tag') %></label>
         <div class="controls">
           <% trial_lesson_options = [ ["Date", "[Trial Lesson's Date]"], 
-                                      ["Instructor Name", "[Instructor's Trial Lesson's Name]"],
-                                      ["Instructor Email", "[Instructor's Trial Lesson's Email]"],
-                                      ["Time Slot Time", "[Instructor's Time Slot Time]"],
-                                      ["Time Slot Name", "[Instructor's Trial Lesson Name]"]] 
+                                      ["Instructor Name", "[Trial Lesson's Instructor's Name]"],
+                                      ["Instructor Email", "[Trial Lesson's Instructor's Email]"],
+                                      ["Time Slot Time", "[Trial Lesson's Time Slot Time]"],
+                                      ["Time Slot Name", "[Trial Lesson's Time Slot Name]"]] 
            %>
            <%= select_tag "trial_lesson", options_for_select(trial_lesson_options, params[:trial_lesson]), :class=>'span6'%>
         </div>

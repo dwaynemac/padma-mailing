@@ -91,10 +91,10 @@ class Template < ActiveRecord::Base
     }
 
     trial_lesson_options = {"[Trial Lesson's Date]" => "{{trial_lesson.date}}", 
-                            "[Instructor's Trial Lesson's Name]" => "{{instructor.trial_lesson.name}}",
-                            "[Instructor's Trial Lesson's Email]" => "{{instructor.trial_lesson.email}}",
-                            "[Instructor's Time Slot Time]" => "{{instructor.time_slot.time}}",
-                            "[Instructor's Trial Lesson Name]" => "{{instructor.trial_lesson.name}}"
+                            "[Trial Lesson's Instructor's Name]" => "{{trial_lesson.instructor.name}}",
+                            "[Trial Lesson's Instructor's Email]" => "{{trial_lesson.instructor.email}}",
+                            "[Trial Lesson's Time Slot Time]" => "{{trial_lesson.time_slot.time}}",
+                            "[Trial Lesson's Time Slot Name]" => "{{trial_lesson.time_slot.name}}"
     }
     tags.merge!(time_slot_options).merge!(instructor_options).merge!(contact_options).merge!(trial_lesson_options)
   end
