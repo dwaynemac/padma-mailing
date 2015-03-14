@@ -248,6 +248,12 @@ es:
       pending: pendiente
       title: Mails programados
   templates:
+    templates:
+      units:
+        days: dias
+        weeks: semanas
+        months: meses
+        years: años
     deliver:
       success: Modelo enviado
     index:
@@ -301,8 +307,17 @@ es:
     new:
       select_template: Elija un modelo
       title: Nuevo disparador
-      event_select_message: Elija un evento y filtros
+      event_select_message: Elija un evento y sus filtros
       template_select_message: Elija un modelo
+      add_filter: Agregar filtro
+      continue_to_select_template: Continuar a 'Elejir modelo de mail'
+      select_event: Elija un evento
+      event:
+        communication: Registro de una comunicación
+        subscription_change: Registro de una matrícula/evasion
+        trial_lesson: Registro de una clase de prueba
+        membership: Registro de un plan
+        birthday: Cumpleaños un contacto
   contact:
     mercury:
       tags:

@@ -4,25 +4,25 @@
     <h2><%= t('triggers.new.event_select_message') %></h2>
     <div class="control-group">
       <div class="controls">
-        <%= f.select :event_name, Trigger::VALID_EVENT_NAMES, {:include_blank=>true}, class: 'selectpicker event_names', "data-live-search"=>"true", "data-width"=>"320px", "data-height"=>"48px" %>
+        <%= f.select :event_name, Trigger::VALID_EVENT_NAMES.map{|en| [t(".event.#{en}"),en]}, {:include_blank=>true}, class: 'selectpicker event_names', "data-live-search"=>"true", "data-width"=>"320px", "data-height"=>"48px", "data-placeholder-text" => t('.select_event') %>
         <span id="alert-message" class="alert alert-danger"><%= t('triggers.birthday.warning') %></span>
       </div>
       
       <div id="filters"></div>
       <div class="add_more">
-        <%= f.link_to_add "", :filters, class: "btn btn-mini btn-primary glyphicon glyphicon-plus", id: "add_more_filter", :data => { :target => "#filters" } %>
+        <%= f.link_to_add t('.add_filter'), :filters, class: "btn btn-mini btn-primary glyphicon glyphicon-plus", id: "add_more_filter", :data => { :target => "#filters" } %>
       </div>
       <div id="filter_option">
         <%= render partial: 'filter', :locals =>{ f: f} %>
       </div>
       <div>
-        <%= link_to "Continue", "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
+        <%= link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
       </div>
       <div class="part2"> 
         <h2> <%= t('triggers.new.template_select_message') %> </h2>
         <div class="control-group">
           <div class="controls form-inline">
-            <select id="select-template" class='selectpicker select-template' data-live-search="true", data-width="320px">
+            <select id="select-template" class='selectpicker select-template' data-live-search="true", data-width="320px" data-placeholder-text="<%= t('.select_template') %>">
               <option data-hidden="true"></option>
               <%- current_user.current_account.templates.each do |template| %>
                 <option value="<%= template.id %>"><%= template.name %></option>
@@ -37,7 +37,7 @@
         </div>
         <div class="form-actions clear create_trigger">
           <%= f.submit nil, :class => 'btn btn-primary submit_trigger' %>
-          <%= link_to 'Cancel', templates_path, :class => 'btn' %>
+          <%= link_to t('cancel'), templates_path, :class => 'btn' %>
         </div>
       </div> 
     </div>

@@ -4,8 +4,8 @@ $(document).ready ->
   previous_event_name = ""
   $(".selectpicker").selectpicker showSubtext: true
   $(".selectpicker").addClass "set-background"
-  $(".event_names .filter-option").text "Select event name"
-  $(".select-template .filter-option").text "Select a template"
+  $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
+  $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
   $(document).on "nested:fieldAdded", (event) ->
     
     # this field was just inserted into your form
