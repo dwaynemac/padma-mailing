@@ -111,6 +111,18 @@ es:
       interview: Entrevista
       phone_call: Llamada telefónica
       website_contact: Web
+      student: Alumno
+      former_student: Ex-Alumno
+      prospect: Prospect
+      unknown: Desconocido
+      fp: FP
+      pmenos: P-
+      perfil: P
+      pmas: P+
+      Enrollment: Matrícula
+      DropOut: Evasion
+      male: Hombre
+      female: Mujer
   hello: 
   helpers:
     actions: Acciones
@@ -249,6 +261,8 @@ es:
       title: Mails programados
   templates:
     templates:
+      offset_number: Ingrese un número
+      offset_number_tooltip: Para enviar el e-mail antes de la fecha de referencia coloque un valor negativo, para enviarlo después de la referencia coloque un valor positivo.
       units:
         days: dias
         weeks: semanas

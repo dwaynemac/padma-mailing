@@ -3,7 +3,7 @@
     <label class="control-label"><span></span></label>
     <div class="controls form-inline">
       <%= template.hidden_field :template_id, id: 'template_id' %>
-      <%= template.text_field :offset_number, class: 'offset_number', placeholder: t('trigger.offset_number') %>
+      <%= template.text_field :offset_number, class: 'offset_number', placeholder: t('.offset_number'), data: { toggle: 'tooltip', placement: 'top', title: t('.offset_number_tooltip')} %>
       <%= template.select :offset_unit, TemplatesTriggers::VALID_UNITS.map{|vu| [t(".units.#{vu}"),vu]}, {}, class: 'selectpicker offset_unit', "data-live-search"=>"true", "data-width"=>"91px" %>
       <div class = "right-arrow glyphicon glyphicon-play template-right-arrow"></div>
       <div class="input-prepend offset_reference_block">
