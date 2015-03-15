@@ -77,7 +77,7 @@ $(document).ready ->
 
   setOptions = (options, select) ->
     $.each options, (key, value) ->
-      $(select).append $("<option></option>").attr("value", value).text(value)
+      $(select).append $("<option></option>").attr("value", value).text(I18n.t("set_options.#{value}",{defaultValue: value}))
       return
 
     return

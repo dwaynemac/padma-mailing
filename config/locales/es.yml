@@ -105,6 +105,35 @@ es:
       header:
         one: No se pudo guardar este/a %{model} porque se encontró 1 error
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
+  set_options:
+    email: Email
+    interview: Entrevista
+    phone_call: Llamada telefónica
+    website_contact: Web
+    student: Alumno
+    former_student: Ex-Alumno
+    prospect: Prospect
+    unknown: Desconocido
+    fp: FP
+    pmenos: P-
+    perfil: P
+    pmas: P+
+    Enrollment: Matrícula
+    DropOut: Evasion
+    male: Hombre
+    female: Mujer
+    media: Medio de comunicación
+    global_status: Estado del contacto en la red
+    local_status: Estado del contacto en mi escuela
+    estimated_coefficient: Coeficiente estimado en esta comunicación
+    type: Tipo
+    local_coefficient: Coeficiente del contacto
+    gender: Sexo
+    communicated_at: Día de la comunicación
+    changed_at: Día de la matrícula/evasión
+    trial_at: Día de la clase de prueba
+    birthday_at: Día del cumpleaños
+    ends_on: Día en que termina el plan
   filter:
     suggested_values:
       email: Email
