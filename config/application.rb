@@ -32,6 +32,10 @@ module Mailing
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.i18n.default_locale = 'pt-BR'
+    config.i18n.available_locales = %W(en es pt-BR)
+
+    config.middleware.use I18n::JS::Middleware
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

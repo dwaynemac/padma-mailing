@@ -6,6 +6,8 @@ gem 'rails', '~> 3.2.11'
 gem 'activity_stream_client', '~> 0.0.11'
 gem 'ffi', '~> 1.0.11'
 
+gem 'i18n-js'
+
 gem 'logical_model', '~> 0.5.8'
 gem 'contacts_client', '~> 0.0.21'
 gem 'accounts_client', '0.2.5'

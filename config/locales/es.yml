@@ -105,12 +105,53 @@ es:
       header:
         one: No se pudo guardar este/a %{model} porque se encontró 1 error
         other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
+  set_options:
+    email: Email
+    interview: Entrevista
+    phone_call: Llamada telefónica
+    website_contact: Web
+    student: Alumno
+    former_student: Ex-Alumno
+    prospect: Prospect
+    unknown: Desconocido
+    fp: FP
+    pmenos: P-
+    perfil: P
+    pmas: P+
+    Enrollment: Matrícula
+    DropOut: Evasion
+    male: Hombre
+    female: Mujer
+    media: Medio de comunicación
+    global_status: Estado del contacto en la red
+    local_status: Estado del contacto en mi escuela
+    estimated_coefficient: Coeficiente estimado en esta comunicación
+    type: Tipo
+    local_coefficient: Coeficiente del contacto
+    gender: Sexo
+    communicated_at: Día de la comunicación
+    changed_at: Día de la matrícula/evasión
+    trial_at: Día de la clase de prueba
+    birthday_at: Día del cumpleaños
+    ends_on: Día en que termina el plan
   filter:
     suggested_values:
       email: Email
       interview: Entrevista
       phone_call: Llamada telefónica
       website_contact: Web
+      student: Alumno
+      former_student: Ex-Alumno
+      prospect: Prospect
+      unknown: Desconocido
+      fp: FP
+      pmenos: P-
+      perfil: P
+      pmas: P+
+      Enrollment: Matrícula
+      DropOut: Evasion
+      male: Hombre
+      female: Mujer
   hello: 
   helpers:
     actions: Acciones
@@ -248,6 +289,14 @@ es:
       pending: pendiente
       title: Mails programados
   templates:
+    templates:
+      offset_number: Ingrese un número
+      offset_number_tooltip: Para enviar el e-mail antes de la fecha de referencia coloque un valor negativo, para enviarlo después de la referencia coloque un valor positivo.
+      units:
+        days: dias
+        weeks: semanas
+        months: meses
+        years: años
     deliver:
       success: Modelo enviado
     index:
@@ -301,8 +350,17 @@ es:
     new:
       select_template: Elija un modelo
       title: Nuevo disparador
-      event_select_message: Elija un evento y filtros
+      event_select_message: Elija un evento y sus filtros
       template_select_message: Elija un modelo
+      add_filter: Agregar filtro
+      continue_to_select_template: Continuar a 'Elejir modelo de mail'
+      select_event: Elija un evento
+      event:
+        communication: Registro de una comunicación
+        subscription_change: Registro de una matrícula/evasion
+        trial_lesson: Registro de una clase de prueba
+        membership: Registro de un plan
+        birthday: Cumpleaños un contacto
   contact:
     mercury:
       tags:
