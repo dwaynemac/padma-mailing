@@ -18,7 +18,7 @@ Mailing::Application.configure do
   config.assets.compile = true
 
   # Don't initialize application for assets compilation.
-  config.assets.initialize_on_precompile = false
+  config.assets.initialize_on_precompile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
