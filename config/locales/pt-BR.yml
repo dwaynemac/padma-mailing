@@ -20,9 +20,10 @@ pt-BR:
     female: Mulher
     media: Meio de comunicaçāo
     global_status: Estado do contato na Rede
-    local_satus: Estado do contato na escola
+    local_status: Estado do contato na escola
     type: Tipo
     local_coefficient: Coeficient do contato
+    estimated_coefficient: Coeficient do contato
     gender: Sexo
     communicated_at: Data da comunicaçāo
     changed_at: Data da matrícula/evasāo
@@ -246,6 +247,7 @@ pt-BR:
       pmas: P+
       Enrollment: Matrícula
       DropOut: Evasāo
+      estimated_coefficient: Coeficient do contato
       male: Homem
       female: Mulher
   hello: 
@@ -398,6 +400,10 @@ pt-BR:
     templates:
       offset_number: Ingrese um número
       offset_number_tooltip: Para enviar o email antes da data de referencia coloque um valor negativo, para enviá-lo depois da referencia coloque um valor positivo.
+      offset_connectors:
+        on_the: Na
+        after: Depois da
+        before: Antes da
       units:
         days: dias
         weeks: semanas
@@ -459,6 +465,10 @@ pt-BR:
       add_filter: Agregar filtro
       add_template: Agregar modelo
     index:
+      triggers: Disparadores
+      event: Evento
+      filters: Filtros
+      deliver_templates_on: Modelos e momentos em que seram enviados
       delay_warning: Eventos podem demorar ate %{minutes} minutos em ativar o disparador.
     new:
       select_template: Selecione o modelo

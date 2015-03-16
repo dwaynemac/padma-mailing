@@ -1,4 +1,4 @@
-<h1>Triggers</h1>
+<h1><%= t('.triggers') %></h1>
 
 <div class="alert">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -8,23 +8,23 @@
 <table class="table table-striped">
   <thead>
   <tr>
-    <td>Event name</td>
-    <td>filters</td>
-    <td>templates</td>
+    <td><%= t('.event') %></td>
+    <td><%= t('.filters') %></td>
+    <td><%= t('.deliver_templates_on') %></td>
   </tr>
   </thead>
   <tbody>
   <% @triggers.each do |trigger| %>
     <tr>
-      <td><%= trigger.event_name %></td>
-      <td><%= trigger.filters.map{|f| "#{f.key}=#{f.value}" }.join('; ') %></td>
-      <td><%= trigger.templates_triggerses.map{|tt|"#{tt.template.name} (#{tt.offset_number}#{tt.offset_unit} from #{tt.offset_reference})"}.join(',') %></td>
+      <td><%= t("triggers.new.event.#{trigger.event_name}") %></td>
+      <td><%= trigger.filters.map{|f| "#{t("set_options.#{f.key}")}=#{t("set_options.#{f.value}")}" }.join('; ') %></td>
+      <td><%= trigger.templates_triggerses.map{|tt|"#{tt.template.name} (#{explain_offset(tt)})"}.join(',') %></td>
       <td>
-        <%= link_to 'Destroy', trigger_path(trigger), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>
+        <%= link_to t('destroy'), trigger_path(trigger), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>
       </td>
     </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New', new_trigger_path, :class => 'btn btn-primary' %>
+<%= link_to t('new'), new_trigger_path, :class => 'btn btn-primary' %>

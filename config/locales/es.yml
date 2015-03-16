@@ -292,6 +292,10 @@ es:
     templates:
       offset_number: Ingrese un número
       offset_number_tooltip: Para enviar el e-mail antes de la fecha de referencia coloque un valor negativo, para enviarlo después de la referencia coloque un valor positivo.
+      offset_connectors:
+        on_the: En el
+        after: después del
+        before: antes del
       units:
         days: dias
         weeks: semanas
@@ -346,6 +350,10 @@ es:
       add_filter: Agregar filtro
       add_template: Agregar un modelo
     index:
+      triggers: Disparadores
+      event: Evento
+      filters: Filtros
+      deliver_templates_on: Modelos y momento en que se envían
       delay_warning: Los eventos pueden demorar hasta %{minutes} minutos en activar un disparador.
     new:
       select_template: Elija un modelo
