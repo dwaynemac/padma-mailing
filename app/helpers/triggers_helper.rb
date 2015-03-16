@@ -11,10 +11,10 @@ module TriggersHelper
   end
 
   def translate_key(key)
-    if f.key =~ /local_status_for.*/
+    if key =~ /local_status_for.*/
       t("set_options.local_status")
     else
-      t("set_options.#{f.key}")
+      t("set_options.#{key}")
     end
   end
 end
