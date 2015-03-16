@@ -42,6 +42,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem "less-rails"
   gem 'therubyracer', :platforms => :ruby
+  gem 'padma-assets'
   gem 'less-rails-bootstrap', '~> 3.0.6'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-fileupload-rails'
