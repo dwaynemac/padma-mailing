@@ -9,14 +9,14 @@ describe TemplatesTriggers do
     let(:trigger){TemplatesTriggers.new(offset_number: 1)}
     it "should require offset_unit" do
       trigger.valid?
-      trigger.errors[:offset_unit].should include "can't be blank"
+      trigger.errors[:offset_unit].should include I18n.t('errors.messages.blank')
     end
   end
   context "if offset_number is NOT set" do
     let(:trigger){TemplatesTriggers.new}
     it "should require offset_unit" do
       trigger.valid?
-      trigger.errors[:offset_unit].should_not include "can't be blank"
+      trigger.errors[:offset_unit].should_not include I18n.t('errors.messages.blank')
     end
   end
 

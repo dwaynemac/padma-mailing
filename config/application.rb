@@ -35,7 +35,7 @@ module Mailing
     config.i18n.default_locale = 'pt-BR'
     config.i18n.available_locales = %W(en es pt-BR)
 
-    config.middleware.use I18n::JS::Middleware
+    config.middleware.use SimplesIdeias::I18n::Middleware
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
