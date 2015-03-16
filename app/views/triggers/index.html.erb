@@ -17,7 +17,7 @@
   <% @triggers.each do |trigger| %>
     <tr>
       <td><%= t("triggers.new.event.#{trigger.event_name}") %></td>
-      <td><%= trigger.filters.map{|f| "#{t("set_options.#{f.key}")}=#{t("set_options.#{f.value}")}" }.join('; ') %></td>
+      <td><%= trigger.filters.map{|f| "#{translate_key(f.key)}=#{t("set_options.#{f.value}")}" }.join('; ') %></td>
       <td><%= trigger.templates_triggerses.map{|tt|"#{tt.template.name} (#{explain_offset(tt)})"}.join(',') %></td>
       <td>
         <%= link_to t('destroy'), trigger_path(trigger), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>

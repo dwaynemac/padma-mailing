@@ -9,4 +9,12 @@ module TriggersHelper
       "#{tt.offset_number.try(:abs)} #{t("templates.templates.units.#{tt.offset_unit}")} #{connector} #{t("set_options.#{tt.offset_reference}")}"
     end
   end
+
+  def translate_key(key)
+    if f.key =~ /local_status_for.*/
+      t("set_options.local_status")
+    else
+      t("set_options.#{f.key}")
+    end
+  end
 end
