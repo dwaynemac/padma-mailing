@@ -1,6 +1,34 @@
 pt-BR:
   save_changes: salvar
   cancel: cancelar
+  set_options:
+    email: Email
+    interview: Entrevista
+    phone_call: Telefonema
+    website_contact: Web
+    student: Aluno
+    former_student: Ex-Aluno
+    prospect: Prospect
+    unknown: Desconhecido
+    fp: FP
+    pmenos: P-
+    perfil: P
+    pmas: P+
+    Enrollment: Matrícula
+    DropOut: Evasāo
+    male: Homem
+    female: Mulher
+    media: Meio de comunicaçāo
+    global_status: Estado do contato na Rede
+    local_satus: Estado do contato na escola
+    type: Tipo
+    local_coefficient: Coeficient do contato
+    gender: Sexo
+    communicated_at: Data da comunicaçāo
+    changed_at: Data da matrícula/evasāo
+    trial_at: Data da aula experimental
+    birthday_at: Data do aniversario
+    ends_at: Data em que finaliza o plano
   mailchimp_configuration:
     synchronizer_not_created: 'erro interno. synchronizer nāo criado'
     api_key_is_not_valid: 'a API key nāo é válida'
@@ -204,10 +232,22 @@ pt-BR:
         other: ! 'Não foi possível guardar %{model}: %{count} erros'
   filter:
     suggested_values:
-      email: 
-      interview: 
-      phone_call: 
-      website_contact: 
+      email: Email
+      interview: Entrevista
+      phone_call: Telefonema
+      website_contact: Web
+      student: Aluno
+      former_student: Ex-Aluno
+      prospect: Prospect
+      unknown: Desconhecido
+      fp: FP
+      pmenos: P-
+      perfil: P
+      pmas: P+
+      Enrollment: Matrícula
+      DropOut: Evasāo
+      male: Homem
+      female: Mulher
   hello: 
   helpers:
     actions: 
@@ -355,6 +395,14 @@ pt-BR:
       two_words_connector: ! ' e '
       words_connector: ! ', '
   templates:
+    templates:
+      offset_number: Ingrese um número
+      offset_number_tooltip: Para enviar o email antes da data de referencia coloque um valor negativo, para enviá-lo depois da referencia coloque um valor positivo.
+      units:
+        days: dias
+        weeks: semanas
+        months: meses
+        years: anos
     deliver:
       success: Modelo enviado
     index:
@@ -415,8 +463,17 @@ pt-BR:
     new:
       select_template: Selecione o modelo
       title: Novo disparador
-      event_select_message: Elija um evento e filtros
+      event_select_message: Elija um evento e seus filtros
       template_select_message: Elija un modelo
+      add_filter: Agregar filtro
+      continue_to_select_template: Continuar à 'Elejir modelo de mail'
+      select_event: Elija um evento
+      event:
+        communication: Cadastro de uma comunicaçāo
+        subscription_change: Cadastro de uma matrícula/evasāo
+        trial_lesson: Cadastro de uma aula experimental
+        membership: Cadastro de um plano de pago
+        birthday: Aniversário de um contato
   contact:
     mercury:
       tags:
