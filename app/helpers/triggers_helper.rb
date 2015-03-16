@@ -11,8 +11,9 @@ module TriggersHelper
   end
 
   def translate_key(key)
-    if key =~ /local_status_for.*/
-      t("set_options.local_status")
+    match = key.match( /(local_.*)_for.*/ ) 
+    if match
+      t("set_options.#{match[1]}")
     else
       t("set_options.#{key}")
     end
