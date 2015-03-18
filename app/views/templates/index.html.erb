@@ -1,4 +1,4 @@
-<h1>Templates</h1>
+<%- breadcrum t("templates.index.title") -%>
 <% if @contact %>
   <% if @contact.email.blank? %>
     <h3><%= t('templates.index.contact_has_no_mail',
