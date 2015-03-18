@@ -304,6 +304,7 @@ es:
     deliver:
       success: Modelo enviado
     index:
+      title: Modelos de mail
       add_attachemnts: Adjuntar archivo
       contact_has_no_mail: El contacto %{full_name} no tiene email. Ingréselo manualmente.
       deliver: Enviar email
@@ -312,6 +313,8 @@ es:
       delete_template_modal:
         warning: ATENCIÓN!
         youre_about_to_delete_template: Estas por eliminar el modelo <em>'%{template_name}'</em>. Después de eliminarlo este no podrá ser recuperado.
+    show:
+      title: Editar modelo
     send_to_contact:
       cant_send: No se puede enviar manualmente.
     send_to_mail:
