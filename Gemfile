@@ -62,7 +62,6 @@ gem 'aws-sdk'
 group :production do
   gem 'pg'
   gem 'appsignal', '>= 0.9.4'
-  gem 'rails_12factor'
 end
 
 group :doc do
