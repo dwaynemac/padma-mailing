@@ -35,6 +35,8 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
+gem 'padma-assets', '0.1.5' # gems in assets group are not required in production (see Bundler.require in config/application.rb)
+
 gem 'rest-client'
 
 group :assets do
@@ -43,7 +45,6 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem "less-rails"
   gem 'therubyracer', :platforms => :ruby
-  gem 'padma-assets', '0.1.5'
   gem 'less-rails-bootstrap', '~> 3.0.6'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-fileupload-rails'
