@@ -35,7 +35,7 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', '0.1.5' # gems in assets group are not required in production (see Bundler.require in config/application.rb)
+gem 'padma-assets', '0.1.8' # gems in assets group are not required in production (see Bundler.require in config/application.rb)
 
 gem 'rest-client'
 
