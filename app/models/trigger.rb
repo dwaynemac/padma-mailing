@@ -50,6 +50,7 @@ class Trigger < ActiveRecord::Base
                 contact_id: data['contact_id'],
                 username: data['username'],
                 send_at: send_at,
+                event_key: key_name,
                 data: ActiveSupport::JSON.encode(data)
             )
             unless sm.save
