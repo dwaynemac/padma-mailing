@@ -36,37 +36,40 @@ describe PadmaMailer do
   end
 
   context "sending a trial_lesson mail" do
-    before do
-      @subject = "Hola Luis"
-      recipient = "luisperichon@gmail.com"
-      @trial_at = Date.today.to_s
+    context "with new liquid variables" do
+      before do
+        @subject = "Hola Luis"
+        recipient = "luisperichon@gmail.com"
+        @trial_at = Date.today.to_s
 
-      template = Template.new(
-                    name: "new_template", 
-                    subject: @subject, 
-                    content: "Queriamos recordarte que tu clase es el {{trial_lesson.date}} a las {{trial_lesson.time_slot}} y la dara el instructor {{trial_lesson.instructor.nombre}}")
-      template.account = account
-      template.save!
+        template = Template.new(
+                      name: "new_template", 
+                      subject: @subject, 
+                      content: "Queriamos recordarte que tu clase es el {{trial_lesson.date}} a las {{trial_lesson.time_slot.time}} y la dara el instructor {{trial_lesson.instructor.name}}")
+        template.account = account
+        template.save!
 
-      data_hash = {
-          'trial_lesson' => TrialLessonDrop.new(@trial_at, PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"))
-      }
+        data_hash = {
+            'trial_lesson' => TrialLessonDrop.new(@trial_at, PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"))
+        }
 
-      PadmaMailer.template(template, data_hash, recipient,
-                           'bcc@mail.com', 'from@mail.com').deliver
+        PadmaMailer.template(template, data_hash, recipient,
+                             'bcc@mail.com', 'from@mail.com').deliver
+      end
+
+      it "should send the correct liquid variable: date" do
+        last_email.body.raw_source.should include @trial_at
+      end
+
+      it "should send the correct liquid variable: instructor name" do
+        last_email.body.raw_source.should include "Alex Falke"
+      end
+
+      it "should send the correct liquid variable: time slot" do
+        last_email.body.raw_source.should include @trial_at
+      end
     end
-
-    it "should send the correct liquid variable: date" do
-      last_email.body.raw_source.should include @trial_at
-    end
-
-    it "should send the correct liquid variable: instructor name" do
-      last_email.body.raw_source.should include "Alex Falke"
-    end
-
-    it "should send the correct liquid variable: time slot" do
-      last_email.body.raw_source.should include @trial_at
-    end
+    
   end
 
   context "with acounts-ws and contacts-ws online" do
