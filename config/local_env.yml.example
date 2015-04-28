@@ -1,10 +1,10 @@
 # Example file for local_env.yml
 # Replace this keys with working keys for the different webservices
 
-accounts_key: "888888888888888888888888888888888888888888888888888888888888"
-activities_key: "888888888888888888888888888888888888888888888888888888888888"
-messaging_secret: 'xxxxxxxxxxxxxxxxxxxxxx'
-contacts_key: "xxxxxxxxxxxxxxxxxxxxxxxx"
+accounts_key: secret
+activities_key: secret
+messaging_secret: secret
+contacts_key: secret
 GMAIL_USERNAME: "cucu@gmail.com"
 GMAIL_PASSWORD: "1234"
-doorbellio_key: secret
+intercom_secret: secret
