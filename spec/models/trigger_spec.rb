@@ -58,6 +58,19 @@ describe Trigger do
                               offset_reference: 'communicated_at'}
                          ]
     )}
+    let(:enrollment_trigger){create(:trigger,
+                              account: create(:account, name: "third-account"),
+                                event_name: 'subscription_change',
+                                templates_triggerses_attributes: [
+                                  {
+                                    template_id: template.id,
+                                    offset_number: 1,
+                                    offset_unit: "day",
+                                    offset_reference: "changed_at"
+                                    }]
+      )
+
+    }
     let(:birthday_trigger){create(:trigger,
                                account: create(:account, name: 'my-account'),
                                event_name: 'birthday',
@@ -103,6 +116,33 @@ describe Trigger do
         Trigger.catch_message key, data
         ScheduledMail.last.send_at.should be_within(1).of(Time.now+1.day)
       end
+    end
+
+    context "with :subscription_change" do
+      let(:key){"subscription_change"}
+      let(:data){
+        {
+          contact_id: 1234, 
+          changed_at: Time.now, 
+          account_name: 'third-account', 
+          communication_id: 1000, 
+          id: 9999, 
+          observations: "",
+          username: "alex.falke",
+          type: "Enrollment"
+        }.stringify_keys!}
+        before do
+          enrollment_trigger
+          enrollment_trigger.filters.create(key: "type", value: "Enrollment")
+          PadmaContact.should_receive(:find)
+                      .with(1234,
+                            select: [:email],
+                            account_name: 'third-account')
+                      .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+        end
+        it "creates a ScheduledMail" do
+          expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+        end
     end
 
     context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'account-without-triggers'}" do
