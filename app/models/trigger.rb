@@ -50,7 +50,6 @@ class Trigger < ActiveRecord::Base
                 contact_id: data['contact_id'],
                 username: data['username'],
                 send_at: send_at,
-                event_key: key_name,
                 data: ActiveSupport::JSON.encode(data)
             )
             unless sm.save
@@ -71,7 +70,7 @@ class Trigger < ActiveRecord::Base
     if passes_internal_filters(data)
       filter_count = self.filters.count
       match_count = 0
-      self.filters.each{|f| match_count += 1 if data[f.key] == f.value }
+      self.filters.each{|f| match_count += 1 if data[f.key].try(:downcase) == f.value.try(:downcase) }
       filter_count == match_count
     else
       false
