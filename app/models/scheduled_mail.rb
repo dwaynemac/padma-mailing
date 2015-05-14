@@ -9,6 +9,7 @@ class ScheduledMail < ActiveRecord::Base
   validates_presence_of :recipient_email
 
   scope :pending, where('delivered_at IS NULL')
+  scope :delivered, where('delivered_at IS NOT NULL')
 
   # @return [Boolean]
   def delivered?

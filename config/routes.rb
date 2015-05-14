@@ -36,7 +36,12 @@ Mailing::Application.routes.draw do
 
   end
 
-  resources :scheduled_mails
+  resources :scheduled_mails do
+    collection do
+      get :history, to: 'scheduled_mails#index', only_history: true
+      get :pending, to: 'scheduled_mails#index', only_pending: true
+    end
+  end
   resources :triggers
   resources :templates do
     resources :attachments

@@ -4,6 +4,11 @@ class ScheduledMailsController < ApplicationController
 
   def index
     @scheduled_mails = @scheduled_mails.includes(:template).order('send_at desc')
+    if params[:only_history]
+      @scheduled_mails = @scheduled_mails.delivered
+    elsif params[:only_pending]
+      @scheduled_mails = @scheduled_mails.pending
+    end
   end
 
   def destroy
