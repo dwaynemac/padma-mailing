@@ -12,7 +12,7 @@ class Filter < ActiveRecord::Base
   SUGGESTED_VALUES = {
       communication: {
           media: %W(interview phone_call email website_contact),
-          global_status: %W(student former_student prospect),
+          #global_status: %W(student former_student prospect),
           local_status: %W(student former_student prospect),
           estimated_coefficient: %W(unknown fp pmenos perfil pmas)
       },
@@ -20,7 +20,7 @@ class Filter < ActiveRecord::Base
           type: %W(Enrollment DropOut)
       },
       birthday: {
-          global_status: %W(student former_student prospect),
+          #global_status: %W(student former_student prospect),
           local_status: %W(student former_student prospect),
           local_coefficient: %W(unknown fp pmenos perfil pmas),
           gender: %W(male female)
