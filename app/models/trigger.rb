@@ -37,6 +37,10 @@ class Trigger < ActiveRecord::Base
     message_account = Account.find_by_name(data['account_name'])
     return if message_account.nil? && !key_name.in?(GLOBAL_EVENTS)
 
+    if key_name.in?(GLOBAL_EVENTS)
+      data['username'] = 'system'
+    end
+
     trigger_scope = message_account.present?? message_account.triggers : Trigger
 
     trigger_scope.where(event_name: key_name).each do |trigger|
