@@ -1,74 +1,63 @@
 <%- breadcrum t("templates.index.title") -%>
 <% if @contact %>
   <% if @contact.email.blank? %>
-    <h3><%= t('templates.index.contact_has_no_mail',
-            full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
+    <h3>
+      <%= t('templates.index.contact_has_no_mail', full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %>
+    </h3>
   <% else %>
-    <h3><%= t('templates.index.deliver_to_headline',
-            full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
+    <h3>
+      <%= t('templates.index.deliver_to_headline', full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %>
+    </h3>
   <% end %>
 <% end %>
-<table class="table table-striped" id="templates">
+<table class="table table-striped mailing-table" id="templates">
   <thead>
-  <tr>
-    <th><%= t('activerecord.attributes.template.name') %></th>
-    <th><%= t('activerecord.attributes.template.description') %></th>
-    <th><%= t('activerecord.attributes.template.subject') %></th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <tr>
+      <th><%= t('activerecord.attributes.template.name') %></th>
+      <th><%= t('activerecord.attributes.template.description') %></th>
+      <th><%= t('activerecord.attributes.template.subject') %></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
   <tbody>
   <% @templates.each do |template| %>
-      <tr>
-        <td><%= link_to template.name, template_path(template) %></td>
-        <td><%= template.description %></td>
-        <td><%= template.subject %></td>
-        <td>
-          <%= render partial: "index_form", locals: {template: template} %>
-        </td>
-        <td>
-          <%= link_to t('templates.index.add_attachemnts'),
-                      template,
-                      class: 'btn btn-mini btn-default' %>
-          <%= link_to t('edit'),
-                      "/editor" + edit_template_path(template),
-                      class: 'btn btn-mini btn-default' %>
-        </td>
-        <td>
-          <button type="button"
-                  class="delete-btn btn btn-mini btn-link"
-                  data-toggle="modal"
-                  data-target="#delete_template_<%= template.id %>_modal">
-            <%= t('destroy') %>
-        </button>
-        </td>
-      </tr>
-      <div id="delete_template_<%= template.id %>_modal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <h4 class="modal-title"><%= t('templates.index.delete_template_modal.warning') %></h4>
-            </div>
-            <div class="modal-body">
-              <p><%= t('templates.index.delete_template_modal.youre_about_to_delete_template', template_name: template.name).html_safe %></p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('cancel') %></button>
-              <%= link_to t('destroy'),
-                          template_path(template),
-                          method: :delete,
-                          confirm: t('confirm'),
-                          class: 'btn btn-danger' %>
-            </div>
+    <tr>
+      <td><%= link_to template.name, template_path(template) %></td>
+      <td><%= template.description %></td>
+      <td><%= template.subject %></td>
+      <td>
+        <%= render partial: "index_form", locals: {template: template} %>
+      </td>
+      <td>
+        <%= link_to t('templates.index.add_attachemnts'), template, class: 'btn btn-sm btn-default' %>
+        <%= link_to t('edit'), "/editor" + edit_template_path(template), class: 'btn btn-sm btn-default' %>
+      </td>
+      <td class='text-right'>
+        <a href='#delete_template_<%= template.id %>_modal' class="btn btn-danger btn-sm" data-toggle="modal">
+          <%= t('destroy') %>
+        </a>
+      </td>
+    </tr>
+    <div id="delete_template_<%= template.id %>_modal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><%= t('templates.index.delete_template_modal.warning') %></h4>
+          </div>
+          <div class="modal-body">
+            <%= t('templates.index.delete_template_modal.youre_about_to_delete_template', template_name: template.name).html_safe %>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('cancel') %></button>
+            <%= link_to t('destroy'), template_path(template), method: :delete, confirm: t('confirm'), class: 'btn btn-danger' %>
           </div>
         </div>
       </div>
+    </div>
   <% end %>
   </tbody>
 </table>
-
-<%= link_to t('new'), "/editor" + new_template_path,
-            class: 'btn btn-primary' %>
+<%= link_to t('new'), "/editor" + new_template_path, class: 'btn btn-primary' %>

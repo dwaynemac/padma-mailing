@@ -1,13 +1,12 @@
 <%- breadcrum t("scheduled_mails.index.title") -%>
-
-<table class="table table-striped">
+<table id='mailingtable' class="table table-striped">
   <thead>
-  <tr>
-    <td><%= t('scheduled_mail.attributes.template') %></td>
-    <td><%= t('scheduled_mail.attributes.recipient_email') %></td>
-    <td><%= t('scheduled_mail.attributes.send_at') %></td>
-    <td><%= t('scheduled_mail.attributes.delivered_at') %></td>
-  </tr>
+    <tr>
+      <th><%= t('scheduled_mail.attributes.template') %></th>
+      <th><%= t('scheduled_mail.attributes.recipient_email') %></th>
+      <th><%= t('scheduled_mail.attributes.send_at') %></th>
+      <th><%= t('scheduled_mail.attributes.delivered_at') %></th>
+    </tr>
   </thead>
   <tbody>
   <% @scheduled_mails.each do |sm| %>
@@ -24,7 +23,7 @@
       </td>
       <td>
         <% unless sm.delivered? %>
-          <%= link_to t('helpers.links.cancel'), scheduled_mail_path(sm), method: :delete, confirm: 'Are you sure?', class: 'btn btn-mini btn-danger' %>
+          <%= link_to t('helpers.links.cancel'), scheduled_mail_path(sm), method: :delete, confirm: 'Are you sure?', class: 'btn btn-sm btn-danger' %>
           <% end %>
       </td>
     </tr>

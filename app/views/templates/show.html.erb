@@ -1,45 +1,45 @@
 <%- breadcrum t("templates.show.title") -%>
 
-<p>
-  <b>Name</b><br>
-  <%= @template.name %>
-</p>
-
-<p>
-  <b>Description</b><br>
-  <%= @template.description %>
-</p>
-
-<p>
-  <b>Subject</b><br>
-  <%= @template.subject%>
-</p>
-
-<p>
-  <b>Content</b><br>
-</p>
-<div>
-  <%= @template.content.html_safe %>
+<div class='template-content'>
+  <dl class='template-item'>
+    <dt>Name</dt>
+    <dd><%= @template.name %></dd>
+  </dl>
+  <dl class='template-item'>
+    <dt>Description</dt>
+    <dd><%= @template.description %></dd>
+  </dl>
+  <dl class='template-item'>
+    <dt>Subject</dt>
+    <dd><%= @template.subject%></dd>
+  </dl>
+  <dl class='template-item'>
+    <dt>Content</dt>
+    <dd><%= @template.content.html_safe %></dd>
+  </dl>
+  <dl class='template-item'>
+    <dt>Attachments</dt>
+    <dd>
+      <table id="att-table" class="table table-condensed table-hover" >
+        <% @template.attachments.each do |att|%>
+            <% if !att.id.nil? %>
+                <tr id="attachment_<%= att.id %>">
+                  <td>
+                    <i class="icon-file"></i>
+                    <%= att.attachment_file_name %>
+                  </td>
+                </tr>
+            <% end %>
+        <% end %>
+      </table>
+    </dd>
+  </dl>
 </div>
 
-<b>Attachments</b>
-<table id="att-table" class="table table-condensed table-hover" >
-  <% @template.attachments.each do |att|%>
-      <% if !att.id.nil? %>
-          <tr id="attachment_<%= att.id %>">
-            <td>
-              <i class="icon-file"></i>
-              <%= att.attachment_file_name %>
-            </td>
-          </tr>
-      <% end %>
-  <% end %>
-</table>
-
 <%= form_for @template, :html => {id: "fileupload"} do |f| %>
-    <%= f.fields_for @template.attachments.new do |builder| %>
-        <%= builder.file_field :attachment %>
-    <% end %>
+  <%= f.fields_for @template.attachments.new do |builder| %>
+    <%= builder.file_field :attachment %>
+  <% end %>
 <% end %>
 
 
@@ -50,13 +50,10 @@
   </div>
 </script>
 
-
+<hr />
 <div class="form-actions">
-  <%= link_to 'Back', templates_path, :class => 'btn'  %>
-  <%= link_to 'Edit', "/editor" + edit_template_path(@template),
-              id:"edit_link",
-              data: {save_url: mercury_update_template_path(@template)},
-              class: 'btn' %>
+  <%= link_to 'Back', templates_path, :class => 'btn btn-default'  %>
+  <%= link_to 'Edit', "/editor" + edit_template_path(@template), id:"edit_link", data: {save_url: mercury_update_template_path(@template)}, class: 'btn btn-default' %>
   <%= link_to 'Delete', template_path(@template), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
 </div>
 

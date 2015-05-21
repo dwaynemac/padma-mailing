@@ -1,30 +1,32 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<div class="control-group">
-  Name
-  <div class="controls template_fields" id="template_name" data-mercury="full" tabindex="0">
-    <%= @template.name unless @template.name.nil? %>
+<div class='form-mercury form-new-template'>
+  <div class="control-group">
+    <label class='control-label control-label-block'>Name</label>
+    <div class="controls input" id="template_name" data-mercury="full" tabindex="0">
+      <%= @template.name unless @template.name.nil? %>
+    </div>
   </div>
-</div>
 
-<div class="control-group">
-  Description
-  <div class="controls template_fields" id="template_description" data-mercury="full" tabindex="0">
-    <%= @template.description unless @template.description.nil? %>
+  <div class="control-group">
+    <label class='control-label control-label-block'>Description</label>
+    <div class="controls input" id="template_description" data-mercury="full" tabindex="0">
+      <%= @template.description unless @template.description.nil? %>
+    </div>
   </div>
-</div>
 
-<div class="control-group">
-  Subject
-  <div class="controls template_fields" id="template_subject" data-mercury="full" tabindex="0">
-    <%= @template.subject unless @template.subject.nil? %>
+  <div class="control-group">
+    <label class='control-label control-label-block'>Subject</label>
+    <div class="controls input" id="template_subject" data-mercury="full" tabindex="0">
+      <%= @template.subject unless @template.subject.nil? %>
+    </div>
   </div>
-</div>
 
-<div class="control-group">
-  Content
-  <div class="controls template_textarea" id="template_content" data-mercury="full", class="mercury-region" data-type="editable">
-    <%= @template.content.html_safe unless @template.content.nil? %>
+  <div class="control-group">
+    <label class='control-label control-label-block'>Content</label>
+    <div class="controls textarea" id="template_content" data-mercury="full", class="mercury-region" data-type="editable">
+      <%= @template.content.html_safe unless @template.content.nil? %>
+    </div>
   </div>
 </div>
 
@@ -39,6 +41,5 @@
                 data: {save_url: mercury_update_template_path(@template)},
                 class: 'btn btn-mini' %>
 <% end %>
-
-<div class="hide" id="tags_values" data-init-values = "<%= @initialize_tags %>"></div>
-<div class="hide" id="tag_description" data-tag_description = "<%= tags_description.to_json %>"></div>
+<div class="hide" id="tags_values" data-init-values="<%= @initialize_tags %>"></div>
+<div class="hide" id="tag_description" data-tag_description="<%= tags_description.to_json %>"></div>

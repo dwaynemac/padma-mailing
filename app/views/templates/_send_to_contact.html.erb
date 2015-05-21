@@ -4,7 +4,7 @@
       <%= hidden_field_tag "contact_id", @contact.id %>
       <%= submit_tag t('templates.index.deliver_to',
                      recipient: @contact.email),
-                     class: "btn btn-mini",
+                     class: "btn btn-default btn-sm",
                      confirm: t('confirm') %>
   <% end %>
 <% else -%>

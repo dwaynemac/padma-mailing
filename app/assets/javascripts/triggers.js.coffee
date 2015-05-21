@@ -65,7 +65,7 @@ $(document).ready ->
     suggested_options = $("div#new_filter").data("options")["suggested_values"][$("#trigger_event_name").val()]
     setOptions Object.keys(suggested_options), $("#filters select.key_select:last")
     $(".key_select").selectpicker "refresh"
-    $("#add_more_filter").show()
+    $("#add_more_filter").show().css("display":"inline-block","marginBottom": 15 + "px")
     $("select.key_select").change ->
       select_box = $(this).siblings("select.value_select")
       $(select_box).empty()

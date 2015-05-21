@@ -6,7 +6,7 @@
 	display: none;
 }
 
-#add-filter{
+#add-filter {
   display: none;
 }
 
@@ -28,10 +28,6 @@
     text-align: center !important;
   }
 
-  .event_names.bootstrap-select > .btn {
-    height: 39px;
-  }
-
   .alert{
     padding: 10px !important;
   }
@@ -48,50 +44,9 @@
   #add_more_filter{
     display: none;
   }
-  .add_more{
-    margin-top: 30px;
-    margin-bottom: 18px;
-  }
-
-  .offset_number{
-    border: 1px solid #B8B8B8;
-    border-radius: 3px;
-    box-shadow: 0 2px 3px rgba(184, 184, 184, 0.8) inset;
-    color: #808080;
-    font-size: 12px;
-    margin-bottom: 8px;
-    min-height: 32px;
-    float: left;
-  }
 
   .part2{
     display: none;
-    margin-top: 54px;
-  }
-
-  .offset_unit{
-    float: left !important;
-    margin-left: 8px !important;
-  }
-
-  .offset_reference_block{
-    float: left;
-    margin-left: 9px;
-  }
-
-  .right-arrow{
-    color: #AAAAAA;
-    font-size: 10px;
-  }
-
-  .template-right-arrow{
-    float: left;
-    margin-left: 8px;
-    margin-top: 11px;
-  }
-
-  .create_trigger{
-    margin-top: 30px;
   }
 
   .remove_template_reference{
