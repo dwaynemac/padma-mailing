@@ -10,7 +10,7 @@ gem 'i18n-js'
 
 gem 'logical_model', '~> 0.5.8'
 gem 'contacts_client', '~> 0.0.21'
-gem 'accounts_client', '0.2.5'
+gem 'accounts_client', '0.2.13'
 
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'

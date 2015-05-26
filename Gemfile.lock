@@ -8,9 +8,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    accounts_client (0.2.5)
+    accounts_client (0.2.13)
       gravtastic
-      logical_model (~> 0.5.8)
+      logical_model (>= 0.5.8)
       railties (>= 3.1)
     actionmailer (3.2.17)
       actionpack (= 3.2.17)
@@ -307,7 +307,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  accounts_client (= 0.2.5)
+  accounts_client (= 0.2.13)
   activity_stream_client (~> 0.0.11)
   appsignal (= 0.11.9)
   aws-sdk
