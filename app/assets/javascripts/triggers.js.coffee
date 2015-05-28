@@ -11,8 +11,8 @@ $(document).ready ->
     
     # this field was just inserted into your form
     bindFilterInstance()
-    $(".key_select").trigger "change"
-    $(".key_select").selectpicker "refresh"
+    $(event.field).find('.key_select').trigger 'change'
+    $(event.field).find('.key_select').selectpicker 'refresh'
     return
 
   $("#trigger_event_name").focus ->
