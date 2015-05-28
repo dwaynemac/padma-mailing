@@ -6,6 +6,7 @@ $(document).ready ->
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
+    
   $(document).on "nested:fieldAdded", (event) ->
     
     # this field was just inserted into your form
@@ -72,6 +73,9 @@ $(document).ready ->
       setOptions suggested_options[$(this).val()], select_box
       $(select_box).selectpicker "refresh"
       return
+
+    $('.remove_this_filter').click ->
+      $(this).parents('div.fields').remove()
 
     return
 
