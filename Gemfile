@@ -10,7 +10,7 @@ gem 'i18n-js'
 
 gem 'logical_model', '~> 0.5.8'
 gem 'contacts_client', '~> 0.0.21'
-gem 'accounts_client', '0.2.13'
+gem 'accounts_client', :github => 'dwaynemac/accounts_client'
 
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
@@ -35,7 +35,7 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', '0.1.12' # gems in assets group are not required in production (see Bundler.require in config/application.rb)
+gem 'padma-assets', '0.1.20'
 
 gem 'rest-client'
 
