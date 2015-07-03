@@ -8,6 +8,8 @@ gem 'ffi', '~> 1.0.11'
 
 gem 'i18n-js'
 
+gem 'rack-cors'
+
 gem 'logical_model', '~> 0.5.8'
 gem 'contacts_client', '~> 0.0.21'
 gem 'accounts_client', :github => 'dwaynemac/accounts_client'
