@@ -68,7 +68,7 @@ class TemplatesController < ApplicationController
             contact_id: params[:contact_id]}
 
     # Deliver mail and notify activities
-    template.deliver(data)
+    template.delay.deliver(data)
 
     redirect_to templates_url, notice: I18n.t('templates.deliver.success')
   end
