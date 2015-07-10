@@ -34,6 +34,8 @@ gem 'cancan'
 
 # Delayed Job
 gem 'delayed_job_active_record' # must be declared after 'protected_attributes' gem
+gem 'workless'
+
 gem 'liquid'
 gem "nested_form"
 

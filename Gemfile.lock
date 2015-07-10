@@ -113,6 +113,7 @@ GEM
     ethon (0.4.2)
       ffi (~> 1.0.11)
       mime-types (~> 1.18)
+    excon (0.45.3)
     execjs (2.0.2)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
@@ -132,6 +133,9 @@ GEM
     gravtastic (3.2.6)
     happymapper (0.4.1)
       libxml-ruby (~> 2.0)
+    heroku-api (0.3.23)
+      excon (~> 0.44)
+      multi_json (~> 1.8)
     highline (1.6.20)
     hike (1.2.3)
     httparty (0.12.0)
@@ -255,12 +259,15 @@ GEM
       rspec-mocks (~> 2.14.0)
     rubycas-client (2.3.9)
       activesupport
+    rush (0.6.8)
+      session
     safe_yaml (1.0.1)
     sass (3.2.14)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    session (3.2.0)
     shoulda (3.5.0)
       shoulda-context (~> 1.0, >= 1.0.1)
       shoulda-matchers (>= 1.4.1, < 3.0)
@@ -305,6 +312,11 @@ GEM
     uuidtools (2.1.4)
     warden (1.2.3)
       rack (>= 1.0)
+    workless (1.2.3)
+      delayed_job (>= 2.0.7)
+      heroku-api
+      rails
+      rush
     xpath (2.0.0)
       nokogiri (~> 1.3)
     yard (0.7.5)
@@ -359,5 +371,6 @@ DEPENDENCIES
   subcontractor (= 0.6.1)
   therubyracer
   uglifier (>= 1.0.3)
+  workless
   yard (~> 0.7.4)
   yard-rest!
