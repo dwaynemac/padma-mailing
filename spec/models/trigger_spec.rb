@@ -38,8 +38,19 @@ describe Trigger do
 
   describe ".catch_message" do
     let(:template){create(:template)}
+    let(:myaccount){ create(:account, name: 'my-account')} 
+    let(:late_trigger){create(:trigger,
+                         account: myaccount,
+                         event_name: 'communication',
+                         templates_triggerses_attributes: [
+                             {template_id: template.id,
+                              offset_number: -10,
+                              offset_unit: 'day',
+                              offset_reference: 'communicated_at'}
+                         ]
+    )}
     let(:trigger){create(:trigger,
-                         account: create(:account, name: 'my-account'),
+                         account: myaccount,
                          event_name: 'communication',
                          templates_triggerses_attributes: [
                              {template_id: template.id,
@@ -115,6 +126,10 @@ describe Trigger do
       it "schedules email to now+1day" do
         Trigger.catch_message key, data
         ScheduledMail.last.send_at.should be_within(1).of(Time.now+1.day)
+      end
+      it "ignores deliveries with send_at in the past"  do
+        late_trigger
+        expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
       end
     end
 

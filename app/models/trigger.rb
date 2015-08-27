@@ -46,7 +46,7 @@ class Trigger < ActiveRecord::Base
     trigger_scope.where(event_name: key_name).each do |trigger|
       if trigger.filters_match?(data)
         trigger.templates_triggerses.includes(:template).each do |tt|
-          if (send_at = tt.delivery_time(data))
+          if (send_at = tt.delivery_time(data)) && send_at >= Time.zone.now
             sm = ScheduledMail.new(
                 template_id: tt.template_id,
                 local_account_id: tt.template.local_account_id,
