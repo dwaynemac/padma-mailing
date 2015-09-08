@@ -1,3 +1,4 @@
+<%- page_title t("templates.show.title") -%>
 <%- breadcrum t("templates.show.title") -%>
 
 <p>
@@ -53,7 +54,7 @@
 
 <div class="form-actions">
   <%= link_to 'Back', templates_path, :class => 'btn'  %>
-  <%= link_to 'Edit', "/editor" + edit_template_path(@template),
+  <%= link_to 'Edit', "/editor" + edit_template_path(@template, page_title: t("templates.show.title")),
               id:"edit_link",
               data: {save_url: mercury_update_template_path(@template)},
               class: 'btn' %>

@@ -29,11 +29,13 @@
 </div>
 
 <% if @template.id.nil? %>
+    <%- page_title t("templates.index.title") -%>
     <%= link_to 'Edit', "/editor" + new_template_path,
                 id:"edit_link",
                 data: {save_url: mercury_create_templates_path},
                 class: 'btn btn-mini' %>
 <% else %>
+    <%- page_title t("templates.index.title") -%>
     <%= link_to 'Edit', "/editor" + edit_template_path(@template),
                 id:"edit_link",
                 data: {save_url: mercury_update_template_path(@template)},

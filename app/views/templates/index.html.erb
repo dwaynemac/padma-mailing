@@ -1,3 +1,4 @@
+<%- page_title t("templates.index.title") -%>
 <%- breadcrum t("templates.index.title") -%>
 <% if @contact %>
   <% if @contact.email.blank? %>
@@ -33,7 +34,7 @@
                       template,
                       class: 'btn btn-mini btn-default' %>
           <%= link_to t('edit'),
-                      "/editor" + edit_template_path(template),
+                      "/editor" + edit_template_path(template, page_title: t("templates.show.title")),
                       class: 'btn btn-mini btn-default' %>
         </td>
         <td>
@@ -70,5 +71,5 @@
   </tbody>
 </table>
 
-<%= link_to t('new'), "/editor" + new_template_path,
+<%= link_to t('new'), "/editor" + new_template_path(page_title: t("templates.show.title")),
             class: 'btn btn-primary' %>
