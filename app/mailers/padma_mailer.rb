@@ -14,9 +14,8 @@ class PadmaMailer < ActionMailer::Base
 
     address = Mail::Address.new template.account.padma.email
     address.display_name = template.account.padma.full_name
-    address.format
 
-    @from =  address
+    @from =  address.format
     @subject = template.subject
     @sent_on = Time.zone.now
     @content = merge_content_data(template.content,data_hash)
