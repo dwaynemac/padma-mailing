@@ -30,35 +30,38 @@ class Trigger < ActiveRecord::Base
   # @param key_name [String]
   # @param data [Hash]
   def self.catch_message(key_name, data)
-    return if data['avoid_mailing_triggers']
-    return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
-    return unless (recipient_email = get_recipient_email(data))
+    if data['avoid_mailing_triggers']
+      Rails.logger.info "ignoring message, avoid_mailing_triggers present"
+    else
+      return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
+      return unless (recipient_email = get_recipient_email(data))
 
-    message_account = Account.find_by_name(data['account_name'])
-    return if message_account.nil? && !key_name.in?(GLOBAL_EVENTS)
+      message_account = Account.find_by_name(data['account_name'])
+      return if message_account.nil? && !key_name.in?(GLOBAL_EVENTS)
 
-    if key_name.in?(GLOBAL_EVENTS)
-      data['username'] = 'system'
-    end
+      if key_name.in?(GLOBAL_EVENTS)
+        data['username'] = 'system'
+      end
 
-    trigger_scope = message_account.present?? message_account.triggers : Trigger
+      trigger_scope = message_account.present?? message_account.triggers : Trigger
 
-    trigger_scope.where(event_name: key_name).each do |trigger|
-      if trigger.filters_match?(data)
-        trigger.templates_triggerses.includes(:template).each do |tt|
-          if (send_at = tt.delivery_time(data)) && send_at >= Time.zone.now
-            sm = ScheduledMail.new(
-                template_id: tt.template_id,
-                local_account_id: tt.template.local_account_id,
-                recipient_email: recipient_email,
-                contact_id: data['contact_id'],
-                username: data['username'],
-                send_at: send_at,
-                event_key: key_name,
-                data: ActiveSupport::JSON.encode(data)
-            )
-            unless sm.save
-              Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+      trigger_scope.where(event_name: key_name).each do |trigger|
+        if trigger.filters_match?(data)
+          trigger.templates_triggerses.includes(:template).each do |tt|
+            if (send_at = tt.delivery_time(data)) && send_at >= Time.zone.now
+              sm = ScheduledMail.new(
+                  template_id: tt.template_id,
+                  local_account_id: tt.template.local_account_id,
+                  recipient_email: recipient_email,
+                  contact_id: data['contact_id'],
+                  username: data['username'],
+                  send_at: send_at,
+                  event_key: key_name,
+                  data: ActiveSupport::JSON.encode(data)
+              )
+              unless sm.save
+                Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+              end
             end
           end
         end
