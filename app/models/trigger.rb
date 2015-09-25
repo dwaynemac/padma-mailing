@@ -95,10 +95,18 @@ class Trigger < ActiveRecord::Base
 
     recipient_email = data['recipient_email']
     if recipient_email.blank?
-      if (contact = PadmaContact.find(data['contact_id'],
-                                      select: [:email],
-                                      account_name: data['account_name']))
+      attempts = 3
+      contact = nil
+      while attempts > 0 && contact.nil? do
+        attempts -= 1
+        contact = PadmaContact.find(data['contact_id'],
+                                    select: [:email],
+                                    account_name: data['account_name'])
+      end
+      if contact
         recipient_email = contact.email
+      else
+        Rails.logger.info "couldnt get contact #{data['contact_id']} to get email"
       end
     end
 
