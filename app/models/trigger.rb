@@ -31,7 +31,7 @@ class Trigger < ActiveRecord::Base
   # @param data [Hash]
   def self.catch_message(key_name, data)
     if data['avoid_mailing_triggers']
-      Rails.logger.info "ignoring message, avoid_mailing_triggers present"
+      Rails.logger.debug "ignoring message, avoid_mailing_triggers present"
     else
       return unless where(event_name: key_name).exists? # avoid call to padma-contacts if there is no trigger.
       return unless (recipient_email = get_recipient_email(data))
@@ -48,7 +48,7 @@ class Trigger < ActiveRecord::Base
       trigger_scope.where(event_name: key_name).each do |trigger|
         if trigger.filters_match?(data)
           trigger.templates_triggerses.includes(:template).each do |tt|
-            if (send_at = tt.delivery_time(data)) && send_at >= Time.zone.now
+            if (send_at = tt.delivery_time(data)) && send_at.to_date >= Time.zone.now.to_date
               sm = ScheduledMail.new(
                   template_id: tt.template_id,
                   local_account_id: tt.template.local_account_id,
@@ -62,8 +62,12 @@ class Trigger < ActiveRecord::Base
               unless sm.save
                 Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
               end
+            else
+              Rails.logger.debug "ignoring future e-mail"
             end
           end
+        else
+          Rails.logger.debug "message didnt match filters"
         end
       end
     end
