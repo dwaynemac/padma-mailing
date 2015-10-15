@@ -1,31 +1,35 @@
 <%- page_title t(".triggers") -%>
 <%- breadcrum t(".triggers") -%>
-
-<div class="alert">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <%= t('triggers.index.delay_warning', minutes: 5) %>
+<div class='triggers-container'>
+  <div class="alert alert-info alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= t('triggers.index.delay_warning', minutes: 5) %>
+  </div>
+  <section class='triggers-content'>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= t('.event') %></th>
+          <th><%= t('.filters') %></th>
+          <th><%= t('.deliver_templates_on') %></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @triggers.each do |trigger| %>
+        <tr>
+          <td><%= t("triggers.new.event.#{trigger.event_name}") %></td>
+          <td><%= trigger.filters.map{|f| "#{translate_key(f.key)}=#{t("set_options.#{f.value}")}" }.join('; ') %></td>
+          <td><%= trigger.templates_triggerses.map{|tt|"#{tt.template.name} (#{explain_offset(tt)})"}.join(',') %></td>
+          <td>
+            <%= link_to t('destroy'), trigger_path(trigger), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </section>
+  <footer class='form-actions'>
+    <%= link_to t('new'), new_trigger_path, :class => 'btn btn-primary' %>
+  </footer>
 </div>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <td><%= t('.event') %></td>
-    <td><%= t('.filters') %></td>
-    <td><%= t('.deliver_templates_on') %></td>
-  </tr>
-  </thead>
-  <tbody>
-  <% @triggers.each do |trigger| %>
-    <tr>
-      <td><%= t("triggers.new.event.#{trigger.event_name}") %></td>
-      <td><%= trigger.filters.map{|f| "#{translate_key(f.key)}=#{t("set_options.#{f.value}")}" }.join('; ') %></td>
-      <td><%= trigger.templates_triggerses.map{|tt|"#{tt.template.name} (#{explain_offset(tt)})"}.join(',') %></td>
-      <td>
-        <%= link_to t('destroy'), trigger_path(trigger), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<%= link_to t('new'), new_trigger_path, :class => 'btn btn-primary' %>

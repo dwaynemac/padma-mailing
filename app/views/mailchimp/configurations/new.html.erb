@@ -1,25 +1,22 @@
 <%- page_title t("activerecord.models.mailchimp_integration") -%>
-<%= form_for @configuration, url: mailchimp_configuration_path do |f|  %>  
-  <fieldset>
-    <legend>
-      <%= t('mailchimp.new.setup_mailchimp_api_key') %>
-    </legend>
-
-    <label for="api_key">
-      <%= t('mailchimp.new.api_key') %>
-    </label>
-    <%= f.text_field :api_key %>
-    <%= link_to t('mailchimp.new.get_api_key'), "https://us1.admin.mailchimp.com/account/api/", target: '_blank' %>
-    <p class="help-block">
-      <%= link_to t('mailchimp.new.api_key_help'), "http://kb.mailchimp.com/article/where-can-i-find-my-api-key", target: '_blank' %>
-    </p>
-  </fieldset>
-  
-  <p>
-  <%= f.submit t('mailchimp.new.connect_with_mailchimp'), class: 'btn btn-primary' %>
-  </p>
-
-  <p class="alert alert-info">
-    <%= t('mailchimp.new.sync_times') %>
-  </p>
-<% end -%>
+<div class='mailchip-container'>
+  <%= form_for @configuration, url: mailchimp_configuration_path do |f|  %>
+    <header class='mailchip-head'><%= t('mailchimp.new.setup_mailchimp_api_key') %></header>
+    <section class='mailchip-content form-inline'>
+        <label for="api_key">
+          <%= t('mailchimp.new.api_key') %>
+        </label>
+        <%= f.text_field :api_key, :class => "form-control" %>
+        <%= link_to t('mailchimp.new.get_api_key'), "https://us1.admin.mailchimp.com/account/api/", target: '_blank' %>
+        <p class="help-block">
+          <%= link_to t('mailchimp.new.api_key_help'), "http://kb.mailchimp.com/article/where-can-i-find-my-api-key", target: '_blank' %>
+        </p>
+    </section>
+    <footer class='form-actions margin-bottom-10'>
+      <%= f.submit t('mailchimp.new.connect_with_mailchimp'), class: 'btn btn-primary' %>
+    </footer>
+    <div class="alert alert-info">
+      <%= t('mailchimp.new.sync_times') %>
+    </div>
+  <% end -%>
+</div>

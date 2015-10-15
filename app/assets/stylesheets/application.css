@@ -9,12 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require padma-assets
- *= require twitter/bootstrap
- *= require menu
- *= require templates
  *= require bootstrap-select.min
- *= require triggers
  *= require mailchimp/lists
  *= require mailchimp/configurations
+ *= require padma-assets
+ *= require templates
+ *= require triggers
  */

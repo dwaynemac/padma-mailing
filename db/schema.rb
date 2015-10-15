@@ -59,9 +59,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "csv_file_updated_at"
   end
 
-  create_table "lists", :force => true do |t|
-  end
-
   create_table "mailchimp_configurations", :force => true do |t|
     t.string   "api_key"
     t.integer  "local_account_id"
@@ -70,9 +67,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "updated_at",       :null => false
     t.string   "synchronizer_id"
     t.string   "filter_method"
-  end
-
-  create_table "mailchimp_integrations", :force => true do |t|
   end
 
   create_table "mailchimp_lists", :force => true do |t|
@@ -97,10 +91,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.string   "contact_segment_id"
   end
 
-  create_table "mailchimps", :force => true do |t|
-    t.string "list"
-  end
-
   create_table "mercury_images", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -122,10 +112,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.string   "username"
     t.text     "data"
     t.string   "event_key"
-  end
-
-  create_table "segments", :force => true do |t|
-    t.integer "mailchimp_id"
   end
 
   create_table "sessions", :force => true do |t|

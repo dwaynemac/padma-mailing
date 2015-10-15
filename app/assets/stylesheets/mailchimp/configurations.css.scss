@@ -2,6 +2,26 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.mailchip-head {
+	color: #666;
+	font-weight: bold;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+}
+
+.mailchip-content {
+	&.form-inline {
+		label {
+			display: inline-block;
+			vertical-align: middle;
+		}
+		.form-control {
+			margin-left: 5px;
+			margin-right: 5px;
+		}
+	}
+}
+
 li.no-bullet {
   list-style: none;
 }

@@ -1,52 +1,62 @@
 <%- page_title t("triggers.new.title") -%>
 <%- breadcrum t("triggers.new.title") -%>
-<%= nested_form_for @trigger, :html => { :class => 'form-horizontal trigger-form' } do |f| %>
-  <fieldset>
-    <h2><%= t('triggers.new.event_select_message') %></h2>
-    <div class="control-group">
-      <div class="controls">
-        <%= f.select :event_name, Trigger::VALID_EVENT_NAMES.map{|en| [t(".event.#{en}"),en]}, {:include_blank=>true}, class: 'selectpicker event_names', "data-live-search"=>"true", "data-width"=>"320px", "data-height"=>"48px", "data-placeholder-text" => t('.select_event') %>
-        <span id="alert-message" class="alert alert-danger"><%= t('triggers.birthday.warning') %></span>
-      </div>
-      
-      <div id="filters"></div>
-      <div class="add_more">
-        <%= f.link_to_add t('.add_filter'), :filters, class: "btn btn-mini btn-primary glyphicon glyphicon-plus", id: "add_more_filter", :data => { :target => "#filters" } %>
-      </div>
-      <div id="filter_option">
-        <%= render partial: 'filter', :locals =>{ f: f} %>
-      </div>
-      <div>
-        <%= link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
-      </div>
-      <div class="part2"> 
-        <h2> <%= t('triggers.new.template_select_message') %> </h2>
-        <div class="control-group">
-          <div class="controls form-inline">
-            <select id="select-template" class='selectpicker select-template' data-live-search="true", data-width="320px" data-placeholder-text="<%= t('.select_template') %>">
-              <option data-hidden="true"></option>
-              <%- current_user.current_account.templates.each do |template| %>
-                <option value="<%= template.id %>"><%= template.name %></option>
-              <%- end %>
-            </select>
+<div class='triggers-container'>
+  <%= nested_form_for @trigger, :html => { :class => 'form-horizontal trigger-form' } do |f| %>
+    <header class='triggers-head'><%= t('triggers.new.event_select_message') %></header>
+    <section class='triggers-content'>
+      <div class="form-group">
+        <div class='col-xs-12 col-md-12'>
+          <div class="controls">
+            <%= f.select :event_name, Trigger::VALID_EVENT_NAMES.map{|en| [t(".event.#{en}"),en]}, {:include_blank=>true}, class: 'selectpicker event_names', "data-live-search"=>"true", "data-width"=>"320px", "data-height"=>"48px", "data-placeholder-text" => t('.select_event') %>
+            <span id="alert-message" class="alert alert-danger"><%= t('triggers.birthday.warning') %></span>
+          </div>
+
+          <div id="filters"></div>
+
+          <div class="add_more">
+            <%= f.link_to_add t('.add_filter'), :filters, class: "btn btn-mini btn-primary", id: "add_more_filter", :data => { :target => "#filters" } %>
+          </div>
+
+          <div id="filter_option">
+            <%= render partial: 'filter', :locals =>{ f: f} %>
+          </div>
+          <div class='margin-top-10'>
+            <%= link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-primary btn-disabled', id: 'continue-part2' %>
+          </div>
+          <div class="part2 margin-top-30">
+            <header class='triggers-head'><%= t('triggers.new.template_select_message') %></header>
+            <div class="form-group">
+              <div class='col-xs-12 col-md-12'>
+                <div class="controls form-inline">
+                  <select id="select-template" class='selectpicker select-template' data-live-search="true", data-width="320px" data-placeholder-text="<%= t('.select_template') %>">
+                    <option data-hidden="true"></option>
+                    <%- current_user.current_account.templates.each do |template| %>
+                      <option value="<%= template.id %>"><%= template.name %></option>
+                    <%- end %>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div id="templates"></div>
+
+            <div id="templates_option">
+              <%= render partial: 'templates/templates', :locals =>{ f: f} %>
+            </div>
+
+            <div class="form-actions create_trigger">
+              <%= f.submit nil, :class => 'btn btn-primary submit_trigger' %>
+              <%= link_to t('cancel'), templates_path, :class => 'btn btn-secondary' %>
+            </div>
           </div>
         </div>
+      </div>
+    <% end %>
 
-        <div id="templates"></div>
-        <div id="templates_option">
-          <%= render partial: 'templates/templates', :locals =>{ f: f} %>
-        </div>
-        <div class="form-actions clear create_trigger">
-          <%= f.submit nil, :class => 'btn btn-primary submit_trigger' %>
-          <%= link_to t('cancel'), templates_path, :class => 'btn' %>
-        </div>
-      </div> 
+    <div id="new_filter" style="display: none" data-options="<%= {suggested_values: Filter::SUGGESTED_VALUES}.to_json %>">
     </div>
-  </fieldset>
-<% end %>
 
-<div id="new_filter" style="display: none" data-options="<%= {suggested_values: Filter::SUGGESTED_VALUES}.to_json %>">
-</div>
-
-<div id="new_trigger_template" style="display:none" data-options="<%= {offset_references: TemplatesTriggers::VALID_REFERENCES}.to_json %>">
+    <div id="new_trigger_template" style="display:none" data-options="<%= {offset_references: TemplatesTriggers::VALID_REFERENCES}.to_json %>">
+    </div>
+  </section>
 </div>

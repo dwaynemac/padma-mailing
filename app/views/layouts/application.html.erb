@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= yield(:page_title) %> - PADMA</title>
   <%= favicon_link_tag "/favicon.ico" %>
   <!--[if lt IE 9]>
@@ -9,35 +10,24 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 <body>
-<script type="text/javascript">
-  I18n.defaultLocale = "<%= I18n.default_locale %>";
-  I18n.locale = "<%= I18n.locale %>";
-</script>
-<%= render 'layouts/header' %>
-<div class="row">
-  <div class="container">
-    <div class="content">
-      <div class="row">
-        <div class="span12" id="flash_messages">
-          <%= render 'shared/flash_messages' %>
-        </div>
+  <script type="text/javascript">
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+  </script>
+  <%= render 'layouts/header' %>
+
+  <div id='content' class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-12" id="flash_messages">
+        <%= render 'shared/flash_messages' %>
       </div>
-      <div class="row">
-        <div class="span12">
-          <%= yield %>
-        </div>
-
-      </div><!--/row-->
-    </div><!--/content-->
-
-    <footer>
-    </footer>
-
+      <div class="col-xs-12 col-md-12">
+        <%= yield %>
+      </div>
+    </div>
   </div>
-</div>
+  <footer role='contentinfo'></footer>
 </body>
 </html>

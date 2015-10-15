@@ -1,34 +1,37 @@
 <%- page_title t("scheduled_mails.index.title") -%>
 <%- breadcrum t("scheduled_mails.index.title") -%>
-
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <td><%= t('scheduled_mail.attributes.template') %></td>
-    <td><%= t('scheduled_mail.attributes.recipient_email') %></td>
-    <td><%= t('scheduled_mail.attributes.send_at') %></td>
-    <td><%= t('scheduled_mail.attributes.delivered_at') %></td>
-  </tr>
-  </thead>
-  <tbody>
-  <% @scheduled_mails.each do |sm| %>
-    <tr>
-      <td><%= link_to(sm.template.name, sm.template) if sm.template %></td>
-      <td><%= link_to_if sm.contact_id, sm.recipient_email, "http://#{CRM_HOST}/contacts/#{sm.contact_id}" %></td>
-      <td><%= l( sm.send_at) if sm.send_at %></td>
-      <td>
-        <% if sm.delivered_at %>
-          <%= l( sm.delivered_at) if sm.delivered_at%>
-        <% else %>
-          <%= t('scheduled_mails.index.pending') %>
-        <% end %>
-      </td>
-      <td>
-        <% unless sm.delivered? %>
-          <%= link_to t('helpers.links.cancel'), scheduled_mail_path(sm), method: :delete, confirm: 'Are you sure?', class: 'btn btn-mini btn-danger' %>
-          <% end %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<div class='scheduled-container'>
+  <section class='scheduled-content'>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= t('scheduled_mail.attributes.template') %></td>
+          <th><%= t('scheduled_mail.attributes.recipient_email') %></th>
+          <th><%= t('scheduled_mail.attributes.send_at') %></th>
+          <th><%= t('scheduled_mail.attributes.delivered_at') %></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @scheduled_mails.each do |sm| %>
+        <tr>
+          <td><%= link_to(sm.template.name, sm.template) if sm.template %></td>
+          <td><%= link_to_if sm.contact_id, sm.recipient_email, "http://#{CRM_HOST}/contacts/#{sm.contact_id}" %></td>
+          <td><%= l( sm.send_at) if sm.send_at %></td>
+          <td>
+            <% if sm.delivered_at %>
+              <%= l( sm.delivered_at) if sm.delivered_at%>
+            <% else %>
+              <%= t('scheduled_mails.index.pending') %>
+            <% end %>
+          </td>
+          <td>
+            <% unless sm.delivered? %>
+              <%= link_to t('helpers.links.cancel'), scheduled_mail_path(sm), method: :delete, confirm: 'Are you sure?', class: 'btn btn-danger btn-sm' %>
+              <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

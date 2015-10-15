@@ -1,46 +1,39 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<div class="control-group">
-  Name
-  <div class="controls template_fields" id="template_name" data-mercury="full" tabindex="0">
-    <%= @template.name unless @template.name.nil? %>
+<section class='new-template'>
+  <div class="form-group">
+    <label class='control-label'>Name</label>
+    <div class="form-control input" id="template_name" data-mercury="full" tabindex="0">
+      <%= @template.name unless @template.name.nil? %>
+    </div>
   </div>
-</div>
-
-<div class="control-group">
-  Description
-  <div class="controls template_fields" id="template_description" data-mercury="full" tabindex="0">
-    <%= @template.description unless @template.description.nil? %>
+  <div class="form-group">
+    <label class='control-label'>Description</label>
+    <div class="form-control input" id="template_description" data-mercury="full" tabindex="0">
+      <%= @template.description unless @template.description.nil? %>
+    </div>
   </div>
-</div>
-
-<div class="control-group">
-  Subject
-  <div class="controls template_fields" id="template_subject" data-mercury="full" tabindex="0">
-    <%= @template.subject unless @template.subject.nil? %>
+  <div class="form-group">
+    <label class='control-label'>Subject</label>
+    <div class="form-control input" id="template_subject" data-mercury="full" tabindex="0">
+      <%= @template.subject unless @template.subject.nil? %>
+    </div>
   </div>
-</div>
-
-<div class="control-group">
-  Content
-  <div class="controls template_textarea" id="template_content" data-mercury="full", class="mercury-region" data-type="editable">
-    <%= @template.content.html_safe unless @template.content.nil? %>
+  <div class="form-group">
+    <label class='control-label'>Content</label>
+    <div class="form-control textarea" id="template_content" data-mercury="full", class="mercury-region" data-type="editable">
+      <%= @template.content.html_safe unless @template.content.nil? %>
+    </div>
   </div>
-</div>
 
-<% if @template.id.nil? %>
-    <%- page_title t("templates.index.title") -%>
-    <%= link_to 'Edit', "/editor" + new_template_path,
-                id:"edit_link",
-                data: {save_url: mercury_create_templates_path},
-                class: 'btn btn-mini' %>
-<% else %>
-    <%- page_title t("templates.index.title") -%>
-    <%= link_to 'Edit', "/editor" + edit_template_path(@template),
-                id:"edit_link",
-                data: {save_url: mercury_update_template_path(@template)},
-                class: 'btn btn-mini' %>
-<% end %>
+  <% if @template.id.nil? %>
+      <%- page_title t("templates.index.title") -%>
+      <%= link_to 'Edit', "/editor" + new_template_path, id:"edit_link", data: {save_url: mercury_create_templates_path}, class: 'btn btn-secondary btn-xs' %>
+  <% else %>
+      <%- page_title t("templates.index.title") -%>
+      <%= link_to 'Edit', "/editor" + edit_template_path(@template), id:"edit_link", data: {save_url: mercury_update_template_path(@template)}, class: 'btn btn-secondary btn-xs' %>
+  <% end %>
 
-<div class="hide" id="tags_values" data-init-values = "<%= @initialize_tags %>"></div>
-<div class="hide" id="tag_description" data-tag_description = "<%= tags_description.to_json %>"></div>
+  <div class="hide" id="tags_values" data-init-values="<%= @initialize_tags %>"></div>
+  <div class="hide" id="tag_description" data-tag_description="<%= tags_description.to_json %>"></div>
+</section>

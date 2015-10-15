@@ -2,38 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#alert-message {
-	display: none;
-}
-
-#add-filter{
+#add-filter {
   display: none;
 }
 
-.set-background{
-  background-image: -moz-linear-gradient(center bottom , #EEEEEE 0px, #FFFFFF 50%);
-}
-.trigger-form{
-  h2 {
-    color: #FF4A00;
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 1.4em;
-  }
+.trigger-form {
   #old_add_more_filter{
     display: none;
     margin-top: 14px;
-  }
-  .filter-option{
-    text-align: center !important;
-  }
-
-  .event_names.bootstrap-select > .btn {
-    height: 39px;
-  }
-
-  .alert{
-    padding: 10px !important;
   }
 
   .remove-filter{
@@ -45,61 +21,82 @@
     position: relative;
   }
 
-  #add_more_filter{
-    display: none;
-  }
-  .add_more{
-    margin-top: 30px;
-    margin-bottom: 18px;
-  }
-
-  .offset_number{
-    border: 1px solid #B8B8B8;
-    border-radius: 3px;
-    box-shadow: 0 2px 3px rgba(184, 184, 184, 0.8) inset;
-    color: #808080;
-    font-size: 12px;
-    margin-bottom: 8px;
-    min-height: 32px;
-    float: left;
-  }
-
-  .part2{
-    display: none;
-    margin-top: 54px;
-  }
-
-  .offset_unit{
-    float: left !important;
-    margin-left: 8px !important;
-  }
-
-  .offset_reference_block{
-    float: left;
-    margin-left: 9px;
-  }
-
-  .right-arrow{
-    color: #AAAAAA;
-    font-size: 10px;
-  }
-
-  .template-right-arrow{
-    float: left;
-    margin-left: 8px;
-    margin-top: 11px;
-  }
-
-  .create_trigger{
-    margin-top: 30px;
-  }
-
   .remove_template_reference{
     margin-left: 6px;
   }
 
 }
 
-.clear{
-  clear: both;
+// Triggers
+.triggers-head {
+  color: #666;
+  font: {
+    size: 14px;
+    weight: bold;
+  }
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+// @new
+#alert-message {
+  display: none;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  vertical-align: middle;
+}
+
+.trigger-form {
+  .filter-option {
+    text-align: center !important;
+  }
+
+  .control-label {
+    text-align: left;
+  }
+
+  .bootstrap-select {
+    vertical-align: middle;
+  }
+
+  .selectpicker {
+    &.btn {
+      height: 34px;
+      line-height: normal;
+      outline: none;
+    }
+  }
+
+  #add_more_filter {
+    &:before {
+      content: "\2b";
+      font: {
+        family: 'Glyphicons Halflings';
+      }
+      padding-right: 3px;
+      position: relative;
+      top: 1px;
+    }
+  }
+
+  #add_more_filter,
+  .part2 { // Part2 filters
+    display: none;
+  }
+
+  .right-arrow {
+    color: #aaa;
+    font-size: 10px;
+    vertical-align: middle;
+  }
+
+  .part2 {
+    .fields {
+      .offset_reference_block {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+
 }

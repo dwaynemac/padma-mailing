@@ -1,63 +1,49 @@
 <%- page_title t("templates.show.title") -%>
 <%- breadcrum t("templates.show.title") -%>
+<div class='templates-container'>
+  <section class='templates-content'>
+    <dl class='template-details'>
+      <dt>Name</dt>
+      <dd><span><%= @template.name %></span></dd>
+      <dt>Description</dt>
+      <dd><span><%= @template.description %></span></dd>
+      <dt>Subject</dt>
+      <dd><span><%= @template.subject%></span></dd>
+      <dt>Content</dt>
+      <dd><span><%= @template.content.html_safe %></span></dd>
+      <dt>Attachments</dt>
+      <dd>
+        <table id="att-table" class="table table-condensed table-hover" >
+          <% @template.attachments.each do |att|%>
+            <% if !att.id.nil? %>
+              <tr id="attachment_<%= att.id %>" data-id='<%= att.id %>'>
+                <td>
+                  <i class="icon-file"></i> <%= att.attachment_file_name %>
+                </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </table>
+        <%= form_for @template, :html => {id: "fileupload", class: "form-attachment"} do |f| %>
+          <%= f.fields_for @template.attachments.new do |builder| %>
+            <%= builder.file_field :attachment %>
+            <%= builder.label :attachment, :class => 'btn btn-secondary btn-sm label-attachment' %>
+          <% end %>
+        <% end %>
+      </dd>
+    </dl>
 
-<p>
-  <b>Name</b><br>
-  <%= @template.name %>
-</p>
+    <script id="template-upload" type="text/x-tmpl">
+      <div id="upload-file-name" class="upload">
+        <div class="file-name">{%=o.name%}</div>
+        <div class="progress"><div class="progress-bar" style="width: 0%"></div></div>
+      </div>
+    </script>
+  </section>
 
-<p>
-  <b>Description</b><br>
-  <%= @template.description %>
-</p>
-
-<p>
-  <b>Subject</b><br>
-  <%= @template.subject%>
-</p>
-
-<p>
-  <b>Content</b><br>
-</p>
-<div>
-  <%= @template.content.html_safe %>
+  <footer class="form-actions margin-top-20">
+    <%= link_to 'Back', templates_path, :class => 'btn btn-link' %>
+    <%= link_to 'Edit', "/editor" + edit_template_path(@template, page_title: t("templates.show.title")), id:"edit_link", data: {save_url: mercury_update_template_path(@template)}, class: 'btn btn-secondary' %>
+    <%= link_to 'Delete', template_path(@template), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  </footer>
 </div>
-
-<b>Attachments</b>
-<table id="att-table" class="table table-condensed table-hover" >
-  <% @template.attachments.each do |att|%>
-      <% if !att.id.nil? %>
-          <tr id="attachment_<%= att.id %>">
-            <td>
-              <i class="icon-file"></i>
-              <%= att.attachment_file_name %>
-            </td>
-          </tr>
-      <% end %>
-  <% end %>
-</table>
-
-<%= form_for @template, :html => {id: "fileupload"} do |f| %>
-    <%= f.fields_for @template.attachments.new do |builder| %>
-        <%= builder.file_field :attachment %>
-    <% end %>
-<% end %>
-
-
-<script id="template-upload" type="text/x-tmpl">
-  <div id="upload-file-name" class="upload">
-    {%=o.name%}
-    <div class="progress"><div class="bar" style="width: 0%"></div></div>
-  </div>
-</script>
-
-
-<div class="form-actions">
-  <%= link_to 'Back', templates_path, :class => 'btn'  %>
-  <%= link_to 'Edit', "/editor" + edit_template_path(@template, page_title: t("templates.show.title")),
-              id:"edit_link",
-              data: {save_url: mercury_update_template_path(@template)},
-              class: 'btn' %>
-  <%= link_to 'Delete', template_path(@template), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
-</div>
-
