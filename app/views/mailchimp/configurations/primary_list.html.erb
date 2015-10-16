@@ -1,26 +1,27 @@
-<%= form_for @configuration, url: mailchimp_configuration_path , method: :put do |f|  %>
-  <fieldset>
-    <legend>
-      <%= t('mailchimp.primary_list.setup_primary_list') %>
-    </legend>
-
-    <% if !@lists.empty? %>
-      <%= f.select :primary_list_id, @lists.map {|list| [list.name, list.id]} %>
-
-      <p class="help-block">
-        <%= t('mailchimp.primary_list.whant_a_new_one') %>
-        <%= link_to t('mailchimp.primary_list.create_one'), "https://admin.mailchimp.com/lists/new-list/", target: '_blank'%>.  <%= link_to t('mailchimp.primary_list.reload_when_finished'), 'javascript: location.reload()' %>
-      </p>
-    <% else %>
-      <label for="list_id">
-        <%= t('mailchimp.primary_list.no_list') %>
-        <%= link_to t('mailchimp.primary_list.create_one'), "https://admin.mailchimp.com/lists/new-list/", target: '_blank'%>
-      </label>
-    <p class="help-block">
-      <%= link_to t('mailchimp.primary_list.dont_know'), "http://kb.mailchimp.com/article/how-do-i-create-a-new-list/", target: '_blank' %>
-    </p>
-    <% end %>
-  </fieldset>
-
-  <%= f.submit t('mailchimp.primary_list.sync_with_chosen_list'), class: 'btn btn-primary' %>
-<% end -%>
+<div class='mailchimp-container'>
+  <%= form_for @configuration, url: mailchimp_configuration_path , method: :put do |f|  %>
+    <header class='mailchimp-head'><%= t('mailchimp.primary_list.setup_primary_list') %></header>
+    <section class='mailchimp-content'>
+      <% if !@lists.empty? %>
+        <div class='select col-xs-12 col-md-6'>
+          <%= f.select :primary_list_id, @lists.map {|list| [list.name, list.id]} %>
+        </div>
+        <p class="help-block">
+          <%= t('mailchimp.primary_list.whant_a_new_one') %>
+          <%= link_to t('mailchimp.primary_list.create_one'), "https://admin.mailchimp.com/lists/new-list/", target: '_blank'%>.  <%= link_to t('mailchimp.primary_list.reload_when_finished'), 'javascript: location.reload()' %>
+        </p>
+      <% else %>
+        <label for="list_id">
+          <%= t('mailchimp.primary_list.no_list') %>
+          <%= link_to t('mailchimp.primary_list.create_one'), "https://admin.mailchimp.com/lists/new-list/", target: '_blank'%>
+        </label>
+        <p class="help-block">
+          <%= link_to t('mailchimp.primary_list.dont_know'), "http://kb.mailchimp.com/article/how-do-i-create-a-new-list/", target: '_blank' %>
+        </p>
+      <% end %>
+    </section>
+    <footer class='form-actions'>
+      <%= f.submit t('mailchimp.primary_list.sync_with_chosen_list'), class: 'btn btn-primary' %>
+    </footer>
+  <% end -%>
+</div>

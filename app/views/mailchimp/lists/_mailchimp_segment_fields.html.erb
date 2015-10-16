@@ -1,65 +1,58 @@
 <div class="mailchimp_segment_fields">
-<%= ff.text_field :name, {placeholder: t('mailchimp.list.segments.name'), size: "20"} %> 
-
-<label for="status">
-  <%= t('mailchimp.list.segments.status')%>:
-</label>
-<div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-primary <%= bootstrap_check_box_active(ff, 'prospect') %>" >
-    <%= ff.check_box "prospect" %>
-    <%= t('mailchimp.list.segments.prospect')%>
-  </label>
-
-  <label class="btn btn-primary <%= bootstrap_check_box_active(ff, 'student') %>" >
-    <%= ff.check_box "student" %>
-    <%= t('mailchimp.list.segments.student')%>
-  </label>
-
-  <label class="btn btn-primary <%= bootstrap_check_box_active(ff, 'exstudent') %>" >
-    <%= ff.check_box "exstudent" %>
-    <%= t('mailchimp.list.segments.exstudent')%>
-  </label>
-</div>
-
-<label for="only_man">
-  <%= t('mailchimp.list.segments.gender')%>:
-</label>
-<div class="btn-group" data-toggle="buttons">
-  <label class="btn btn-primary <%= bootstrap_check_box_active(ff, 'only_man') %>" >
-    <%= ff.check_box "only_man"  %>
-    <%= t('mailchimp.list.segments.only_man')%>
-  </label>
-</div>
-
-<label for="coefficient">
-  <%= t('mailchimp.list.segments.coefficient')%>:
-</label>
-<div class="btn-group">
+  <%= ff.text_field :name, {placeholder: t('mailchimp.list.segments.name'), size: "20"} %>
+  <label for="status" class='mailchimp-label'><%= t('mailchimp.list.segments.status')%>:</label>
   <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'all') %>" >
-      <%= ff.radio_button :coefficient, "all"%>
-      <%= t('mailchimp.list.segments.all')%>
+    <label class="btn btn-primary btn-sm <%= bootstrap_check_box_active(ff, 'prospect') %>" >
+      <%= ff.check_box "prospect" %>
+      <%= t('mailchimp.list.segments.prospect')%>
     </label>
 
-    <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'fp') %>" >
-      <%= ff.radio_button :coefficient, "fp"%>
-      <%= t('mailchimp.list.segments.fp')%>
+    <label class="btn btn-primary btn-sm <%= bootstrap_check_box_active(ff, 'student') %>" >
+      <%= ff.check_box "student" %>
+      <%= t('mailchimp.list.segments.student')%>
     </label>
 
-    <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'perfil') %>"
-            data-toggle='tooltip'
-            data-placement='top'
-            title='<%= I18n.t('mailchimp.list.segments.perfil_explained') %>' >
-      <%= ff.radio_button :coefficient, "perfil" %>
-      <%= t('mailchimp.list.segments.perfil')%>
-    </label>
-
-    <label class="btn btn-primary <%= bootstrap_radio_button_active(ff, 'coefficient', 'pmas') %>" >
-      <%= ff.radio_button :coefficient, "pmas"%>
-      <%= t('mailchimp.list.segments.pmas')%>
+    <label class="btn btn-primary btn-sm <%= bootstrap_check_box_active(ff, 'exstudent') %>" >
+      <%= ff.check_box "exstudent" %>
+      <%= t('mailchimp.list.segments.exstudent')%>
     </label>
   </div>
-</div>
+
+  <label class='mailchimp-label' for="only_man"><%= t('mailchimp.list.segments.gender')%>:</label>
+  <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-primary btn-sm <%= bootstrap_check_box_active(ff, 'only_man') %>" >
+      <%= ff.check_box "only_man" %>
+      <%= t('mailchimp.list.segments.only_man')%>
+    </label>
+  </div>
+
+  <label class='mailchimp-label' for="coefficient"><%= t('mailchimp.list.segments.coefficient')%>:</label>
+  <div class="btn-group">
+    <div class="btn-group" data-toggle="buttons">
+      <label class="btn btn-primary btn-sm <%= bootstrap_radio_button_active(ff, 'coefficient', 'all') %>" >
+        <%= ff.radio_button :coefficient, "all"%>
+        <%= t('mailchimp.list.segments.all')%>
+      </label>
+
+      <label class="btn btn-primary btn-sm <%= bootstrap_radio_button_active(ff, 'coefficient', 'fp') %>" >
+        <%= ff.radio_button :coefficient, "fp" %>
+        <%= t('mailchimp.list.segments.fp')%>
+      </label>
+
+      <label class="btn btn-primary btn-sm <%= bootstrap_radio_button_active(ff, 'coefficient', 'perfil') %>"
+              data-toggle='tooltip'
+              data-placement='top'
+              title='<%= I18n.t('mailchimp.list.segments.perfil_explained') %>' >
+        <%= ff.radio_button :coefficient, "perfil" %>
+        <%= t('mailchimp.list.segments.perfil')%>
+      </label>
+
+      <label class="btn btn-primary btn-sm <%= bootstrap_radio_button_active(ff, 'coefficient', 'pmas') %>" >
+        <%= ff.radio_button :coefficient, "pmas"%>
+        <%= t('mailchimp.list.segments.pmas')%>
+      </label>
+    </div>
+  </div>
 
   <% if ff.object.persisted? %>
     <div class="btn-group" data-toggle="buttons">
@@ -69,8 +62,6 @@
       </label>
     </div>
   <% else -%>
-    <%= ff.link_to_remove 'x', class: "btn btn-xs btn-danger" %>
+    <%= ff.link_to_remove '<span class="glyphicon glyphicon-remove"></span>'.html_safe, class: "btn btn-danger btn-sm" %>
   <% end %>
-
-  </br></br>
 </div>

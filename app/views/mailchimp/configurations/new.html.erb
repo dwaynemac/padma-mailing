@@ -1,8 +1,8 @@
 <%- page_title t("activerecord.models.mailchimp_integration") -%>
-<div class='mailchip-container'>
+<div class='mailchimp-container'>
   <%= form_for @configuration, url: mailchimp_configuration_path do |f|  %>
-    <header class='mailchip-head'><%= t('mailchimp.new.setup_mailchimp_api_key') %></header>
-    <section class='mailchip-content form-inline'>
+    <header class='mailchimp-head'><%= t('mailchimp.new.setup_mailchimp_api_key') %></header>
+    <section class='mailchimp-content form-inline'>
         <label for="api_key">
           <%= t('mailchimp.new.api_key') %>
         </label>
