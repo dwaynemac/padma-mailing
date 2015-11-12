@@ -43,5 +43,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include(FactoryGirl::Syntax::Methods)
   config.include(MailerMacros)
-  config.before(:each) { reset_email }
+  config.before(:each) do
+    reset_email
+  end
 end

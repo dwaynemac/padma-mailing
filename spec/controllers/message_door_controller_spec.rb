@@ -10,6 +10,10 @@ describe MessageDoorController do
   #    app/controllers/application_controller.rb:49:in `set_timezone'
   #
 
+  before do
+    # if account is enabled
+    PadmaAccount.stub(:find).and_return PadmaAccount.new(name: 'stubbedAccount', enabled: true)
+  end
 
   describe "real life example" do
     before do

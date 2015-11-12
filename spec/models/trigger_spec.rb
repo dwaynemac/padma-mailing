@@ -37,6 +37,10 @@ describe Trigger do
   end
 
   describe ".catch_message" do
+    before do
+      # if account is enabled
+      PadmaAccount.stub(:find).and_return PadmaAccount.new(name: 'stubbedAccount', enabled: true)
+    end
     let(:template){create(:template)}
     let(:myaccount){ create(:account, name: 'my-account')} 
     let(:late_trigger){create(:trigger,

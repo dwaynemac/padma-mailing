@@ -38,6 +38,7 @@ class Trigger < ActiveRecord::Base
 
       message_account = Account.find_by_name(data['account_name'])
       return if message_account.nil? && !key_name.in?(GLOBAL_EVENTS)
+      return if message_account && !message_account.padma.enabled?
 
       if key_name.in?(GLOBAL_EVENTS)
         data['username'] = 'system'
@@ -46,6 +47,7 @@ class Trigger < ActiveRecord::Base
       trigger_scope = message_account.present?? message_account.triggers : Trigger
 
       trigger_scope.where(event_name: key_name).each do |trigger|
+        next if !trigger.account.padma.enabled?
         if trigger.filters_match?(data)
           trigger.templates_triggerses.includes(:template).each do |tt|
             if (send_at = tt.delivery_time(data)) && send_at.to_date >= Time.zone.now.to_date
