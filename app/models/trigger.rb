@@ -47,29 +47,32 @@ class Trigger < ActiveRecord::Base
       trigger_scope = message_account.present?? message_account.triggers : Trigger
 
       trigger_scope.where(event_name: key_name).each do |trigger|
-        next if !trigger.account.padma.enabled?
-        if trigger.filters_match?(data)
-          trigger.templates_triggerses.includes(:template).each do |tt|
-            if (send_at = tt.delivery_time(data)) && send_at.to_date >= Time.zone.now.to_date
-              sm = ScheduledMail.new(
-                  template_id: tt.template_id,
-                  local_account_id: tt.template.local_account_id,
-                  recipient_email: recipient_email,
-                  contact_id: data['contact_id'],
-                  username: data['username'],
-                  send_at: send_at,
-                  event_key: key_name,
-                  data: ActiveSupport::JSON.encode(data)
-              )
-              unless sm.save
-                Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+        if trigger.account.padma.enabled?
+          if trigger.filters_match?(data)
+            trigger.templates_triggerses.includes(:template).each do |tt|
+              if (send_at = tt.delivery_time(data)) && send_at.to_date >= Time.zone.now.to_date
+                sm = ScheduledMail.new(
+                    template_id: tt.template_id,
+                    local_account_id: tt.template.local_account_id,
+                    recipient_email: recipient_email,
+                    contact_id: data['contact_id'],
+                    username: data['username'],
+                    send_at: send_at,
+                    event_key: key_name,
+                    data: ActiveSupport::JSON.encode(data)
+                )
+                unless sm.save
+                  Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+                end
+              else
+                Rails.logger.debug "ignoring future e-mail"
               end
-            else
-              Rails.logger.debug "ignoring future e-mail"
             end
+          else
+            Rails.logger.debug "message didnt match filters"
           end
         else
-          Rails.logger.debug "message didnt match filters"
+          Rails.logger.debug "trigger's account is not enabled"
         end
       end
     end
