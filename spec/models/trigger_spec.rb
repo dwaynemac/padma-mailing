@@ -37,10 +37,6 @@ describe Trigger do
   end
 
   describe ".catch_message" do
-    before do
-      # if account is enabled
-      PadmaAccount.stub(:find).and_return PadmaAccount.new(name: 'stubbedAccount', enabled: true)
-    end
     let(:template){create(:template)}
     let(:myaccount){ create(:account, name: 'my-account')} 
     let(:late_trigger){create(:trigger,
@@ -96,183 +92,210 @@ describe Trigger do
                                     offset_reference: 'birthday_at'}
                                ]
     )}
-    context "with data containing avoid_mailing_triggers: true" do
-      let(:key){:communication}
-      let(:data){{avoid_mailing_triggers: true, contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
+    describe "if accounts-ws if offline" do
       before do
-        trigger # create trigger
+        PadmaAccount.stub(:find).and_return nil
       end
-      it "wont create a ScheduledEmail" do
-        expect{Trigger.catch_message(key,data)}.not_to change{ScheduledMail.count}
-      end
-    end
-    context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}" do
-      let(:key){:communication}
-      let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
-      before do
-        trigger # create trigger
-        PadmaContact.should_receive(:find)
-                    .with(1234,
-                          select: [:email],
-                          account_name: 'my-account')
-                    .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
-      end
-      it "only matches triggers of 'my-account'" do
-        other_trigger
-        expect{Trigger.catch_message(key,data)}.to change{ScheduledMail.count}.by 1
-      end
-      it "calls PadmaContact" do
-        Trigger.catch_message(key,data)
-      end
-      it "creates a ScheduledEmail" do
-        expect{Trigger.catch_message(key,data)}.to change{ScheduledMail.count}.by 1
-      end
-      it "schedules email to now+1day" do
-        Trigger.catch_message key, data
-        ScheduledMail.last.send_at.should be_within(1).of(Time.now+1.day)
-      end
-      it "ignores deliveries with send_at in the past"  do
-        late_trigger
-        expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
-      end
-    end
-
-    context "with :subscription_change" do
-      let(:key){"subscription_change"}
-      let(:data){
-        {
-          contact_id: 1234, 
-          changed_at: Time.now, 
-          account_name: 'third-account', 
-          communication_id: 1000, 
-          id: 9999, 
-          observations: "",
-          username: "alex.falke",
-          type: "Enrollment"
-        }.stringify_keys!}
+      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}" do
+        let(:key){:communication}
+        let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before do
-          enrollment_trigger
-          enrollment_trigger.filters.create(key: "type", value: "Enrollment")
+          trigger # create trigger
           PadmaContact.should_receive(:find)
                       .with(1234,
                             select: [:email],
-                            account_name: 'third-account')
+                            account_name: 'my-account')
                       .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
-        it "creates a ScheduledMail" do
-          expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+        it "fails with exception" do
+          expect{Trigger.catch_message(key,data)}.to raise_exception
         end
-    end
-
-    context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'account-without-triggers'}" do
-      let(:key){:communication}
-      let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'account-without-triggers'}.stringify_keys!}
-      it "wont schedule emails" do
-        trigger
-        other_trigger
-        expect{Trigger.catch_message key, data}.not_to change{ScheduledMail.count}
       end
     end
-
-    context "with :birthday, {contact_id: 1234, birthday_at: now, account_name: 'my-account'}" do
-      describe "if contact is a student of the account" do
-        let(:key){"birthday"}
-        let(:data){{
-                      contact_id: 1234, 
-                      birthday_at: Time.now, 
-                      linked_accounts_names: %W(my-account),
-                      'local_status_for_my-account' => 'student',
-                      status: 'student'}.stringify_keys!}
+    describe "if accounts-ws is online and account is enabled" do
+      before do
+        # if account is enabled
+        PadmaAccount.stub(:find).and_return PadmaAccount.new(name: 'my-account',
+                                                             enabled: true)
+      end
+      context "with data containing avoid_mailing_triggers: true" do
+        let(:key){:communication}
+        let(:data){{avoid_mailing_triggers: true, contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before do
-          birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+          trigger # create trigger
+        end
+        it "wont create a ScheduledEmail" do
+          expect{Trigger.catch_message(key,data)}.not_to change{ScheduledMail.count}
+        end
+      end
+      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}" do
+        let(:key){:communication}
+        let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
+        before do
+          trigger # create trigger
+          PadmaContact.should_receive(:find)
+                      .with(1234,
+                            select: [:email],
+                            account_name: 'my-account')
+                      .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+        end
+        it "only matches triggers of 'my-account'" do
+          other_trigger
+          expect{Trigger.catch_message(key,data)}.to change{ScheduledMail.count}.by 1
         end
         it "calls PadmaContact" do
           Trigger.catch_message(key,data)
         end
         it "creates a ScheduledEmail" do
+          expect{Trigger.catch_message(key,data)}.to change{ScheduledMail.count}.by 1
+        end
+        it "schedules email to now+1day" do
+          Trigger.catch_message key, data
+          ScheduledMail.last.send_at.should be_within(1).of(Time.now+1.day)
+        end
+        it "ignores deliveries with send_at in the past"  do
+          late_trigger
           expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
         end
       end
 
-      describe "if contact is not a student of the current account, but student of another school" do
-        let(:key){"birthday"}
-        let(:data){{
-                      contact_id: 1234, 
-                      birthday_at: Time.now, 
-                      linked_accounts_names: %W(my-account),
-                      'local_status_for_my-account' => 'prospect',
-                      status: 'student'}.stringify_keys!}
-        before do
-          birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
-        end
-        it "calls PadmaContact" do
-          Trigger.catch_message(key,data)
-        end
-        it "should not create a ScheduledEmail" do
-          expect{Trigger.catch_message(key, data)}.not_to change{ScheduledMail.count}
+      context "with :subscription_change" do
+        let(:key){"subscription_change"}
+        let(:data){
+          {
+            contact_id: 1234, 
+            changed_at: Time.now, 
+            account_name: 'third-account', 
+            communication_id: 1000, 
+            id: 9999, 
+            observations: "",
+            username: "alex.falke",
+            type: "Enrollment"
+          }.stringify_keys!}
+          before do
+            enrollment_trigger
+            enrollment_trigger.filters.create(key: "type", value: "Enrollment")
+            PadmaContact.should_receive(:find)
+                        .with(1234,
+                              select: [:email],
+                              account_name: 'third-account')
+                        .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+          end
+          it "creates a ScheduledMail" do
+            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+          end
+      end
+
+      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'account-without-triggers'}" do
+        let(:key){:communication}
+        let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'account-without-triggers'}.stringify_keys!}
+        it "wont schedule emails" do
+          trigger
+          other_trigger
+          expect{Trigger.catch_message key, data}.not_to change{ScheduledMail.count}
         end
       end
 
-      describe "if contact is not a student of the current account, but no student of any other school" do
-        let(:key){"birthday"}
-        let(:data){{
-                      contact_id: 1234, 
-                      birthday_at: Time.now, 
-                      linked_accounts_names: %W(my-account),
-                      'local_status_for_my-account' => 'prospect',
-                      status: 'prospect'}.stringify_keys!}
-        before do
-          birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-          PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+      context "with :birthday, {contact_id: 1234, birthday_at: now, account_name: 'my-account'}" do
+        describe "if contact is a student of the account" do
+          let(:key){"birthday"}
+          let(:data){{
+                        contact_id: 1234, 
+                        birthday_at: Time.now, 
+                        linked_accounts_names: %W(my-account),
+                        'local_status_for_my-account' => 'student',
+                        status: 'student'}.stringify_keys!}
+          before do
+            birthday_trigger
+            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+                PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+          end
+          it "calls PadmaContact" do
+            Trigger.catch_message(key,data)
+          end
+          it "creates a ScheduledEmail" do
+            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+          end
         end
-        it "calls PadmaContact" do
-          Trigger.catch_message(key,data)
-        end
-        it "should create a ScheduledEmail" do
-          expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
-        end
-      end
 
-      describe "if contact is not linked to current account" do
-        let(:key){'birthday'}
-        let(:data){{
-          contact_id: 1234,
-          birthday_at: Time.now,
-          status: 'prospect'}.stringify_keys!
-        }
-        before do
-          birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-            PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
-          )
+        describe "if contact is not a student of the current account, but student of another school" do
+          let(:key){"birthday"}
+          let(:data){{
+                        contact_id: 1234, 
+                        birthday_at: Time.now, 
+                        linked_accounts_names: %W(my-account),
+                        'local_status_for_my-account' => 'prospect',
+                        status: 'student'}.stringify_keys!}
+          before do
+            birthday_trigger
+            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+                PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+          end
+          it "calls PadmaContact" do
+            Trigger.catch_message(key,data)
+          end
+          it "should not create a ScheduledEmail" do
+            expect{Trigger.catch_message(key, data)}.not_to change{ScheduledMail.count}
+          end
         end
-        it "wont trigger emails" do
-          expect{Trigger.catch_message(key,data)}.not_to change{ScheduledMail.count}
-        end
-      end
 
-      describe "if contact is linked to current account without a status" do
-        let(:key){"birthday"}
-        let(:data){{
+        describe "if contact is not a student of the current account, but no student of any other school" do
+          let(:key){"birthday"}
+          let(:data){{
+                        contact_id: 1234, 
+                        birthday_at: Time.now, 
+                        linked_accounts_names: %W(my-account),
+                        'local_status_for_my-account' => 'prospect',
+                        status: 'prospect'}.stringify_keys!}
+          before do
+            birthday_trigger
+            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+            PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+          end
+          it "calls PadmaContact" do
+            Trigger.catch_message(key,data)
+          end
+          it "should create a ScheduledEmail" do
+            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+          end
+        end
+
+        describe "if contact is not linked to current account" do
+          let(:key){'birthday'}
+          let(:data){{
             contact_id: 1234,
             birthday_at: Time.now,
-            linked_accounts_names: %W(my-account),
             status: 'prospect'}.stringify_keys!
-        }
-        before do
-          birthday_trigger
-          PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-            PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
-          )
+          }
+          before do
+            birthday_trigger
+            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
+            )
+          end
+          it "wont trigger emails" do
+            expect{Trigger.catch_message(key,data)}.not_to change{ScheduledMail.count}
+          end
         end
 
-        it "triggers emails" do
-          expect{Trigger.catch_message(key,data)}.to change{ScheduledMail.count}.by 1
+        describe "if contact is linked to current account without a status" do
+          let(:key){"birthday"}
+          let(:data){{
+              contact_id: 1234,
+              birthday_at: Time.now,
+              linked_accounts_names: %W(my-account),
+              status: 'prospect'}.stringify_keys!
+          }
+          before do
+            birthday_trigger
+            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
+            )
+          end
+
+          it "triggers emails" do
+            expect{Trigger.catch_message(key,data)}.to change{ScheduledMail.count}.by 1
+          end
         end
       end
     end
