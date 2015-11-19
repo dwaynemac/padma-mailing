@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20141027174049) do
+ActiveRecord::Schema.define(:version => 20151119163253) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -28,6 +28,22 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0, :null => false
+    t.integer  "attempts",   :default => 0, :null => false
+    t.text     "handler",                   :null => false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "filters", :force => true do |t|
     t.integer  "trigger_id"
@@ -59,9 +75,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "csv_file_updated_at"
   end
 
-  create_table "lists", :force => true do |t|
-  end
-
   create_table "mailchimp_configurations", :force => true do |t|
     t.string   "api_key"
     t.integer  "local_account_id"
@@ -70,9 +83,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.datetime "updated_at",       :null => false
     t.string   "synchronizer_id"
     t.string   "filter_method"
-  end
-
-  create_table "mailchimp_integrations", :force => true do |t|
   end
 
   create_table "mailchimp_lists", :force => true do |t|
@@ -97,10 +107,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.string   "contact_segment_id"
   end
 
-  create_table "mailchimps", :force => true do |t|
-    t.string "list"
-  end
-
   create_table "mercury_images", :force => true do |t|
     t.string   "image_file_name"
     t.string   "image_content_type"
@@ -122,10 +128,6 @@ ActiveRecord::Schema.define(:version => 20141027174049) do
     t.string   "username"
     t.text     "data"
     t.string   "event_key"
-  end
-
-  create_table "segments", :force => true do |t|
-    t.integer "mailchimp_id"
   end
 
   create_table "sessions", :force => true do |t|

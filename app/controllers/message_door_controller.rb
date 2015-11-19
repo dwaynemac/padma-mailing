@@ -17,8 +17,8 @@ class MessageDoorController < ApplicationController
   # @argument secret_key [String]
   def catch
     if params[:secret_key] == ENV['messaging_secret']
-      Trigger.catch_message(params[:key_name],
-                            ActiveSupport::JSON.decode(params[:data]))
+      Trigger.delay.catch_message(params[:key_name],
+                                  ActiveSupport::JSON.decode(params[:data]))
       render text: 'received', status: 200
     else
       render text: 'wrong secret_key', status: 403
