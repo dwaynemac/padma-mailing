@@ -7,24 +7,73 @@
   // background-color: red;
 }
 
-.bs-callout-info {
-  border-left-color: #5bc0de !important;
-}
-
-.bs-callout {
-  padding: 20px;
-  margin: 20px 0;
-  border: 1px solid #eee;
-  border-left-width: 5px;
-  border-radius: 3px;
-}
-
-fieldset {
-  margin: 15px;
-}
-
 fieldset#filter_method {
   margin-top: 30px;
 }
 
+// New mockup
+.sync-contacts {
+  .card-title {
+    color: #000;
+    font: {
+      size: 24px;
+      weight: normal;
+    }
+    padding-left: 30px;
+    text-transform: initial;
+  }
+  .card-body {
+    font-size: 14px;
+    padding-left: 30px;
+    padding-right: 30px;
+    h5 {
+      color: #666;
+      font-family: Arial, sans-serif;
+    }
+  }
+  .lead {
+    @media (min-width: 768px) {
+      font-size: 16px;
+    }
+  }
+}
 
+.mailchimp-table {
+  background-color: #fff;
+  padding: 10px;
+  @media (min-width: 768px) {
+    width: 75%;
+  }
+}
+
+.mailchimp-segments {
+  .table {
+    border: none;
+    margin-bottom: 0;
+    > thead > tr,
+    > tbody > tr {
+      > th,
+      > td {
+        padding-bottom: 8px;
+        padding-top: 8px;
+      }
+    }
+    > tbody {
+      > tr {
+        > td {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}
+
+.add-new-segment {
+  background-color: #ebebeb;
+  padding: 15px;
+  .form-control {
+    @media (min-width: 768px) {
+      width: 35%;
+    }
+  }
+}
