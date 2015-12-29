@@ -1,49 +1,51 @@
-<%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), :html => {:class => 'sync-contacts'}, method: :put do |f|  %>
-  <section class='card card-primary'>
-    <header class='card-title'><%= t('mailchimp.list.segments.segments') %></header>
-    <div class='card-body'>
-      <h5><%= t('mailchimp.list.segments.filter_methods.title')%></h5>
-      <div class='radio-inline'>
-        <label><input type="radio" name="filter_method", value="all"> <%= t('mailchimp.list.segments.filter_methods.all')%></label>
-      </div>
-      <div class='radio-inline'>
-        <label><input type="radio" name="filter_method", value="segments"> <%= t('mailchimp.list.segments.filter_methods.segments')%></label>
-      </div>
-      <p><%= t('mailchimp.list.segments.filter_methods.explanation') %></p>
-      <p><%= link_to t('mailchimp.list.segments.filter_methods.more_about_mailchimp_pricing'), 'http://mailchimp.com/pricing/', target: '_blank' %></p>
-      <p class='lead margin-top-20'><%= t('mailchimp.list.segments.explanation', list_name: @list.name).html_safe %></p>
-      <div class='mailchimp-segments'>
-        <div class='mailchimp-table'>
-          <table class='table table-striped'>
-            <thead>
-              <tr>
-                <th>nombre</th>
-                <th><%= t('mailchimp.list.segments.status')%></th>
-                <th><%= t('mailchimp.list.segments.gender')%></th>
-                <th><%= t('mailchimp.list.segments.coefficient')%></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <%= f.fields_for :mailchimp_segments do |ff| %>
-                <%= render partial: 'mailchimp_segment_fields', locals: { ff: ff } %>
-              <% end %>
-            </tbody>
-          </table>
-          <div class='add-new-segment form-inline'>
-            Nuevo segmento: <input type='text' class='form-control' /> <button type='button' class='btn btn-primary btn-sm'>Crear</button>
-          </div>
+<div class='mailchimp-section'>
+  <%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), :html => {:class => 'sync-contacts'}, method: :put do |f|  %>
+    <section class='card card-primary'>
+      <header class='card-title'><%= t('mailchimp.list.segments.segments') %></header>
+      <div class='card-body'>
+        <h5><%= t('mailchimp.list.segments.filter_methods.title')%></h5>
+        <div class='radio-inline'>
+          <label><input type="radio" name="filter_method", value="all"> <%= t('mailchimp.list.segments.filter_methods.all')%></label>
         </div>
+        <div class='radio-inline'>
+          <label><input type="radio" name="filter_method", value="segments"> <%= t('mailchimp.list.segments.filter_methods.segments')%></label>
+        </div>
+        <p><%= t('mailchimp.list.segments.filter_methods.explanation') %></p>
+        <p><%= link_to t('mailchimp.list.segments.filter_methods.more_about_mailchimp_pricing'), 'http://mailchimp.com/pricing/', target: '_blank' %></p>
+        <p class='lead margin-top-20'><%= t('mailchimp.list.segments.explanation', list_name: @list.name).html_safe %></p>
+        <div class='mailchimp-segments'>
+          <div class='mailchimp-table'>
+            <table class='table table-striped'>
+              <thead>
+                <tr>
+                  <th>nombre</th>
+                  <th><%= t('mailchimp.list.segments.status')%></th>
+                  <th><%= t('mailchimp.list.segments.gender')%></th>
+                  <th><%= t('mailchimp.list.segments.coefficient')%></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= f.fields_for :mailchimp_segments do |ff| %>
+                  <%= render partial: 'mailchimp_segment_fields', locals: { ff: ff } %>
+                <% end %>
+              </tbody>
+            </table>
+            <div class='add-new-segment form-inline'>
+              Nuevo segmento: <input type='text' class='form-control' /> <button type='button' class='btn btn-primary btn-sm'>Crear</button>
+            </div>
+          </div>
 
-        <%#= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary' %>
+          <%#= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary' %>
+        </div>
+        <footer class='form-actions text-right'>
+          <%= link_to t('cancel'), @list.mailchimp_configuration, class: 'btn btn-default' %>
+          <%= link_to t('save_changes'), "javascript:$('form.sync-contacts').submit();", class: 'btn btn-primary' %>
+        </footer>
       </div>
-      <footer class='form-actions text-right'>
-        <%= link_to t('cancel'), @list.mailchimp_configuration, class: 'btn btn-default' %>
-        <%= link_to t('save_changes'), "javascript:$('form.sync-contacts').submit();", class: 'btn btn-primary' %>
-      </footer>
-    </div>
-  </section>
-<% end -%>
+    </section>
+  <% end -%>
+</div>
 
 <div id='dialog-update-data' class='modal fade' tabindex='-1' role='dialog'>
   <div class='modal-dialog'>

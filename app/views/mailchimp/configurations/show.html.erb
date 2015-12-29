@@ -1,22 +1,55 @@
 <%- page_title t("activerecord.models.mailchimp_integration") -%>
-<ul>
-  <li><label>api key:</label> <%= @configuration.api_key %></li>
-  <li><label>filter method:</label> <%= @configuration.filter_method %></li>
-  <li><label>Syncing with list:</label> <%= @configuration.primary_list.name %> </li>
-  <li><label>Segments</label>
-    <ul>
-      <% @configuration.mailchimp_segments.each do |segment| -%>
-        <li>
-        <%= segment.name %>
-        </li>
-      <% end -%>
-    </ul>
-  </li>
-  <li class="no-bullet">
-    <%= link_to t('mailchimp.configuration.edit_segments'),
-                segments_mailchimp_list_url(@configuration.primary_list),
-                class: 'btn btn-success btn-xs' %>
-  </li>
+<div class='mailchimp-section'>
+  <section class='card card-primary'>
+    <header class='card-title'>Integraci&oacute;n con Mailchimp</header>
+    <div class='card-body'>
+      <p class='lead'>
+        Sus contactos de PADMA estar&aacute;n en la lista <strong>alumnos</strong> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc.
+      </p>
+      <dl>
+        <dt>api key:</dt>
+        <dd><%= @configuration.api_key %></dd>
+        <dt>filter method:</dt>
+        <dd><%= @configuration.filter_method %></dd>
+        <dt>Syncing with list:</dt>
+        <dd><%= @configuration.primary_list.name %></dd>
+        <dt>Segments</dt>
+        <dd>
+          <ul>
+            <% @configuration.mailchimp_segments.each do |segment| -%>
+              <li><%= segment.name %></li>
+            <% end -%>
+          </ul>
+        </dd>
+      </dl>
+      <div class='alert alert-info alert-dismissible fade in' role='alert'>
+        <button type='button' class='close' data-dismiss='alert'>&times;</button>
+        La sincronización con mailchimp es realizada en el momento de guardadar, puede demorar unos minutos y se actualiza cada noche.
+      </div>
+      <p><a href="" target='_blank'>Ir a la web de Mailchimp</a></p>
+      <footer class='form-actions text-right'>
+        <a href='#dialog-disabled-count' class='btn btn-danger' data-toggle='modal'>Desactivar Mailchimp</a>
+        <%= link_to t('mailchimp.configuration.edit_segments'), segments_mailchimp_list_url(@configuration.primary_list), class: 'btn btn-primary' %>
+      </footer>
+    </div>
+  </section>
+</div>
 
-</ul>
-
+<div id='dialog-disabled-count' class='modal fade' tabindex='-1' role='dialog'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <header class='modal-header'>
+        <button type='button' class='close' data-dismiss='modal'>&times;</button>
+        <h4 class='modal-title'>Desactivar Mailchimp</h4>
+      </header>
+      <div class='modal-body'>
+        <p>Estas seguro de desactivar la integraci&oacute;n con Mailchimp?</p>
+        <p>Si lo haces no se perdera ning&uacute;n dato, sin embargo no podr&aacute;s sincronizar las cuentas entre Padma y Mailchimp.</p>
+      </div>
+      <footer class='modal-footer'>
+        <a href="" class='btn btn-secondary' data-dismiss='modal'>Cancelar</a>
+        <button type='button' class='btn btn-primary'>Continuar</button>
+      </footer>
+    </div>
+  </div>
+</div>

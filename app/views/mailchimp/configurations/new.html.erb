@@ -1,25 +1,25 @@
 <%- page_title t("activerecord.models.mailchimp_integration") -%>
-<%= form_for @configuration, url: mailchimp_configuration_path do |f|  %>  
-  <fieldset>
-    <legend>
-      <%= t('mailchimp.new.setup_mailchimp_api_key') %>
-    </legend>
-
-    <label for="api_key">
-      <%= t('mailchimp.new.api_key') %>
-    </label>
-    <%= f.text_field :api_key %>
-    <%= link_to t('mailchimp.new.get_api_key'), "https://us1.admin.mailchimp.com/account/api/", target: '_blank' %>
-    <p class="help-block">
-      <%= link_to t('mailchimp.new.api_key_help'), "http://kb.mailchimp.com/article/where-can-i-find-my-api-key", target: '_blank' %>
-    </p>
-  </fieldset>
-  
-  <p>
-  <%= f.submit t('mailchimp.new.connect_with_mailchimp'), class: 'btn btn-primary' %>
-  </p>
-
-  <p class="alert alert-info">
-    <%= t('mailchimp.new.sync_times') %>
-  </p>
-<% end -%>
+<div class='mailchimp-section'>
+  <%= form_for @configuration, url: mailchimp_configuration_path do |f|  %>
+    <section class='card card-primary'>
+      <header class='card-title'><%= t('mailchimp.new.setup_mailchimp_api_key') %></header>
+      <div class='card-body'>
+        <p class='lead'>Ten&eacute;s cuenta en mailchimp? Integrala con Padma y traslad&aacute; todos los contactos rapidamente. Te acercamos esta herramienta para que te sea m&aacute;s f&aacute;cil
+        comunicarte con tus contactos.</p>
+        <div class='form-group'>
+          <label for="api_key"><%= t('mailchimp.new.api_key') %></label>
+          <%= f.text_field :api_key, :class => 'input-apikey' %>
+        </div>
+        <%= link_to t('mailchimp.new.get_api_key'), "https://us1.admin.mailchimp.com/account/api/", target: '_blank' %>
+        <p class="help-block"><%= link_to t('mailchimp.new.api_key_help'), "http://kb.mailchimp.com/article/where-can-i-find-my-api-key", target: '_blank' %></p>
+        <p>D&oacute;nde est&aacute; mi api key?</p>
+        <!--<p class="alert alert-info"><%= t('mailchimp.new.sync_times') %></p>-->
+        <video controls="" autoplay="" name="media"><source src="http://embed.wistia.com/deliveries/69295b065e743b973f7e01ff897902c42a6b4831/file.mp4" type="video/mp4"></video>
+        <footer class='form-actions margin-top-20 text-right'>
+          <a href="#" class='btn btn-default'>Cancelar</a>
+          <%= f.submit t('mailchimp.new.connect_with_mailchimp'), class: 'btn btn-primary' %>
+        </footer>
+      </div>
+    </section>
+  <% end -%>
+</div>

@@ -2,6 +2,87 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-li.no-bullet {
-  list-style: none;
+.mailchimp-section {
+	dt {
+		color: #000;
+		font-weight: normal;
+	}
+	dd {
+		color: #787878;
+		font-size: 13px;
+		margin-bottom: 15px;
+		ul {
+			list-style-type: none;
+			padding-left: 20px;
+		}
+	}
+	.input-apikey {
+		@media (min-width: 768px) {
+			width: 33.33%;
+		}
+	}
+	.well {
+		background-color: #fff;
+		border-radius: 0px;
+		border: none;
+	}
+}
+
+.mailchimp-integration {
+	text-align: center;
+}
+
+.integration-item {
+	@media (max-width: 767px) {
+		text-align: center;
+	}
+	@media (min-width: 768px) {
+		display: inline-block;
+		vertical-align: middle;
+		width: 160px;
+	}
+	.glyphicon {
+		-webkit-animation: show-icon 1s ease-in-out;
+		animation: show-icon 1s ease-in-out;
+		font: {
+			size: 34px;
+		}
+		-webkit-transition: all .2s cubic-bezier(.4,0,.2,1);
+		transition: all .2s cubic-bezier(.4,0,.2,1);
+		@media (max-width: 767px) {
+			-webkit-animation: show-icon 1s ease-in-out;
+			animation: show-icon 1s ease-in-out;
+			height: 100px;
+			line-height: 100px;
+			margin: 15px 0;
+			&:before {
+				content: "\e119";
+			}
+		}
+	}
+}
+
+.steps-newlist {
+	list-style-type: none;
+	li {
+		margin-bottom: 20px;
+		> strong {
+			color: #666;
+		}
+	}
+}
+
+@keyframes show-icon {
+	0%, 40%, 80% {
+		opacity: 0;
+	}
+
+  	100% { opacity: 1; }
+}
+@-webkit-keyframes show-icon {
+  	0%, 40%, 80% {
+		opacity: 0;
+	}
+
+  	100% { opacity: 1; }
 }
