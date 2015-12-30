@@ -39,6 +39,10 @@ class Mailchimp::ConfigurationsController < ApplicationController
     redirect_to mailchimp_configuration_path
   end
 
+  def integration
+    
+  end
+
   private
   
   def get_configuration

@@ -23,6 +23,7 @@ Mailing::Application.routes.draw do
   namespace :mailchimp do
 
     resource :configuration do
+      get :integration, to: 'configurations#integration'
       member do
         get :primary_list
       end
