@@ -415,6 +415,7 @@ pt-BR:
     deliver:
       success: Modelo enviado
     index:
+      title: "Modelos de e-mail"
       add_attachemnts: Adjuntar arquivo
       contact_has_no_mail: O contato %{full_name} nāo tem email. Ingrese manualmente.
       deliver: Enviar email
