@@ -398,6 +398,8 @@ pt-BR:
       two_words_connector: ! ' e '
       words_connector: ! ', '
   templates:
+    show:
+      title: Modelo de mail
     templates:
       offset_number: Ingrese um número
       offset_number_tooltip: Para enviar o email antes da data de referencia coloque um valor negativo, para enviá-lo depois da referencia coloque um valor positivo.
@@ -413,6 +415,7 @@ pt-BR:
     deliver:
       success: Modelo enviado
     index:
+      title: "Modelos de e-mail"
       add_attachemnts: Adjuntar arquivo
       contact_has_no_mail: O contato %{full_name} nāo tem email. Ingrese manualmente.
       deliver: Enviar email

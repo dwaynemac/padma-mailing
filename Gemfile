@@ -64,7 +64,7 @@ gem 'aws-sdk'
 # gem 'unicorn'
 group :production do
   gem 'pg'
-  gem 'appsignal', '0.11.9'
+  gem 'appsignal', '1.0'
 end
 
 group :doc do
