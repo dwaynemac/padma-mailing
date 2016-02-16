@@ -286,6 +286,9 @@ pt-BR:
       templates: 
       triggers: 
   mailchimp:
+    petal:
+      subscribe:
+        title: 'Integraçāo com Mailchimp'
     configuration:
       edit_segments: Alterar segmentos
       edit_api_key: Alterar api key
