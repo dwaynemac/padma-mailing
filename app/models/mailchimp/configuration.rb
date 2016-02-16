@@ -22,10 +22,13 @@ class Mailchimp::Configuration < ActiveRecord::Base
   has_many :mailchimp_segments, through: :primary_list
 
   # Lists the account has in mailchimp
-  has_many :mailchimp_lists, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::List", dependent: :destroy
+  has_many :mailchimp_lists,
+           foreign_key: :mailchimp_configuration_id,
+           class_name: "Mailchimp::List",
+           dependent: :destroy
   
   before_create :create_synchronizer
-  after_create :create_mailchimp_lists_locally
+  after_create :sync_mailchimp_lists_locally
 
   after_destroy :destroy_synchronizer
   
@@ -73,15 +76,14 @@ class Mailchimp::Configuration < ActiveRecord::Base
       }
   end
   
-  def create_mailchimp_lists_locally
+  def sync_mailchimp_lists_locally
+    self.mailchimp_lists.destroy_all
     api.lists.list['data'].each do |list_hash|
-      if Mailchimp::List.where(api_id: list_hash['id']).empty?    
-        Mailchimp::List.create(
-          api_id: list_hash['id'],
-          name: list_hash['name'],
-          mailchimp_configuration_id: id
-        )
-      end
+      Mailchimp::List.create(
+        api_id: list_hash['id'],
+        name: list_hash['name'],
+        mailchimp_configuration_id: id
+      )
     end
   end
 

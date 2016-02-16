@@ -25,8 +25,8 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   end
 
   def primary_list
-    @configuration.create_mailchimp_lists_locally # fetch mailchimp lists
-    @lists = @configuration.mailchimp_lists
+    @configuration.sync_mailchimp_lists_locally # fetch mailchimp lists
+    @lists = @configuration.reload.mailchimp_lists
   end
   
   def update
