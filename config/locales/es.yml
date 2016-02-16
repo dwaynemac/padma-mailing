@@ -198,8 +198,9 @@ es:
       edit_api_key: Modificar mi api key.
       edit_primary_list: Cambiar lista de malchimp.
     primary_list:
+      title: Elegir lista de Mailchimp
       setup_primary_list: Elija la lista de mailchimp con la que sincronizar sus contactos
-      whant_a_new_one: 'Si no quiere sincronizar con ninguna de estas:'
+      whant_a_new_one: 'Si no quiere sincronizar con ninguna de las listas sugeridas siga los siguientes pasos:'
       create_one: Cree una nueva lista en mailchimp
       reload_when_finished: Recargue esta página después de crear la nueva lista.
       sync_with_chosen_list: Utilizar la lista seleccionada

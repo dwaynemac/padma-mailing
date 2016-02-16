@@ -294,6 +294,7 @@ pt-BR:
       edit_api_key: Alterar api key
       edit_primary_list: Trocar lista de Mailchimp
     primary_list:
+      title: Escolher lista de Mailchimp
       setup_primary_list: Escolha a lista de mailchimp para sincronizar seus contatos
       whant_a_new_one: "Se você nāo quiçer utilizar estas listas:"
       create_one: Crie uma nova lista em mailchimp
