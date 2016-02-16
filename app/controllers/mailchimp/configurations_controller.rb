@@ -1,4 +1,5 @@
-class Mailchimp::ConfigurationsController < ApplicationController
+class Mailchimp::ConfigurationsController < Mailchimp::PetalController
+
   before_filter :get_configuration
   before_filter :require_set_up, only: [:show]
   

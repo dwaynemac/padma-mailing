@@ -1,4 +1,9 @@
 module ApplicationHelper
+
+  def petal_enabled?(petal_name)
+    petal_name.in?(current_user.current_account.padma.enabled_petals)
+  end
+
   def generate_secure_doorbell_signature()
       jsonp_secret = ENV['doorbellio_key']
       timestamp = Time.now.to_i

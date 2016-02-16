@@ -1,4 +1,5 @@
-class Mailchimp::ListsController < ApplicationController
+class Mailchimp::ListsController < Mailchimp::PetalController
+
   def segments
     @list = Mailchimp::List.find(params[:id])
   end
