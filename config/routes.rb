@@ -4,6 +4,7 @@ Mailing::Application.routes.draw do
      resources :images
   end
   mount Mercury::Engine => '/'
+
   devise_for :users do
     match "/login", :to => "devise/cas_sessions#new"
     match '/logout', to: "devise/cas_sessions#destroy"
@@ -21,6 +22,10 @@ Mailing::Application.routes.draw do
   end
 
   namespace :mailchimp do
+
+    resource :petal, only: [] do
+      get :subscribe, to: 'petal#subscribe'
+    end
 
     resource :configuration do
       get :integration, to: 'configurations#integration'
