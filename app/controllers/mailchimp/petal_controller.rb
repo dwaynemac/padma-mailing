@@ -7,7 +7,7 @@ class Mailchimp::PetalController < ApplicationController
   
   def check_petal_enabled
     unless mailchimp_enabled?
-      redirect_to new_subscriptions_mailchimp_path
+      redirect_to new_mailchimp_subscription_path
     end
   end
 
