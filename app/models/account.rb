@@ -17,7 +17,7 @@ class Account < ActiveRecord::Base
     if api.nil?
       api = PadmaAccount.find(self.name)
     end
-    Rails.cache.write([self,"padma"], api, :expires_in => 5.minutes) if cache && !api.nil?
+    Rails.cache.write([self,"padma"], api, :expires_in => 5.minutes) if !api.nil?
     return api
   end
 

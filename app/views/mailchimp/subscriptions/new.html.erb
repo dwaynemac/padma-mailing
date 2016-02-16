@@ -1,28 +1,48 @@
-<%- page_title t("mailchimp.petal.subscribe.title") -%>
-<%- breadcrum t("mailchimp.petal.subscribe.title") -%>
+<%- page_title t(".title") -%>
+<%- breadcrum t(".title") -%>
 
 <div class='mailchimp-section'>
 	<section class='card card-primary'>
-		<header class='card-title'>Configuraci&oacute;n de Mailchimp</header>
+		<header class='card-title'><%= t('.title') %></header>
 		<div class='card-body'>
 			<p class='lead'>
-				Ten&eacute;s cuenta de Mailchimp? Integrala con Padma y y trasladá todos los contactos rapidamente. Te acercamos esta herramienta para que  te sea más fácil comunicarte con tus contactos.
+        <%= t('.intro') %>
 			</p>
-			<p><strong>Herramienta con costo adicional $xxx</strong></p>
+			<p><strong><%= t('.monthly_cost') %>: <%= @monthly_value %> <%= t('.monthly') %></strong></p>
 			<div class='mailchimp-integration'>
 				<div class='integration-item'>
-					<img src="/assets/logo-padma.jpg" />
+          <%= image_tag 'logo-padma.jpg' %>
 				</div>
 				<div class='integration-item'>
 					<div class='glyphicon glyphicon-resize-horizontal'></div>
 				</div>
 				<div class='integration-item'>
-					<img src="/assets/logo-mailchimp.jpg" />
+          <%= image_tag 'logo-mailchimp.jpg' %>
 				</div>
 			</div>
 			<footer class='form-actions margin-top-20 text-right'>
-				<a href="" class='btn btn-primary'>Comenzar</a>
+        <a href="" class='btn btn-primary' data-toggle="modal" data-target="#confirm-subscription"><%= t('.start_subscription') %></a>
 			</footer>
 		</div>
 	</section>
+</div>
+
+<div class="modal fade in" id="confirm-subscription" tabindex="-1" role="dialog" aria-labelledby="confirmSubscription" style="display: none; padding-right: 15px;">
+  <div class="modal-dialog" role="document">
+    <%= form_for :subscription, url: mailchimp_subscription_path, method: 'POST' do |f| %>
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title" id="confirm-subscription-title"><%= t('.confirm_subscription.title') %></h4>
+      </div>
+      <div class="modal-body">
+        <%= t('.confirm_subscription.monthly_charge_will_start', value: @monthly_value) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('cancel') %></button>
+        <button type="submit" class="btn btn-primary" data-disable-with="..."><%= t('.start_subscription') %></button>
+      </div>
+    </div>
+    <% end -%>
+  </div>
 </div>

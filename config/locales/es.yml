@@ -190,9 +190,16 @@ es:
     api_key_is_not_valid: 'no es válida. Revise en mailchimp.'
     synchronizer_not_created: 'Error interno. No se creó el sincronizador.'
   mailchimp:
-    petal:
-      subscribe:
+    subscriptions:
+      new:
         title: 'Integración con Mailchimp'
+        intro: "¿Tenés cuenta de Mailchimp? Integrala con Padma y trasladá todos los contactos rápidamente. Te acercamos esta herramienta para que  te sea más fácil comunicarte con tus contactos."
+        start_subscription: Comenzar
+        monthly_cost: Herramienta con costo adicional 
+        monthly: x mes
+        confirm_subscription:
+          title: Confirmar subscripción
+          monthly_charge_will_start: Al habilitar esta herramienta se incrementan %{value} a su pago mensual de PADMA.
     configuration:
       edit_segments: Editar mis segmentos.
       edit_api_key: Modificar mi api key.

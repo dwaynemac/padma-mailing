@@ -14,7 +14,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    accounts_client (0.2.18)
+    accounts_client (0.2.19)
       gravtastic
       logical_model (>= 0.6.3)
       railties (>= 3.1)
@@ -312,7 +312,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  accounts_client (= 0.2.18)
+  accounts_client (= 0.2.19)
   activity_stream_client (= 0.0.16)
   appsignal (= 1.0)
   aws-sdk
