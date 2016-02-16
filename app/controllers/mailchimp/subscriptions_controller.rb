@@ -14,6 +14,8 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
     ps = ::PetalSubscription.new account_name: current_user.current_account.name,
                                  petal_name: 'mailchimp'
 
+    authorize! :create, ps
+
     result =  ps.create( account_name: current_user.current_account.name,
                          username: current_user.username)
     if result
