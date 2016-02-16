@@ -23,9 +23,7 @@ Mailing::Application.routes.draw do
 
   namespace :mailchimp do
 
-    resource :petal, only: [] do
-      get :subscribe, to: 'petal#subscribe'
-    end
+    resource :subscription
 
     resource :configuration do
       get :integration, to: 'configurations#integration'

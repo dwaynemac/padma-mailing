@@ -1,16 +1,13 @@
 class Mailchimp::PetalController < ApplicationController
-  include ApplicationHelper
+  include Mailchimp::SubscriptionsHelper
 
-  before_filter :check_petal_enabled, except: [:subscribe]
-
-  def subscribe
-  end
+  before_filter :check_petal_enabled
 
   private
   
   def check_petal_enabled
-    unless petal_enabled?('mailchimp')
-      redirect_to subscribe_mailchimp_petal_path
+    unless mailchimp_enabled?
+      redirect_to new_subscriptions_mailchimp_path
     end
   end
 
