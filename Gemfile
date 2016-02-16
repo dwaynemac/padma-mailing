@@ -3,16 +3,16 @@ source 'https://rubygems.org'
 ruby '1.9.3'
 
 gem 'rails', '~> 3.2.11'
-gem 'activity_stream_client', '~> 0.0.11'
 gem 'ffi', '~> 1.0.11'
 
 gem 'i18n-js'
 
 gem 'rack-cors'
 
-gem 'logical_model', '~> 0.5.8'
-gem 'contacts_client', '~> 0.0.21'
-gem 'accounts_client', :github => 'dwaynemac/accounts_client'
+gem 'activity_stream_client', '0.0.16'
+gem 'logical_model', '0.6.3'
+gem 'contacts_client', '0.0.40'
+gem 'accounts_client', '0.2.18'
 
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
@@ -37,7 +37,7 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', path: '~/Workspace/padma-assets' #'0.2.0'
+gem 'padma-assets', path: '~/ws/padma/libraries/padma-assets' #'0.2.0'
 
 gem 'rest-client'
 
