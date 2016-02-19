@@ -196,6 +196,7 @@ es:
         intro: "El módulo de integración con Mailchimp está habilitado!"
         monthly_cost: "Recordá que esta integración tiene un costo adicional"
         monthly: "x mes"
+        see_configuration: "Ver configuración"
         cancel_integration: "Cancelar integración"
         cancel_subscription: 
           title: "Cancelar la integración con Mailchimp"

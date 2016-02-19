@@ -11,7 +11,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   end
 
   def create
-    ps = ::PetalSubscription.new account_name: current_user.current_account.name,
+    ps = PetalSubscription.new account_name: current_user.current_account.name,
                                  petal_name: 'mailchimp'
 
     authorize! :create, ps
@@ -33,6 +33,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
       mailchimp_subscription = petals.select{|ps| ps.petal_name == 'mailchimp' }.first
       PetalSubscription.delete(mailchimp_subscription.id, username: current_user.username, account_name: current_user.current_account.name).nil?
       current_user.current_account.padma(false) # refresh cache of account
+      current_user.current_account.mailchimp_configuration.try(:destroy)
     end
 
     redirect_to mailchimp_subscription_path

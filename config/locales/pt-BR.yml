@@ -292,6 +292,7 @@ pt-BR:
         intro: "A integraçāo com Mailchimp está habilitada."
         monthly_cost: "Lembre que esta integraçāo tem um custo adicional"
         monthly: "x mês"
+        see_configuration: "Configuraçāo"
         cancel_integration: "Cancelar integraçāo"
         cancel_subscription: 
           title: "Cancelar a integraçāo com Mailchimp"
