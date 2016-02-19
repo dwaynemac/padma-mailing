@@ -287,6 +287,16 @@ pt-BR:
       triggers: 
   mailchimp:
     subscriptions:
+      show:
+        title: "Integraçāo com Mailchimp"
+        intro: "A integraçāo com Mailchimp está habilitada."
+        monthly_cost: "Lembre que esta integraçāo tem um custo adicional"
+        monthly: "x mês"
+        cancel_integration: "Cancelar integraçāo"
+        cancel_subscription: 
+          title: "Cancelar a integraçāo com Mailchimp"
+          keep_subscription: "Quero manter a integaçāo"
+          synchronization_will_stop: "Ao cancelar este módulo os dados do PADMA nāo se sincronizaram com Mailchimp"
       new:
         title: 'integraçāo com Mailchimp'
         intro: "Você tem uma conta no Mailchimp? Você pode conectá-la com o Padma e manter seus contatos atualizados no Mailchimp de forma automática. Com esta ferramenta falar com seus contatos é mails simples."

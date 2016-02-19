@@ -3,7 +3,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   skip_before_filter :check_petal_enabled, only: [:new, :create]
 
   def show
-    render text: 'you are subscribed'
+    @monthly_value = '9 usd' # get value through api
   end
 
   def new
@@ -16,9 +16,9 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
 
     authorize! :create, ps
 
-    result =  ps.create( account_name: current_user.current_account.name,
+    created_id =  ps.create( account_name: current_user.current_account.name,
                          username: current_user.username)
-    if result
+    if created_id
       current_user.current_account.padma(false) # refresh cache of account
       redirect_to mailchimp_configuration_path, success: 'yes!'
     else
@@ -27,7 +27,15 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   end
 
   def destroy
-    # get PetalSubscription of this account_name and this petal_name
+    petals = PetalSubscription.paginate(account_name: current_user.current_account.name)
+
+    if petals
+      mailchimp_subscription = petals.select{|ps| ps.petal_name == 'mailchimp' }.first
+      PetalSubscription.delete(mailchimp_subscription.id, username: current_user.username, account_name: current_user.current_account.name).nil?
+      current_user.current_account.padma(false) # refresh cache of account
+    end
+
+    redirect_to mailchimp_subscription_path
   end
 
 end

@@ -191,6 +191,16 @@ es:
     synchronizer_not_created: 'Error interno. No se creó el sincronizador.'
   mailchimp:
     subscriptions:
+      show:
+        title: "Integración con Mailchimp"
+        intro: "El módulo de integración con Mailchimp está habilitado!"
+        monthly_cost: "Recordá que esta integración tiene un costo adicional"
+        monthly: "x mes"
+        cancel_integration: "Cancelar integración"
+        cancel_subscription: 
+          title: "Cancelar la integración con Mailchimp"
+          keep_subscription: "Quiero mantener la sincronización"
+          synchronization_will_stop: "Una vez dado de baja este módulo ya no se sinronizarán los datos de PADMA con Mailchimp"
       new:
         title: 'Integración con Mailchimp'
         intro: "¿Tenés cuenta de Mailchimp? Integrala con Padma y trasladá todos los contactos rápidamente. Te acercamos esta herramienta para que  te sea más fácil comunicarte con tus contactos."
