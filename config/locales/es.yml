@@ -197,6 +197,7 @@ es:
         monthly_cost: "Recordá que esta integración tiene un costo adicional"
         monthly: "x mes"
         see_configuration: "Ver configuración"
+        only_admin_can_cancel: "Solo el administrador de la cuenta puede cancelar la integración"
         cancel_integration: "Cancelar integración"
         cancel_subscription: 
           title: "Cancelar la integración con Mailchimp"
@@ -205,6 +206,7 @@ es:
       new:
         title: 'Integración con Mailchimp'
         intro: "¿Tenés cuenta de Mailchimp? Integrala con Padma y trasladá todos los contactos rápidamente. Te acercamos esta herramienta para que  te sea más fácil comunicarte con tus contactos."
+        only_admin_can_subscribe: Solo el administrador puede habilitar un módulo extra.
         start_subscription: Comenzar
         monthly_cost: Herramienta con costo adicional 
         monthly: x mes

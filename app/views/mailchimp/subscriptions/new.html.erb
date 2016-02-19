@@ -21,7 +21,11 @@
 				</div>
 			</div>
 			<footer class='form-actions margin-top-20 text-right'>
-        <a href="" class='btn btn-primary' data-toggle="modal" data-target="#confirm-subscription"><%= t('.start_subscription') %></a>
+        <% if can?(:create,PetalSubscription) -%>
+          <a href="" class='btn btn-primary' data-toggle="modal" data-target="#confirm-subscription"><%= t('.start_subscription') %></a>
+        <% else -%>
+          <a class='btn btn-primary' data-toggle="tooltip" data-placement="top" data-original-title="<%= t('.only_admin_can_subscribe') %>"><%= t('.start_subscription') %></a>
+        <% end -%>
 			</footer>
 		</div>
 	</section>

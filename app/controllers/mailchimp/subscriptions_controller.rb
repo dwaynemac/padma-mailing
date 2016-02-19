@@ -3,6 +3,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   skip_before_filter :check_petal_enabled, only: [:new, :create]
 
   def show
+    authorize! :read, PetalSubscription
     @monthly_value = '9 usd' # get value through api
   end
 
@@ -11,6 +12,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   end
 
   def create
+    authorize! :create, PetalSubscription
     ps = PetalSubscription.new account_name: current_user.current_account.name,
                                  petal_name: 'mailchimp'
 
@@ -27,6 +29,8 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   end
 
   def destroy
+    authorize! :destroy, PetalSubscription
+    
     petals = PetalSubscription.paginate(account_name: current_user.current_account.name)
 
     if petals

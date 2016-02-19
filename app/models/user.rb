@@ -24,4 +24,15 @@ class User < ActiveRecord::Base
   def account_name_changed?
     self.current_account_id_changed?
   end
+
+  # Returns roles in given accounts
+  # @param account_name [String]
+  # @return [Array]
+  def padma_roles_in(account_name)
+    p = self.padma
+    if p && p.roles
+      p.roles.select{|r|r['account_name'] == account_name}.map{|r|r['name']}
+    end
+  end
+
 end

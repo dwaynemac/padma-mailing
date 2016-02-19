@@ -17,6 +17,32 @@ class Ability
     can :manage, Trigger, local_account_id: user.current_account_id
     can :manage, ScheduledMail, local_account_id: user.current_account_id
 
-    can :create, PetalSubscription
+
+    can :read, PetalSubscription
+    if admin?(user)
+      can :create, PetalSubscription
+      can :destroy, PetalSubscription
+    end
+  end
+  
+  private
+
+  def alpha?(user)
+    user.current_account.padma.try(:tester_level) == 'alpha'
+  end
+
+  def beta?(user)
+    tl = user.current_account.padma.try(:tester_level)
+    tl == 'alpha' || tl == 'beta'
+  end
+
+
+  def admin?(user)
+    roles_for(user).include?('admin')
+  end
+
+  def roles_for(user)
+    @roles_for_user ||= user.padma_roles_in(user.current_account.name)
+    @roles_for_user || []
   end
 end

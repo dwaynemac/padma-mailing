@@ -22,28 +22,34 @@
 			</div>
 			<footer class='form-actions margin-top-20 text-right'>
         <%= link_to t('.see_configuration'), mailchimp_configuration_path, class: 'btn btn-primary' %>
-        <a href="" class='btn btn-danger' data-toggle="modal" data-target="#confirm-cancel-subscription"><%= t('.cancel_integration') %></a>
+        <% if can?(:destroy,PetalSubscription) -%>
+          <a href="" class='btn btn-danger' data-toggle="modal" data-target="#confirm-cancel-subscription"><%= t('.cancel_integration') %></a>
+        <% else -%>
+          <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="<%= t('.only_admin_can_cancel') %>"><%= t('.cancel_integration') %></button>
+        <% end -%>
 			</footer>
 		</div>
 	</section>
 </div>
 
-<div class="modal fade in" id="confirm-cancel-subscription" tabindex="-1" role="dialog" aria-labelledby="confirmCancelSubscription" style="display: none; padding-right: 15px;">
-  <div class="modal-dialog" role="document">
-    <%= form_for :subscription, url: mailchimp_subscription_path, method: 'DELETE' do |f| %>
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="modal-title" id="confirm-subscription-title"><%= t('.cancel_subscription.title') %></h4>
+<% if can?(:destroy,PetalSubscription) -%>
+  <div class="modal fade in" id="confirm-cancel-subscription" tabindex="-1" role="dialog" aria-labelledby="confirmCancelSubscription" style="display: none; padding-right: 15px;">
+    <div class="modal-dialog" role="document">
+      <%= form_for :subscription, url: mailchimp_subscription_path, method: 'DELETE' do |f| %>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="confirm-subscription-title"><%= t('.cancel_subscription.title') %></h4>
+        </div>
+        <div class="modal-body">
+          <%= t('.cancel_subscription.synchronization_will_stop') %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('.cancel_subscription.keep_subscription') %></button>
+            <button type="submit" class="btn btn-danger" data-disable-with="..."><%= t('.cancel_integration') %></button>
+        </div>
       </div>
-      <div class="modal-body">
-        <%= t('.cancel_subscription.synchronization_will_stop') %>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('.cancel_subscription.keep_subscription') %></button>
-        <button type="submit" class="btn btn-danger" data-disable-with="..."><%= t('.cancel_integration') %></button>
-      </div>
+      <% end -%>
     </div>
-    <% end -%>
   </div>
-</div>
+<% end -%>
