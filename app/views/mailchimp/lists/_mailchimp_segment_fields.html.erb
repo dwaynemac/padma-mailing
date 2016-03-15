@@ -20,6 +20,13 @@
       <option><%= t('mailchimp.list.segments.pmas')%></option>
     </select>
   </td>
+  <td>
+    <%= select_tag "following", options_for_select([
+                        ['',''],
+                        [t('contact.attributes.followed_by_any'),:any],
+                        [t('contact.attributes.followed_by_none'),:none]
+                    ]+current_user.current_account.usernames.map{|u|[u,u]}) %>
+  </td>
   <% if ff.object.persisted? %>
     <td><%= t('mailchimp.list.segments.destroy')%></td>
   <% else -%>
