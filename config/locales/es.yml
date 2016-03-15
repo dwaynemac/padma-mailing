@@ -252,6 +252,9 @@ es:
         name: Nombre del segmento
         perfil: Perfil
         perfil_explained: "'Perfil' incluye P y P+"
+        followed_by: "En seguimiento por"
+        followed_by_any: Cualquier instructor del equipo
+        followed_by_none: Sin seguimiento
   new: Nuevo
   number:
     human:

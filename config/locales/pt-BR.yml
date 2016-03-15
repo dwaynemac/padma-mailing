@@ -335,6 +335,9 @@ pt-BR:
         name: Nome do segmento
         perfil: Perfil
         perfil_explained: "'Perfil' é P e SP"
+        followed_by: "Em follow-up por"
+        followed_by_any: Algun instrutor
+        followed_by_none: Sin follow-up
     new:
       api_key: "Cole aquí sua api key:"
       api_key_help: Mais informaçāo sobre api key. O qué é?Onde encontro?
