@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151119163253) do
+ActiveRecord::Schema.define(:version => 20160321000835) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -79,10 +79,11 @@ ActiveRecord::Schema.define(:version => 20151119163253) do
     t.string   "api_key"
     t.integer  "local_account_id"
     t.integer  "primary_list_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
     t.string   "synchronizer_id"
     t.string   "filter_method"
+    t.string   "petal_subscription_id"
   end
 
   create_table "mailchimp_lists", :force => true do |t|
@@ -105,6 +106,7 @@ ActiveRecord::Schema.define(:version => 20151119163253) do
     t.string   "coefficient"
     t.boolean  "only_man"
     t.string   "contact_segment_id"
+    t.string   "gender"
   end
 
   create_table "mercury_images", :force => true do |t|
@@ -145,9 +147,9 @@ ActiveRecord::Schema.define(:version => 20151119163253) do
     t.string   "description"
     t.string   "subject"
     t.text     "content"
-    t.integer  "local_account_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.integer  "local_account_id", :limit => 255
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "templates_triggers", :force => true do |t|
