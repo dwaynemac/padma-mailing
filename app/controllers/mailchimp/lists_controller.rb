@@ -6,6 +6,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def update
     @list = Mailchimp::List.find(params[:id])
+    params[:mailchimp_list][:mailchimp_segments_attributes] = set_status(params[:mailchimp_list][:mailchimp_segments_attributes])
     if @list.update_attributes(params[:mailchimp_list])
       @list.mailchimp_configuration
            .update_attribute(:filter_method ,params[:filter_method]) # no validation here.
@@ -16,5 +17,17 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       flash.alert = t('mailchimp.list.update.couldnt_update_segments')
       render 'segments'
     end
+  end
+
+  # there is no status attribute, but student, prospect and exstudent attributes.
+  # as there is a select in the form, only one can be used in the select
+  # and we set the correct status here
+  def set_status(mailchimp_segment_attributes)
+    mailchimp_segment_attributes.each do |k, v|
+      status = v[:student]
+      v.delete :student
+      v[status] = true
+    end
+    mailchimp_segment_attributes
   end
 end
