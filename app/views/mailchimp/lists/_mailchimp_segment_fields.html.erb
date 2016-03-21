@@ -1,33 +1,34 @@
 <tr>
   <td><%= ff.text_field :name, {placeholder: t('mailchimp.list.segments.name'), size: "20"} %></td>
   <td>
-    <select class='form-control'>
-      <option><%= t('mailchimp.list.segments.prospect')%></option>
-      <option><%= t('mailchimp.list.segments.student')%></option>
-      <option><%= t('mailchimp.list.segments.exstudent')%></option>
-    </select>
+    <%= ff.select :student, options_for_select(["prospect", "student", "exstudent"]), class: "form-control" %>
   </td>
   <td>
-    <label class='checkbox-inline'><input type='checkbox' name='gender' /> Hombres</label>
-    <label class='checkbox-inline'><input type='checkbox' name='gender' /> Mujeres</label>
+    <label class='checkbox-inline'><%= ff.check_box :only_man %>Hombres <br>
+    <!-- label class='checkbox-inline'><input type='checkbox' name='gender' /> Hombres</label>
+    <label class='checkbox-inline'><input type='checkbox' name='gender' /> Mujeres</label -->
   </td>
   <td>
-    <select class='form-control'>
-      <option>??</option>
-      <option><%= t('mailchimp.list.segments.all')%></option>
-      <option><%= t('mailchimp.list.segments.fp')%></option>
-      <option><%= t('mailchimp.list.segments.perfil')%></option>
-      <option><%= t('mailchimp.list.segments.pmas')%></option>
-    </select>
+    <%= ff.select :coefficient, 
+          options_for_select([
+                    ["??", "??"], 
+                    [t('mailchimp.list.segments.all'), "all"],
+                    [t('mailchimp.list.segments.perfil'), "perfil"],
+                    [t('mailchimp.list.segments.pmas'), "pmas"],
+                    [t('mailchimp.list.segments.fp'), "fp"]
+                    ]), 
+          class: "form-control" %>
   </td>
-  <td>
-    <%= select_tag "following", options_for_select([
-                        ['',''],
-                        [t('mailchimp.list.segments.followed_by_any'),:any],
-                        [t('mailchimp.list.segments.followed_by_none'),:none]
-                    ]+current_user.current_account.usernames.map{|u|[u,u]}) %>
-  </td>
-  <% if ff.object.persisted? %>
+  <% if false %>
+    <td>
+      <%= select_tag "following", options_for_select([
+                          ['',''],
+                          [t('mailchimp.list.segments.followed_by_any'),:any],
+                          [t('mailchimp.list.segments.followed_by_none'),:none]
+                      ]+current_user.current_account.usernames.map{|u|[u,u]}) %>
+    </td>
+  <% end %>
+  <% if false && ff.object.persisted? %>
     <td><%= t('mailchimp.list.segments.destroy')%></td>
   <% else -%>
     <td><%= ff.link_to_remove '<span class="glyphicon glyphicon-trash"></span>'.html_safe %></td>
