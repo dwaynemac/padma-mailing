@@ -5,10 +5,14 @@
       <div class='card-body'>
         <h5><%= t('mailchimp.list.segments.filter_methods.title')%></h5>
         <div class='radio-inline'>
-          <label><input type="radio" name="filter_method", value="all"> <%= t('mailchimp.list.segments.filter_methods.all')%></label>
+          <label>
+            <input type="radio" name="filter_method", value="all"> <%= t('mailchimp.list.segments.filter_methods.all')%>
+          </label>
         </div>
         <div class='radio-inline'>
-          <label><input type="radio" name="filter_method", value="segments"> <%= t('mailchimp.list.segments.filter_methods.segments')%></label>
+          <label>
+            <input type="radio" name="filter_method", value="segments"> <%= t('mailchimp.list.segments.filter_methods.segments')%>
+          </label>
         </div>
         <p><%= t('mailchimp.list.segments.filter_methods.explanation') %></p>
         <p><%= link_to t('mailchimp.list.segments.filter_methods.more_about_mailchimp_pricing'), 'http://mailchimp.com/pricing/', target: '_blank' %></p>
@@ -22,7 +26,9 @@
                   <th><%= t('mailchimp.list.segments.status')%></th>
                   <th><%= t('mailchimp.list.segments.gender')%></th>
                   <th><%= t('mailchimp.list.segments.coefficient')%></th>
-                  <th><%= t('mailchimp.list.segments.followed_by') %></th>
+                  <% if false %>
+                    <th><%= t('mailchimp.list.segments.followed_by') %></th>
+                  <% end %>
                   <th></th>
                 </tr>
               </thead>
@@ -58,46 +64,3 @@
   </div>
 </div>
 
-<!--
-<%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), method: :put do |f|  %>
-  <legend>
-    <%= t('mailchimp.list.segments.segments') %>
-    <%= link_to t('save_changes'), "javascript:$('form.edit_mailchimp_list').submit();", class: 'btn btn-success btn-xs pull-right' %>
-    <%= link_to t('cancel'), @list.mailchimp_configuration, class: 'delete-btn btn btn-link btn-danger btn-xs pull-right' %>
-  </legend>
-    <div class="bs-callout bs-callout-info">
-      <p>
-        <%= t('mailchimp.list.segments.explanation', list_name: @list.name).html_safe %>
-      </p>
-    </div>
-  <fieldset>
-    <%= f.fields_for :mailchimp_segments do |ff| %>
-      <%= render partial: 'mailchimp_segment_fields', locals: { ff: ff } %>
-    <% end %>
-
-    <%= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary' %>
-  </fieldset>
-
-  <fieldset id="filter_method">
-    <legend>
-      <%= t('mailchimp.list.segments.filter_methods.title')%>
-    </legend>
-    <div class="btn-group" data-toggle="buttons">
-      <label class="btn btn-primary">
-        <input type="radio" name="filter_method", value="all">
-        <%= t('mailchimp.list.segments.filter_methods.all')%>
-      </label>
-
-      <label class="btn btn-primary">
-        <input type="radio" name="filter_method", value="segments">
-        <%= t('mailchimp.list.segments.filter_methods.segments')%>
-      </label>
-    </div>
-    <div class="bs-callout bs-callout-info">
-      <p>
-        <%= t('mailchimp.list.segments.filter_methods.explanation') %>
-      </p>
-      <%= link_to t('mailchimp.list.segments.filter_methods.more_about_mailchimp_pricing'), 'http://mailchimp.com/pricing/', target: '_blank' %>
-    </div>
-  </fieldset>
-<% end -%>-->
