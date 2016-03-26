@@ -4,3 +4,7 @@
 
 $(document).ready ->
   $('[data-toggle="tooltip"]').tooltip()
+
+  $(".table-striped").on 'nested:fieldAdded', (e) ->
+    e.field[0].childNodes[1].value = $("#new_segment_name").val()
+    $("#new_segment_name").val(" ")
