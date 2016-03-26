@@ -32,15 +32,15 @@
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                <%= f.fields_for :mailchimp_segments do |ff| %>
+              <tbody id="table-body">
+                <%= f.fields_for :mailchimp_segments, wrapper: false do |ff| %>
                   <%= render partial: 'mailchimp_segment_fields', locals: { ff: ff } %>
                 <% end %>
               </tbody>
             </table>
             <div class='add-new-segment form-inline'>
               Nuevo segmento: <input id="new_segment_name" type='text' class='form-control' /> 
-              <%= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary btn-sm', data: {target: ".table-striped"} %>
+              <%= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary btn-sm', data: {target: "#table-body"} %>
               <!-- button type='button' class='btn btn-primary btn-sm'>Crear</button -->
             </div>
           </div>
