@@ -39,7 +39,9 @@
               </tbody>
             </table>
             <div class='add-new-segment form-inline'>
-              Nuevo segmento: <input type='text' class='form-control' /> <button type='button' class='btn btn-primary btn-sm'>Crear</button>
+              Nuevo segmento: <input id="new_segment_name" type='text' class='form-control' /> 
+              <%= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary btn-sm', data: {target: ".table-striped"} %>
+              <!-- button type='button' class='btn btn-primary btn-sm'>Crear</button -->
             </div>
           </div>
 
