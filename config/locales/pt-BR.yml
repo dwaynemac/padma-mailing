@@ -309,6 +309,8 @@ pt-BR:
         confirm_subscription:
           title: Confirmar suscriçāo
           monthly_charge_will_start: Ao habilitar esta integraçāo você adiciona a seu pagamento mensal %{value}.
+    configurations:
+      open_mailchimp: Abrir mailchimp
     configuration:
       edit_segments: Alterar segmentos
       edit_api_key: Alterar api key

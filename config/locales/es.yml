@@ -213,6 +213,8 @@ es:
         confirm_subscription:
           title: Confirmar subscripción
           monthly_charge_will_start: Al habilitar esta herramienta se incrementan %{value} a su pago mensual de PADMA.
+    configurations:
+      open_mailchimp: Ir a la web de mailchimp
     configuration:
       edit_segments: Editar mis segmentos.
       edit_api_key: Modificar mi api key.

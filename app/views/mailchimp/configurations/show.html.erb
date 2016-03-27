@@ -4,7 +4,7 @@
     <header class='card-title'>Integraci&oacute;n con Mailchimp</header>
     <div class='card-body'>
       <p class='lead'>
-        Sus contactos de PADMA estar&aacute;n en la lista <strong>alumnos</strong> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc.
+        Sus contactos de PADMA estar&aacute;n en la lista <strong><%= @configuration.primary_list.name %></strong> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc.
       </p>
       <dl>
         <dt>api key:</dt>
@@ -26,7 +26,7 @@
         <button type='button' class='close' data-dismiss='alert'>&times;</button>
         La sincronización con mailchimp es realizada en el momento de guardadar, puede demorar unos minutos y se actualiza cada noche.
       </div>
-      <p><a href="" target='_blank'>Ir a la web de Mailchimp</a></p>
+      <p><%= link_to t('.open_mailchimp'), 'http://mailchimp.com', target: '_blank' %></p>
       <footer class='form-actions text-right'>
         <a href='#dialog-disabled-count' class='btn btn-danger' data-toggle='modal'>Desactivar Mailchimp</a>
         <%= link_to t('mailchimp.configuration.edit_segments'), segments_mailchimp_list_url(@configuration.primary_list), class: 'btn btn-primary' %>
