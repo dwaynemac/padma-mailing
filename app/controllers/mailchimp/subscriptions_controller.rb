@@ -4,11 +4,11 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
 
   def show
     authorize! :read, PetalSubscription
-    @monthly_value = '9 usd' # get value through api
+    @monthly_value = '--- valor a confirmar ---' # get value through api
   end
 
   def new
-    @monthly_value = '9 usd' # get value through api
+    @monthly_value = '--- valor a confirmar ---' # get value through api
   end
 
   def create
