@@ -147,9 +147,9 @@ ActiveRecord::Schema.define(:version => 20160321000835) do
     t.string   "description"
     t.string   "subject"
     t.text     "content"
-    t.integer  "local_account_id", :limit => 255
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.integer  "local_account_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "templates_triggers", :force => true do |t|
