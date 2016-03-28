@@ -28,28 +28,15 @@
       </div>
       <p><%= link_to t('.open_mailchimp'), 'http://mailchimp.com', target: '_blank' %></p>
       <footer class='form-actions text-right'>
-        <a href='#dialog-disabled-count' class='btn btn-danger' data-toggle='modal'>Desactivar Mailchimp</a>
+        <% if can?(:destroy,PetalSubscription) -%>
+          <a href="" class='btn btn-danger' data-toggle="modal" data-target="#confirm-cancel-subscription"><%= t('.disable_mailchimp') %></a>
+        <% else -%>
+          <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="<%= t('mailchimp.subscriptions.show.only_admin_can_cancel') %>"><%= t('.disable_mailchimp') %></button>
+        <% end -%>
         <%= link_to t('mailchimp.configuration.edit_segments'), segments_mailchimp_list_url(@configuration.primary_list), class: 'btn btn-primary' %>
       </footer>
     </div>
   </section>
 </div>
 
-<div id='dialog-disabled-count' class='modal fade' tabindex='-1' role='dialog'>
-  <div class='modal-dialog'>
-    <div class='modal-content'>
-      <header class='modal-header'>
-        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-        <h4 class='modal-title'>Desactivar Mailchimp</h4>
-      </header>
-      <div class='modal-body'>
-        <p>Estas seguro de desactivar la integraci&oacute;n con Mailchimp?</p>
-        <p>Si lo haces no se perdera ning&uacute;n dato, sin embargo no podr&aacute;s sincronizar las cuentas entre Padma y Mailchimp.</p>
-      </div>
-      <footer class='modal-footer'>
-        <a href="" class='btn btn-secondary' data-dismiss='modal'>Cancelar</a>
-        <button type='button' class='btn btn-primary'>Continuar</button>
-      </footer>
-    </div>
-  </div>
-</div>
+<%= render 'mailchimp/subscriptions/cancel_subscription_modal' %>
