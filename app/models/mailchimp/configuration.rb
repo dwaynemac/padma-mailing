@@ -21,7 +21,6 @@ class Mailchimp::Configuration < ActiveRecord::Base
 
   has_many :mailchimp_segments,
            through: :primary_list,
-           dependent: :destroy
 
   # Lists the account has in mailchimp
   has_many :mailchimp_lists,
