@@ -20,7 +20,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   belongs_to :primary_list, foreign_key: :primary_list_id, class_name: 'Mailchimp::List'
 
   has_many :mailchimp_segments,
-           through: :primary_list,
+           through: :primary_list
 
   # Lists the account has in mailchimp
   has_many :mailchimp_lists,
