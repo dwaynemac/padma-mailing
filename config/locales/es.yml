@@ -216,6 +216,7 @@ es:
     configurations:
       show:
         open_mailchimp: Ir a la web de mailchimp
+        disable_mailchimp: Desactivar Mailchimp
     configuration:
       edit_segments: Editar mis segmentos.
       edit_api_key: Modificar mi api key.
