@@ -4,11 +4,11 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
 
   def show
     authorize! :read, PetalSubscription
-    @monthly_value = '9 usd' # get value through api
+    @monthly_value = '--- valor a confirmar ---' # get value through api
   end
 
   def new
-    @monthly_value = '9 usd' # get value through api
+    @monthly_value = '--- valor a confirmar ---' # get value through api
   end
 
   def create
@@ -37,7 +37,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
       mailchimp_subscription = petals.select{|ps| ps.petal_name == 'mailchimp' }.first
       PetalSubscription.delete(mailchimp_subscription.id, username: current_user.username, account_name: current_user.current_account.name).nil?
       current_user.current_account.padma(false) # refresh cache of account
-      current_user.current_account.mailchimp_configuration.try(:destroy)
+      current_user.current_account.mailchimp_configuration.try(:destroy) # remove mailchimpconfiguration
     end
 
     redirect_to mailchimp_subscription_path

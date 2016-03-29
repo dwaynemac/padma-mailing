@@ -287,6 +287,10 @@ pt-BR:
       triggers: 
   mailchimp:
     subscriptions:
+      cancel_subscription_modal:
+        title: "Cancelar a integraçāo com Mailchimp"
+        keep_subscription: "Quero manter a integaçāo"
+        synchronization_will_stop: "Ao cancelar este módulo os dados do PADMA nāo se sincronizaram com Mailchimp"
       show:
         title: "Integraçāo com Mailchimp"
         intro: "A integraçāo com Mailchimp está habilitada."
@@ -295,10 +299,6 @@ pt-BR:
         see_configuration: "Configuraçāo"
         only_admin_can_cancel: "Só o administrador da conta pode cancelar a integraçāo"
         cancel_integration: "Cancelar integraçāo"
-        cancel_subscription: 
-          title: "Cancelar a integraçāo com Mailchimp"
-          keep_subscription: "Quero manter a integaçāo"
-          synchronization_will_stop: "Ao cancelar este módulo os dados do PADMA nāo se sincronizaram com Mailchimp"
       new:
         title: 'integraçāo com Mailchimp'
         intro: "Você tem uma conta no Mailchimp? Você pode conectá-la com o Padma e manter seus contatos atualizados no Mailchimp de forma automática. Com esta ferramenta falar com seus contatos é mails simples."
@@ -309,6 +309,10 @@ pt-BR:
         confirm_subscription:
           title: Confirmar suscriçāo
           monthly_charge_will_start: Ao habilitar esta integraçāo você adiciona a seu pagamento mensal %{value}.
+    configurations:
+      show:
+        open_mailchimp: Abrir mailchimp
+        disable_mailchimp: Desativar Mailchimp
     configuration:
       edit_segments: Alterar segmentos
       edit_api_key: Alterar api key

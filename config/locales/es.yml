@@ -191,6 +191,10 @@ es:
     synchronizer_not_created: 'Error interno. No se creó el sincronizador.'
   mailchimp:
     subscriptions:
+      cancel_subscription_modal:
+          title: "Cancelar la integración con Mailchimp"
+          keep_subscription: "Quiero mantener la sincronización"
+          synchronization_will_stop: "Una vez dado de baja este módulo ya no se sinronizarán los datos de PADMA con Mailchimp"
       show:
         title: "Integración con Mailchimp"
         intro: "El módulo de integración con Mailchimp está habilitado!"
@@ -199,10 +203,6 @@ es:
         see_configuration: "Ver configuración"
         only_admin_can_cancel: "Solo el administrador de la cuenta puede cancelar la integración"
         cancel_integration: "Cancelar integración"
-        cancel_subscription: 
-          title: "Cancelar la integración con Mailchimp"
-          keep_subscription: "Quiero mantener la sincronización"
-          synchronization_will_stop: "Una vez dado de baja este módulo ya no se sinronizarán los datos de PADMA con Mailchimp"
       new:
         title: 'Integración con Mailchimp'
         intro: "¿Tenés cuenta de Mailchimp? Integrala con Padma y trasladá todos los contactos rápidamente. Te acercamos esta herramienta para que  te sea más fácil comunicarte con tus contactos."
@@ -213,6 +213,10 @@ es:
         confirm_subscription:
           title: Confirmar subscripción
           monthly_charge_will_start: Al habilitar esta herramienta se incrementan %{value} a su pago mensual de PADMA.
+    configurations:
+      show:
+        open_mailchimp: Ir a la web de mailchimp
+        disable_mailchimp: Desactivar Mailchimp
     configuration:
       edit_segments: Editar mis segmentos.
       edit_api_key: Modificar mi api key.

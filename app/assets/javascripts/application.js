@@ -10,9 +10,8 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
 //= require padma-assets
+//= require jquery_nested_form
 //= require twitter/bootstrap
 //= require i18n
 //= require i18n/translations
@@ -21,5 +20,4 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-select.min
-//= require jquery_nested_form
 //= require mailchimp/lists
