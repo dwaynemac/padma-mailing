@@ -17,6 +17,7 @@ class Mailchimp::Segment < ActiveRecord::Base
   attr_accessible :only_man
   attr_accessible :coefficient
   attr_accessible :name
+  attr_accessible :followed_by
 
   attr_accessor :_destroy
   attr_accessible :_destroy
@@ -75,7 +76,7 @@ class Mailchimp::Segment < ActiveRecord::Base
     segment_hash[:coefficients] = coefficients if !coefficients.empty?
     
     segment_hash[:gender] = 'male' if only_man
-    
+    segment_hash[:followed_by] = followed_by
     segment_hash[:name] = name
     
     segment_hash
