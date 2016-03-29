@@ -1,5 +1,5 @@
 <div class='mailchimp-section'>
-  <%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), :html => {:class => 'sync-contacts'}, method: :put do |f|  %>
+  <%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), :html => {:class => 'sync-contacts', autocomplete: 'off'}, method: :put do |f|  %>
     <section class='card card-primary'>
       <header class='card-title'><%= t('mailchimp.list.segments.segments') %></header>
       <div class='card-body'>
