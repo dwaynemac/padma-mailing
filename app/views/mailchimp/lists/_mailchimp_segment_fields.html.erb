@@ -29,7 +29,7 @@
                         ['',''],
                         [t('mailchimp.list.segments.followed_by_any'),:any],
                         [t('mailchimp.list.segments.followed_by_none'),:none]
-                    ]+current_user.current_account.usernames.map{|u|[u,u]}) %>
+                    ]+current_user.current_account.usernames.map{|u|[u,u]}, ff.object.followed_by) %>
   </td>
   <% if false && ff.object.persisted? %>
     <td><%= t('mailchimp.list.segments.destroy')%></td>
