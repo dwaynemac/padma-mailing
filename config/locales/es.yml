@@ -259,6 +259,8 @@ es:
         followed_by: "En seguimiento por"
         followed_by_any: Cualquier instructor del equipo
         followed_by_none: Sin seguimiento
+        male: Hombre
+        female: Mujer
   new: Nuevo
   number:
     human:

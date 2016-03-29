@@ -4,7 +4,12 @@
     <%= ff.select :student, options_for_select(["prospect", "student", "exstudent"]), class: "form-control" %>
   </td>
   <td>
-    <label class='checkbox-inline'><%= ff.check_box :only_man %>Hombres <br>
+    <label class='checkbox-inline'>
+    <%= ff.select :gender, options_for_select([
+      ['',''],
+      [t('mailchimp.list.segments.male'), 'male'],
+      [t('mailchimp.list.segments.female'), 'female']
+      ]) %>
     <!-- label class='checkbox-inline'><input type='checkbox' name='gender' /> Hombres</label>
     <label class='checkbox-inline'><input type='checkbox' name='gender' /> Mujeres</label -->
   </td>
