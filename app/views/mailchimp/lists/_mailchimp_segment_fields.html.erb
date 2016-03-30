@@ -1,35 +1,58 @@
 <tr class="fields">
   <td><%= ff.text_field :name, {placeholder: t('mailchimp.list.segments.name'), size: "20"} %></td>
   <td>
-    <%= ff.select :student, options_for_select(["prospect", "student", "exstudent"]), class: "form-control" %>
+    <%= ff.select :student, 
+                  options_for_select(
+                    ["prospect", "student", "exstudent"]), 
+                  {}, 
+                  {
+                    class: "form-control selectpicker", 
+                    "data-none-selected-text" => "",
+                    multiple: true
+                  } %>
   </td>
   <td>
     <label class='checkbox-inline'>
-    <%= ff.select :gender, options_for_select([
-      ['',''],
-      [t('mailchimp.list.segments.male'), 'male'],
-      [t('mailchimp.list.segments.female'), 'female']
-      ], ff.object.gender) %>
+    <%= ff.select :gender, 
+                  options_for_select([
+                    ['',''],
+                    [t('mailchimp.list.segments.male'), 'male'],
+                    [t('mailchimp.list.segments.female'), 'female']
+                    ], ff.object.gender), 
+                  {}, 
+                  {
+                    class: "form-control selectpicker",
+                    "data-none-selected-text" => ""
+                  } %>
     <!-- label class='checkbox-inline'><input type='checkbox' name='gender' /> Hombres</label>
     <label class='checkbox-inline'><input type='checkbox' name='gender' /> Mujeres</label -->
   </td>
   <td>
     <%= ff.select :coefficient, 
-          options_for_select([
+                  options_for_select([
                     ["??", "??"], 
                     [t('mailchimp.list.segments.all'), "all"],
                     [t('mailchimp.list.segments.perfil'), "perfil"],
                     [t('mailchimp.list.segments.pmas'), "pmas"],
                     [t('mailchimp.list.segments.fp'), "fp"]
-                    ]), 
-          class: "form-control" %>
+                    ]), {},
+                  {
+                    class: "form-control selectpicker",
+                    multiple: true,
+                    "data-none-selected-text" => ""} %>
   </td>
   <td>
-    <%= ff.select :followed_by, options_for_select([
-                        ['',''],
-                        [t('mailchimp.list.segments.followed_by_any'),:any],
-                        [t('mailchimp.list.segments.followed_by_none'),:none]
-                    ]+current_user.current_account.usernames.map{|u|[u,u]}, ff.object.followed_by) %>
+    <%= ff.select :followed_by, 
+                  options_for_select([
+                    ['',''],
+                    [t('mailchimp.list.segments.followed_by_any'),:any],
+                    [t('mailchimp.list.segments.followed_by_none'),:none]
+                    ]+current_user.current_account.usernames.map{|u|[u,u]}, ff.object.followed_by), 
+                  {}, 
+                  {
+                    class: "form-control selectpicker",
+                    "data-none-selected-text" => ""
+                  } %>
   </td>
   <% if false && ff.object.persisted? %>
     <td><%= t('mailchimp.list.segments.destroy')%></td>
