@@ -8,3 +8,7 @@ $(document).ready ->
   $(".table-striped").on 'nested:fieldAdded', (e) ->
     $(e.field[0].childNodes[1].childNodes[0]).val($("#new_segment_name").val())
     $("#new_segment_name").val(" ")
+    $(".selectpicker").selectpicker 
+      showSubtext: true
+      container: "form"
+    $(".selectpicker").addClass "set-background"
