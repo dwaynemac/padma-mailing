@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160321000835) do
+ActiveRecord::Schema.define(:version => 20160326195500) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(:version => 20160321000835) do
     t.boolean  "only_man"
     t.string   "contact_segment_id"
     t.string   "gender"
+    t.string   "followed_by"
   end
 
   create_table "mercury_images", :force => true do |t|
