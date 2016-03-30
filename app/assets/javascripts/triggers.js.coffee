@@ -2,7 +2,9 @@ $(document).ready ->
   previous_event_name = undefined
   add_count = 0
   previous_event_name = ""
-  $(".selectpicker").selectpicker showSubtext: true
+  $(".selectpicker").selectpicker 
+    showSubtext: true
+    container: "form"
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')

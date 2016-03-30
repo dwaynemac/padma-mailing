@@ -24,9 +24,12 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   # and we set the correct status here
   def set_status(mailchimp_segment_attributes)
     mailchimp_segment_attributes.each do |k, v|
-      status = v[:student]
+      statuses = v[:student]
       v.delete :student
-      v[status] = true
+      statuses.reject(&:blank?).each do |status|
+        v[status] = true
+      end
+      v[:coefficient] = v[:coefficient].reject(&:blank?).join(",")
     end
     mailchimp_segment_attributes
   end
