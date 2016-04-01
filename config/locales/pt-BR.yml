@@ -338,7 +338,7 @@ pt-BR:
         explanation: Seus contatos de PADMA ficaram na lista <b>%{list_name}</b> de Mailchimp. Essa lista pode ser segmentada em segmentos como homens, alunos, ex-alunos, prospects, etc.
         name: Nome do segmento
         perfil: Perfil
-        perfil_explained: "'Perfil' é P e SP"
+        perfil_explained: "os P e SP"
         followed_by: "Em follow-up por"
         followed_by_any: Algun instrutor
         followed_by_none: Sin follow-up
