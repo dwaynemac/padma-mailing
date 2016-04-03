@@ -29,6 +29,7 @@ Mailing::Application.routes.draw do
       get :integration, to: 'configurations#integration'
       member do
         get :primary_list
+        get :sync_now
       end
     end
 

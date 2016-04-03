@@ -310,9 +310,14 @@ pt-BR:
           title: Confirmar suscriçāo
           monthly_charge_will_start: Ao habilitar esta integraçāo você adiciona a seu pagamento mensal %{value}.
     configurations:
+      sync_now:
+        success: "Pronto! Nos próximos minutos os contatos ficaram atualizados no Mailchimp."
+        failed: "Nāo conseguimos iniciar a sincrnoizaçāo. Tente novamente."
       show:
         open_mailchimp: Abrir mailchimp
         disable_mailchimp: Desativar Mailchimp
+        sync_explanation: A sincronizaçāo e feita automáticamente todas as noites e na hora em que você atualiza a configuraçāo do mailchimp. Ela demora alguns minutos.
+        summary: "Os contatos do PADMA ficaram na lista <strong>%{list_name}</strong> do Mailchimp. Essa lista pode ser dividida em varios segmentos como homens, alunos, ex-alunos, etc."
     configuration:
       edit_segments: Alterar segmentos
       edit_api_key: Alterar api key

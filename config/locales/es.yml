@@ -15,8 +15,6 @@ es:
         event_name: Nombre del evento
       trigger/templates_triggerses:
         template: 
-      mailchimp/segment:
-        name: 
     models:
       mailchimp_integration: Integración con mailchimp
       scheduled_mail: Mails programados
@@ -214,9 +212,15 @@ es:
           title: Confirmar subscripción
           monthly_charge_will_start: Al habilitar esta herramienta se incrementan %{value} a su pago mensual de PADMA.
     configurations:
+      sync_now:
+        success: "Listo! En unos momentos estaran sincronizados los contactos."
+        failed: "No pudimos iniciar la sincronización. Volvé a intentar en unos minutos."
       show:
         open_mailchimp: Ir a la web de mailchimp
         disable_mailchimp: Desactivar Mailchimp
+        sync_explanation: La sincronización se realiza de forma automática todas las noches y también después de modificar la configuración.
+        summary: "Sus contactos de PADMA estar&aacute;n en la lista <strong>%{list_name}</strong> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc."
+        sync_now: Sincronizar ahora!
     configuration:
       edit_segments: Editar mis segmentos.
       edit_api_key: Modificar mi api key.

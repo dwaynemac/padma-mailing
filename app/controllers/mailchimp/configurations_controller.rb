@@ -24,6 +24,15 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
     end
   end
 
+  def sync_now
+    if @configuration.run_synchronizer
+      flash.notice = t('mailchimp.configurations.sync_now.success')
+    else
+      flash.alert = t('mailchimp.configurations.sync_now.failed')
+    end
+    redirect_to mailchimp_configuration_path
+  end
+
   def primary_list
     @configuration.sync_mailchimp_lists_locally # fetch mailchimp lists
     @lists = @configuration.reload.mailchimp_lists

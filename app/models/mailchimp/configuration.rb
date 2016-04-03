@@ -57,6 +57,19 @@ class Mailchimp::Configuration < ActiveRecord::Base
     end
   end
 
+  def run_synchronizer
+    response = Typhoeus.post Contacts::HOST + "/v0/mailchimp_synchronizers/#{self.synchronizer_id}/synchronize", body: {
+      app_key: Contacts::API_KEY,
+      account_name: account.name,
+    }
+
+    if response.success?
+      true
+    else
+      false
+    end
+  end
+
   def destroy_synchronizer
     response = Typhoeus.delete Contacts::HOST + "/v0/mailchimp_synchronizers/#{self.synchronizer_id}", body: {
       app_key: Contacts::API_KEY,
