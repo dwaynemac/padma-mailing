@@ -36,7 +36,7 @@
           <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="<%= t('mailchimp.subscriptions.show.only_admin_can_cancel') %>"><%= t('.disable_mailchimp') %></button>
         <% end -%>
         <%= link_to t('mailchimp.configuration.edit_segments'), segments_mailchimp_list_url(@configuration.primary_list), class: 'btn btn-default' %>
-        <%= link_to t('.sync_now'), sync_now_mailchimp_configuration_path, class: "btn btn-primary", data: { disable_with: '...' } %>
+        <%= link_to t('.sync_now'), sync_now_mailchimp_configuration_path, class: "btn btn-primary", id: "sync_now", data: { disable_with: '...' } %>
       </footer>
     </div>
   </section>

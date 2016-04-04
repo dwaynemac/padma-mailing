@@ -32,6 +32,13 @@
 	text-align: center;
 }
 
+#sync_now {
+  @media (max-width: 767px) {
+    width: 100%;
+    margin-top: 30px;
+  }
+}
+
 .integration-item {
 	@media (max-width: 767px) {
 		text-align: center;
