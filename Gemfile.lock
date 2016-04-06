@@ -8,7 +8,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    accounts_client (0.2.19)
+    accounts_client (0.2.22)
       gravtastic
       logical_model (>= 0.6.3)
       railties (>= 3.1)
@@ -181,7 +181,7 @@ GEM
     nokogiri-happymapper (0.5.8)
       nokogiri (~> 1.5)
     orm_adapter (0.0.7)
-    padma-assets (0.2.5)
+    padma-assets (0.2.6)
       railties (>= 3.1)
     padma-deployment (0.2.1)
       railties (>= 3.1)
@@ -308,7 +308,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  accounts_client (= 0.2.19)
+  accounts_client (= 0.2.22)
   activity_stream_client (= 0.0.16)
   appsignal (= 1.0)
   aws-sdk
@@ -337,7 +337,7 @@ DEPENDENCIES
   mercury-rails
   nested_form
   nokogiri
-  padma-assets (= 0.2.5)
+  padma-assets (= 0.2.6)
   padma-deployment
   paperclip
   pg
