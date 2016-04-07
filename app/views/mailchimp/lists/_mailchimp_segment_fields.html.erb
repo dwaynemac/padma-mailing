@@ -30,11 +30,12 @@
   <td>
     <%= ff.select :coefficient, 
                   options_for_select([
-                    ["??", "??"], 
-                    [t('mailchimp.list.segments.all'), "all"],
-                    [t('mailchimp.list.segments.perfil'), "perfil"],
+                    ['',''],
+                    ["??", "unknown"], 
+                    ["#{t('mailchimp.list.segments.perfil')} (#{t('mailchimp.list.segments.perfil_explained')})", "perfil"],
                     [t('mailchimp.list.segments.pmas'), "pmas"],
-                    [t('mailchimp.list.segments.fp'), "fp"]
+                    [t('mailchimp.list.segments.pmenos'), "pmenos"],
+                    [t('mailchimp.list.segments.fp'), "np"]
                     ]), {},
                   {
                     class: "form-control selectpicker",
