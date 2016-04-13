@@ -70,8 +70,6 @@ class Mailchimp::Segment < ActiveRecord::Base
     segment_hash[:statuses] = statuses if !statuses.empty?
     
     coefficients = coefficient.split(",") unless coefficient.nil?
-    coefficients << 'pmas' if (!coefficient.nil? && coefficient.include?("perfil"))
-    
     segment_hash[:coefficients] = coefficients if !coefficients.empty?
     
     segment_hash[:gender] = gender
