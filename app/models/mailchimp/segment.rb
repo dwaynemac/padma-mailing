@@ -29,6 +29,7 @@ class Mailchimp::Segment < ActiveRecord::Base
 
   before_create :create_segment_in_contacts
   before_destroy :destroy_segment_in_contacts
+  before_update :destroy_segment_in_contacts, :create_segment_in_contacts
   
   def segment_must_restrict_list
     if !status_restricted? && !only_man &&
