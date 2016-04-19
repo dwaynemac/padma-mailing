@@ -60,7 +60,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
       redirect_to new_mailchimp_configuration_path
     elsif @configuration.primary_list.nil?
       redirect_to primary_list_mailchimp_configuration_path
-    elsif @configuration.primary_list.mailchimp_segments.empty?
+    elsif (@configuration.primary_list.mailchimp_segments.empty? && @configuration.filter_method != 'all')
       redirect_to segments_mailchimp_list_path @configuration.primary_list 
     end
   end

@@ -318,6 +318,7 @@ pt-BR:
         disable_mailchimp: Desativar Mailchimp
         sync_explanation: A sincronizaçāo e feita automáticamente todas as noites e na hora em que você atualiza a configuraçāo do mailchimp. Ela demora alguns minutos.
         summary: "Os contatos do PADMA ficaram na lista <strong>%{list_name}</strong> do Mailchimp. Essa lista pode ser dividida em varios segmentos como homens, alunos, ex-alunos, etc."
+        sync_now: Sincronizar agora!
     configuration:
       edit_segments: Alterar segmentos
       edit_api_key: Alterar api key
