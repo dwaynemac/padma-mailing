@@ -3,7 +3,8 @@
   <td>
     <%= ff.select :student, 
                   options_for_select(
-                    ["prospect", "student", "exstudent"]), 
+                    ["prospect", "student", "exstudent"],
+                    default_status(ff.object) ), 
                   {}, 
                   {
                     class: "form-control selectpicker", 
@@ -36,7 +37,9 @@
                     [t('mailchimp.list.segments.pmas'), "pmas"],
                     [t('mailchimp.list.segments.pmenos'), "pmenos"],
                     [t('mailchimp.list.segments.fp'), "np"]
-                    ]), {},
+                    ],
+                    ff.object.coefficient? ? ff.object.coefficient.split(",") : ""), 
+                  {},
                   {
                     class: "form-control selectpicker",
                     multiple: true,
