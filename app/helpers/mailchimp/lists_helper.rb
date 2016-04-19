@@ -17,6 +17,10 @@ module Mailchimp::ListsHelper
     list
   end
 
+  def default_status(segment)
+    [].push(segment.student? ? "student" : nil).push(segment.exstudent? ? "exstudent" : nil).push(segment.prospect? ? "prospect" : nil).reject(&:blank?)
+  end
+
   private
 
   def setup_students_segment(list)
