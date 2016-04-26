@@ -2,10 +2,12 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def segments
     @list = Mailchimp::List.find(params[:id])
+    @contact_attributes = ContactAttribute::AVAILABLE_TYPES + ContactAttribute.custom_keys(account_name: current_user.current_account.name)
   end
 
   def update
     @list = Mailchimp::List.find(params[:id])
+    params[:mailchimp_list][:contact_attributes] = params[:mailchimp_list][:contact_attributes].reject(&:empty?).join(",")
     params[:mailchimp_list][:mailchimp_segments_attributes] = set_status(params[:mailchimp_list][:mailchimp_segments_attributes])
     if @list.update_attributes(params[:mailchimp_list])
       @list.mailchimp_configuration
