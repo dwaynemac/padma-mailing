@@ -3,6 +3,7 @@ class Mailchimp::List < ActiveRecord::Base
   attr_accessible :mailchimp_configuration_id
   attr_accessible :name
   attr_accessible :mailchimp_segments_attributes
+  attr_accessible :contact_attributes
   
   belongs_to :mailchimp_configuration, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::Configuration" 
 
