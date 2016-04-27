@@ -86,7 +86,8 @@ class Mailchimp::Configuration < ActiveRecord::Base
       synchronizer: {
         api_key: api_key,
         list_id: primary_list.api_id,
-        filter_method: filter_method 
+        filter_method: filter_method,
+        contact_attributes: primary_list.contact_attributes 
       }
   end
   
