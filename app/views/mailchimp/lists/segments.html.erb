@@ -7,8 +7,8 @@
           <label class='checkbox-inline'>
           <%= f.select :contact_attributes, 
                         options_for_select(
-                          ["", ""] + @contact_attributes,
-                          @list.contact_attributes.split(",")
+                          [""] + @contact_attributes,
+                          @list.contact_attributes.try(:split,(","))
                           ), 
                         {}, 
                         {
