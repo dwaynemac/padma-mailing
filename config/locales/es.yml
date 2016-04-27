@@ -256,6 +256,9 @@ es:
           segments: sólo los segmentos
           more_about_mailchimp_pricing: Más información sobre los planes de Mailchimp
         segments: Segmentos
+        custom_attributes:
+          title: Agregar campos
+          explanation: "Se enviarán los siguientes datos de tus contactos a Mailchimp: <br/> %{attributes}<br/> A continuación podés elegir otros datos que también quieras mantener actualizados en Mailchimp:"
         explanation: Sus contactos de PADMA estarán en la lista <b>%{list_name}</b> de mailchimp. Esta lista puede ser dividida en varios segmentos como hombres, alumnos, exalumnos, etc. 
         name: Nombre del segmento
         perfil: Perfil
@@ -312,6 +315,11 @@ es:
       separator: ! ','
       significant: false
       strip_insignificant_zeros: false
+  attributes:
+    phone: Teléfono
+    gender: Género
+    status: Estado
+    address: Dirección
   scheduled_mail:
     attributes:
       delivered_at: Enviado el

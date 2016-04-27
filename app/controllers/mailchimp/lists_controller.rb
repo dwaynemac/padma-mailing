@@ -5,6 +5,11 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     @list = Mailchimp::List.find(params[:id])
     @contact_attributes = (ContactAttribute::AVAILABLE_TYPES - unique_attributes).map{ |att| [t(att), att]} + 
                               (ContactAttribute.custom_keys(account_name: current_user.current_account.name)).map{|att| [att, att] }
+    @default_attributes = [
+      I18n.t('attributes.phone'), 
+      I18n.t('attributes.gender'), 
+      I18n.t('attributes.status'), 
+      I18n.t('attributes.address')]
   end
 
   def update

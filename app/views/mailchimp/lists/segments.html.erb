@@ -1,22 +1,6 @@
 <div class='mailchimp-section'>
   <%= nested_form_for set_up(@list), url: mailchimp_list_path(@list), :html => {:class => 'sync-contacts', autocomplete: 'off'}, method: :put do |f|  %>
     <section class='card card-primary'>
-      <header class='card-title'>Custom attributes</header>
-      <div class="card-body">
-        <h5>Elegir si se quieren mandar más atributos a mailchimp</h5>
-          <label class='checkbox-inline'>
-          <%= f.select :contact_attributes, 
-                        options_for_select(
-                          [""] + @contact_attributes,
-                          @list.contact_attributes.try(:split,(","))
-                          ), 
-                        {}, 
-                        {
-                          class: "form-control selectpicker",
-                          "data-none-selected-text" => "",
-                          multiple: true
-                        } %>
-      </div>
       <header class='card-title'><%= t('mailchimp.list.segments.segments') %></header>
       <div class='card-body'>
         <h5><%= t('mailchimp.list.segments.filter_methods.title')%></h5>
@@ -60,6 +44,22 @@
           </div>
 
           <%#= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary' %>
+        </div>
+        <header class='card-title'><%= t('mailchimp.list.segments.custom_attributes.title') %></header>
+        <div class="card-body">
+          <h5><%= t('mailchimp.list.segments.custom_attributes.explanation', attributes: @default_attributes.to_sentence).html_safe %></h5>
+            <label class='checkbox-inline'>
+            <%= f.select :contact_attributes, 
+                          options_for_select(
+                            [""] + @contact_attributes,
+                            @list.contact_attributes.try(:split,(","))
+                            ), 
+                          {}, 
+                          {
+                            class: "form-control selectpicker",
+                            "data-none-selected-text" => "",
+                            multiple: true
+                          } %>
         </div>
         <footer class='form-actions text-right'>
           <%= link_to t('cancel'), @list.mailchimp_configuration, class: 'btn btn-default' %>
