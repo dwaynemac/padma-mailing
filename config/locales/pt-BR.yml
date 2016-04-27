@@ -417,6 +417,13 @@ pt-BR:
     precision:
       format:
         delimiter: ''
+  attributes:
+    phone: Telefone
+    gender: Sexo
+    status: Estado
+    address: Endereço
+    coefficient: Coeficiente
+    followed_by: "Em follow-up por"
   scheduled_mail:
     attributes:
       delivered_at: 

@@ -9,7 +9,10 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       I18n.t('attributes.phone'), 
       I18n.t('attributes.gender'), 
       I18n.t('attributes.status'), 
-      I18n.t('attributes.address')]
+      I18n.t('attributes.address'),
+      I18n.t('attributes.coefficient'),
+      I18n.t('attributes.followed_by')
+    ]
   end
 
   def update

@@ -320,6 +320,8 @@ es:
     gender: Género
     status: Estado
     address: Dirección
+    coefficient: Coeficiente
+    followed_by: Instructores en seguimiento
   scheduled_mail:
     attributes:
       delivered_at: Enviado el
