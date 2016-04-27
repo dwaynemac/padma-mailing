@@ -1,8 +1,10 @@
 class Mailchimp::ListsController < Mailchimp::PetalController
 
   def segments
+    unique_attributes = %w(telephone email identification address date_attribute custom_attribute social_network_id)
     @list = Mailchimp::List.find(params[:id])
-    @contact_attributes = ContactAttribute::AVAILABLE_TYPES + ContactAttribute.custom_keys(account_name: current_user.current_account.name)
+    @contact_attributes = (ContactAttribute::AVAILABLE_TYPES - unique_attributes).map{ |att| [t(att), att]} + 
+                              (ContactAttribute.custom_keys(account_name: current_user.current_account.name)).map{|att| [att, att] }
   end
 
   def update
