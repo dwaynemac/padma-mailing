@@ -45,6 +45,22 @@
 
           <%#= f.link_to_add t('mailchimp.list.segments.add_segment'), :mailchimp_segments, class: 'btn btn-primary' %>
         </div>
+        <header class='card-title'><%= t('mailchimp.list.segments.custom_attributes.title') %></header>
+        <div class="card-body">
+          <h5><%= t('mailchimp.list.segments.custom_attributes.explanation', attributes: @default_attributes.to_sentence).html_safe %></h5>
+            <label class='checkbox-inline'>
+            <%= f.select :contact_attributes, 
+                          options_for_select(
+                            [""] + @contact_attributes,
+                            @list.contact_attributes.try(:split,(","))
+                            ), 
+                          {}, 
+                          {
+                            class: "form-control selectpicker",
+                            "data-none-selected-text" => "",
+                            multiple: true
+                          } %>
+        </div>
         <footer class='form-actions text-right'>
           <%= link_to t('cancel'), @list.mailchimp_configuration, class: 'btn btn-default' %>
           <%= link_to t('save_changes'), "javascript:$('form.sync-contacts').submit();", class: 'btn btn-primary' %>
