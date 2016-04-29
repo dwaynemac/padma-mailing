@@ -361,6 +361,8 @@ pt-BR:
         p_former_students: Ex-alunos (p)
         students: Alunos
       list_syncronization: Lista para sincronizar com mailchimp
+    errors:
+      rest_client: "Houve um erro na sincronização com Mailchimp: %{error_message}"
   new: 
   number:
     currency:
