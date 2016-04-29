@@ -267,6 +267,8 @@ es:
         followed_by_none: Sin seguimiento
         male: Hombre
         female: Mujer
+    errors:
+      rest_client: "Hubo un error en la sincronización con Mailchimp: %{error_message}"
   new: Nuevo
   number:
     human:
