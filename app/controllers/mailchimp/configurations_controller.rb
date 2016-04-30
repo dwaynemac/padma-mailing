@@ -1,4 +1,5 @@
 class Mailchimp::ConfigurationsController < Mailchimp::PetalController
+  rescue_from RestClient::InternalServerError, with: :mailchimp_error
 
   before_filter :get_configuration
   before_filter :require_set_up, only: [:show]
@@ -49,6 +50,13 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
     redirect_to mailchimp_configuration_path
   end
 
+  protected
+  
+  def mailchimp_error(exception)
+    flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
+    redirect_to segments_mailchimp_list_path(id: @list.id)
+  end
+
   private
   
   def get_configuration
@@ -64,5 +72,6 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
       redirect_to segments_mailchimp_list_path @configuration.primary_list 
     end
   end
+
   
 end
