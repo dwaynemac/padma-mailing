@@ -47,8 +47,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   protected
 
   def mailchimp_error(exception)
-    flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
-    redirect_to segments_mailchimp_list_path(id: @list.id)
+    redirect_to mailchimp_configuration_path, error: exception.response.to_str
   end
 
 end
