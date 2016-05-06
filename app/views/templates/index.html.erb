@@ -61,7 +61,8 @@
               <%= button_to t('destroy'),
                           template,
                           method: :delete,
-                          confirm: t('confirm'),
+                          #confirm: t('confirm'),
+                          :onclick => "return confirm('#{t('confirm')}')",
                           class: 'btn btn-danger' %>
             </div>
           </div>
