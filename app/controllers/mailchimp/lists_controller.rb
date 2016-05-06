@@ -1,5 +1,6 @@
 class Mailchimp::ListsController < Mailchimp::PetalController
   rescue_from RestClient::InternalServerError, with: :mailchimp_error
+
   def segments
     unique_attributes = %w(telephone email identification address date_attribute custom_attribute social_network_id)
     @list = Mailchimp::List.find(params[:id])
@@ -46,8 +47,9 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   end
 
   protected
-    def mailchimp_error(exception)
-      flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
-      redirect_to segments_mailchimp_list_path(id: @list.id)
-    end
+  
+  def mailchimp_error(exception)
+    flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
+    redirect_to segments_mailchimp_list_path(id: @list.id)
+  end
 end

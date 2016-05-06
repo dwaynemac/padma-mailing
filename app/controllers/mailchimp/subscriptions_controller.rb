@@ -1,4 +1,5 @@
 class Mailchimp::SubscriptionsController < Mailchimp::PetalController
+  rescue_from RestClient::InternalServerError, with: :mailchimp_error
 
   skip_before_filter :check_petal_enabled, only: [:new, :create]
 
@@ -41,6 +42,12 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
     end
 
     redirect_to mailchimp_subscription_path
+  end
+
+  protected
+
+  def mailchimp_error(exception)
+    redirect_to mailchimp_configuration_path, error: exception.response.to_str
   end
 
 end
