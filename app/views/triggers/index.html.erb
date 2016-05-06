@@ -21,7 +21,12 @@
       <td><%= trigger.filters.map{|f| "#{translate_key(f.key)}=#{t("set_options.#{f.value}")}" }.join('; ') %></td>
       <td><%= trigger.templates_triggerses.map{|tt|"#{tt.template.name} (#{explain_offset(tt)})"}.join(',') %></td>
       <td>
-        <%= link_to t('destroy'), trigger_path(trigger), :method => :delete, :confirm => t('confirm'), :class => 'btn btn-mini btn-danger' %>
+        <%= button_to t('destroy'),
+                          trigger_path(trigger),
+                          method: :delete,
+                          #data: { confirm: t('confirm') },
+                          :onclick => "return confirm('#{t('confirm')}')",
+                          class: 'btn btn-mini btn-danger' %>
       </td>
     </tr>
   <% end %>
