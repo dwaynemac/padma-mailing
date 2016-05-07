@@ -2,9 +2,12 @@ $(document).ready ->
   previous_event_name = undefined
   add_count = 0
   previous_event_name = ""
-  $(".selectpicker").selectpicker 
+  $(".selectpicker").selectpicker
+    liveSearch: true
     showSubtext: true
     container: "form"
+  $(".selectpicker").on "click", (e) ->
+    $(".btn-group.bootstrap-select.event_names.open").removeClass("open")
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
