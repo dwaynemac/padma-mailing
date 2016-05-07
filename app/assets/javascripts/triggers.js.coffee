@@ -76,6 +76,8 @@ $(document).ready ->
       select_box = $(this).siblings("select.value_select")
       $(select_box).empty()
       setOptions suggested_options[$(this).val()], select_box
+      $(select_box).selectpicker
+        container: "body"
       $(select_box).selectpicker "refresh"
       return
 
