@@ -9,7 +9,7 @@ $(document).ready ->
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
-    
+  cleanBootstrapDropdowns()  
   $("#new_trigger").on "nested:fieldAdded", (event) ->
     
     # this field was just inserted into your form
