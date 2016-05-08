@@ -12,3 +12,4 @@ $(document).ready ->
       showSubtext: true
       container: "form"
     $(".selectpicker").addClass "set-background"
+    cleanBootstrapDropdowns()

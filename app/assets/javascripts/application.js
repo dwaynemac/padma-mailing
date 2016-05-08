@@ -20,4 +20,5 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require bootstrap-select.min
+//= require bootstrap-select-patch
 //= require mailchimp/lists

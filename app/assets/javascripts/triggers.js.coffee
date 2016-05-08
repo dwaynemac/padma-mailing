@@ -2,14 +2,15 @@ $(document).ready ->
   previous_event_name = undefined
   add_count = 0
   previous_event_name = ""
-  $(".selectpicker").selectpicker 
+  $(".selectpicker").selectpicker
+    liveSearch: true
     showSubtext: true
     container: "form"
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
-    
-  $(document).on "nested:fieldAdded", (event) ->
+  cleanBootstrapDropdowns()  
+  $("#new_trigger").on "nested:fieldAdded", (event) ->
     
     # this field was just inserted into your form
     bindFilterInstance()
@@ -73,6 +74,9 @@ $(document).ready ->
       select_box = $(this).siblings("select.value_select")
       $(select_box).empty()
       setOptions suggested_options[$(this).val()], select_box
+      $(select_box).selectpicker
+        container: "body"
+      $(select_box).addClass "set-background"
       $(select_box).selectpicker "refresh"
       return
 
