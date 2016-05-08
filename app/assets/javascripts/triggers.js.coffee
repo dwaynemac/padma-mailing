@@ -6,8 +6,6 @@ $(document).ready ->
     liveSearch: true
     showSubtext: true
     container: "form"
-  $(".selectpicker").on "click", (e) ->
-    $(".btn-group.bootstrap-select.event_names.open").removeClass("open")
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
@@ -78,6 +76,7 @@ $(document).ready ->
       setOptions suggested_options[$(this).val()], select_box
       $(select_box).selectpicker
         container: "body"
+      $(select_box).addClass "set-background"
       $(select_box).selectpicker "refresh"
       return
 
