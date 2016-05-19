@@ -208,6 +208,7 @@ es:
         start_subscription: Comenzar
         monthly_cost: Herramienta con costo adicional 
         monthly: x mes
+        value_added_on_invoices: El pago se realiza junto con el pago normal de PADMA. El valor será adicionado a los boletos mensualmente.
         confirm_subscription:
           title: Confirmar subscripción
           monthly_charge_will_start: Al habilitar esta herramienta se incrementan %{value} a su pago mensual de PADMA.

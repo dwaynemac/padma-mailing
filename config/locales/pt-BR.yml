@@ -296,6 +296,7 @@ pt-BR:
         intro: "A integraçāo com Mailchimp está habilitada."
         monthly_cost: "Lembre que esta integraçāo tem um custo adicional"
         monthly: "x mês"
+        value_added_on_invoices: O pagamento é feito junto com o pagamento normal do PADMA. Este valor será adicionado aos boletos mensalmente.
         see_configuration: "Configuraçāo"
         only_admin_can_cancel: "Só o administrador da conta pode cancelar a integraçāo"
         cancel_integration: "Cancelar integraçāo"
