@@ -3,11 +3,12 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
 
   skip_before_filter :check_petal_enabled, only: [:new, :create]
 
-  before_filter :get_petal, only: [:show, :new]
+  before_filter :get_petal, only: [:new]
+  before_filter :get_petal_subscription, only: [:show, :destroy]
 
   def show
     authorize! :read, PetalSubscription
-    @monthly_value = "#{@petal.cents.to_f/100} #{@petal.currency}"
+    @monthly_value = "#{@petal_subscription.cents.to_f/100} #{@petal_subscription.currency}"
   end
 
   def new
@@ -34,11 +35,8 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   def destroy
     authorize! :destroy, PetalSubscription
     
-    petals = PetalSubscription.paginate(account_name: current_user.current_account.name)
-
-    if petals
-      mailchimp_subscription = petals.select{|ps| ps.petal_name == 'mailchimp' }.first
-      PetalSubscription.delete(mailchimp_subscription.id, username: current_user.username, account_name: current_user.current_account.name).nil?
+    if @petal_subscription
+      PetalSubscription.delete(@petal_subscription.id, username: current_user.username, account_name: current_user.current_account.name).nil?
       current_user.current_account.padma(false) # refresh cache of account
       current_user.current_account.mailchimp_configuration.try(:destroy) # remove mailchimpconfiguration
     end
@@ -59,6 +57,11 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
       Rails.cache.write("mailchimp_for_#{current_user.current_account.name}", @petal)
     end
     @petal
+  end
+
+  def get_petal_subscription
+    petals = PetalSubscription.paginate(account_name: current_user.current_account.name)
+    @petal_subscription = petals.select{|ps| ps.petal_name == 'mailchimp' }.first
   end
 
 end
