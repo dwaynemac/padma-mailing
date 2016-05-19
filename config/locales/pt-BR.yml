@@ -297,6 +297,7 @@ pt-BR:
         monthly_cost: "Lembre que esta integraçāo tem um custo adicional"
         monthly: "x mês"
         value_added_on_invoices: O pagamento é feito junto com o pagamento normal do PADMA. Este valor será adicionado aos boletos mensalmente.
+        free_trial_until: Você pode testar sem custo até %{date}
         see_configuration: "Configuraçāo"
         only_admin_can_cancel: "Só o administrador da conta pode cancelar a integraçāo"
         cancel_integration: "Cancelar integraçāo"
@@ -309,7 +310,7 @@ pt-BR:
         monthly: x mês
         confirm_subscription:
           title: Confirmar suscriçāo
-          monthly_charge_will_start: Ao habilitar esta integraçāo você adiciona a seu pagamento mensal %{value}.
+          monthly_charge_will_start: Ao habilitar esta integraçāo você adiciona a seu pagamento mensal %{value} a partir do %{date}.
     configurations:
       sync_now:
         success: "Pronto! Nos próximos minutos os contatos ficaram atualizados no Mailchimp."

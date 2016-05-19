@@ -13,6 +13,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
 
   def new
     @monthly_value = "#{@petal.cents.to_f/100} #{@petal.currency}"
+    @trial_until = get_next_invoice_date
   end
 
   def create
@@ -62,6 +63,14 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   def get_petal_subscription
     petals = PetalSubscription.paginate(account_name: current_user.current_account.name)
     @petal_subscription = petals.select{|ps| ps.petal_name == 'mailchimp' }.first
+  end
+
+  def get_next_invoice_date
+    response = Typhoeus.get("https://padma-accounts.herokuapp.com/v0/invoices?token=#{PadmaAccount.api_key}&account_id=#{current_user.current_account.name}")
+    if response.success?
+      @invoices = JSON.parse(response.body)["collection"]
+    end
+    @invoices.last["covers_until"].to_date
   end
 
 end

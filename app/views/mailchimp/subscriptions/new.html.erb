@@ -7,8 +7,12 @@
 		<div class='card-body'>
 			<p class='lead'>
         <%= t('.intro') %>
-			</p>
-			<p><strong><%= t('.monthly_cost') %>: <%= @monthly_value %> <%= t('.monthly') %></strong>. <%= t('.value_added_on_invoices') %></p>
+        <br/>
+        <br/>
+        <strong><%= t('.monthly_cost') %>: <%= @monthly_value %> <%= t('.monthly') %>.</strong> <%= t('.value_added_on_invoices') %>
+        <br/>
+        <strong><%= t('.free_trial_until', date: l(@trial_until)) %>.</strong>
+      </p>
 			<div class='mailchimp-integration'>
 				<div class='integration-item'>
           <%= image_tag 'logo-padma.jpg' %>
@@ -40,7 +44,7 @@
         <h4 class="modal-title" id="confirm-subscription-title"><%= t('.confirm_subscription.title') %></h4>
       </div>
       <div class="modal-body">
-        <%= t('.confirm_subscription.monthly_charge_will_start', value: @monthly_value) %>
+        <%= t('.confirm_subscription.monthly_charge_will_start', value: @monthly_value, date: l(@trial_until)) %>.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('cancel') %></button>
