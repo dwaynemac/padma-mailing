@@ -3,24 +3,26 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
 
   skip_before_filter :check_petal_enabled, only: [:new, :create]
 
+  before_filter :get_petal, only: [:show, :new]
+
   def show
     authorize! :read, PetalSubscription
-    @monthly_value = '--- valor a confirmar ---' # get value through api
+    @monthly_value = "#{@petal.cents.to_f/100} #{@petal.currency}"
   end
 
   def new
-    @monthly_value = '--- valor a confirmar ---' # get value through api
+    @monthly_value = "#{@petal.cents.to_f/100} #{@petal.currency}"
   end
 
   def create
     authorize! :create, PetalSubscription
     ps = PetalSubscription.new account_name: current_user.current_account.name,
-                                 petal_name: 'mailchimp'
+                               petal_name: 'mailchimp'
 
     authorize! :create, ps
 
     created_id =  ps.create( account_name: current_user.current_account.name,
-                         username: current_user.username)
+                             username: current_user.username)
     if created_id
       current_user.current_account.padma(false) # refresh cache of account
       redirect_to mailchimp_configuration_path, success: 'yes!'
@@ -48,6 +50,15 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
 
   def mailchimp_error(exception)
     redirect_to mailchimp_configuration_path, error: exception.response.to_str
+  end
+
+  def get_petal
+    @petal = Rails.cache.read("mailchimp_for_#{current_user.current_account.name}")
+    if @petal.nil?
+      @petal = Petal.find('mailchimp', account_name: current_user.current_account.name)
+      Rails.cache.write("mailchimp_for_#{current_user.current_account.name}", @petal)
+    end
+    @petal
   end
 
 end
