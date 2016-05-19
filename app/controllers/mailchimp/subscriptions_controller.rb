@@ -66,7 +66,7 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   end
 
   def get_next_invoice_date
-    response = Typhoeus.get("https://padma-accounts.herokuapp.com/v0/invoices?token=#{PadmaAccount.api_key}&account_id=#{current_user.current_account.name}&scope=pending")
+    response = Typhoeus.get("https://padma-accounts.herokuapp.com/v0/invoices?token=#{PadmaAccount.api_key}&account_id=#{current_user.current_account.name}&search[covers_until_gt]=#{Time.zone.today}")
     if response.success?
       @invoices = JSON.parse(response.body)["collection"]
     end
