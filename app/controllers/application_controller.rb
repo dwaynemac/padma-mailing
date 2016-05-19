@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  include IntercomEventsHelper
+
   before_filter :mock_login
   before_filter :authenticate_user!
   before_filter :require_padma_account

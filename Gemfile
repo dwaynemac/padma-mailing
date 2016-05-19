@@ -18,6 +18,7 @@ gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 gem 'rails_12factor'
 
+gem 'intercom'
 gem 'intercom-rails'
 
 gem 'mercury-rails'
