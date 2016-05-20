@@ -1,7 +1,7 @@
 <%- page_title t("activerecord.models.mailchimp_integration") -%>
 <div class='mailchimp-section'>
   <section class='card card-primary'>
-    <header class='card-title'>Integraci&oacute;n con Mailchimp</header>
+    <header class='card-title'><%= t("activerecord.models.mailchimp_integration") %></header>
     <div class='card-body'>
       <p class='lead'>
         <%= t('.summary', list_name: @configuration.primary_list.name).html_safe %>
@@ -9,16 +9,6 @@
       <dl>
         <dt>api key:</dt>
         <dd><%= @configuration.api_key %></dd>
-        <dt>filter method:</dt>
-        <dd><%= @configuration.filter_method %></dd>
-        <dt>Segments</dt>
-        <dd>
-          <ul>
-            <% @configuration.mailchimp_segments.each do |segment| -%>
-              <li><%= segment.name %></li>
-            <% end -%>
-          </ul>
-        </dd>
       </dl>
       <p>
       <div class='alert alert-info alert-dismissible fade in' role='alert'>
