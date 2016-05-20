@@ -73,7 +73,12 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
     if response.success?
       @invoices = JSON.parse(response.body)["collection"]
     end
-    @invoices.last["covers_until"].to_date
+    lst = @invoices.try(:last)
+    if lst
+      lst["covers_until"].to_date
+    else
+      nil
+    end
   end
 
 end

@@ -310,7 +310,8 @@ pt-BR:
         monthly: x mês
         confirm_subscription:
           title: Confirmar suscriçāo
-          monthly_charge_will_start: Ao habilitar esta integraçāo você adiciona a seu pagamento mensal %{value} a partir do %{date}.
+          monthly_charge_will_start: Ao habilitar esta integraçāo você adiciona a seu pagamento mensal %{value}
+          since: a partir do %{date}
     configurations:
       sync_now:
         success: "Pronto! Nos próximos minutos os contatos ficaram atualizados no Mailchimp."

@@ -212,7 +212,8 @@ es:
         free_trial_until: Podés probar la integración sin costo hasta el %{date}
         confirm_subscription:
           title: Confirmar subscripción
-          monthly_charge_will_start: Al habilitar esta herramienta se incrementan %{value} a su pago mensual de PADMA a partir del %{date}
+          monthly_charge_will_start: Al habilitar esta herramienta se incrementan %{value} a su pago mensual de PADMA
+          since: a partir del %{date}
     configurations:
       sync_now:
         success: "Listo! En unos momentos estaran sincronizados los contactos."
