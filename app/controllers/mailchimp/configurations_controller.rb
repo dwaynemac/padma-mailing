@@ -15,7 +15,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   def create
     @configuration = Mailchimp::Configuration.new(
       local_account_id: current_user.current_account.id,
-      api_key: params[:mailchimp_configuration][:api_key]
+      api_key: params[:mailchimp_configuration][:api_key].try(:strip)
     )
     if @configuration.save
       redirect_to primary_list_mailchimp_configuration_path @configuration
