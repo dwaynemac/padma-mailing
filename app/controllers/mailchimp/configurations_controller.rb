@@ -18,8 +18,11 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
       api_key: params[:mailchimp_configuration][:api_key].try(:strip)
     )
     if @configuration.save
+
+      register_on_intercom('configured-mailchimp')
       redirect_to primary_list_mailchimp_configuration_path @configuration
     else
+      register_on_intercom('failed-configuring-mailchimp')
       flash.alert = @configuration.errors.messages.to_a.flatten.join(' ')
       render :new
     end
@@ -47,6 +50,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
 
   def destroy
     @configuration.destroy
+    register_on_intercom('deconfigured-mailchimp')
     redirect_to mailchimp_configuration_path
   end
 
