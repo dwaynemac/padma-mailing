@@ -53,12 +53,20 @@ class Mailchimp::Segment < ActiveRecord::Base
   def destroy_segment_in_contacts
     config = get_configuration
 
-    response = RestClient.delete Contacts::HOST + '/v0/mailchimp_segments/' + self.contact_segment_id.to_s,
-      {:params => {           
-        app_key: Contacts::API_KEY,
-        id: contact_segment_id,
-        account_name: config.account.name
-      }}
+    response = nil
+
+    begin
+      response = RestClient.delete Contacts::HOST + '/v0/mailchimp_segments/' + self.contact_segment_id.to_s,
+        {:params => {           
+          app_key: Contacts::API_KEY,
+          id: contact_segment_id,
+          account_name: config.account.name
+        }}
+    rescue => e
+      if e.message == '404 Resource Not Found'
+        # ignore
+      end
+    end
   end 
   
   def segment_params
