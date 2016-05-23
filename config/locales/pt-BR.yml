@@ -296,8 +296,6 @@ pt-BR:
         intro: "A integraçāo com Mailchimp está habilitada."
         monthly_cost: "Lembre que esta integraçāo tem um custo adicional"
         monthly: "x mês"
-        value_added_on_invoices: O pagamento é feito junto com o pagamento normal do PADMA. Este valor será adicionado aos boletos mensalmente.
-        free_trial_until: Você pode testar sem custo até %{date}
         see_configuration: "Configuraçāo"
         only_admin_can_cancel: "Só o administrador da conta pode cancelar a integraçāo"
         cancel_integration: "Cancelar integraçāo"
@@ -307,6 +305,8 @@ pt-BR:
         start_subscription: Começar
         only_admin_can_subscribe: Só o administrador pode habilitar um módulo extra.
         monthly_cost: Ferramenta com custo adicional
+        value_added_on_invoices: O pagamento é feito junto com o pagamento normal do PADMA. Este valor será adicionado aos boletos mensalmente.
+        free_trial_until: Você pode testar sem custo até %{date}
         monthly: x mês
         confirm_subscription:
           title: Confirmar suscriçāo
@@ -350,7 +350,7 @@ pt-BR:
         perfil_explained: "os P e SP"
         followed_by: "Em follow-up por"
         followed_by_any: Algun instrutor
-        followed_by_none: Sin follow-up
+        followed_by_none: Nāo em acompanhamento
     new:
       api_key: "Cole aquí sua api key:"
       api_key_help: Mais informaçāo sobre api key. O qué é?Onde encontro?
