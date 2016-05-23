@@ -63,8 +63,8 @@ class Mailchimp::Segment < ActiveRecord::Base
           account_name: config.account.name
         }}
     rescue => e
-      if e.message == '404 Resource Not Found'
-        # ignore
+      unless e.message == '404 Resource Not Found'
+        raise e
       end
     end
   end 
