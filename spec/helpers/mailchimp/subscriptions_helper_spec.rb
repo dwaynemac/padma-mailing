@@ -38,10 +38,14 @@ describe Mailchimp::SubscriptionsHelper do
     User.any_instance.stub(:padma_enabled?).and_return true
     User.any_instance.stub(:padma).and_return pu
     
-    RSpec::Core::ExampleGroup::Nested_1::Nested_1::Nested_1.any_instance.stub(:current_user).and_return(@user)
-    RSpec::Core::ExampleGroup::Nested_1::Nested_1::Nested_2.any_instance.stub(:current_user).and_return(@user)
-    RSpec::Core::ExampleGroup::Nested_1::Nested_1::Nested_3.any_instance.stub(:current_user).and_return(@user)
-    RSpec::Core::ExampleGroup::Nested_1::Nested_1::Nested_4.any_instance.stub(:current_user).and_return(@user)
-    helper.stub(:current_user).and_return(@user)
+    # hack to stub current_user
+    (1..10).each do |i|
+      (1..10).each do |j|
+        begin
+          eval "RSpec::Core::ExampleGroup::Nested_#{i}::Nested_1::Nested_#{j}.any_instance.stub(:current_user).and_return(@user)"
+        rescue NameError
+        end
+      end
+    end
   end
 end
