@@ -32,6 +32,12 @@ class Mailchimp::Configuration < ActiveRecord::Base
   after_create :sync_mailchimp_lists_locally
 
   after_destroy :destroy_synchronizer
+
+  def completed_initial_setup?
+    primary_list.present? && (
+      !primary_list.mailchimp_segments.empty? || filter_method == 'all'
+    )
+  end
   
   # @return [Gibbon:API]
   def api
