@@ -9,6 +9,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   end
 
   def new
+    # TODO this became obsolete with Mailchimp
     @configuration = Mailchimp::Configuration.new
   end
 
