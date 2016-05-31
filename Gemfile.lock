@@ -146,7 +146,7 @@ GEM
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.8.1)
+    json (1.8.3)
     kaminari (0.13.0)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -175,7 +175,7 @@ GEM
       railties (~> 3.2)
     mime-types (1.25.1)
     mini_portile (0.5.2)
-    multi_json (1.10.1)
+    multi_json (1.12.1)
     multi_xml (0.5.5)
     nested_form (0.3.2)
     nokogiri (1.6.1)
@@ -183,7 +183,7 @@ GEM
     nokogiri-happymapper (0.5.8)
       nokogiri (~> 1.5)
     orm_adapter (0.0.7)
-    padma-assets (0.2.11)
+    padma-assets (0.2.12)
       accounts_client (>= 0.2.22)
       railties (>= 3.1)
     padma-deployment (0.2.1)
@@ -205,13 +205,13 @@ GEM
       rest-client (~> 1.6.0)
       rest-client (~> 1.6.0)
     polyglot (0.3.4)
-    rack (1.4.5)
-    rack-cache (1.2)
+    rack (1.4.7)
+    rack-cache (1.6.1)
       rack (>= 0.4)
     rack-cors (0.4.0)
-    rack-ssl (1.3.3)
+    rack-ssl (1.3.4)
       rack
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (3.2.17)
       actionmailer (= 3.2.17)
@@ -233,7 +233,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
-    rake (10.1.1)
+    rake (11.1.2)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -270,7 +270,7 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
-    sprockets (2.2.2)
+    sprockets (2.2.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -287,7 +287,7 @@ GEM
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
-    thor (0.18.1)
+    thor (0.19.1)
     thread_safe (0.3.5)
     tilt (1.4.1)
     tins (0.13.2)
@@ -341,7 +341,7 @@ DEPENDENCIES
   mercury-rails
   nested_form
   nokogiri
-  padma-assets (= 0.2.11)
+  padma-assets (= 0.2.12)
   padma-deployment
   paperclip
   pg

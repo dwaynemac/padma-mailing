@@ -38,7 +38,7 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', '0.2.11'
+gem 'padma-assets', '0.2.12'
 
 gem 'rest-client'
 
