@@ -46,6 +46,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   def update
     @configuration.update_attributes(params[:mailchimp_configuration])
     @configuration.update_synchronizer
+    @configuration.run_synchronizer if @configuration.completed_initial_setup?
     redirect_to mailchimp_configuration_path
   end
 
