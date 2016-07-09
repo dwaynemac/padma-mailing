@@ -110,4 +110,43 @@ HTML_CODE
       expect(last_email.body.raw_source).to eq expected_result
     end
   end
+  context "with acounts-ws and contacts-ws online" do
+    before do
+      PadmaContact.stub(:find).with(123,anything).and_return(
+        PadmaContact.new( first_name: 'dw', last_name: 'mac', gender: 'male' )
+      )
+      PadmaAccount.stub(:find).and_return(
+        PadmaAccount.new(email: 'account@mail.com')
+      )
+    end
+    
+    it "Hola <div data-snippet=\"snippet_0\" class=\"contact-snippet\">{{contact.first_name}}</div>, como andas<br>estas invitad<div data-snippet=\"snippet_1\" class=\"contact-snippet\">{{contact.a_u_o}}</div> a nuestra escuela.<br>Eso es todoo<br>" do
+      t = create(:template, name: 'template-name', subject: 'template-subject',
+                content: "Hola <div data-snippet=\"snippet_0\" class=\"contact-snippet\">{{contact.first_name}}</div>, como andas<br>estas invitad<div data-snippet=\"snippet_1\" class=\"contact-snippet\">{{contact.a_u_o}}</div> a nuestra escuela.<br>Eso es todoo<br>")
+
+      expect do
+        t.deliver(contact_id: 123,
+                  user: create(:user, current_account: create(:account))
+                 )
+      end.to change{ScheduledMail.count}
+
+      PadmaMailer.template(t,
+                           ScheduledMail.last.data_hash,
+                           'a@b.c',
+                           'a@b.c',
+                           'a@b.c').deliver
+      expected_result = <<HTML_CODE
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    </head>
+    <body>
+      Hola dw, como andas<br>estas invitado a nuestra escuela.<br>Eso es todoo<br>
+    </body>
+</html>
+HTML_CODE
+      expect(last_email.body.raw_source).to eq expected_result
+    end
+  end
 end
