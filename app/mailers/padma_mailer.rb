@@ -40,6 +40,6 @@ class PadmaMailer < ActionMailer::Base
   end
 
   def clean_snippets_html(content)
-    content.gsub(/<div class=".*?-snippet" .*?>(.*?)<\/div>/,'\\1')
+    content.gsub(/<div class=".*?-snippet" .*?>(.*?)<\/div>/,'\\1').gsub(/<div data-snippet="snippet_.*?" class=".*?-snippet">(.*?)<\/div>/,'\\1')
   end
 end
