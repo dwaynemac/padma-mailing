@@ -11,6 +11,7 @@
  *= require_self
  *= require padma-assets
  *= require templates
+ *= require lists
  *= require bootstrap-select.min
  *= require triggers
  *= require mailchimp/lists

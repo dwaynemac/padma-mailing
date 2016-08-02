@@ -60,6 +60,10 @@
                           } %>
         </div>
         <footer class='form-actions text-right'>
+          <div>
+            <span class="spinner"><%= image_tag 'spinner.gif' %></span>
+            You are about to synchronize <span id="scope-count"></span> contacts. ¿Continue?
+          </div>
           <%= link_to t('cancel'), @list.mailchimp_configuration, class: 'btn btn-default' %>
           <%= link_to t('save_changes'), "javascript:$('form.sync-contacts').submit();", class: 'btn btn-primary' %>
         </footer>
