@@ -14,16 +14,14 @@ $(document).ready ->
     $(".selectpicker").addClass "set-background"
     cleanBootstrapDropdowns()
 
-  $("#filter_method_all").on "change", ->
-    get_contact_scope("all")
-  $("#filter_method_segments").on "change", ->
-    get_contact_scope("segments")
-
-@get_contact_scope = (filter_method) ->
+  $("form").last().on "change", ->
+    get_contact_scope($("#filter_method_all").is(":checked"))
+  
+@get_contact_scope = (all) ->
   $(".spinner").show()
   $.post "/mailchimp/lists/get_scope.json?"+$('form').last().serialize(),
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
-    filter_method: filter_method
+    filter_method: all ? "all" : "segments"
     #data: $('form').last().serialize()
   , (data) ->
     $("#scope-count").text(data)
