@@ -18,7 +18,12 @@ $(document).ready ->
     get_contact_scope($("#filter_method_all").is(":checked"))
 
   $(".remove_nested_fields").on "click", ->
-    get_contact_scope($("#filter_method_all").is(":checked"))
+    $("#scope-count").text("")
+    $(".spinner").show()
+    setTimeout (->
+      $("form").trigger('change')
+      return
+    ), 500
   
 @get_contact_scope = (all) ->
   $("#scope-container").removeClass("alert-success alert-info alert-warning alert-danger")
