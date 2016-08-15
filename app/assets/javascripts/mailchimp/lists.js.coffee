@@ -47,9 +47,10 @@ $(document).ready ->
   $("#scope-count").text("")
   $(".mailchimp-paid-info").hide()
   $(".spinner").show()
-  $.post "/mailchimp/lists/get_scope.json?"+$('form').last().serialize(),
+  $.post "/mailchimp/lists/get_scope.json",
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
     filter_method: all ? "all" : "segments"
+    data: $('form').last().serialize()
   , (data) ->
     $("#scope-count").text(data)
     if data > 2000
