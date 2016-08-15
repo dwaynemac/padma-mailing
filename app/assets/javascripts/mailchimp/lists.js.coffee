@@ -18,6 +18,7 @@ $(document).ready ->
     get_contact_scope($("#filter_method_all").is(":checked"))
   
 @get_contact_scope = (all) ->
+  $("#scope-count").text("")
   $(".spinner").show()
   $.post "/mailchimp/lists/get_scope.json?"+$('form').last().serialize(),
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
