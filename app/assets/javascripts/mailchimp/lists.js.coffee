@@ -14,14 +14,31 @@ $(document).ready ->
     $(".selectpicker").addClass "set-background"
     cleanBootstrapDropdowns()
 
-  $("form").last().on "change", ->
+  $("form input[type=radio]").on "change", ->
     get_contact_scope($("#filter_method_all").is(":checked"))
 
-  $(".remove_nested_fields").on "click", ->
+  $("select").on "change", ->
+    if $("#filter_method_all").is(":checked")
+      return
+    get_contact_scope($("#filter_method_all").is(":checked"))
+
+  $(".add_nested_fields").on "click", ->
+    if $("#filter_method_all").is(":checked")
+      return
     $("#scope-count").text("")
     $(".spinner").show()
     setTimeout (->
-      $("form").trigger('change')
+      get_contact_scope(false)
+      return
+    ), 500  
+
+  $(".remove_nested_fields").on "click", ->
+    if $("#filter_method_all").is(":checked")
+      return
+    $("#scope-count").text("")
+    $(".spinner").show()
+    setTimeout (->
+      get_contact_scope(false)
       return
     ), 500
   
