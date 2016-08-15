@@ -53,6 +53,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     params[:app_key] = ENV["contacts_key"]
     params[:api_key] = list.mailchimp_configuration.api_key
     response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_scope", params: params)
+    
     if response.success?
       count = response.body
     end
