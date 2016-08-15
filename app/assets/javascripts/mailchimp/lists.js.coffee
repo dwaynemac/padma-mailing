@@ -18,6 +18,7 @@ $(document).ready ->
     get_contact_scope($("#filter_method_all").is(":checked"))
   
 @get_contact_scope = (all) ->
+  $("#scope-container").removeClass("alert-success alert-info alert-warning alert-danger")
   $("#scope-count").text("")
   $(".spinner").show()
   $.post "/mailchimp/lists/get_scope.json?"+$('form').last().serialize(),
@@ -26,8 +27,13 @@ $(document).ready ->
     #data: $('form').last().serialize()
   , (data) ->
     $("#scope-count").text(data)
+    if data > 2000
+      $("#scope-container").addClass("alert-danger")
+    else
+      $("#scope-container").addClass("alert-success")
   .success ->
     $(".spinner").hide()
   .fail ->
     $(".spinner").hide()
     $("#scope-count").text("FAILED")
+    $("#scope-container").addClass("alert-danger")
