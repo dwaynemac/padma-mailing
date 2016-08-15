@@ -11,7 +11,8 @@ class AttachmentsController < ApplicationController
     @attachment.destroy
 
     respond_to do |format|
-       format.js
+       format.js { render layout: false }
+       format.html { redirect_to template_url(@attachment.template.id) }
     end
   end
 end

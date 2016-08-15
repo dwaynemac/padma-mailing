@@ -13,6 +13,7 @@ Mailing::Application.routes.draw do
   namespace :api do
     namespace 'v0' do
       resources :scheduled_mails
+      resources :merges, only: [:create]
       resources :imports, only: [:create, :show] do
         member do
           get :failed_rows # GET /api/v0/imports/:id/failed_rows
