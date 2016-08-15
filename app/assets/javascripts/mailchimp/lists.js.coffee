@@ -20,6 +20,7 @@ $(document).ready ->
 @get_contact_scope = (all) ->
   $("#scope-container").removeClass("alert-success alert-info alert-warning alert-danger")
   $("#scope-count").text("")
+  $(".mailchimp-paid-info").hide()
   $(".spinner").show()
   $.post "/mailchimp/lists/get_scope.json?"+$('form').last().serialize(),
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
@@ -29,6 +30,7 @@ $(document).ready ->
     $("#scope-count").text(data)
     if data > 2000
       $("#scope-container").addClass("alert-danger")
+      $(".mailchimp-paid-info").show()
     else
       $("#scope-container").addClass("alert-success")
   .success ->

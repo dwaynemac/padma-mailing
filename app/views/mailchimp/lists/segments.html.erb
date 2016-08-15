@@ -13,7 +13,6 @@
           <%= label_tag t('mailchimp.list.segments.filter_methods.segments') %>
         </div>
         <p><%= t('mailchimp.list.segments.filter_methods.explanation') %></p>
-        <p><%= link_to t('mailchimp.list.segments.filter_methods.more_about_mailchimp_pricing'), 'http://mailchimp.com/pricing/', target: '_blank' %></p>
         <p class='lead margin-top-20'><%= t('mailchimp.list.segments.explanation', list_name: @list.name).html_safe %></p>
         <div class='mailchimp-segments'>
           <div class='mailchimp-table'>
@@ -60,6 +59,10 @@
                           } %>
         </div>
         <footer class='form-actions text-right'>
+          <div class="mailchimp-paid-info alert alert-danger" role="alert">
+            <%= t('mailchimp.list.segments.filter_methods.over_2000') %> <br>
+            <%= link_to t('mailchimp.list.segments.filter_methods.more_about_mailchimp_pricing'), 'http://mailchimp.com/pricing/', target: '_blank', class: "alert-link" %>
+          </div>
           <span id="scope-container" class="scope alert" role="alert">
             <%= t('mailchimp.list.scope.about_to_synchronize') %>: 
             <span class="badge">
