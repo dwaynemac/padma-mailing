@@ -16,6 +16,9 @@ $(document).ready ->
 
   $("form").last().on "change", ->
     get_contact_scope($("#filter_method_all").is(":checked"))
+
+  $(".remove_nested_fields").on "click", ->
+    get_contact_scope($("#filter_method_all").is(":checked"))
   
 @get_contact_scope = (all) ->
   $("#scope-container").removeClass("alert-success alert-info alert-warning alert-danger")
@@ -25,7 +28,6 @@ $(document).ready ->
   $.post "/mailchimp/lists/get_scope.json?"+$('form').last().serialize(),
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
     filter_method: all ? "all" : "segments"
-    #data: $('form').last().serialize()
   , (data) ->
     $("#scope-count").text(data)
     if data > 2000
