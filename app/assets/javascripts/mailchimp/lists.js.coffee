@@ -47,10 +47,23 @@ $(document).ready ->
   $("#scope-count").text("")
   $(".mailchimp-paid-info").hide()
   $(".spinner").show()
+  
+  a = $('form').last().serializeArray()
+  res = {}
+  for index, item of a
+    iname = item["name"].replace(/\[\]/, "")
+    if !res.hasOwnProperty(iname) && item["value"] != undefined && item["value"] != ""
+      if /student|coefficient/i.test(iname)
+        res[iname] = [item["value"]]
+      else
+        res[iname] = item["value"]
+    else if item["value"] != undefined && item["value"] != ""
+      res[iname].push(item["value"])
+    
   $.post "/mailchimp/lists/get_scope.json",
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
-    filter_method: all ? "all" : "segments"
-    data: $('form').last().serialize()
+    filter_method: if all then "all" else "segments"
+    data: res
   , (data) ->
     $("#scope-count").text(data)
     if data > 2000
