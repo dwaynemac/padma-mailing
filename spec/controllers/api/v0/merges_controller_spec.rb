@@ -7,7 +7,7 @@ describe Api::V0::MergesController do
 
   describe "#create" do
     before do
-      create(:scheduled_mail, contact_id: 'contact-1')
+      @son = create(:scheduled_mail, contact_id: 'contact-1', data: {contact_id: 'contact-1'}.to_json)
       create(:scheduled_mail, contact_id: 'contact-2')
       create(:scheduled_mail, contact_id: 'contact-3')
     end
@@ -22,6 +22,9 @@ describe Api::V0::MergesController do
       it "moves son's scheduled mails to parent" do
         expect(ScheduledMail.where(contact_id: son_id).count).to eq 0
         expect(ScheduledMail.where(contact_id: parent_id).count).to eq 2
+      end
+      it "updates contact_id inside data too" do
+        expect(JSON.parse(@son.reload.data)["contact_id"]).to eq parent_id
       end
       it "wont modify other contact's scheduled mails" do
         expect(ScheduledMail.where(contact_id: 'contact-3').count).to eq 1

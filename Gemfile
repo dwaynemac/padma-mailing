@@ -10,7 +10,7 @@ gem 'i18n-js'
 gem 'rack-cors'
 
 gem 'activity_stream_client', '0.0.16'
-gem 'logical_model', '0.6.3'
+gem 'logical_model', '0.6.4'
 gem 'contacts_client', '0.0.40'
 gem 'accounts_client', '0.2.25'
 
