@@ -52,7 +52,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     list = Mailchimp::List.find(params[:id])
     params[:app_key] = ENV["contacts_key"]
     params[:api_key] = list.mailchimp_configuration.api_key
-    params[:mailchimp_synchronizer] = params[:data][:mailchimp_list]
+    params[:mailchimp_segments] = params[:data][:mailchimp_list][:mailchimp_segments_attributes].values
     params.delete :data
     response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_scope", params: params)
     
