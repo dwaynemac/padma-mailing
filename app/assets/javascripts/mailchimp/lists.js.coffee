@@ -17,7 +17,7 @@ $(document).ready ->
   $("form input[type=radio]").on "change", ->
     get_contact_scope($("#filter_method_all").is(":checked"))
 
-  $("select").on "change", ->
+  $(".mailchimp-section").on "change", "select", ->
     if $("#filter_method_all").is(":checked")
       return
     get_contact_scope($("#filter_method_all").is(":checked"))
