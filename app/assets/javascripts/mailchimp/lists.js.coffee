@@ -13,3 +13,67 @@ $(document).ready ->
       container: "form"
     $(".selectpicker").addClass "set-background"
     cleanBootstrapDropdowns()
+
+  $("form input[type=radio]").on "change", ->
+    get_contact_scope($("#filter_method_all").is(":checked"))
+
+  $(".mailchimp-section").on "change", "select", ->
+    if $("#filter_method_all").is(":checked")
+      return
+    get_contact_scope($("#filter_method_all").is(":checked"))
+
+  $(".add_nested_fields").on "click", ->
+    if $("#filter_method_all").is(":checked")
+      return
+    $("#scope-count").text("")
+    $(".spinner").show()
+    setTimeout (->
+      get_contact_scope(false)
+      return
+    ), 500  
+
+  $(".remove_nested_fields").on "click", ->
+    if $("#filter_method_all").is(":checked")
+      return
+    $("#scope-count").text("")
+    $(".spinner").show()
+    setTimeout (->
+      get_contact_scope(false)
+      return
+    ), 500
+  
+@get_contact_scope = (all) ->
+  $("#scope-container").removeClass("alert-success alert-info alert-warning alert-danger")
+  $("#scope-count").text("")
+  $(".mailchimp-paid-info").hide()
+  $(".spinner").show()
+  
+  a = $('form').last().serializeArray()
+  res = {}
+  for index, item of a
+    iname = item["name"].replace(/\[\]/, "")
+    if !res.hasOwnProperty(iname) && item["value"] != undefined && item["value"] != ""
+      if /student|coefficient/i.test(iname)
+        res[iname] = [item["value"]]
+      else
+        res[iname] = item["value"]
+    else if item["value"] != undefined && item["value"] != ""
+      res[iname].push(item["value"])
+    
+  $.post "/mailchimp/lists/get_scope.json",
+    id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
+    filter_method: if all then "all" else "segments"
+    data: res
+  , (data) ->
+    $("#scope-count").text(data)
+    if data > 2000
+      $("#scope-container").addClass("alert-danger")
+      $(".mailchimp-paid-info").show()
+    else
+      $("#scope-container").addClass("alert-success")
+  .success ->
+    $(".spinner").hide()
+  .fail ->
+    $(".spinner").hide()
+    $("#scope-count").text("FAILED")
+    $("#scope-container").addClass("alert-danger")

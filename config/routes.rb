@@ -38,6 +38,9 @@ Mailing::Application.routes.draw do
       member do
         get :segments
       end
+      collection do
+        post :get_scope
+      end
     end
 
   end
