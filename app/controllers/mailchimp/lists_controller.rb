@@ -1,8 +1,6 @@
 class Mailchimp::ListsController < Mailchimp::PetalController
   rescue_from RestClient::InternalServerError, with: :mailchimp_error
 
-  skip_before_filter :protect_from_forgery, only: [:get_scope]
-
   def segments
     unique_attributes = %w(telephone email identification address date_attribute custom_attribute social_network_id)
     @list = Mailchimp::List.find(params[:id])
