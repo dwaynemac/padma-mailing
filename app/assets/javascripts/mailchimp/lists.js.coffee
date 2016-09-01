@@ -54,11 +54,11 @@ $(document).ready ->
     iname = item["name"].replace(/\[\]/, "")
     if !res.hasOwnProperty(iname) && item["value"] != undefined && item["value"] != ""
       if /student|coefficient/i.test(iname)
-        res[iname] = [item["value"]]
+        res[iname] = [item["value"].replace(/exstudent/, "former_student")]
       else
         res[iname] = item["value"]
     else if item["value"] != undefined && item["value"] != ""
-      res[iname].push(item["value"])
+      res[iname].push(item["value"].replace(/exstudent/, "former_student"))
     
   $.post "/mailchimp/lists/get_scope.json",
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
