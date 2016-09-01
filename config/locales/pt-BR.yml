@@ -343,7 +343,7 @@ pt-BR:
           all: Todos
           segments: só segmentos
           more_about_mailchimp_pricing: Mais informaçāo dos planos do Mailchimp
-          over_2000: "Lembre que Mailchimp permite atê 2000 contatos de forma gratuita, se você tem mais do que isso terá que ter uma conta paga no Mailchimp."
+          over_2000: "Lembre que a conta gratuita do Mailchimp permite atê 2000 contatos de forma gratuita, se você tem mais do que isso terá que ter uma conta paga no Mailchimp."
         segments: Segmentos
         explanation: Seus contatos de PADMA ficaram na lista <b>%{list_name}</b> de Mailchimp. Essa lista pode ser segmentada em segmentos como homens, alunos, ex-alunos, prospects, etc.
         name: Nome do segmento

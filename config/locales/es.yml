@@ -258,7 +258,7 @@ es:
           all: todos
           segments: sólo los segmentos
           more_about_mailchimp_pricing: Más información sobre los planes de Mailchimp
-          over_2000:  Considere que Mailchimp permite sólo 2000 contactos, si su cuenta tiene más de 2000 contactos deberá subscribirse a un plan pago de mailchimp.
+          over_2000:  Considere que la cuenta gratuita de Mailchimp permite sólo 2000 contactos, si su cuenta tiene más de 2000 contactos deberá subscribirse a un plan pago de mailchimp.
         segments: Segmentos
         custom_attributes:
           title: Agregar campos
