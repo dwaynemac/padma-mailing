@@ -6,6 +6,19 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   
   def show
     # @configuration setted by get_configuration
+    if @configuration.api_key
+      params[:app_key] = ENV["contacts_key"]
+      params[:api_key] = @configuration.api_key
+      response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_status", params: params)
+
+      if response.success?
+        if response.body == "working"
+          flash.now[:notice] = t('mailchimp.list.status.working')
+        elsif response.body == "failed"
+          flash.now[:alert] = t('mailchimp.list.status.failed')
+        end
+      end
+    end
   end
 
   def new

@@ -273,6 +273,9 @@ es:
         female: Mujer
       scope:
         about_to_synchronize: "Contactos a sincronizar"
+      status:
+        working: "La lista se está sincronizando"
+        failed: "Falló la sincronización de la lista"
     errors:
       rest_client: "Hubo un error en la sincronización con Mailchimp: %{error_message}"
   new: Nuevo
