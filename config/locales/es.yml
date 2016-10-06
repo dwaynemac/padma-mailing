@@ -200,6 +200,7 @@ es:
         monthly: "x mes"
         see_configuration: "Ver configuración"
         only_admin_can_cancel: "Solo el administrador de la cuenta puede cancelar la integración"
+        cant_modify_when_working: "Se están sincronizando los datos. Puede modificar la sincronización cuando se haya terminado de sincronizar"
         cancel_integration: "Cancelar integración"
       new:
         title: 'Integración con Mailchimp'
@@ -273,6 +274,10 @@ es:
         female: Mujer
       scope:
         about_to_synchronize: "Contactos a sincronizar"
+      status:
+        working: "La lista se está sincronizando"
+        failed: "Falló la sincronización de la lista"
+        not_found: "No encontramos la sincronización"
     errors:
       rest_client: "Hubo un error en la sincronización con Mailchimp: %{error_message}"
   new: Nuevo
