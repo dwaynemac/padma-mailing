@@ -21,11 +21,19 @@
       </p>
       <footer class='form-actions text-right'>
         <% if can?(:destroy,PetalSubscription) -%>
-          <a href="" class='btn btn-danger' data-toggle="modal" data-target="#confirm-cancel-subscription"><%= t('.disable_mailchimp') %></a>
+          <% if @configuration.status != "working" %>
+            <a href="" class='btn btn-danger' data-toggle="modal" data-target="#confirm-cancel-subscription"><%= t('.disable_mailchimp') %></a>
+          <% else %>
+            <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="<%= t('mailchimp.subscriptions.show.cant_modify_when_working') %>"><%= t('.disable_mailchimp') %></button>
+          <% end %>
         <% else -%>
           <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="<%= t('mailchimp.subscriptions.show.only_admin_can_cancel') %>"><%= t('.disable_mailchimp') %></button>
         <% end -%>
-        <%= link_to t('mailchimp.configuration.edit_segments'), segments_mailchimp_list_url(@configuration.primary_list), class: 'btn btn-default' %>
+        <% if @configuration.status != "working" %>
+          <%= link_to t('mailchimp.configuration.edit_segments'), segments_mailchimp_list_url(@configuration.primary_list), class: 'btn btn-default' %>
+        <% else %>
+          <button type="submit" class="btn btn-default" data-toggle="tooltip" data-placement="top" data-original-title="<%= t('mailchimp.subscriptions.show.cant_modify_when_working') %>"><%= t('mailchimp.configuration.edit_segments') %></button>
+        <% end %>
         <%= link_to t('.sync_now'), sync_now_mailchimp_configuration_path, class: "btn btn-primary", id: "sync_now", data: { disable_with: '...' } %>
       </footer>
     </div>
