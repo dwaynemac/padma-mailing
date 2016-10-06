@@ -355,6 +355,7 @@ pt-BR:
       status:
         working: "A lista está sincronizando"
         failed: "Nāo conseguimos sincroniçar com Mailchimp"
+        not_found: "A sincronização não foi encontrada"
     new:
       api_key: "Cole aquí sua api key:"
       api_key_help: Mais informaçāo sobre api key. O qué é?Onde encontro?

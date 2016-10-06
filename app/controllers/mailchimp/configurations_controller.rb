@@ -18,6 +18,8 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
         elsif status == "failed"
           flash.now[:alert] = t('mailchimp.list.status.failed')
         end
+      else
+        flash.now[:alert] = t('mailchimp.list.status.not_found')
       end
     end
   end

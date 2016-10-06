@@ -276,6 +276,7 @@ es:
       status:
         working: "La lista se está sincronizando"
         failed: "Falló la sincronización de la lista"
+        not_found: "No encontramos la sincronización"
     errors:
       rest_client: "Hubo un error en la sincronización con Mailchimp: %{error_message}"
   new: Nuevo
