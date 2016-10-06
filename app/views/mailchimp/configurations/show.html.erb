@@ -21,7 +21,9 @@
       </p>
       <footer class='form-actions text-right'>
         <% if can?(:destroy,PetalSubscription) -%>
-          <a href="" class='btn btn-danger' data-toggle="modal" data-target="#confirm-cancel-subscription"><%= t('.disable_mailchimp') %></a>
+          <%= link_to "", class: "btn btn-danger", data: {toggle: "modal", target: "#confirm-cancel-subscription"} do %>
+             <%= t('.disable_mailchimp') %>
+          <% end %>
         <% else -%>
           <button type="submit" class="btn btn-danger" data-toggle="tooltip" data-placement="top" data-original-title="<%= t('mailchimp.subscriptions.show.only_admin_can_cancel') %>"><%= t('.disable_mailchimp') %></button>
         <% end -%>
