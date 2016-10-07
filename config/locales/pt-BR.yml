@@ -298,6 +298,7 @@ pt-BR:
         monthly: "x mês"
         see_configuration: "Configuraçāo"
         only_admin_can_cancel: "Só o administrador da conta pode cancelar a integraçāo"
+        cant_modify_when_working: "Os dados estão sendo sincronizados. Você pode fazer uma mudança quando terminar a sincronização"
         cancel_integration: "Cancelar integraçāo"
       new:
         title: 'integraçāo com Mailchimp'

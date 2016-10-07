@@ -13,6 +13,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
 
       if response.success?
         status = JSON.parse(response.body)["status"]
+        @configuration.status = status
         if status == "working"
           flash.now[:notice] = t('mailchimp.list.status.working')
         elsif status == "failed"
