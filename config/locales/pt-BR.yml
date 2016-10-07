@@ -339,7 +339,7 @@ pt-BR:
       segments:
         filter_methods:
           title: Sincronizaçāo de contatos
-          explanation: "Você pode escolher: sincornizar todos os contatos de seu PADMA ou só aquilos que estam nos segmentos que você criou aquí."
+          explanation: "Você pode escolher: sincronizar todos os contatos de seu PADMA ou só aquilos que estam nos segmentos que você criou aquí."
           all: Todos
           segments: só segmentos
           more_about_mailchimp_pricing: Mais informaçāo dos planos do Mailchimp
@@ -352,6 +352,10 @@ pt-BR:
         followed_by: "Em follow-up por"
         followed_by_any: Algun instrutor
         followed_by_none: Nāo em acompanhamento
+      status:
+        working: "A lista está sincronizando"
+        failed: "Nāo conseguimos sincroniçar com Mailchimp"
+        not_found: "A sincronização não foi encontrada"
     new:
       api_key: "Cole aquí sua api key:"
       api_key_help: Mais informaçāo sobre api key. O qué é?Onde encontro?
