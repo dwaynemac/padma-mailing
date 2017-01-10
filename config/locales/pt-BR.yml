@@ -504,7 +504,7 @@ pt-BR:
         options:
           select_tag: Selecione o dado
       insert_tag: Insertar etiqueta dinámica en el modelo
-      select_tag: Elija el valor a insertar
+      select_tag: Escolha o valor a insertar
   time:
     am: am
     formats:
@@ -532,11 +532,11 @@ pt-BR:
     new:
       select_template: Selecione o modelo
       title: Novo disparador
-      event_select_message: Elija um evento e seus filtros
-      template_select_message: Elija un modelo
+      event_select_message: Escolha um evento e seus filtros
+      template_select_message: Escolha un modelo
       add_filter: Agregar filtro
       continue_to_select_template: Continuar à 'Elejir modelo de mail'
-      select_event: Elija um evento
+      select_event: Escolha um evento
       event:
         communication: Cadastro de uma comunicaçāo
         subscription_change: Cadastro de uma matrícula/evasāo
