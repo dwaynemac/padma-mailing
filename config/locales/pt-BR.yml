@@ -435,6 +435,8 @@ pt-BR:
     address: Endereço
     coefficient: Coeficiente
     followed_by: "Em follow-up por"
+    teacher: Instrutor
+    tags: Tags
   scheduled_mail:
     attributes:
       delivered_at: 

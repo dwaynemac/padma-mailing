@@ -335,6 +335,8 @@ es:
     address: Dirección
     coefficient: Coeficiente
     followed_by: Instructores en seguimiento
+    teacher: Instructor
+    tags: Etiquetas
   scheduled_mail:
     attributes:
       delivered_at: Enviado el

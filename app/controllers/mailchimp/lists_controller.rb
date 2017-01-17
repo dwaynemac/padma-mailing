@@ -13,7 +13,9 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       I18n.t('attributes.status'), 
       I18n.t('attributes.address'),
       I18n.t('attributes.coefficient'),
-      I18n.t('attributes.followed_by')
+      I18n.t('attributes.followed_by'),
+      I18n.t('attributes.teacher'),
+      I18n.t('attributes.tags')
     ]
   end
 
