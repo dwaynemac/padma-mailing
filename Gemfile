@@ -12,7 +12,7 @@ gem 'rack-cors'
 gem 'activity_stream_client', '0.0.16'
 gem 'logical_model', '0.6.4'
 gem 'contacts_client', '0.0.40'
-gem 'accounts_client', '0.2.25'
+gem 'accounts_client', '0.2.28'
 
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
@@ -38,7 +38,7 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', '0.2.12'
+gem 'padma-assets', '0.2.19'
 
 gem 'rest-client'
 
