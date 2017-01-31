@@ -1,0 +1,8 @@
+<tr id="attachment_<%= attachment.id %>">
+  <td>
+    <i class="icon-file"></i> <%= attachment.attachment_file_name %>
+  </td>
+  <td>
+    <%= link_to "Destroy", template_attachment_path(@template, attachment.id), :method => :delete, remote: true, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+  </td>
+</tr>

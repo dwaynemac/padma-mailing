@@ -47,7 +47,7 @@ class TemplatesController < ApplicationController
 
   def update
     # @template initialized by load_and_authorize_resource
-    @template.attachments.create(params[:template][:attachment])
+    @attachment = @template.attachments.create(params[:template][:attachment])
     params[:template].delete :attachment
     @template.update_attributes(params[:template])
 

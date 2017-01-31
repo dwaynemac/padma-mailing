@@ -1,4 +1,4 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
     <% if @template.new_record? %>
     alert("Failed to upload attachment");
     <% else %>
@@ -16,3 +16,11 @@ $(document).ready(function(){
     $(".bar").width( 0 );
     <% end %>
 });
+*/
+<% if @attachment.new_record? %>
+    alert("Failed to upload attachment: <%= j @attachment.errors.full_messages %>");
+<% elsif@attachment.nil? %>
+    alert("Attachment is nil");
+<% else %>
+    $("#att-table").append("<%= j render('attachments/attachment', attachment: @attachment) %>");
+<% end %>
