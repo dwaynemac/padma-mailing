@@ -16,7 +16,7 @@
     <tr>
       <td><%= link_to(sm.template.name, sm.template) if sm.template %></td>
       <td><%= link_to_if sm.contact_id, sm.recipient_email, "http://#{CRM_HOST}/contacts/#{sm.contact_id}" %></td>
-      <td><%= sd.formatted_from_address %></td>
+      <td><%= sm.formatted_from_address %></td>
       <td><%= l( sm.send_at) if sm.send_at %></td>
       <td>
         <% if sm.delivered_at %>
