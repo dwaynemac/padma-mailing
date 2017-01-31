@@ -5,6 +5,19 @@ describe PadmaMailer do
   before do
     account.stub(:padma).and_return PadmaAccount.new email: 'asd@mail.com'
   end
+  
+  describe "#template" do
+    before do
+      @template = Template.new(name: "new_template", subject: 'subject', content: "this will be the content")
+      @template.account = account
+      @template.save!
+    end
+    it "should respect given FROM" do
+      PadmaMailer.template(@template, {}, "test@mail.co",'bcc@mail.com','FROM NAME','from@mail.com').deliver
+      last_email.from.should include("from@mail.com")
+    end
+  end
+  
   it "should be able to send a template mail" do
     @subject = "Hola Alex"
     recipient = "afalkear@gmail.com"

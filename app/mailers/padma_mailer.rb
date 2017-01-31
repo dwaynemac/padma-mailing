@@ -5,17 +5,17 @@ class PadmaMailer < ActionMailer::Base
   require 'uri'
   require 'open-uri'
 
-  def template(template, data_hash, recipient, bcc, from)
+  def template(template, data_hash, recipient, bcc, from_display_name=nil, from_email_address=nil)
     return if template.nil?
     return if recipient.blank?
 
     @recipients = recipient
     @bcc = bcc
 
-    address = Mail::Address.new template.account.padma.email
-    address.display_name = template.account.padma.full_name
-
+    address = Mail::Address.new( from_email_address || template.account.padma.email )
+    address.display_name = ( from_display_name || template.account.padma.full_name )
     @from =  address.format
+    
     @subject = template.subject
     @sent_on = Time.zone.now
     @content = merge_content_data(template.content,data_hash)
