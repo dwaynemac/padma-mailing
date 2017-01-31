@@ -87,11 +87,12 @@ describe PadmaMailer do
 
   context "with acounts-ws and contacts-ws online" do
     before do
+      Rails.cache.clear
       PadmaContact.stub(:find).with(123,anything).and_return(
-        PadmaContact.new( first_name: 'dw', last_name: 'mac' )
+        PadmaContact.new( first_name: 'dw', last_name: 'mac', email: 'as@co.co' )
       )
       PadmaAccount.stub(:find).and_return(
-        PadmaAccount.new(email: 'account@mail.com')
+        PadmaAccount.new(email: 'account@mail.com', full_name: 'a')
       )
     end
     it "replaces <div class=\"contact-snippet\" data-snippet=\"snippet_0\">{{contact.full_name}}</div> with contact's full name" do
@@ -100,6 +101,7 @@ describe PadmaMailer do
 
       expect do
         t.deliver(contact_id: 123,
+                  to: 'mail@co.co',
                   user: create(:user, current_account: create(:account))
                  )
       end.to change{ScheduledMail.count}
@@ -139,6 +141,7 @@ HTML_CODE
 
       expect do
         t.deliver(contact_id: 123,
+                  to: 'mail@co.co',
                   user: create(:user, current_account: create(:account))
                  )
       end.to change{ScheduledMail.count}
@@ -147,6 +150,7 @@ HTML_CODE
                            ScheduledMail.last.data_hash,
                            'a@b.c',
                            'a@b.c',
+                           'blah',
                            'a@b.c').deliver
       expected_result = <<HTML_CODE
 <!DOCTYPE html>

@@ -19,11 +19,11 @@ class ScheduledMail < ActiveRecord::Base
   end
   
   def default_from_email_address
-    account.padma.email
+    account.try(:padma).try(:email)
   end
   
   def default_from_display_name
-    account.padma.full_name
+    account.try(:padma).try(:full_name)
   end
 
   # @return [Boolean]
@@ -40,11 +40,11 @@ class ScheduledMail < ActiveRecord::Base
     new_attributes = {}
     if from_display_name.blank?
       from_display_name = default_from_display_name
-      new_attributes.merge({from_display_name: from_display_name})
+      new_attributes = new_attributes.merge( { from_display_name: from_display_name } )
     end
-    if from_email_address.blank??
+    if from_email_address.blank?
       from_email_address = default_from_email_address
-      new_attributes.merge({from_email_address: from_email_address})
+      new_attributes = new_attributes.merge( { from_email_address: from_email_address } )
     end
 
     PadmaMailer.template(
@@ -55,7 +55,7 @@ class ScheduledMail < ActiveRecord::Base
       from_display_name,
       from_email_address
     ).deliver
-    new_attributes = new_attributes.merge({delivered_at: Time.now})
+    new_attributes = new_attributes.merge( { delivered_at: Time.now } )
     
     update_attributes(new_attributes)
 
