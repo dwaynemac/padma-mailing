@@ -343,6 +343,7 @@ es:
       recipient_email: Enviar a
       send_at: Enviar el
       template: Modelo
+      from_address: Remitente
   scheduled_mails:
     destroy:
       success: Envío cancelado

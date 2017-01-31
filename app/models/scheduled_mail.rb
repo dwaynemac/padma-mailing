@@ -1,7 +1,8 @@
 class ScheduledMail < ActiveRecord::Base
   attr_accessible :local_account_id, :send_at, :template_id,
                   :recipient_email, :delivered_at, :contact_id,
-                  :username, :event_key, :data
+                  :username, :event_key, :data,
+                  :from_display_name, :from_email_address
 
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
   belongs_to :template
@@ -10,6 +11,12 @@ class ScheduledMail < ActiveRecord::Base
 
   scope :pending, where('delivered_at IS NULL')
   scope :delivered, where('delivered_at IS NOT NULL')
+
+  def formatted_from_address
+    address = Mail::Address.new( from_email_address )
+    address.display_name = ( from_display_name )
+    address.format
+  end
 
   # @return [Boolean]
   def delivered?
@@ -21,11 +28,14 @@ class ScheduledMail < ActiveRecord::Base
 
     bcc = padma_user.try(:email) if self.username
 
-    PadmaMailer.template(template,
-                         data_hash,
-                         recipient_email,
-                         bcc,
-                         account.padma.email).deliver
+    PadmaMailer.template(
+      template,
+      data_hash,
+      recipient_email,
+      bcc,
+      from_display_name,
+      from_email_address
+    ).deliver
     update_attribute :delivered_at, Time.now
 
     # Send notification to activities

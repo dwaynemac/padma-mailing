@@ -57,6 +57,36 @@ class TemplatesTriggers < ActiveRecord::Base
       end
     end
   end
+  
+  # if a META DISPLAY NAME was used here we resolve it.
+  # eg: if display name is :teacher, we get contact's teacher name. 
+  def get_from_display_name(data={})
+    case from_display_name
+    when '#teacher'
+      # TODO ... get teacher
+    else
+      if from_display_name.blank?
+        template.account.padma.full_name
+      else
+        from_display_name
+      end
+    end
+  end
+  
+  # if a META DISPLAY NAME was used here we resolve it.
+  # eg: if display name is :teacher, we get contact's teacher email. 
+  def get_from_email_address(data={})
+    case from_email_address
+    when '#teacher'
+      # TODO ...
+    else
+      if from_email_address.blank?
+        template.account.padma.email
+      else
+        from_email_address
+      end
+    end
+  end
 
   private
 

@@ -57,6 +57,8 @@ class Trigger < ActiveRecord::Base
                     recipient_email: recipient_email,
                     contact_id: data['contact_id'],
                     username: data['username'],
+                    from_display_name: tt.get_from_display_name(data),
+                    from_email_address: tt.get_from_email_address(data),
                     send_at: send_at,
                     event_key: key_name,
                     data: ActiveSupport::JSON.encode(data)

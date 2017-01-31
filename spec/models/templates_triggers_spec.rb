@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 describe TemplatesTriggers do
+  
+  let(:template){ create(:template) }
+  
+  before do
+    PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name', email: "acc-mail@mail.co"))
+  end
+  
   it { should belong_to :trigger }
   it { should belong_to :template }
   it { should validate_presence_of :template }
@@ -59,6 +66,42 @@ describe TemplatesTriggers do
       let(:data){{some: 'thing', else: 'here'}}
       it "returns nil" do
         tt.delivery_time(data).should be_nil
+      end
+    end
+  end
+  
+  describe "get_from_display_name" do
+    describe "if from_display_name is blank" do
+      let(:tt){TemplatesTriggers.new(template_id: template.id, from_display_name: nil)}
+      it "should return account's full name" do
+        expect(tt.get_from_display_name).to eq "acc-name"
+      end
+    end
+    describe "if from_display_name is a META var" do
+      xit "should fetch META's current_value"
+    end
+    describe "if from_display_name is simple text" do
+      let(:tt){TemplatesTriggers.new(from_display_name: "dwayne")}
+      it "should return from_display_name" do
+        expect(tt.get_from_display_name).to eq "dwayne"
+      end
+    end
+  end
+  
+  describe "get_from_email_address" do
+    describe "if from_email_address is blank" do
+      let(:tt){TemplatesTriggers.new(template_id: template.id, from_email_address: nil)}
+      it "should return account's email" do
+        expect(tt.get_from_email_address).to eq "acc-mail@mail.co"
+      end
+    end
+    describe "if from_display_name is a META var" do
+      xit "should fetch META's current_value"
+    end
+    describe "if from_email_address is simple text" do
+      let(:tt){TemplatesTriggers.new(from_email_address: "text@sa.co")}
+      it "should return from_email_address" do
+        expect(tt.get_from_email_address).to eq "text@sa.co"
       end
     end
   end

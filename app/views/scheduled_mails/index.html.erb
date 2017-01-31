@@ -6,6 +6,7 @@
   <tr>
     <td><%= t('scheduled_mail.attributes.template') %></td>
     <td><%= t('scheduled_mail.attributes.recipient_email') %></td>
+    <td><%= t('scheduled_mail.attributes.from_address')  %></td>
     <td><%= t('scheduled_mail.attributes.send_at') %></td>
     <td><%= t('scheduled_mail.attributes.delivered_at') %></td>
   </tr>
@@ -15,6 +16,7 @@
     <tr>
       <td><%= link_to(sm.template.name, sm.template) if sm.template %></td>
       <td><%= link_to_if sm.contact_id, sm.recipient_email, "http://#{CRM_HOST}/contacts/#{sm.contact_id}" %></td>
+      <td><%= sd.formatted_from_address %></td>
       <td><%= l( sm.send_at) if sm.send_at %></td>
       <td>
         <% if sm.delivered_at %>

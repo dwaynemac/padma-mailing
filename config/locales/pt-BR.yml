@@ -439,10 +439,11 @@ pt-BR:
     tags: Tags
   scheduled_mail:
     attributes:
-      delivered_at: 
-      recipient_email: 
-      send_at: 
-      template: 
+      delivered_at: Enviado el
+      recipient_email: Enviar a
+      send_at: Enviar el
+      template: Modelo
+      from_address: Remetente
   scheduled_mails:
     destroy:
       success: 
