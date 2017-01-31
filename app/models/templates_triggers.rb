@@ -1,6 +1,8 @@
 class TemplatesTriggers < ActiveRecord::Base
 
-  attr_accessible :template_id, :offset_unit, :offset_number, :offset_reference
+  attr_accessible :template_id,
+                  :offset_unit, :offset_number, :offset_reference,
+                  :from_display_name, :from_email_address
 
   belongs_to :trigger
 
@@ -19,6 +21,12 @@ class TemplatesTriggers < ActiveRecord::Base
       birthday: %W(birthday_at),
       membership: %W(ends_on)
   }
+  
+  def formatted_from_address
+    address = Mail::Address.new( from_email_address.blank?? template.account.padma.email : from_email_address )
+    address.display_name = ( from_display_name.blank?? template.account.padma.full_name : from_display_name )
+    address.format
+  end
 
   # @return [Fixnum] offset in seconds
   def offset

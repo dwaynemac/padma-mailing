@@ -351,6 +351,8 @@ es:
       title: Mails programados
   templates:
     templates:
+      from_display_name: Nombre del Remitente
+      from_email_address: E-mail del Remitente
       offset_number: Ingrese un número
       offset_number_tooltip: Para enviar el e-mail antes de la fecha de referencia coloque un valor negativo, para enviarlo después de la referencia coloque un valor positivo.
       offset_connectors:

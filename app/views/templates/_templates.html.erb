@@ -3,6 +3,10 @@
     <label class="control-label"><span></span></label>
     <div class="controls form-inline">
       <%= template.hidden_field :template_id, id: 'template_id' %>
+      <label><%= t('.from_display_name') %></label>
+      <%= template.text_field :from_display_name, class: "from_address_field", placeholder: current_user.current_account.padma.full_name %>
+      <label><%= t('.from_email_address') %></label>
+      <%= template.text_field :from_email_address, class: "from_address_field", placeholder: current_user.current_account.padma.email %>
       <%= template.text_field :offset_number, class: 'offset_number', placeholder: t('.offset_number'), data: { toggle: 'tooltip', placement: 'top', title: t('.offset_number_tooltip')} %>
       <%= template.select :offset_unit, TemplatesTriggers::VALID_UNITS.map{|vu| [t(".units.#{vu}"),vu]}, {}, class: 'selectpicker offset_unit', "data-live-search"=>"true", "data-width"=>"91px" %>
       <div class = "right-arrow glyphicon glyphicon-play template-right-arrow"></div>
@@ -13,4 +17,4 @@
       <a data-association="templates_triggerses" class="remove_nested_fields btn btn-mini btn-danger remove_template_reference" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>
     </div>
   </div>
-  <%- end %>
+<%- end %>

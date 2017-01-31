@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160426003721) do
+ActiveRecord::Schema.define(:version => 20170131193650) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(:version => 20160426003721) do
     t.integer "offset_number"
     t.string  "offset_reference"
     t.string  "offset_unit"
+    t.string  "from_display_name"
+    t.string  "from_email_address"
   end
 
   create_table "triggers", :force => true do |t|

@@ -458,6 +458,8 @@ pt-BR:
     show:
       title: Modelo de mail
     templates:
+      from_display_name: Nome remetente
+      from_email_address: E-Mail remetente
       offset_number: Ingrese um número
       offset_number_tooltip: Para enviar o email antes da data de referencia coloque um valor negativo, para enviá-lo depois da referencia coloque um valor positivo.
       offset_connectors:
