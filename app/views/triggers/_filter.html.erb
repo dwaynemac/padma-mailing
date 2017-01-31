@@ -1,6 +1,6 @@
 <%= f.fields_for :filters, @trigger.filters.new do |filter| %>
   <div class="control-group">
-    <label class="control-label">Filter</label>
+    <label class="control-label"></label>
     <div class="controls form-inline">
       <%= filter.select :key, [], {}, class: 'selectpicker key_select', "data-live-search"=>"true", "data-width"=>"320px" %>
       <div class = "right-arrow glyphicon glyphicon-play"></div>
