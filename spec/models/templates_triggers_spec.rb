@@ -5,6 +5,7 @@ describe TemplatesTriggers do
   let(:template){ create(:template) }
   
   before do
+    Rails.cache.clear
     PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name', email: "acc-mail@mail.co"))
   end
   
