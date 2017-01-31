@@ -13,8 +13,8 @@ class ScheduledMail < ActiveRecord::Base
   scope :delivered, where('delivered_at IS NOT NULL')
 
   def formatted_from_address
-    address = Mail::Address.new( from_email_address )
-    address.display_name = ( from_display_name )
+    address = Mail::Address.new( from_email_address.blank?? account.padma.email : from_email_address )
+    address.display_name = ( from_display_name.blank?? account.padma.full_name : from_display_name )
     address.format
   end
 
