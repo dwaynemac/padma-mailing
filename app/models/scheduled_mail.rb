@@ -13,9 +13,17 @@ class ScheduledMail < ActiveRecord::Base
   scope :delivered, where('delivered_at IS NOT NULL')
 
   def formatted_from_address
-    address = Mail::Address.new( from_email_address.blank?? account.padma.email : from_email_address )
-    address.display_name = ( from_display_name.blank?? account.padma.full_name : from_display_name )
+    address = Mail::Address.new( from_email_address.blank?? default_from_email_address : from_email_address )
+    address.display_name = ( from_display_name.blank?? default_from_display_name : from_display_name )
     address.format
+  end
+  
+  def default_from_email_address
+    account.padma.email
+  end
+  
+  def default_from_display_name
+    account.padma.full_name
   end
 
   # @return [Boolean]
@@ -27,6 +35,17 @@ class ScheduledMail < ActiveRecord::Base
     return unless delivered_at.nil?
 
     bcc = padma_user.try(:email) if self.username
+    
+    # freeze FROM address for history
+    new_attributes = {}
+    if from_display_name.blank?
+      from_display_name = default_from_display_name
+      new_attributes.merge({from_display_name: from_display_name})
+    end
+    if from_email_address.blank??
+      from_email_address = default_from_email_address
+      new_attributes.merge({from_email_address: from_email_address})
+    end
 
     PadmaMailer.template(
       template,
@@ -36,7 +55,9 @@ class ScheduledMail < ActiveRecord::Base
       from_display_name,
       from_email_address
     ).deliver
-    update_attribute :delivered_at, Time.now
+    new_attributes = new_attributes.merge({delivered_at: Time.now})
+    
+    update_attributes(new_attributes)
 
     # Send notification to activities
     if !self.contact_id.nil?
