@@ -448,8 +448,8 @@ pt-BR:
     destroy:
       success: 
     index:
-      pending: 
-      title: 
+      pending: Mails programados
+      title: Histórico de mails
   support:
     array:
       last_word_connector: ! ', e'
