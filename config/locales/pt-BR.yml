@@ -253,16 +253,16 @@ pt-BR:
       female: Mulher
   hello: 
   helpers:
-    actions: 
+    actions: Açōes
     label:
       trigger:
-        event_name: 
+        event_name: Nome do evento
     links:
-      back: 
-      cancel: 
-      confirm: 
-      destroy: 
-      new: 
+      back: voltar
+      cancel: cancelar
+      confirm: confirmar
+      destroy: apagar
+      new: Novo
     select:
       prompt: Por favor seleccione
     submit:
@@ -272,19 +272,19 @@ pt-BR:
         update: 
       submit: Salvar %{model}
       trigger:
-        create: 
+        create: Criar disparador
       update: Actualizar %{model}
     titles:
-      delete: 
-      edit: 
-      new: 
-      save: 
+      delete: Apagar
+      edit: Alterar
+      new: Novo
+      save: Salvar
   layouts:
     navbar:
-      mailchimp: 
-      scheduled_mails: 
-      templates: 
-      triggers: 
+      mailchimp: Mailchimp
+      scheduled_mails: Emails programados
+      templates: Modelos
+      triggers: Automatizaçāo
   mailchimp:
     subscriptions:
       cancel_subscription_modal:
