@@ -8,3 +8,4 @@ contacts_key: secret
 GMAIL_USERNAME: "cucu@gmail.com"
 GMAIL_PASSWORD: "1234"
 intercom_secret: secret
+log_level: debug
