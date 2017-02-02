@@ -2,7 +2,8 @@ class TemplatesTriggers < ActiveRecord::Base
 
   attr_accessible :template_id,
                   :offset_unit, :offset_number, :offset_reference,
-                  :from_display_name, :from_email_address
+                  :from_display_name, :from_email_address,
+                  :bccs
 
   belongs_to :trigger
 
@@ -54,6 +55,19 @@ class TemplatesTriggers < ActiveRecord::Base
 
       if ref_time
         return  ref_time+self.offset
+      end
+    end
+  end
+  
+  def get_bccs(data={})
+    case bccs
+    when '#teacher'
+      # TODO ... get teacher
+    else
+      if self.bccs.blank?
+        # default ...
+      else
+        self.bccs
       end
     end
   end

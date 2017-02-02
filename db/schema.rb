@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170131203338) do
+ActiveRecord::Schema.define(:version => 20170202152722) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20170131203338) do
     t.string   "event_key"
     t.string   "from_display_name"
     t.string   "from_email_address"
+    t.string   "bccs"
   end
 
   create_table "sessions", :force => true do |t|
@@ -164,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20170131203338) do
     t.string  "offset_unit"
     t.string  "from_display_name"
     t.string  "from_email_address"
+    t.string  "bccs"
   end
 
   create_table "triggers", :force => true do |t|

@@ -1,8 +1,10 @@
 class ScheduledMail < ActiveRecord::Base
   attr_accessible :local_account_id, :send_at, :template_id,
-                  :recipient_email, :delivered_at, :contact_id,
+                  :delivered_at, :contact_id,
                   :username, :event_key, :data,
-                  :from_display_name, :from_email_address
+                  :from_display_name, :from_email_address,
+                  :bccs,
+                  :recipient_email
 
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
   belongs_to :template
@@ -34,10 +36,10 @@ class ScheduledMail < ActiveRecord::Base
   def deliver_now!
     return unless delivered_at.nil?
 
-    bcc = padma_user.try(:email) if self.username
     
     # freeze FROM address for history
     new_attributes = {}
+    
     if self.from_display_name.blank?
       self.from_display_name = default_from_display_name
       new_attributes = new_attributes.merge( { from_display_name: self.from_display_name } )
@@ -46,12 +48,17 @@ class ScheduledMail < ActiveRecord::Base
       self.from_email_address = default_from_email_address
       new_attributes = new_attributes.merge( { from_email_address: self.from_email_address } )
     end
+    
+    if self.bccs.blank?
+      self.bccs = padma_user.try(:email) if self.username
+      new_attributes = new_attributes.merge( { bccs: self.bccs } )
+    end
 
     PadmaMailer.template(
       template,
       data_hash,
       recipient_email,
-      bcc,
+      bccs,
       from_display_name,
       from_email_address
     ).deliver
