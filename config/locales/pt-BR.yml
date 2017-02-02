@@ -459,6 +459,7 @@ pt-BR:
     show:
       title: Modelo de mail
     templates:
+      bccs: BCC
       from_display_name: Nome remetente
       from_email_address: E-Mail remetente
       offset_number: Ingrese um número

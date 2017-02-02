@@ -352,6 +352,7 @@ es:
       title: Mails programados
   templates:
     templates:
+      bccs: BCC
       from_display_name: Nombre del Remitente
       from_email_address: E-mail del Remitente
       offset_number: Ingrese un número
