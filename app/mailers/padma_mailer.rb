@@ -25,6 +25,7 @@ class PadmaMailer < ActionMailer::Base
     end
     mail( to: recipient,
           from: @from,
+          bcc: @bcc,
           subject: @subject,
           content: @content,
           template_path: 'padma_mailer',
