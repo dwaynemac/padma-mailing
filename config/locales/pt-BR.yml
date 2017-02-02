@@ -444,6 +444,7 @@ pt-BR:
       send_at: Enviar el
       template: Modelo
       from_address: Remetente
+      bccs: BCC
   scheduled_mails:
     destroy:
       success: 

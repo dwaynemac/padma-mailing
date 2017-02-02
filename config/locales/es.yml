@@ -344,6 +344,7 @@ es:
       send_at: Enviar el
       template: Modelo
       from_address: Remitente
+      bccs: BCC
   scheduled_mails:
     destroy:
       success: Envío cancelado
