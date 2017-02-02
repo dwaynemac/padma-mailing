@@ -38,13 +38,13 @@ class ScheduledMail < ActiveRecord::Base
     
     # freeze FROM address for history
     new_attributes = {}
-    if from_display_name.blank?
-      from_display_name = default_from_display_name
-      new_attributes = new_attributes.merge( { from_display_name: from_display_name } )
+    if self.from_display_name.blank?
+      self.from_display_name = default_from_display_name
+      new_attributes = new_attributes.merge( { from_display_name: self.from_display_name } )
     end
-    if from_email_address.blank?
-      from_email_address = default_from_email_address
-      new_attributes = new_attributes.merge( { from_email_address: from_email_address } )
+    if self.from_email_address.blank?
+      self.from_email_address = default_from_email_address
+      new_attributes = new_attributes.merge( { from_email_address: self.from_email_address } )
     end
 
     PadmaMailer.template(
