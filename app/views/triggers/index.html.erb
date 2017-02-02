@@ -20,7 +20,7 @@
     <tr>
       <td><%= t("triggers.new.event.#{trigger.event_name}") %></td>
       <td><%= trigger.filters.map{|f| "#{translate_key(f.key)}=#{t("set_options.#{f.value}")}" }.join('; ') %></td>
-      <td><ul><%= trigger.templates_triggerses.map{|tt|"<li><b>#{tt.template.name}</b><br/>#{explain_offset(tt)}<br/>FROM: \"#{tt.get_from_display_name}\" #{tt.get_from_email_address}<br/>BCC: #{tt.bccs}</li>"}.join('').html_safe %></ul></td>
+      <td><ul><%= trigger.templates_triggerses.map{|tt|"<li><b>#{tt.template.name}</b><br/>#{explain_offset(tt)}<br/>#{t('scheduled_mail.attributes.from_address')}: \"#{tt.get_from_display_name}\" #{tt.get_from_email_address}<br/>BCC: #{tt.bccs}</li>"}.join('').html_safe %></ul></td>
       <td>
         <%= button_to t('destroy'),
                           trigger_path(trigger),
