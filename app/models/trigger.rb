@@ -55,7 +55,7 @@ class Trigger < ActiveRecord::Base
                     template_id: tt.template_id,
                     local_account_id: tt.template.local_account_id,
                     recipient_email: recipient_email,
-                    bccs: tt.get_bccs(data),
+                    bccs: tt.bccs,
                     contact_id: data['contact_id'],
                     username: data['username'],
                     from_display_name: tt.get_from_display_name(data),

@@ -5,6 +5,6 @@ FactoryGirl.define do
     template_id 1
     recipient_email 'dwaynemac@gmail.com'
     send_at "2013-02-21 19:16:47"
-    local_account_id ""
+    account
   end
 end

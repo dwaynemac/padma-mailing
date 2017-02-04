@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe ScheduledMail do
+  before do
+    PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
+                                                         email: 'acc@mail.co'))
+  end
   it { should belong_to(:account).with_foreign_key(:local_account_id) }
   it { should belong_to(:template) }
 
@@ -45,6 +49,52 @@ describe ScheduledMail do
           let(:data){nil}
           it { should_not have_key 'instructor' }
         end
+      end
+    end
+  end
+  
+  describe "get_from_display_name" do
+    subject{sm.get_from_display_name}
+    describe "when from_display_name is blank" do
+      let(:sm){ build(:scheduled_mail, from_display_name: nil) }
+      it "returns account's full_name" do
+        should eq 'acc-name'
+      end
+    end
+    describe "when from_display_name has no meta var" do
+      let(:sm){ build(:scheduled_mail, from_display_name: 'given')}
+      it "returns given from_display_name" do
+        should eq 'given'
+      end
+    end
+  end
+  
+  describe "get_from_email_address" do
+    subject{sm.get_from_email_address}
+    describe "when from_email_address is blank" do
+      let(:sm){ build(:scheduled_mail, from_email_address: nil) }
+      it "returns account's email" do
+        should eq 'acc@mail.co'
+      end
+    end
+    describe "when from_email_address has no meta var" do
+      let(:sm){ build(:scheduled_mail, from_email_address: 'given@mail.co')}
+      it "returns given from_email_address" do
+        should eq 'given@mail.co'
+      end
+    end
+  end
+  
+  describe "get_bccs" do
+    subject{sm.get_bccs}
+    describe "when bccs is blank" do
+      let(:sm){ build(:scheduled_mail, bccs: nil) }
+      it { should be_blank }
+    end
+    describe "when bccs has no meta var" do
+      let(:sm){ build(:scheduled_mail, bccs: 'given@mail.co')}
+      it "returns given bccs" do
+        should eq 'given@mail.co'
       end
     end
   end

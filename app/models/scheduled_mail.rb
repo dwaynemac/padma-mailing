@@ -15,9 +15,21 @@ class ScheduledMail < ActiveRecord::Base
   scope :delivered, where('delivered_at IS NOT NULL')
 
   def formatted_from_address
-    address = Mail::Address.new( from_email_address.blank?? default_from_email_address : from_email_address )
-    address.display_name = ( from_display_name.blank?? default_from_display_name : from_display_name )
+    address = Mail::Address.new( get_from_email_address )
+    address.display_name = get_from_display_name 
     address.format
+  end
+  
+  def get_bccs
+    bccs
+  end
+  
+  def get_from_display_name
+    self.from_display_name.blank?? default_from_display_name : from_display_name
+  end
+  
+  def get_from_email_address
+    self.from_email_address.blank?? default_from_email_address : from_email_address 
   end
   
   def default_from_email_address
@@ -35,7 +47,6 @@ class ScheduledMail < ActiveRecord::Base
 
   def deliver_now!
     return unless delivered_at.nil?
-
     
     # freeze FROM address for history
     new_attributes = {}

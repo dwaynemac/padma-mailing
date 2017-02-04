@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe TemplatesTriggers do
   
+  let(:trigger){ create(:trigger) }
   let(:template){ create(:template) }
   
   before do
@@ -73,7 +74,7 @@ describe TemplatesTriggers do
   
   describe "get_from_display_name" do
     describe "if from_display_name is blank" do
-      let(:tt){TemplatesTriggers.new(template_id: template.id, from_display_name: nil)}
+      let(:tt){TemplatesTriggers.new(trigger: trigger, template_id: template.id, from_display_name: nil)}
       it "should return account's full name" do
         expect(tt.get_from_display_name).to eq "acc-name"
       end
@@ -82,7 +83,7 @@ describe TemplatesTriggers do
       xit "should fetch META's current_value"
     end
     describe "if from_display_name is simple text" do
-      let(:tt){TemplatesTriggers.new(from_display_name: "dwayne")}
+      let(:tt){TemplatesTriggers.new(trigger: trigger, from_display_name: "dwayne")}
       it "should return from_display_name" do
         expect(tt.get_from_display_name).to eq "dwayne"
       end
@@ -91,7 +92,7 @@ describe TemplatesTriggers do
   
   describe "get_from_email_address" do
     describe "if from_email_address is blank" do
-      let(:tt){TemplatesTriggers.new(template_id: template.id, from_email_address: nil)}
+      let(:tt){TemplatesTriggers.new(trigger: trigger, template: template, from_email_address: nil)}
       it "should return account's email" do
         expect(tt.get_from_email_address).to eq "acc-mail@mail.co"
       end
@@ -100,7 +101,7 @@ describe TemplatesTriggers do
       xit "should fetch META's current_value"
     end
     describe "if from_email_address is simple text" do
-      let(:tt){TemplatesTriggers.new(from_email_address: "text@sa.co")}
+      let(:tt){TemplatesTriggers.new(trigger: trigger, from_email_address: "text@sa.co")}
       it "should return from_email_address" do
         expect(tt.get_from_email_address).to eq "text@sa.co"
       end

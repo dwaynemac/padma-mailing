@@ -1,6 +1,7 @@
 class TemplatesTriggers < ActiveRecord::Base
 
-  attr_accessible :template_id,
+  attr_accessible :template_id, :template,
+                  :trigger_id, :trigger,
                   :offset_unit, :offset_number, :offset_reference,
                   :from_display_name, :from_email_address,
                   :bccs
@@ -59,47 +60,24 @@ class TemplatesTriggers < ActiveRecord::Base
     end
   end
   
-  def get_bccs(data={})
-    case bccs
-    when '#teacher'
-      # TODO ... get teacher
-    else
-      if self.bccs.blank?
-        # default ...
-      else
-        self.bccs
-      end
-    end
-  end
-  
   # if a META DISPLAY NAME was used here we resolve it.
   # eg: if display name is :teacher, we get contact's teacher name. 
   def get_from_display_name(data={})
-    case from_display_name
-    when '#teacher'
-      # TODO ... get teacher
-    else
-      if from_display_name.blank?
-        template.account.padma.full_name
-      else
-        from_display_name
-      end
-    end
+    ScheduledMail.new(
+                    local_account_id: trigger.try(:local_account_id),
+                    data: ActiveSupport::JSON.encode(data),
+                    from_display_name: from_display_name
+                    ).get_from_display_name
   end
   
   # if a META DISPLAY NAME was used here we resolve it.
   # eg: if display name is :teacher, we get contact's teacher email. 
   def get_from_email_address(data={})
-    case from_email_address
-    when '#teacher'
-      # TODO ...
-    else
-      if from_email_address.blank?
-        template.account.padma.email
-      else
-        from_email_address
-      end
-    end
+    ScheduledMail.new(
+                    local_account_id: trigger.try(:local_account_id),
+                    data: ActiveSupport::JSON.encode(data),
+                    from_email_address: from_email_address 
+                    ).get_from_email_address
   end
 
   private
