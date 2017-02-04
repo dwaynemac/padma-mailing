@@ -133,7 +133,7 @@ class ScheduledMail < ActiveRecord::Base
                                          :global_teacher_username
                                         ]
                                )
-      teacher = PadmaUser.find(contact.gobal_teacher_username) if contact.try(:global_teacher_username)
+      teacher = PadmaUser.find(contact.global_teacher_username) if contact.try(:global_teacher_username)
       contact_drop = ContactDrop.new(contact, (teacher || padma_user));
       data_hash.merge!({
         'persona' => contact_drop,
