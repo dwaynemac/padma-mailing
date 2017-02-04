@@ -4,9 +4,12 @@ class UserDrop < Liquid::Drop
     @padma_user = padma_user
   end
 
-  # TODO user has full_name now, use that instead.
   def name
-    @padma_user.full_name
+    if @padma_user.full_name.blank?
+      @padma_user.username.split('.').map(&:camelcase).join(' ')
+    else
+      @padma_user.full_name
+    end
   end
   alias_method :nombre, :name
 
