@@ -21,15 +21,19 @@ class ScheduledMail < ActiveRecord::Base
   end
   
   def get_bccs
-    bccs
+    if self.bccs.blank?
+      padma_user.try(:email) if self.username
+    else
+      Liquid::Template.parse(bccs).render(data_hash)
+    end
   end
   
   def get_from_display_name
-    self.from_display_name.blank?? default_from_display_name : from_display_name
+    self.from_display_name.blank?? default_from_display_name : Liquid::Template.parse(from_display_name).render(data_hash)
   end
   
   def get_from_email_address
-    self.from_email_address.blank?? default_from_email_address : from_email_address 
+    self.from_email_address.blank?? default_from_email_address : Liquid::Template.parse(from_email_address).render(data_hash)
   end
   
   def default_from_email_address
@@ -52,16 +56,17 @@ class ScheduledMail < ActiveRecord::Base
     new_attributes = {}
     
     if self.from_display_name.blank?
-      self.from_display_name = default_from_display_name
+      self.from_display_name = get_from_display_name
       new_attributes = new_attributes.merge( { from_display_name: self.from_display_name } )
     end
     if self.from_email_address.blank?
-      self.from_email_address = default_from_email_address
+      self.from_email_address = get_from_email_address
       new_attributes = new_attributes.merge( { from_email_address: self.from_email_address } )
     end
     
+    # freeze BCCs address for history
     if self.bccs.blank?
-      self.bccs = padma_user.try(:email) if self.username
+      self.bccs = get_bccs
       new_attributes = new_attributes.merge( { bccs: self.bccs } )
     end
 
@@ -69,9 +74,9 @@ class ScheduledMail < ActiveRecord::Base
       template,
       data_hash,
       recipient_email,
-      bccs,
-      from_display_name,
-      from_email_address
+      get_bccs,
+      get_from_display_name,
+      get_from_email_address
     ).deliver
     new_attributes = new_attributes.merge( { delivered_at: Time.now } )
     
