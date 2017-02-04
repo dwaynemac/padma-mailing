@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe ScheduledMail do
   before do
+    RSpec::Mocks.proxy_for(PadmaAccount).reset
     PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
                                                          email: 'acc@mail.co'))
   end

@@ -13,6 +13,7 @@ describe MessageDoorController do
   before do
     Delayed::Worker.delay_jobs = false
     # if account is enabled
+    RSpec::Mocks.proxy_for(PadmaAccount).reset
     PadmaAccount.stub(:find).and_return PadmaAccount.new(name: 'stubbedAccount', enabled: true)
   end
 
