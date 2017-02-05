@@ -74,11 +74,11 @@ class TemplatesTriggers < ActiveRecord::Base
   # if a META DISPLAY NAME was used here we resolve it.
   # eg: if display name is :teacher, we get contact's teacher email. 
   def get_from_email_address(data={})
-    parse = ScheduledMail.new(
+    parsed = ScheduledMail.new(
                     local_account_id: trigger.try(:local_account_id),
                     data: ActiveSupport::JSON.encode(data),
                     from_email_address: from_email_address 
-                    ).get_from_email
+                    ).get_from_email_address
     parsed.blank?? from_email_address : parsed
   end
 
