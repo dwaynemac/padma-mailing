@@ -3,7 +3,7 @@ class ScheduledMailsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @scheduled_mails = @scheduled_mails.includes(:template, :account).order('send_at desc')
+    @scheduled_mails = @scheduled_mails.where("send_at > ?",1.year.ago).includes(:template, :account).order('send_at desc')
     if params[:only_history]
       @scheduled_mails = @scheduled_mails.delivered
     elsif params[:only_pending]
