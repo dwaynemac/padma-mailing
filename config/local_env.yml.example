@@ -5,6 +5,7 @@ accounts_key: secret
 activities_key: secret
 messaging_secret: secret
 contacts_key: secret
+attendance_key: secret
 GMAIL_USERNAME: "cucu@gmail.com"
 GMAIL_PASSWORD: "1234"
 intercom_secret: secret
