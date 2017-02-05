@@ -164,7 +164,8 @@ class ScheduledMail < ActiveRecord::Base
         #when :communication
         when :trial_lesson
           trial_at = json_data['trial_at']
-          trial_lesson_drop = TrialLessonDrop.new(trial_at, padma_user)
+          time_slot = AttendanceClient::TimeSlot.find json_data['time_slot_id']
+          trial_lesson_drop = TrialLessonDrop.new(trial_at, padma_user, time_slot)
           data_hash.merge!({
             'trial_lesson' => trial_lesson_drop,
             'clase_prueba' => trial_lesson_drop

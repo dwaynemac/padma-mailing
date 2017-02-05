@@ -1,10 +1,14 @@
 class TrialLessonDrop < Liquid::Drop
 
-  def initialize(trial_at, padma_user)
+  def initialize(trial_at, padma_user, time_slot=nil)
     @trial_at = DateTime.parse(trial_at)
     @user = UserDrop.new(padma_user)
-    #For now we use the time and user, we should use the time_slot_id
-    @time_slot = TimeSlotDrop.new(trial_at, padma_user)
+    if time_slot.nil?
+      @time_slot = TimeSlotDrop.new(trial_at, padma_user)
+    else
+      time_slot_teacher = PadmaUser.find_with_rails_cache(time_slot.teacher)
+      @time_slot = TimeSlotDrop.new(trial_at, time_slot_teacher)
+    end
   end
 
   def date
