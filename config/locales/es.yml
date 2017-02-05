@@ -353,6 +353,12 @@ es:
       title: Mails programados
   templates:
     templates:
+      available_dinamic_tags: En los siguientes campos podés utilizar las siguientes fórmulas (incluyendo las llaves dobles {{ }}) para ingresar datos dinámicos
+      tags:
+        contact_instructor_email: para ingresar el email del instructor del alumno/ex-alumno
+        contact_instructor_name: para ingresar el nombre del instructor del alumno/ex-alumno
+        trial_lesson_instructor_email: para ingresar el email del instructor que registró la clase de prueba
+        trial_lesson_instructor_name: para ingresar el nombre del instructor que registró la clase de prueba
       bccs: BCC
       from_display_name: Nombre del Remitente
       from_email_address: E-mail del Remitente

@@ -3,12 +3,21 @@
     <label class="control-label"><span></span></label>
     <div class="controls form-inline">
       <%= template.hidden_field :template_id, id: 'template_id' %>
+      <div class="hint">
+        <%= t('.available_dinamic_tags') %>:<br/>
+        <ul>
+          <li>{{contact.instructor.email}} <%= t('.tags.contact_instructor_email') %>.</li>
+          <li>{{contact.instructor.name}} <%= t('.tags.contact_instructor_name') %>.</li>
+          <li>{{trial_lesson.instructor.email}} <%= t('.tags.trial_lesson_instructor_email') %>.</li>
+          <li>{{trial_lesson.instructor.name}} <%= t('.tags.trial_lesson_instructor_name') %>.</li>
+        </ul>
+      </div>
       <label><%= t('.from_display_name') %></label>
       <%= template.text_field :from_display_name, class: "from_address_field", placeholder: current_user.current_account.padma.full_name %>
       <label><%= t('.from_email_address') %></label>
       <%= template.text_field :from_email_address, class: "from_address_field", placeholder: current_user.current_account.padma.email %>
       <label><%= t('.bccs') %></label>
-      <%= template.text_field :bccs, class: "from_address_field", placeholder: "ej: #{current_user.padma.email}, #{current_user.current_account.padma.email}" %>
+      <%= template.text_field :bccs, class: "from_address_field", placeholder: "ej: #{current_user.padma.email}, #{current_user.current_account.padma.email}, {{contact.instructor.email}}" %>
       <%= template.text_field :offset_number, class: 'offset_number', placeholder: t('.offset_number'), data: { toggle: 'tooltip', placement: 'top', title: t('.offset_number_tooltip')} %>
       <%= template.select :offset_unit, TemplatesTriggers::VALID_UNITS.map{|vu| [t(".units.#{vu}"),vu]}, {}, class: 'selectpicker offset_unit', "data-live-search"=>"true", "data-width"=>"91px" %>
       <div class = "right-arrow glyphicon glyphicon-play template-right-arrow"></div>
