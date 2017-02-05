@@ -24,16 +24,25 @@ class ScheduledMail < ActiveRecord::Base
     if self.bccs.blank?
       padma_user.try(:email) if self.username
     else
-      Liquid::Template.parse(bccs).render(data_hash)
+      parse_liquid(bccs,data_hash)
     end
   end
   
   def get_from_display_name
-    self.from_display_name.blank?? default_from_display_name : Liquid::Template.parse(from_display_name).render(data_hash)
+    self.from_display_name.blank?? default_from_display_name : parse_liquid(from_display_name,data_hash)
   end
   
   def get_from_email_address
-    self.from_email_address.blank?? default_from_email_address : Liquid::Template.parse(from_email_address).render(data_hash)
+    self.from_email_address.blank?? default_from_email_address : parse_liquid(from_email_address,data_hash)
+  end
+  
+  def parse_liquid(text,data)
+    parsed = Liquid::Template.parse(text).render(data)
+    if parsed =~ /Liquid error/
+      ''
+    else
+      parsed
+    end
   end
   
   def default_from_email_address
