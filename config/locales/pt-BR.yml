@@ -466,6 +466,8 @@ pt-BR:
         contact_instructor_name: para ingresar o nome do instrutor do aluno/ex-aluno
         trial_lesson_instructor_email: para ingresar o email do instrutor que cadastrou a aula experimental
         trial_lesson_instructor_name: para ingresar o nome do instrutor que cadastrou a aula experimental
+        trial_lesson_time_slot_instructor_email: para ingresar o email do instrutor da turma em que acontecerá a aula experimental
+        trial_lesson_time_slot_instructor_name: para ingresar o nome do instrutor da turma em que acontecerá a aula experimental
       bccs: BCC
       from_display_name: Nome remetente
       from_email_address: E-Mail remetente

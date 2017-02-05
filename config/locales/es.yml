@@ -359,6 +359,8 @@ es:
         contact_instructor_name: para ingresar el nombre del instructor del alumno/ex-alumno
         trial_lesson_instructor_email: para ingresar el email del instructor que registró la clase de prueba
         trial_lesson_instructor_name: para ingresar el nombre del instructor que registró la clase de prueba
+        trial_lesson_time_slot_instructor_email: para ingresar el email del instructor de la clase en que se hará la prueba
+        trial_lesson_time_slot_instructor_name: para ingresar el nombre del instructor de la clase en que se hará la prueba
       bccs: BCC
       from_display_name: Nombre del Remitente
       from_email_address: E-mail del Remitente
