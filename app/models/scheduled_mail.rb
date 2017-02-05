@@ -140,14 +140,27 @@ class ScheduledMail < ActiveRecord::Base
         'contact' => contact_drop
       })
     end
-    user = (json_data['username'])? PadmaUser.find(json_data['username']) : padma_user
+    user = (json_data['username'])? PadmaUser.find_with_rails_cache(json_data['username']) : padma_user
     if user
       data_hash.merge!({'instructor' => UserDrop.new(padma_user)})
     end
 
     unless event_key.blank?
       case event_key.to_sym
-        #when :subscription_change
+        when :subscription_change
+          
+          subscription_change_drop = SubscriptionChangeDrop.new(
+            contact_drop: contact_drop,
+            instructor_drop: user
+          )
+          data_hash.merge!('subscription_change' => subscription_change_drop)
+          data_alias = if json_data['type'] == 'Enrollment'
+            'enrollment'
+          elsif json_data['type'] == 'DropOut'
+            'dropout'
+          end
+          data_hash.merge!(data_alias => subscription_change_drop)
+          
         #when :communication
         when :trial_lesson
           trial_at = json_data['trial_at']
