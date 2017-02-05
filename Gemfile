@@ -12,7 +12,7 @@ gem 'rack-cors'
 gem 'activity_stream_client', '0.0.16'
 gem 'logical_model', '0.6.4'
 gem 'contacts_client', '0.0.40'
-gem 'accounts_client', '0.2.30'
+gem 'accounts_client', '0.2.31'
 
 gem 'gibbon'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
