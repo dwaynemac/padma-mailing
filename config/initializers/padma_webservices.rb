@@ -31,6 +31,14 @@ module Contacts
   end
 end
 
+module AttendanceClient
+  HYDRA = ::HYDRA
+  APP_KEY = ENV['attendance_key']
+  if ENV['C9_USER']
+    HOST = APP_CONFIG['attendance-url'].gsub(/https?:\/\//,'')
+  end
+end
+
 module ActivityStream
   HYDRA = ::HYDRA
   API_KEY = ENV['activities_key']
