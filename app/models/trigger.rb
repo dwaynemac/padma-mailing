@@ -58,8 +58,8 @@ class Trigger < ActiveRecord::Base
                     bccs: tt.bccs,
                     contact_id: data['contact_id'],
                     username: data['username'],
-                    from_display_name: tt.get_from_display_name(data),
-                    from_email_address: tt.get_from_email_address(data),
+                    from_display_name: tt.from_display_name,
+                    from_email_address: tt.from_email_address,
                     send_at: send_at,
                     event_key: key_name,
                     data: ActiveSupport::JSON.encode(data)
