@@ -19,6 +19,7 @@ describe MessageDoorController do
 
   describe "real life example" do
     before do
+      Rails.cache.clear
       PadmaContact.stub(:find).and_return PadmaContact.new email: 'dwa@asd.com'
       account = create(:account, name: 'testing')
       template = create(:template, account: account )
