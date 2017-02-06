@@ -64,8 +64,16 @@ class Trigger < ActiveRecord::Base
                     event_key: key_name,
                     data: ActiveSupport::JSON.encode(data)
                 )
-                unless sm.save
-                  Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+                
+                sm_key = sm.inspect.to_param # before save to avoid id. 
+                if Rails.cache.read("saved_sm:#{sm_key}")
+                  Rails.logger.warn "[notify-sysadmin] Prevented duplicate to #{sm.inspect}"
+                else
+                  if sm.save
+                    Rails.cache.write("saved_sm:#{sm_key}",true)
+                  else
+                    Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+                  end
                 end
               else
                 Rails.logger.debug "ignoring future e-mail"
