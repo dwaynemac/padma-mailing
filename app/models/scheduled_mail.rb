@@ -114,7 +114,7 @@ class ScheduledMail < ActiveRecord::Base
 
   def padma_user
     unless @padma_user
-       @padma_user = PadmaUser.find(self.username) if self.username
+       @padma_user = PadmaUser.find_with_rails_cache(self.username) if self.username
     end
     return @padma_user
   end
