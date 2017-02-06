@@ -66,7 +66,7 @@ class Trigger < ActiveRecord::Base
                 )
                 
                 sm_key = sm.inspect.to_param # before save to avoid id. 
-                if Rails.cache.read("saved_sm:#{sm_key}")
+                if Rails.env.production? && Rails.cache.read("saved_sm:#{sm_key}") 
                   Rails.logger.warn "[notify-sysadmin] Prevented duplicate to #{sm.inspect}"
                 else
                   if sm.save
