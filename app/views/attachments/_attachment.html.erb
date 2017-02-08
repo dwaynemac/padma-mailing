@@ -3,6 +3,11 @@
     <i class="icon-file"></i> <%= attachment.attachment_file_name %>
   </td>
   <td>
-    <%= link_to "Destroy", template_attachment_path(@template, attachment.id), :method => :delete, remote: true, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>
+    <%= button_to t('destroy'),
+                    template_attachment_path(template_id: @template.id, id: attachment.id),
+                    method: :delete,
+                    #confirm: t('confirm'),
+                    :onclick => "return confirm('#{t('confirm')}')",
+                    class: 'btn btn-danger' %>
   </td>
 </tr>
