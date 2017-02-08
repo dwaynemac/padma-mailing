@@ -389,6 +389,7 @@ es:
         youre_about_to_delete_template: Estas por eliminar el modelo <em>'%{template_name}'</em>. Después de eliminarlo este no podrá ser recuperado.
     show:
       title: Editar modelo
+      attachment: Adjunto
     send_to_contact:
       cant_send: No se puede enviar manualmente.
     send_to_mail:

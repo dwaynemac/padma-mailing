@@ -1,0 +1,13 @@
+<tr id="attachment_<%= attachment.id %>">
+  <td>
+    <i class="icon-file"></i> <%= attachment.attachment_file_name %>
+  </td>
+  <td>
+    <%= button_to t('destroy'),
+                    template_attachment_path(template_id: @template.id, id: attachment.id),
+                    method: :delete,
+                    #confirm: t('confirm'),
+                    :onclick => "return confirm('#{t('confirm')}')",
+                    class: 'btn btn-danger' %>
+  </td>
+</tr>

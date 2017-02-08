@@ -47,13 +47,24 @@ class TemplatesController < ApplicationController
 
   def update
     # @template initialized by load_and_authorize_resource
-    @template.attachments.create(params[:template][:attachment])
+    @attachment = @template.attachments.new(params[:template][:attachment])
     params[:template].delete :attachment
-    @template.update_attributes(params[:template])
 
-    respond_to do |format|
-      format.html { redirect_to @template }
-      format.js
+    if @template.update_attributes(params[:template])
+      respond_to do |format|
+        format.html { redirect_to @template }
+        format.js
+      end
+    elsif !@attachment.valid?
+      respond_to do |format|
+        format.json do
+          render json: "#{I18n.t('templates.show.attachment')} 
+                    #{@attachment.errors.messages[:attachment][0]}",
+                 status: 422
+        end
+      end
+    else
+      redirect_to templates_path, notice: @template.errors.full_messages
     end
   end
 
