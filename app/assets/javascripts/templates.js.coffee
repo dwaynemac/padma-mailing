@@ -17,4 +17,6 @@ jQuery ->
       progress = parseInt(data.loaded / data.total * 100, 10)
       $('.progress .bar').css 'width', progress + '%'
     error: (e, status, error) ->
-      $.gritter.add {title: ":(", text:(e.responseText), class_name: "alert"}
+      $.gritter.add {title: ":(", text: (e.responseText), class_name: "alert"}
+      $(".upload-file-name").empty()
+      $(".bar").width( 0 )
