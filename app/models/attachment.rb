@@ -4,4 +4,5 @@ class Attachment < ActiveRecord::Base
   has_attached_file :attachment
 
   do_not_validate_attachment_file_type :attachment
+  validates_with AttachmentSizeValidator, attributes: :attachment, less_than: 20.megabytes
 end

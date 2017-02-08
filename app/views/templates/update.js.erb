@@ -1,26 +1,7 @@
-/*$(document).ready(function(){
-    <% if @template.new_record? %>
-    alert("Failed to upload attachment");
-    <% else %>
-    $("#att-table > tbody:last").append(
-            "<tr id='attachment_<%= @template.attachments.last.id %>'>" +
-                    "<td>" +
-                    "<i class='icon-file'></i> <%= j @template.attachments.last.attachment_file_name  %>"   +
-                    "</td>" +
-                    "<td>" +
-                    "<%= j link_to 'Destroy', template_attachment_path(@template, @template.attachments.last.id), :method => :delete, remote: true, :confirm => 'Are you sure?', :class => 'btn btn-mini btn-danger' %>" +
-                    "</td>" +
-            "</tr>"
-    );
-    $("#upload-file-name").empty();
-    $(".bar").width( 0 );
-    <% end %>
-});
-*/
 <% if @attachment.new_record? %>
     alert("Failed to upload attachment: <%= j @attachment.errors.full_messages %>");
-<% elsif@attachment.nil? %>
-    alert("Attachment is nil");
 <% else %>
     $("#att-table").append("<%= j render('attachments/attachment', attachment: @attachment) %>");
+    $("#upload-file-name").empty();
+    $(".bar").width( 0 );
 <% end %>
