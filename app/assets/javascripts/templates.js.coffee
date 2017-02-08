@@ -13,8 +13,8 @@ jQuery ->
       data.context = $(tmpl("template-upload", file))
       $('#fileupload').append(data.context)
       data.submit()
-    progress: (e, data) ->
-      if data.context
-        progress = parseInt(data.loaded / data.total * 100, 10)
-        data.context.find('.bar').css('width', progress + '%')
-        
+    progressall: (e, data) ->
+      progress = parseInt(data.loaded / data.total * 100, 10)
+      $('.progress .bar').css 'width', progress + '%'
+    error: (e, status, error) ->
+      $.gritter.add {title: ":(", text:(e.responseText), class_name: "alert"}
