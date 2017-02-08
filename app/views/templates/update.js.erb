@@ -2,6 +2,6 @@
     alert("Failed to upload attachment: <%= j @attachment.errors.full_messages %>");
 <% else %>
     $("#att-table").append("<%= j render('attachments/attachment', attachment: @attachment) %>");
-    $("#upload-file-name").empty();
+    $(".upload-file-name").empty();
     $(".bar").width( 0 );
 <% end %>
