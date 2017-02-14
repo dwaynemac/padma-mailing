@@ -22,7 +22,7 @@ class ScheduledMail < ActiveRecord::Base
   
   def get_bccs
     if self.bccs.blank?
-      padma_user.try(:email) if self.username
+      # padma_user.try(:email) if self.username
     else
       parse_liquid(bccs,data_hash)
     end
