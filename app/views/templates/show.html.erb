@@ -66,6 +66,33 @@
               id:"edit_link",
               data: {save_url: mercury_update_template_path(@template)},
               class: 'btn' %>
-  <%= link_to 'Delete', template_path(@template), :method => 'delete', :confirm => 'Are you sure?', :class => 'btn btn-danger' %>
+  <button type="button"
+          class="delete-btn btn btn-mini btn-link"
+          data-toggle="modal"
+          data-target="#delete_template_<%= @template.id %>_modal">
+    <%= t('destroy') %>
+  </button>
+  <div id="delete_template_<%= @template.id %>_modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><%= t('templates.index.delete_template_modal.warning') %></h4>
+        </div>
+        <div class="modal-body">
+          <p><%= t('templates.index.delete_template_modal.youre_about_to_delete_template', template_name: @template.name).html_safe %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('cancel') %></button>
+          <%= button_to t('destroy'),
+                      @template,
+                      method: :delete,
+                      #confirm: t('confirm'),
+                      :onclick => "return confirm('#{t('confirm')}')",
+                      class: 'btn btn-danger' %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
