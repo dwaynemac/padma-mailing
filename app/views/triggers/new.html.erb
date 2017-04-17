@@ -5,7 +5,7 @@
     <h2><%= t('triggers.new.event_select_message') %></h2>
     <div class="control-group">
       <div class="controls">
-        <%= f.select :event_name, Trigger::VALID_EVENT_NAMES.map{|en| [t(".event.#{en}"),en]}, {:include_blank=>true}, class: 'selectpicker event_names', "data-live-search"=>"true", "data-width"=>"320px", "data-height"=>"48px", "data-placeholder-text" => t('.select_event') %>
+        <%= f.select :event_name, Trigger::VALID_EVENT_NAMES.map{|en| [t(".event.#{en}"),en]}, {:include_blank=>true}, class: 'selectpicker event_names', "data-live-search"=>"true", "data-width"=>"320px", "data-height"=>"48px", "data-placeholder-text" => t('.select_event'), "data-container" => "form" %>
         <span id="alert-message" class="alert alert-danger"><%= t('triggers.birthday.warning') %></span>
       </div>
       
