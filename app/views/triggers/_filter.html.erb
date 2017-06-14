@@ -2,9 +2,13 @@
   <div class="control-group">
     <label class="control-label"></label>
     <div class="controls form-inline">
-      <%= filter.select :key, [], {}, class: 'selectpicker key_select', "data-live-search"=>"true", "data-width"=>"320px", "data-container" => ".form-inline" %>
+      <span class="picker-container">
+        <%= filter.select :key, [], {}, class: 'selectpicker key_select', "data-live-search"=>"true", "data-width"=>"320px", "data-container" => ".form-inline" %>
+      </span>
       <div class = "right-arrow glyphicon glyphicon-play"></div>
-      <%= filter.select :value, [], {}, class: 'selectpicker value_select', "data-live-search"=>"true", "data-width"=>"320px" %>
+      <span class="picker-container">
+        <%= filter.select :value, [], {}, class: 'selectpicker value_select', "data-live-search"=>"true", "data-width"=>"320px" %>
+      </span>
       <!-- <a class="remove-filter btn btn-mini btn-danger" rel="nofollow">x</a> -->
       <a data-association="filters" class="remove_this_filter btn btn-mini btn-danger" href="javascript:void(0)">
         <i class="glyphicon glyphicon-remove"></i>

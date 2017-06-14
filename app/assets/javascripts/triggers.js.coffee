@@ -5,6 +5,7 @@ $(document).ready ->
   $(".selectpicker").selectpicker
     liveSearch: true
     showSubtext: true
+    container: ".picker-container"
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
@@ -70,11 +71,11 @@ $(document).ready ->
     $(".key_select").selectpicker "refresh"
     $("#add_more_filter").show()
     $("select.key_select").change ->
-      select_box = $(this).siblings("select.value_select")
+      select_box = $(this).parent().next().next().find("select.value_select")
       $(select_box).empty()
       setOptions suggested_options[$(this).val()], select_box
       $(select_box).selectpicker
-        container: "body"
+        container: ".picker-container"
       $(select_box).addClass "set-background"
       $(select_box).selectpicker "refresh"
       return

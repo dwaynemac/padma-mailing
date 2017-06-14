@@ -10,7 +10,7 @@ $(document).ready ->
     $("#new_segment_name").val(" ")
     $(".selectpicker").selectpicker 
       showSubtext: true
-      container: "form"
+      container: ".picker-container"
     $(".selectpicker").addClass "set-background"
     cleanBootstrapDropdowns()
 

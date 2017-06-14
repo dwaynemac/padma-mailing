@@ -5,8 +5,10 @@
     <h2><%= t('triggers.new.event_select_message') %></h2>
     <div class="control-group">
       <div class="controls">
+      <span class="picker-container">
         <%= f.select :event_name, Trigger::VALID_EVENT_NAMES.map{|en| [t(".event.#{en}"),en]}, {:include_blank=>true}, class: 'selectpicker event_names', "data-live-search"=>"true", "data-width"=>"320px", "data-height"=>"48px", "data-placeholder-text" => t('.select_event'), "data-container" => "form" %>
         <span id="alert-message" class="alert alert-danger"><%= t('triggers.birthday.warning') %></span>
+      </span>
       </div>
       
       <div id="filters"></div>
@@ -23,12 +25,14 @@
         <h2> <%= t('triggers.new.template_select_message') %> </h2>
         <div class="control-group">
           <div class="controls form-inline">
-            <select id="select-template" class='selectpicker select-template' data-live-search="true", data-width="320px" data-placeholder-text="<%= t('.select_template') %>">
-              <option data-hidden="true"></option>
-              <%- current_user.current_account.templates.each do |template| %>
-                <option value="<%= template.id %>"><%= template.name %></option>
-              <%- end %>
-            </select>
+            <span class="picker-container">
+              <select id="select-template" class='selectpicker select-template' data-live-search="true", data-width="320px" data-placeholder-text="<%= t('.select_template') %>">
+                <option data-hidden="true"></option>
+                <%- current_user.current_account.templates.each do |template| %>
+                  <option value="<%= template.id %>"><%= template.name %></option>
+                <%- end %>
+              </select>
+            </span>
           </div>
         </div>
 
