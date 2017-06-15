@@ -43,6 +43,8 @@ gem 'padma-assets', '0.2.19'
 
 gem 'rest-client'
 
+gem 'kaminari'
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'

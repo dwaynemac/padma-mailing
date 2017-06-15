@@ -336,6 +336,7 @@ DEPENDENCIES
   intercom-rails
   jquery-fileupload-rails
   jquery-rails
+  kaminari
   less-rails
   less-rails-bootstrap (~> 3.0.6)
   liquid
