@@ -6,6 +6,7 @@ class ScheduledMail < ActiveRecord::Base
                   :bccs,
                   :recipient_email
 
+  paginates_per 20
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
   belongs_to :template
 
