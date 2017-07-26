@@ -99,4 +99,16 @@ describe ScheduledMail do
       end
     end
   end
+  context "when it has conditions" do
+    describe "and meets them" do
+      it "should send the mail" do
+        pending "to do"
+      end
+    end
+    describe "and does not meet them" do
+      it "should not send the mail" do
+        pending "to do"
+      end
+    end
+  end
 end
