@@ -1,5 +1,10 @@
-<%- page_title t("scheduled_mails.index.title") -%>
-<%- breadcrum t("scheduled_mails.index.title") -%>
+<% if params[:only_pending] %>
+  <%- page_title t("scheduled_mails.index.pending") -%>
+  <%- breadcrum t("scheduled_mails.index.pending") -%>
+<% else %>
+  <%- page_title t("scheduled_mails.index.title") -%>
+  <%- breadcrum t("scheduled_mails.index.title") -%>
+<% end %>
 
 <table class="table table-striped">
   <thead>
