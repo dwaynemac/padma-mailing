@@ -1,7 +1,6 @@
 <tr class="fields">
   <td><%= ff.text_field :name, {placeholder: t('mailchimp.list.segments.name'), size: "20"} %></td>
   <td>
-    <span class="picker-container">
       <%= ff.select :student, 
                     options_for_select(
                       ["prospect", "student", "exstudent"],
@@ -12,11 +11,9 @@
                       "data-none-selected-text" => "",
                       multiple: true
                     } %>
-    </span>
   </td>
   <td>
     <!-- label class='checkbox-inline' -->
-      <span class="picker-container">
       <%= ff.select :gender, 
                     options_for_select([
                       ['',''],
@@ -31,10 +28,8 @@
     <!-- /label -->
       <!-- label class='checkbox-inline'><input type='checkbox' name='gender' /> Hombres</label>
       <label class='checkbox-inline'><input type='checkbox' name='gender' /> Mujeres</label -->
-      </span>
   </td>
   <td>
-    <span class="picker-container">
       <%= ff.select :coefficient, 
                     options_for_select([
                       ['',''],
@@ -50,10 +45,8 @@
                       class: "form-control selectpicker",
                       multiple: true,
                       "data-none-selected-text" => ""} %>
-   </span>
   </td>
   <td>
-    <span class="picker-container">
       <%= ff.select :followed_by, 
                     options_for_select([
                       ['',''],
@@ -65,7 +58,6 @@
                       class: "form-control selectpicker",
                       "data-none-selected-text" => ""
                     } %>
-    </span>
   </td>
   <% if false && ff.object.persisted? %>
     <td><%= t('mailchimp.list.segments.destroy')%></td>
