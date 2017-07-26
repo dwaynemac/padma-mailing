@@ -349,8 +349,8 @@ es:
     destroy:
       success: Envío cancelado
     index:
-      pending: pendiente
-      title: Mails programados
+      pending: Mails programados
+      title: Mails pendientes
   templates:
     templates:
       available_dinamic_tags: En los siguientes campos podés utilizar las siguientes fórmulas (incluyendo las llaves dobles {{ }}) para ingresar datos dinámicos
