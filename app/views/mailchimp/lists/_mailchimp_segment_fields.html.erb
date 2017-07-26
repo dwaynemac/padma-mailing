@@ -13,7 +13,7 @@
                   } %>
   </td>
   <td>
-    <label class='checkbox-inline'>
+    <!-- label class='checkbox-inline' -->
     <%= ff.select :gender, 
                   options_for_select([
                     ['',''],
@@ -25,8 +25,9 @@
                     class: "form-control selectpicker",
                     "data-none-selected-text" => ""
                   } %>
-    <!-- label class='checkbox-inline'><input type='checkbox' name='gender' /> Hombres</label>
-    <label class='checkbox-inline'><input type='checkbox' name='gender' /> Mujeres</label -->
+    <!-- /label -->
+      <!-- label class='checkbox-inline'><input type='checkbox' name='gender' /> Hombres</label>
+      <label class='checkbox-inline'><input type='checkbox' name='gender' /> Mujeres</label -->
   </td>
   <td>
     <%= ff.select :coefficient, 
