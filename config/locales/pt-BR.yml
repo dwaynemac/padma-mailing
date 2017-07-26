@@ -449,6 +449,7 @@ pt-BR:
     destroy:
       success: 
     index:
+      still_pending: programado
       pending: Mails programados
       title: Histórico de mails
   support:

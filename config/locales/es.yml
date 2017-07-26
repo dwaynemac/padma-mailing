@@ -349,6 +349,7 @@ es:
     destroy:
       success: Envío cancelado
     index:
+      still_pending: pendiente
       pending: Mails programados
       title: Mails pendientes
   templates:
