@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 # Trigger will schedule templates
 # when event_name is received matching given filters
 # Delivery will be scheduled according to speficied offset.
@@ -12,6 +14,12 @@ class Trigger < ActiveRecord::Base
       'birthday',
       'membership'
   ]
+
+  VALID_CONDITIONS = {
+    status: ["prospect", "former_student", "student"],
+    coefficient: ["unknown", "fp","pmenos", "perfil", "pmas"],
+    level: ["aspirante", "sádhaka", "yôgin", "chêla", "graduado", "asistente", "docente", "maestro"]
+  }
 
   # This events don't need to come with an account_name. All others MUST.
   GLOBAL_EVENTS = %W(birthday)
