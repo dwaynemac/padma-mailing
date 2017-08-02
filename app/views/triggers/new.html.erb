@@ -21,6 +21,28 @@
       <div>
         <%= link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
       </div>
+
+      <div class="conditions">
+        <h2> <%= t('triggers.new.select_conditions') %> </h2>
+        <div class="control-group">
+          <div class="controls form-inline">
+            <% Trigger::VALID_CONDITIONS.keys.each do |condition_name| %>
+              <%= "#{condition_name}" %> : <%= select_tag(condition_name, 
+                                                          options_for_select(Trigger::VALID_CONDITIONS[condition_name]), 
+                                                          include_blank: true,
+                                                          multiple: true,
+                                                          class: "selectpicker", data: {
+                                                            live_search: true,
+                                                            width: "320px",
+                                                            height: "48px",
+                                                            placeholder_text: t('.select_condition'),
+                                                            container: "form"
+                                                          })%><br/>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
       <div class="part2"> 
         <h2> <%= t('triggers.new.template_select_message') %> </h2>
         <div class="control-group">
