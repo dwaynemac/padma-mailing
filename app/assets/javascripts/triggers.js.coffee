@@ -9,14 +9,19 @@ $(document).ready ->
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
   $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
-  cleanBootstrapDropdowns()  
-  $("#new_trigger").on "nested:fieldAdded", (event) ->
-    
+  cleanBootstrapDropdowns()
+  $("#filters").on "nested:fieldAdded", (event) ->
     # this field was just inserted into your form
     bindFilterInstance()
+    $("#add_more_condition").show()
     $(event.field).find('.key_select').trigger 'change'
     $(event.field).find('.key_select').selectpicker 'refresh'
     return
+
+  $(".conditions").on "nested:fieldAdded", (event) ->
+    bindConditionInstance()
+    $(event.field).find(".condition_key_select").trigger "change"
+    $(event.field).find(".condition_key_select").selectpicker "refresh"
 
   $("#trigger_event_name").focus ->
     previous_event_name = $(this).val()
@@ -55,6 +60,7 @@ $(document).ready ->
       disableSubmitTrigger()
       false
 
+
   prefillTemplate = ->
     template_id = undefined
     $("select.offset_reference").empty()
@@ -63,6 +69,22 @@ $(document).ready ->
     setOptions $("div#new_trigger_template").data("options")["offset_references"][$("#trigger_event_name").val()], $("select.offset_reference")
     refreshOffsetReference()
     return
+
+  bindConditionInstance = ->
+    suggested_options = undefined
+    suggested_options = $("div#new_condition").data("options")["suggested_values"]
+    $("select.condition_key_select").change ->
+      select_box = $(this).parent().find("select.condition_value_select")
+      $(select_box).empty()
+      setOptions suggested_options[$(this).val()], select_box
+      $(select_box).selectpicker
+      $(select_box).addClass "set-background"
+      $(select_box).selectpicker "refresh"
+      return
+    $(".remove_this_condition").click ->
+      $(this).parents("div.fields").remove()
+    return
+
 
   bindFilterInstance = ->
     suggested_options = undefined

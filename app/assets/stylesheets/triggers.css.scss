@@ -37,7 +37,11 @@
   }
 
   .remove-filter{
-    margin-left: 27px
+    margin-left: 27px;
+  }
+
+  .remove-condition {
+    margin-left: 27px;
   }
 
   #filter_option{
@@ -48,9 +52,17 @@
   #add_more_filter{
     display: none;
   }
-  .add_more{
+
+  #add_more_condition {
+    display: none;
+  }
+  .add_more, .add_condition{
     margin-top: 30px;
     margin-bottom: 18px;
+  }
+
+  .condition_option {
+    display: none;
   }
 
   .offset_number{
@@ -66,7 +78,7 @@
   }
 
   .part2{
-    display: none;
+    /* display: none; */
     margin-top: 54px;
   }
   
