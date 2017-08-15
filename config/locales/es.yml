@@ -441,6 +441,7 @@ es:
       add_filter: Agregar filtro
       continue_to_select_template: Continuar a 'Elejir modelo de mail'
       select_event: Elija un evento
+      select_conditions: Elija las condiciones que tienen que cumplirse al enviar el mail
       select_condition: Elija una condición
       event:
         communication: Registro de una comunicación
