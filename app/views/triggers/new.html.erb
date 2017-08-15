@@ -19,28 +19,15 @@
         <%= render partial: 'filter', :locals =>{ f: f} %>
       </div>
       <div>
-        <%= link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
+        <% link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
       </div>
-
-      <div class="conditions">
-        <h2> <%= t('triggers.new.select_conditions') %> </h2>
-        <div class="control-group">
-          <div class="controls form-inline">
-            <% Trigger::VALID_CONDITIONS.keys.each do |condition_name| %>
-              <%= "#{condition_name}" %> : <%= select_tag(condition_name, 
-                                                          options_for_select(Trigger::VALID_CONDITIONS[condition_name]), 
-                                                          include_blank: true,
-                                                          multiple: true,
-                                                          class: "selectpicker", data: {
-                                                            live_search: true,
-                                                            width: "320px",
-                                                            height: "48px",
-                                                            placeholder_text: t('.select_condition'),
-                                                            container: "form"
-                                                          })%><br/>
-            <% end %>
-          </div>
-        </div>
+      
+      <div class="conditions"></div>
+      <div class="add_condition">
+        <%= f.link_to_add t(".add_condition"), :conditions, class: "btn btn-mini btn-primary glyphicon glyphicon-plus", id: "add_more_condition", data: {target: ".conditions"} %>
+      <div class="condition_option">
+        <h2> <%= t("triggers.new.select_conditions") %> </h2>
+        <%= render "condition", f: f %>
       </div>
 
       <div class="part2"> 
@@ -73,6 +60,8 @@
 
 <div id="new_filter" style="display: none" data-options="<%= {suggested_values: Filter::SUGGESTED_VALUES}.to_json %>">
 </div>
+
+<div id="new_condition" style="display: none" data-options="<%= {suggested_values: Condition::SUGGESTED_VALUES}.to_json %>"></div>
 
 <div id="new_trigger_template" style="display:none" data-options="<%= {offset_references: TemplatesTriggers::VALID_REFERENCES}.to_json %>">
 </div>
