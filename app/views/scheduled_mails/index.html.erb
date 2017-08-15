@@ -1,5 +1,10 @@
-<%- page_title t("scheduled_mails.index.title") -%>
-<%- breadcrum t("scheduled_mails.index.title") -%>
+<% if params[:only_pending] %>
+  <%- page_title t("scheduled_mails.index.pending") -%>
+  <%- breadcrum t("scheduled_mails.index.pending") -%>
+<% else %>
+  <%- page_title t("scheduled_mails.index.title") -%>
+  <%- breadcrum t("scheduled_mails.index.title") -%>
+<% end %>
 
 <table class="table table-striped">
   <thead>
@@ -9,7 +14,9 @@
     <td><%= t('scheduled_mail.attributes.from_address')  %></td>
     <td><%= t('scheduled_mail.attributes.bccs')  %></td>
     <td><%= t('scheduled_mail.attributes.send_at') %></td>
-    <td><%= t('scheduled_mail.attributes.delivered_at') %></td>
+   
+      <td><%= t('scheduled_mail.attributes.delivered_at') %></td>
+    
   </tr>
   </thead>
   <tbody>
@@ -20,13 +27,15 @@
       <td><%= sm.formatted_from_address %></td>
       <td><%= sm.get_bccs %></td>
       <td><%= l( sm.send_at) if sm.send_at %></td>
-      <td>
-        <% if sm.delivered_at %>
-          <%= l( sm.delivered_at) if sm.delivered_at%>
-        <% else %>
-          <%= t('scheduled_mails.index.pending') %>
-        <% end %>
-      </td>
+      
+        <td>
+          <% if sm.delivered_at %>
+            <%= l( sm.delivered_at) if sm.delivered_at%>
+          <% else %>
+            <%= t('scheduled_mails.index.still_pending') %>
+          <% end %>
+        </td>
+      
       <td>
         <% unless sm.delivered? %>
           <%= button_to t('helpers.links.cancel'),
