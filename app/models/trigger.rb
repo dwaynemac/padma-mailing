@@ -15,12 +15,6 @@ class Trigger < ActiveRecord::Base
       'membership'
   ]
 
-  VALID_CONDITIONS = {
-    status: ["prospect", "former_student", "student"],
-    coefficient: ["unknown", "fp","pmenos", "perfil", "pmas"],
-    level: ["aspirante", "sádhaka", "yôgin", "chêla", "graduado", "asistente", "docente", "maestro"]
-  }
-
   # This events don't need to come with an account_name. All others MUST.
   GLOBAL_EVENTS = %W(birthday)
 
@@ -33,7 +27,9 @@ class Trigger < ActiveRecord::Base
   has_many :templates, through: :templates_triggerses
 
   has_many :filters, dependent: :destroy
+  has_many :conditions, dependent: :destroy
   accepts_nested_attributes_for :filters
+  accepts_nested_attributes_for :conditions
 
   # @param key_name [String]
   # @param data [Hash]
