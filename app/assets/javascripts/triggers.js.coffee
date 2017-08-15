@@ -78,6 +78,7 @@ $(document).ready ->
       $(select_box).empty()
       setOptions suggested_options[$(this).val()], select_box
       $(select_box).selectpicker
+        container: "body"
       $(select_box).addClass "set-background"
       $(select_box).selectpicker "refresh"
       return
