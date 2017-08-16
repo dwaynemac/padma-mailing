@@ -66,9 +66,9 @@ class Trigger < ActiveRecord::Base
                     from_email_address: tt.from_email_address,
                     send_at: send_at,
                     event_key: key_name,
-                    data: ActiveSupport::JSON.encode(data)
+                    data: ActiveSupport::JSON.encode(data),
+                    conditions: ActiveSupport::JSON.encode(trigger.conditions.map{|c| {c.key => c.value}}.reduce(&:merge))
                 )
-                
                 sm_key = sm.inspect.to_param # before save to avoid id. 
                 if Rails.env.production? && Rails.cache.read("saved_sm:#{sm_key}") 
                   Rails.logger.warn "[notify-sysadmin] Prevented duplicate to #{sm.inspect}"
