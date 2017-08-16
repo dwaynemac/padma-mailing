@@ -4,7 +4,7 @@ describe Account do
 
   before do
     @account = FactoryGirl.create(:account)
-    PadmaAccount.stub!(:find).and_return(PadmaAccount.new(:name => @account.name, :enabled => true))
+    PadmaAccount.stub(:find).and_return(PadmaAccount.new(:name => @account.name, :enabled => true))
   end
 
   subject { @account }
