@@ -10,6 +10,8 @@ class ScheduledMail < ActiveRecord::Base
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
   belongs_to :template
 
+  has_many :conditions
+
   validates_presence_of :recipient_email
 
   scope :pending, where('delivered_at IS NULL')
