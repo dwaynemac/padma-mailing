@@ -73,6 +73,7 @@ $(document).ready ->
   bindConditionInstance = ->
     suggested_options = undefined
     suggested_options = $("div#new_condition").data("options")["suggested_values"]
+    setOptions Object.keys(suggested_options), $(".conditions select.condition_key_select:last")
     $("select.condition_key_select").change ->
       select_box = $(this).parent().find("select.condition_value_select")
       $(select_box).empty()
