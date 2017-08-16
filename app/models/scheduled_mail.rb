@@ -61,6 +61,8 @@ class ScheduledMail < ActiveRecord::Base
 
   def deliver_now!
     return unless delivered_at.nil?
+    contact_data = data_hash
+    return unless conditions_met?(contact_data)
     
     # freeze FROM address for history
     new_attributes = {}
@@ -73,7 +75,7 @@ class ScheduledMail < ActiveRecord::Base
 
     PadmaMailer.template(
       template,
-      data_hash,
+      contact_data,
       recipient_email,
       get_bccs,
       get_from_display_name,
@@ -104,6 +106,11 @@ class ScheduledMail < ActiveRecord::Base
                                  updated_at: Time.zone.now.to_s )
   end
 
+  def conditions_met?(data_hash)
+    return true if conditions.blank?
+
+  end
+
   def as_json(options = nil)
     options ||= {}
 
@@ -123,19 +130,23 @@ class ScheduledMail < ActiveRecord::Base
   def data_hash
     data_hash = {}
     json_data = data.blank?? {} : ActiveSupport::JSON.decode(data)
+    conditions_hash = conditions.blank? ? {} : ActiveSupport::JSON.decode(conditions)
 
     contact_id = json_data['contact_id'] || self.contact_id
     if contact_id
-      contact = PadmaContact.find(contact_id,
-                                select: [:email,
-                                         :first_name,
-                                         :last_name,
-                                         :gender,
-                                         :global_teacher_username
-                                        ]
-                               )
+      select_options = [:email, :first_name, :last_name, :gender, :global_teacher_username]
+      select_options += conditions_hash.keys.map(&:to_sym)
+      contact = PadmaContact.find(contact_id, select: select_options, account_name: account.name)
       teacher = PadmaUser.find_with_rails_cache(contact.global_teacher_username) if contact.try(:global_teacher_username)
       contact_drop = ContactDrop.new(contact, (teacher || padma_user));
+      unless conditions.blank?
+        conditions_to_be_added = {}
+        conditions_hash.keys.each do |key|
+          conditions_to_be_added[key] = contact.send(key) 
+        end
+        data_hash.merge!({"conditions" => conditions_to_be_added})
+      end
+
       data_hash.merge!({
         'persona' => contact_drop,
         'contact' => contact_drop
