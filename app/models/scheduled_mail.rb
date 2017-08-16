@@ -106,9 +106,13 @@ class ScheduledMail < ActiveRecord::Base
                                  updated_at: Time.zone.now.to_s )
   end
 
-  def conditions_met?(data_hash)
+  def conditions_met?(contact_data)
     return true if conditions.blank?
-
+    decoded_conditions = ActiveSupport::JSON.decode(conditions)
+    conditions_count = decoded_conditions.keys.count
+    match_count = 0
+    decoded_conditions.keys.each{|key| match_count +=1 if contact_data["conditions"][key] == decoded_conditions[key]}
+    conditions_count == match_count
   end
 
   def as_json(options = nil)
