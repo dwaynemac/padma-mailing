@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Condition do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should belong_to :trigger }
+  it { should validate_presence_of :key }
+  it { should validate_presence_of :value }
 end
