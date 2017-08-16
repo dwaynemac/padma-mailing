@@ -5,7 +5,7 @@
 # Delivery will be scheduled according to speficied offset.
 # If no offset is set delivery will be in the moment.
 class Trigger < ActiveRecord::Base
-  attr_accessible :event_name, :local_account_id, :filters_attributes, :templates_triggerses_attributes
+  attr_accessible :event_name, :local_account_id, :filters_attributes, :conditions_attributes, :templates_triggerses_attributes
 
   VALID_EVENT_NAMES = [
       'communication',
