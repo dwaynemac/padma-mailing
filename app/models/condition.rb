@@ -3,7 +3,6 @@ class Condition < ActiveRecord::Base
   attr_accessible :key, :scheduled_mail_id, :value
 
   belongs_to :trigger
-  belongs_to :scheduled_mail
 
   validates_presence_of :key
   validates_presence_of :value
