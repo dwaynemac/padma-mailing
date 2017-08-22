@@ -60,9 +60,15 @@ class ScheduledMail < ActiveRecord::Base
   end
 
   def deliver_now!
-    return unless delivered_at.nil?
     contact_data = data_hash
-    return unless conditions_met?(contact_data)
+    unless conditions_met?(contact_data)
+      Rails.logger.info "Mail with data #{contact_data} cancelled, conditions not met."
+      update_attributes({
+        cancelled: true, 
+        delivered_at: Time.now })
+    end
+    
+    return unless delivered_at.nil?
     
     # freeze FROM address for history
     new_attributes = {}
