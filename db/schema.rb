@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170813170352) do
+ActiveRecord::Schema.define(:version => 20170822145231) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -133,8 +133,8 @@ ActiveRecord::Schema.define(:version => 20170813170352) do
     t.integer  "local_account_id"
     t.string   "recipient_email"
     t.datetime "send_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.datetime "delivered_at"
     t.string   "contact_id"
     t.string   "username"
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(:version => 20170813170352) do
     t.string   "from_email_address"
     t.string   "bccs"
     t.text     "conditions"
+    t.boolean  "cancelled",          :default => false
   end
 
   create_table "sessions", :force => true do |t|
