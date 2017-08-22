@@ -36,9 +36,9 @@ $(document).ready ->
     else
       $("#alert-message").hide()
     if $(this).val() is "trial_lesson" or $(this).val() is "membership"
-      $("#add_more_filter").hide()
+      $(".add_more_filter").hide()
       return
-    $("#add_more_filter").click()
+    $(".add_more_filter").click()
     return
 
   $("#select-template").change ->
@@ -93,7 +93,7 @@ $(document).ready ->
     suggested_options = $("div#new_filter").data("options")["suggested_values"][$("#trigger_event_name").val()]
     setOptions Object.keys(suggested_options), $("#filters select.key_select:last")
     $(".key_select").selectpicker "refresh"
-    $("#add_more_filter").show()
+    $(".add_more_filter").show()
     $("select.key_select").change ->
       select_box = $(this).parent().next().next().find("select.value_select")
       $(select_box).empty()
