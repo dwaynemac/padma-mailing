@@ -132,6 +132,17 @@ es:
     trial_at: Día de la clase de prueba
     birthday_at: Día del cumpleaños
     ends_on: Día en que termina el plan
+    status: Estado del contacto
+    coefficient: Coeficiente del contacto
+    level: Grado del contacto
+    aspirante: Aspirante
+    sádhaka: Sádhaka
+    yôgin: Yôgin
+    chêla: Chêla
+    graduado: graduado
+    asistente: Asistente
+    docente: Docente
+    maestro: Maestro
   filter:
     suggested_values:
       email: Email
@@ -437,12 +448,13 @@ es:
     new:
       select_template: Elija un modelo
       title: Nuevo disparador
-      event_select_message: Elija un evento y sus filtros
-      template_select_message: Elija un modelo
+      event_select_message: Elija un evento
+      select_filters: Que se cree si cumple con los siguientes filtros
+      template_select_message: Con el siguiente modelo
       add_filter: Agregar filtro
       continue_to_select_template: Continuar a 'Elejir modelo de mail'
       select_event: Elija un evento
-      select_conditions: Elija las condiciones que tienen que cumplirse al enviar el mail
+      select_conditions: Que se envíe si cumple las siguientes condiciones
       select_condition: Elija una condición
       event:
         communication: Registro de una comunicación
