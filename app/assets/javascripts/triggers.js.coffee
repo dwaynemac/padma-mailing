@@ -13,7 +13,7 @@ $(document).ready ->
   $("#filters").on "nested:fieldAdded", (event) ->
     # this field was just inserted into your form
     bindFilterInstance()
-    $("#add_more_condition").show()
+    $(".add_more_condition").show()
     $(event.field).find('.key_select').trigger 'change'
     $(event.field).find('.key_select').selectpicker 'refresh'
     return

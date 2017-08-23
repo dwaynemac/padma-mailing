@@ -10,10 +10,14 @@
         <span id="alert-message" class="alert alert-danger"><%= t('triggers.birthday.warning') %></span>
       </span>
       </div>
-      
-      <div id="filters"></div>
+
+      <div class="add_more add_more_filter">
+        <h2><%= t('triggers.new.select_filters') %></h2>
+      </div>
+      <div id="filters">
+      </div>
       <div class="add_more">
-        <%= f.link_to_add t('.add_filter'), :filters, class: "btn btn-mini btn-primary glyphicon glyphicon-plus", id: "add_more_filter", :data => { :target => "#filters" } %>
+        <%= f.link_to_add t('.add_filter'), :filters, class: "btn btn-mini btn-primary glyphicon glyphicon-plus add_more_filter", id: "add_more_filter", :data => { :target => "#filters" } %>
       </div>
       <div id="filter_option">
         <%= render partial: 'filter', :locals =>{ f: f} %>
@@ -22,9 +26,12 @@
         <% link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
       </div>
       
+      <div class="add_more_condition">
+        <h2><%= t('triggers.new.select_conditions') %></h2>
+      </div>
       <div class="conditions"></div>
       <div class="add_condition">
-        <%= f.link_to_add t(".add_condition"), :conditions, class: "btn btn-mini btn-primary glyphicon glyphicon-plus", id: "add_more_condition", data: {target: ".conditions"} %>
+        <%= f.link_to_add t(".add_condition"), :conditions, class: "btn btn-mini btn-primary glyphicon glyphicon-plus add_more_condition", id: "add_more_condition", data: {target: ".conditions"} %>
       <div class="condition_option">
         <h2> <%= t("triggers.new.select_conditions") %> </h2>
         <%= render "condition", f: f %>
