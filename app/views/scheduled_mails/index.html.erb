@@ -14,39 +14,39 @@
     <td><%= t('scheduled_mail.attributes.from_address')  %></td>
     <td><%= t('scheduled_mail.attributes.bccs')  %></td>
     <td><%= t('scheduled_mail.attributes.send_at') %></td>
-   
-      <td><%= t('scheduled_mail.attributes.delivered_at') %></td>
-    
+    <td><%= t('scheduled_mail.attributes.delivered_at') %></td> 
   </tr>
   </thead>
   <tbody>
-  <% @scheduled_mails.each do |sm| %>
-    <tr>
-      <td><%= link_to(sm.template.name, sm.template) if sm.template %></td>
-      <td><%= link_to_if sm.contact_id, sm.recipient_email, "http://#{CRM_HOST}/contacts/#{sm.contact_id}" %></td>
-      <td><%= sm.formatted_from_address %></td>
-      <td><%= sm.get_bccs %></td>
-      <td><%= l( sm.send_at) if sm.send_at %></td>
-      
-        <td>
-          <% if sm.delivered_at %>
-            <%= l( sm.delivered_at) if sm.delivered_at%>
-          <% else %>
-            <%= t('scheduled_mails.index.still_pending') %>
-          <% end %>
-        </td>
-      
-      <td>
-        <% unless sm.delivered? %>
-          <%= button_to t('helpers.links.cancel'),
-                          scheduled_mail_path(sm),
-                          method: :delete,
-                          #data: { confirm: t('confirm') },
-                          :onclick => "return confirm('#{t('confirm')}')",
-                          class: 'btn btn-mini btn-danger' %>
-          <% end %>
-      </td>
-    </tr>
+    <% @scheduled_mails.each do |sm| %>
+      <% unless sm.cancelled? %>
+        <tr>
+          <td><%= link_to(sm.template.name, sm.template) if sm.template %></td>
+          <td><%= link_to_if sm.contact_id, sm.recipient_email, "http://#{CRM_HOST}/contacts/#{sm.contact_id}" %></td>
+          <td><%= sm.formatted_from_address %></td>
+          <td><%= sm.get_bccs %></td>
+          <td><%= l( sm.send_at) if sm.send_at %></td>
+          
+            <td>
+              <% if sm.delivered_at %>
+                <%= l( sm.delivered_at) if sm.delivered_at%>
+              <% else %>
+                <%= t('scheduled_mails.index.still_pending') %>
+              <% end %>
+            </td>
+          
+          <td>
+            <% unless sm.delivered? %>
+              <%= button_to t('helpers.links.cancel'),
+                              scheduled_mail_path(sm),
+                              method: :delete,
+                              #data: { confirm: t('confirm') },
+                              :onclick => "return confirm('#{t('confirm')}')",
+                              class: 'btn btn-mini btn-danger' %>
+              <% end %>
+          </td>
+        </tr>
+      <% end %>
   <% end %>
   </tbody>
 </table>
