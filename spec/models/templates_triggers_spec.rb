@@ -7,7 +7,7 @@ describe TemplatesTriggers do
   
   before do
     Rails.cache.clear
-    PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name', email: "acc-mail@mail.co"))
+    PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name', branded_name: 'DeROSE Method | acc-name', email: "acc-mail@mail.co"))
   end
   
   it { should belong_to :trigger }
@@ -75,8 +75,8 @@ describe TemplatesTriggers do
   describe "get_from_display_name" do
     describe "if from_display_name is blank" do
       let(:tt){TemplatesTriggers.new(trigger: trigger, template_id: template.id, from_display_name: nil)}
-      it "should return account's full name" do
-        expect(tt.get_from_display_name).to eq "acc-name"
+      it "should return account's branded name" do
+        expect(tt.get_from_display_name).to eq "DeROSE Method | acc-name"
       end
     end
     describe "if from_display_name is a META var" do
