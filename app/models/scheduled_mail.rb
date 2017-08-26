@@ -51,7 +51,7 @@ class ScheduledMail < ActiveRecord::Base
   end
   
   def default_from_display_name
-    account.try(:padma).try(:full_name)
+    account.try(:padma).try(:branded_name)
   end
 
   # @return [Boolean]

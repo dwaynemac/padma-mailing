@@ -26,7 +26,7 @@ class TemplatesTriggers < ActiveRecord::Base
   
   def formatted_from_address
     address = Mail::Address.new( self.from_email_address.blank?? template.account.padma.email : from_email_address )
-    address.display_name = ( self.from_display_name.blank?? template.account.padma.full_name : from_display_name )
+    address.display_name = ( self.from_display_name.blank?? template.account.padma.branded_name : from_display_name )
     address.format
   end
 
