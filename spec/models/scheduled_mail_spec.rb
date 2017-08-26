@@ -4,6 +4,7 @@ describe ScheduledMail do
   before do
     RSpec::Mocks.proxy_for(PadmaAccount).reset
     PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
+                                                         branded_name: 'DeROSE Method | acc-name',
                                                          email: 'acc@mail.co'))
   end
   it { should belong_to(:account).with_foreign_key(:local_account_id) }
@@ -58,8 +59,8 @@ describe ScheduledMail do
     subject{sm.get_from_display_name}
     describe "when from_display_name is blank" do
       let(:sm){ build(:scheduled_mail, from_display_name: nil) }
-      it "returns account's full_name" do
-        should eq 'acc-name'
+      it "returns account's branded_name" do
+        should eq 'DeROSE Method | acc-name'
       end
     end
     describe "when from_display_name has no meta var" do
