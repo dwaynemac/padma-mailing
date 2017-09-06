@@ -566,6 +566,7 @@ pt-BR:
       select_event: Escolha um evento
       select_conditions: Escolha as condições
       select_condition: Escolha uma condição
+      sender_data: Configure remitente y copias ocultas
       event:
         communication: Cadastro de uma comunicaçāo
         subscription_change: Cadastro de uma matrícula/evasāo

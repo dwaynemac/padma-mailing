@@ -445,6 +445,9 @@ es:
       filters: Filtros
       deliver_templates_on: Modelos y momento en que se envían
       delay_warning: Los eventos pueden demorar hasta %{minutes} minutos en activar un disparador.
+      description:
+        communication: una comunicación
+        trial_lesson: una clase de prueba
     new:
       select_template: Elija un modelo
       title: Nuevo disparador
@@ -456,6 +459,7 @@ es:
       select_event: Elija un evento
       select_conditions: Que se envíe si cumple las siguientes condiciones
       select_condition: Elija una condición
+      sender_data: Configure remitente y copias ocultas
       event:
         communication: Registro de una comunicación
         subscription_change: Registro de una matrícula/evasion
