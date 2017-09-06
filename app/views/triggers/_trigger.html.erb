@@ -1,0 +1,52 @@
+<tr>
+  <td>
+    <div class="row">
+      <div class="col-md-12">
+        Cuando se registre <b><%= t("triggers.index.description.#{trigger.event_name}") unless trigger.event_name == "subscription_change" %></b>
+        <br>
+        <% if trigger.filters.count > 0 %>
+          <%= "con" unless trigger.event_name == "subscription_change" %>
+          <% trigger.filters.each do |f|%>
+            <b><%= "#{translate_key(f.key).downcase}:" unless trigger.event_name == "subscription_change"%> 
+                <%= t("set_options.#{f.value}").downcase %></b> 
+            <%= "y " unless f == trigger.filters.last%>
+          <% end %>
+          <br>
+        <% end %>
+        se va a enviar
+        <% trigger.templates_triggerses.each do |tt| %>
+          <b><%= explain_offset(tt).downcase %></b>
+          <br>
+          el modelo de mail
+          <b>
+            <%= link_to template_path(tt.template.id) do  %>
+              <%= tt.template.name %>
+            <% end %>
+          </b>
+          <br>
+          con el remitente
+          <b>"<%= tt.get_from_display_name %>" < <%= tt.get_from_email_address %> ></b>
+          <% unless tt.bccs.blank? %>
+            <br>
+            con copia a <%= tt.bccs %>
+          <% end %>
+        <% end %>
+        <% if trigger.conditions.count > 0 %>
+          <br>
+          si se cumplen en ese momento las condiciones
+          <% trigger.conditions.each do |c| %>
+            <b><%= translate_key(c.key).downcase %>: <%= t("set_options.#{c.value}") .downcase%></b>
+            <%= "y " unless c == trigger.conditions.last%>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <td>
+    <%= button_to t('destroy'),
+      trigger_path(trigger),
+      method: :delete,
+      :onclick => "return confirm('#{t('confirm')}')",
+      class: 'btn btn-mini btn-danger' %>
+  </td>
+</tr>
