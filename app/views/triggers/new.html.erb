@@ -2,7 +2,8 @@
 <%- breadcrum t("triggers.new.title") -%>
 <%= nested_form_for @trigger, :html => { :class => 'form-horizontal trigger-form' } do |f| %>
   <fieldset>
-    <h2><%= t('triggers.new.event_select_message') %></h2>
+    <h2><%= t('triggers.new.event.name') %></h2>
+    <h3><%= t('triggers.new.event_select_message') %></h3>
     <div class="control-group">
       <div class="controls">
       <span class="picker-container">
@@ -12,7 +13,8 @@
       </div>
 
       <div class="add_more add_more_filter">
-        <h2><%= t('triggers.new.select_filters') %></h2>
+        <h2><%= t('triggers.new.filters.name') %></h2>
+        <h3><%= t('triggers.new.filters.explained') %></h3>
       </div>
       <div id="filters">
       </div>
@@ -36,7 +38,9 @@
       </div>
       <br>
       <div class="add_more_condition">
-        <h2><%= t('triggers.new.select_conditions') %></h2>
+        <br>
+        <h2><%= t('triggers.new.conditions.name') %></h2>
+        <h3><%= t('triggers.new.conditions.explained')  %></h3>
       </div>
       <div class="conditions"></div>
       <div class="add_condition">
@@ -47,7 +51,8 @@
       </div>
 
       <div class="part2"> 
-        <h2> <%= t('triggers.new.template_select_message') %> </h2>
+        <h2> <%= t('triggers.new.templates.name') %> </h2>
+        <h3> <%= t('triggers.new.templates.explained') %>  </h3>
         <div class="control-group">
           <div class="controls form-inline">
             <span class="picker-container">

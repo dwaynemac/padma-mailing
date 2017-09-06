@@ -14,7 +14,8 @@
           <li>{{trial_lesson.time_slot.instructor.email}} <%= t('.tags.trial_lesson_time_slot_instructor_email') %>.</li>
         </ul>
       </div>
-      <h2><%= t('triggers.new.sender_data') %></h2>
+      <h2><%= t('triggers.new.sender.name') %></h2>
+      <h3><%= t('triggers.new.sender.explained')  %></h3>
       <label><%= t('.from_display_name') %></label>
       <%= template.text_field :from_display_name, class: "from_address_field", placeholder: current_user.current_account.padma.full_name %>
       <label><%= t('.from_email_address') %></label>

@@ -451,7 +451,7 @@ es:
     new:
       select_template: Elija un modelo
       title: Nuevo disparador
-      event_select_message: Elija un evento
+      event_select_message: Seleccione un evento para programar el e-mail automático
       select_filters: Que se cree si cumple con los siguientes filtros
       template_select_message: Con el siguiente modelo
       add_filter: Agregar filtro
@@ -461,11 +461,24 @@ es:
       select_condition: Elija una condición
       sender_data: Configure remitente y copias ocultas
       event:
+        name: Evento
         communication: Registro de una comunicación
         subscription_change: Registro de una matrícula/evasion
         trial_lesson: Registro de una clase de prueba
         membership: Registro de un plan
         birthday: Cumpleaños un contacto
+      conditions:
+        name: Condiciones 2
+        explained: Seleccione las condiciones que tienen que cumplirse a la hora del envío del e-mail
+      filters:
+        name: Condiciones 1
+        explained: Seleccione las condiciones que tienen que cumplirse a la hora del evento para programar el e-mail
+      templates:
+        name: Modelo
+        explained: Seleccione el modelo del e-mail
+      sender:
+        name: Remitente
+        explained: Configure remitente y copias ocultas
   contact:
     mercury:
       tags:
