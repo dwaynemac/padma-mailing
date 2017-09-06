@@ -25,7 +25,16 @@
       <div>
         <% link_to t('.continue_to_select_template'), "javascript:void(0);", :class => 'btn btn-large btn-primary btn-disabled', id: 'continue-part2' %>
       </div>
-      
+
+      <%= text_field_tag "trigger[templates_triggerses_attributes][0][offset_number]", "", placeholder: t('templates.templates.offset_number'), id: "trigger_templates_triggerses_attributes_0_offset_number", class: 'offset_number', data: { toggle: 'tooltip', placement: 'top', title: t('templates.templates.offset_number_tooltip') } %>
+      <%= select_tag "trigger[templates_triggerses_attributes][0][offset_unit]", options_for_select(TemplatesTriggers::VALID_UNITS.map{|vu| [t("templates.templates.units.#{vu}"), vu]}), class: 'selectpicker offset_unit', "data-live-search" => "true", "data-width" => "91px" %>
+      <div class="right-arrow glyphicon glyphicon-play template-right-arrow"></div>
+      <div class="input-prepend offset_reference_block">
+        <span class="add-on"><%= t('trigger.since') %></span>
+        <%= select_tag "trigger[templates_triggerses_attributes][0][offset_reference]", [], class: "selectpicker offset_reference", "data-live-search" => "true", "data-width" => "275px" %>
+        <a data-association="templates_triggerses" class="remove_nested_fields btn btn-mini btn-danger remove_template_reference" href="javascript:void(0)"><i class="glyphicon glyphicon-remove"></i></a>
+      </div>
+      <br>
       <div class="add_more_condition">
         <h2><%= t('triggers.new.select_conditions') %></h2>
       </div>
