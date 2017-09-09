@@ -1,5 +1,7 @@
 <%= f.fields_for :templates_triggerses, @trigger.templates_triggerses.new do |template| %>
   <div class="control-group">
+    <h2><%= t('triggers.new.sender.name') %></h2>
+    <p class="lead"><%= t('triggers.new.sender.explained')  %></p>
     <label class="control-label"><span></span></label>
     <div class="controls form-inline">
       <%= template.hidden_field :template_id, id: 'template_id' %>
@@ -14,8 +16,6 @@
           <li>{{trial_lesson.time_slot.instructor.email}} <%= t('.tags.trial_lesson_time_slot_instructor_email') %>.</li>
         </ul>
       </div>
-      <h2><%= t('triggers.new.sender.name') %></h2>
-      <h3><%= t('triggers.new.sender.explained')  %></h3>
       <label><%= t('.from_display_name') %></label>
       <%= template.text_field :from_display_name, class: "from_address_field", placeholder: current_user.current_account.padma.full_name %>
       <label><%= t('.from_email_address') %></label>
