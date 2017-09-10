@@ -91,7 +91,14 @@ $(document).ready ->
   bindFilterInstance = ->
     suggested_options = undefined
     suggested_options = $("div#new_filter").data("options")["suggested_values"][$("#trigger_event_name").val()]
-    setOptions Object.keys(suggested_options), $("#filters select.key_select:last")
+    already_used = []
+    if $(".key_select option:selected").length > 0
+      already_used = $(".key_select option:selected").map(-> $(this).val()).get()
+      # from now on there will be no more options available
+      if already_used.length == (Object.keys(suggested_options).length - 1)
+        $("#add_more_filter").attr("disabled", true)
+      
+    setOptions Object.keys(suggested_options), $("#filters select.key_select:last"), already_used
     $(".key_select").selectpicker "refresh"
     $(".add_more_filter").show()
     $("select.key_select").change ->
@@ -106,14 +113,15 @@ $(document).ready ->
 
     $('.remove_this_filter').click ->
       $(this).parents('div.fields').remove()
+      $("#add_more_filter").attr("disabled", false)
 
     return
 
-  setOptions = (options, select) ->
+  setOptions = (options, select, do_not_use) ->
     $.each options, (key, value) ->
-      $(select).append $("<option></option>").attr("value", value).text(I18n.t("set_options.#{value}",{defaultValue: value}))
-      return
-
+      if do_not_use == null || ($.inArray(value, do_not_use) == -1 && do_not_use != value)
+        $(select).append $("<option></option>").attr("value", value).text(I18n.t("set_options.#{value}",{defaultValue: value}))
+       return
     return
 
   refreshOffsetReference = ->
