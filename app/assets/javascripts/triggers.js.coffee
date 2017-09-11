@@ -29,6 +29,7 @@ $(document).ready ->
   $("#trigger_event_name").change ->
     $("#filters").html ""
     $("#templates").html ""
+    $("#add_more_filter").attr("disabled", false)
     prefillTemplate()
     enableContinue()
     if $(this).val() is "birthday"
@@ -39,6 +40,7 @@ $(document).ready ->
       $(".add_more_filter").hide()
       return
     $(".add_more_filter").click()
+
     return
 
   $("#select-template").change ->
@@ -92,13 +94,14 @@ $(document).ready ->
     suggested_options = undefined
     suggested_options = $("div#new_filter").data("options")["suggested_values"][$("#trigger_event_name").val()]
     already_used = []
-    if $(".key_select option:selected").length > 0
-      already_used = $(".key_select option:selected").map(-> $(this).val()).get()
+    suggested_options_keys = Object.keys(suggested_options)
+    if $(".key_select option:selected").length > 0 || suggested_options_keys.length == 1
+      already_used = $(".key_select option:selected").map(-> $(this).val()).get() unless suggested_options_keys.length == 1
       # from now on there will be no more options available
-      if already_used.length == (Object.keys(suggested_options).length - 1)
+      if already_used.length == (suggested_options_keys.length - 1)
         $("#add_more_filter").attr("disabled", true)
       
-    setOptions Object.keys(suggested_options), $("#filters select.key_select:last"), already_used
+    setOptions suggested_options_keys, $("#filters select.key_select:last"), already_used
     $(".key_select").selectpicker "refresh"
     $(".add_more_filter").show()
     $("select.key_select").change ->
@@ -109,6 +112,8 @@ $(document).ready ->
         container: ".picker-container"
       $(select_box).addClass "set-background"
       $(select_box).selectpicker "refresh"
+      $(this).prop("disable", true)
+      
       return
 
     $('.remove_this_filter').click ->
