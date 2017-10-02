@@ -6,10 +6,6 @@
 	display: none;
 }
 
-#add-filter{
-  display: none;
-}
-
 .set-background{
   background-image: -moz-linear-gradient(center bottom , #EEEEEE 0px, #FFFFFF 50%);
 }
@@ -50,6 +46,10 @@
   }
 
   .add_more_filter{
+    display: none;
+  }
+
+  .filter-container {
     display: none;
   }
 

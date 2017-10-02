@@ -29,7 +29,7 @@ $(document).ready ->
   $("#trigger_event_name").change ->
     $("#filters").html ""
     $("#templates").html ""
-    $("#add_more_filter").attr("disabled", false)
+    #$("#add_more_filter").attr("disabled", false)
     prefillTemplate()
     enableContinue()
     if $(this).val() is "birthday"
@@ -37,10 +37,11 @@ $(document).ready ->
     else
       $("#alert-message").hide()
     if $(this).val() is "trial_lesson" or $(this).val() is "membership"
-      $(".add_more_filter").hide()
+      $(".filter-container").hide()
       return
-    $(".add_more_filter").show()
+    $(".filter-container").show()
     $(".add_more_condition").show()
+    $(".add-filter").removeClass("no-more-options")
     $(".add-filter").show()
     $("select.select-filter").empty()
     $(".select-filter-container").hide()
@@ -121,32 +122,14 @@ $(document).ready ->
   bindFilterInstance = ->
     suggested_options = undefined
     suggested_options = $("div#new_filter").data("options")["suggested_values"][$("#trigger_event_name").val()][$("select.select-filter :selected").val()]
-    #already_used = []
     $($(".filter_key")[$(".filter_key").length - 2 ]).text(I18n.t("set_options.#{$("select.select-filter :selected").val()}"))
     $($(".filter_key")[$(".filter_key").length - 2 ]).val($("select.select-filter :selected").val())
 
     suggested_options_keys = Object.keys(suggested_options)
-    #if $(".key_select option:selected").length > 0 || suggested_options_keys.length == 1
-    #  already_used = $(".key_select option:selected").map(-> $(this).val()).get() unless suggested_options_keys.length == 1
-      # from now on there will be no more options available
-    #  if already_used.length == (suggested_options_keys.length - 1)
-    #    $("#add_more_filter").attr("disabled", true)
-      
     setOptions suggested_options, $("#filters select.value_select:last")
     $("#filters select.value_select:last").selectpicker
       container: ".picker-container"
     $(".add_more_filter").show()
-    #$("select.key_select").change ->
-    #  select_box = $(this).parent().next().next().find("select.value_select")
-    #  $(select_box).empty()
-    #  setOptions suggested_options[$(this).val()], select_box
-    #  $(select_box).selectpicker
-    #    container: ".picker-container"
-    #  $(select_box).addClass "set-background"
-    #  $(select_box).selectpicker "refresh"
-    #  $(this).prop("disable", true)
-      
-    #  return
 
     $('.remove_this_filter').click ->
       $(this).parents('div.fields').remove()
