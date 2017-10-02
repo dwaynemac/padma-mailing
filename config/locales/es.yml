@@ -448,6 +448,14 @@ es:
       description:
         communication: una comunicación
         trial_lesson: una clase de prueba
+      when_event: Cuando se registre
+      with: con
+      and: y 
+      will_send: se va a enviar
+      template: el modelo de mail
+      with_sender: con el remitente
+      with_copy_to: con copia a
+      if_conditions_are_met: si se cumplen en ese momento las condiciones
     new:
       select_template: Elija un modelo
       title: Nuevo disparador
