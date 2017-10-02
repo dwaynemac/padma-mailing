@@ -14,7 +14,13 @@
     <td><%= t('scheduled_mail.attributes.from_address')  %></td>
     <td><%= t('scheduled_mail.attributes.bccs')  %></td>
     <td><%= t('scheduled_mail.attributes.send_at') %></td>
-    <td><%= t('scheduled_mail.attributes.delivered_at') %></td> 
+    <td>
+      <% if @scheduled_mails.first.delivered_at %>
+        <%= t('scheduled_mail.attributes.delivered_at') %>
+      <% else%>
+        <%= t('scheduled_mail.attributes.conditions') %>
+      <% end %>
+    </td> 
   </tr>
   </thead>
   <tbody>
@@ -31,7 +37,11 @@
               <% if sm.delivered_at %>
                 <%= l( sm.delivered_at) if sm.delivered_at%>
               <% else %>
-                <%= t('scheduled_mails.index.still_pending') %>
+                <% unless sm.conditions.blank? %>
+                  <% ActiveSupport::JSON.decode(sm.conditions).each do |k, v| %>
+                    <%= translate_key(k) %>: <%= t("set_options.#{v}") %><br>
+                  <% end %>
+                <% end %>
               <% end %>
             </td>
           
