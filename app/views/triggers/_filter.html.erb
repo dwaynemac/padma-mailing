@@ -2,8 +2,9 @@
   <div class="control-group">
     <label class="control-label"></label>
     <div class="controls form-inline">
+      <span class="filter_key"></span>
       <span class="picker-container">
-        <%= filter.select :key, [], {}, class: 'selectpicker key_select', "data-live-search"=>"true", "data-width"=>"320px", "data-container" => ".form-inline" %>
+        <% filter.select :key, [], {}, class: 'selectpicker key_select', "data-live-search"=>"true", "data-width"=>"320px", "data-container" => ".form-inline" %>
       </span>
       <div class = "right-arrow glyphicon glyphicon-play"></div>
       <span class="picker-container">

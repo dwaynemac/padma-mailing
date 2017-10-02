@@ -53,6 +53,10 @@
     display: none;
   }
 
+  #add_more_filters {
+    display: none !important;
+  }
+
   .add_more_condition {
     display: none;
   }
@@ -120,6 +124,10 @@
 
   .remove_template_reference{
     margin-left: 6px;
+  }
+
+  .select-filter-container {
+    display: none;
   }
 
 }

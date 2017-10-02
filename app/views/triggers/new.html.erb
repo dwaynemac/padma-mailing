@@ -61,11 +61,15 @@
         <div id="filters">
         </div>
         <div class="add_more">
+          <%= link_to t('.add_filter'), "#", class: "add-filter" %>
           <%= f.link_to_add t('.add_filter'), 
             :filters, 
             class: "btn btn-mini btn-primary glyphicon glyphicon-plus add_more_filter", 
-            id: "add_more_filter", 
+            id: "add_more_filters", 
             :data => { :target => "#filters" } %>
+        </div>
+        <div class="select-filter-container">
+          <%= select_tag "Select Filter", options_for_select([]), class: "selectpicker select-filter", include_blank: true %>
         </div>
         <div id="filter_option">
           <%= render partial: 'filter', :locals =>{ f: f} %>
