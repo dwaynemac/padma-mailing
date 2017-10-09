@@ -2,7 +2,6 @@
   <div class="control-group">
     <div class="controls form-inline">
       <span class="condition_key"></span>
-      <% condition.hidden_field :key, class: "condition_key_input" %>
       <%= condition.select :key, [], {}, class: "selectpicker condition_key_input", "data-live-search" => "true", "data-width" => "320px", "data-container" => ".form-inline" %>
       <div class="right-arrow glyphicon glyphicon-play"></div>
       <%= condition.select :value, [], {}, class: "selectpicker condition_value_select", "data-live-search" => "true", "data-width" => "320px" %>
