@@ -52,50 +52,58 @@
         </div>
       </div>
       
-      <div class="jumbotron jumbotron-fluid filter-container">
-        <div class="filter-header">
-          <h2><%= t('triggers.new.filters.name') %></h2>
-          <p class="lead"><%= t('triggers.new.filters.explained') %></p>
+      <div class="jumbotron jumbotron-fluid filter-and-condition-container">
+        <div class="filter-container">
+          <div class="filter-header">
+            <h2><%= t('triggers.new.filters.name') %></h2>
+            <p class="lead"><%= t('triggers.new.filters.explained') %></p>
+          </div>
+          
+          <div id="filters">
+          </div>
+          <div class="add_more">
+            <%= link_to t('.add_filter'), "#", class: "add-filter" %>
+            <%= f.link_to_add t('.add_filter'), 
+              :filters, 
+              class: "btn btn-mini btn-primary glyphicon glyphicon-plus add_more_filter", 
+              id: "add_more_filters", 
+              :data => { :target => "#filters" } %>
+          </div>
+          <div class="select-filter-container">
+            <%= select_tag "Select Filter", options_for_select([]), class: "selectpicker select-filter", include_blank: true %>
+          </div>
+          <div id="filter_option">
+            <%= render partial: 'filter', :locals =>{ f: f} %>
+          </div>
+          <div>
+            <% link_to t('.continue_to_select_template'), 
+              "javascript:void(0);", 
+              :class => 'btn btn-large btn-primary btn-disabled', 
+              id: 'continue-part2' %>
+          </div>
         </div>
-        
-        <div id="filters">
-        </div>
-        <div class="add_more">
-          <%= link_to t('.add_filter'), "#", class: "add-filter" %>
-          <%= f.link_to_add t('.add_filter'), 
-            :filters, 
-            class: "btn btn-mini btn-primary glyphicon glyphicon-plus add_more_filter", 
-            id: "add_more_filters", 
-            :data => { :target => "#filters" } %>
-        </div>
-        <div class="select-filter-container">
-          <%= select_tag "Select Filter", options_for_select([]), class: "selectpicker select-filter", include_blank: true %>
-        </div>
-        <div id="filter_option">
-          <%= render partial: 'filter', :locals =>{ f: f} %>
-        </div>
-        <div>
-          <% link_to t('.continue_to_select_template'), 
-            "javascript:void(0);", 
-            :class => 'btn btn-large btn-primary btn-disabled', 
-            id: 'continue-part2' %>
-        </div>
-        <div class="add_more_condition">
-          <br>
-          <h2><%= t('triggers.new.conditions.name') %></h2>
-          <p class="lead"><%= t('triggers.new.conditions.explained')  %></h3>
-        </div>
-        <div class="conditions"></div>
-        <div class="add_condition">
-          <%= f.link_to_add t(".add_condition"), 
-            :conditions, 
-            class: "btn btn-mini btn-primary glyphicon glyphicon-plus add_more_condition", 
-            id: "add_more_condition", 
-            data: {target: ".conditions"} %>
-        </div>
-        <div class="condition_option">
-          <h2> <%= t("triggers.new.select_conditions") %> </h2>
-          <%= render "condition", f: f %>
+        <div class="condition-container">
+          <div class="condition-header">
+            <br>
+            <h2><%= t('triggers.new.conditions.name') %></h2>
+            <p class="lead"><%= t('triggers.new.conditions.explained')  %></h3>
+          </div>
+          <div class="conditions"></div>
+          <div class="add_condition">
+            <%= link_to t('.add_condition'), "#", class: "add-condition" %>
+            <%= f.link_to_add t(".add_condition"), 
+              :conditions, 
+              class: "btn btn-mini btn-primary glyphicon glyphicon-plus add_more_condition", 
+              id: "add_more_conditions", 
+              data: {target: ".conditions"} %>
+          </div>
+          <div class="select-condition-container">
+            <%= select_tag "Select Condition", options_for_select([]), class: "selectpicker select-condition", include_blank: true %>
+          </div>
+          <div class="condition_option">
+            <h2> <%= t("triggers.new.select_conditions") %> </h2>
+            <%= render "condition", f: f %>
+          </div>
         </div>
       </div>
 
@@ -106,16 +114,12 @@
          <div class="control-group">
            <div class="controls form-inline">
              <span class="picker-container">
-               <select id="select-template" 
-                       class='selectpicker select-template' 
-                       data-live-search="true", 
-                       data-width="320px" 
-                       data-placeholder-text="<%= t('.select_template') %>">
-                 <option data-hidden="true"></option>
-                 <%- current_user.current_account.templates.each do |template| %>
-                   <option value="<%= template.id %>"><%= template.name %></option>
-                 <%- end %>
-               </select>
+              <%= select_tag "trigger[templates_triggerses_attributes][0][template_id]", 
+                options_for_select(current_user.current_account.templates.map{|t| [t.name, t.id]}), 
+                class: 'selectpicker select-template',
+                "data-live-search" => "true",
+                "data-placeholder-text" => t(".select_template"),
+                "data-width" => "320px" %>
              </span>
            </div>
          </div>

@@ -8,12 +8,12 @@ $(document).ready ->
     container: "body"
   $(".selectpicker").addClass "set-background"
   $(".event_names .filter-option").text $('.event_names').data('placeholder-text')
-  $(".select-template .filter-option").text $('#select-template').data('placeholder-text')
+  $(".select-template .filter-option").text $('.select-template').data('placeholder-text')
   cleanBootstrapDropdowns()
   $("#filters").on "nested:fieldAdded", (event) ->
     # this field was just inserted into your form
     bindFilterInstance()
-    $(".add_more_condition").show()
+    #$(".add_more_condition").show()
     $(event.field).find('.key_select').trigger 'change'
     $(event.field).find('.key_select').selectpicker 'refresh'
     return
@@ -29,9 +29,9 @@ $(document).ready ->
   $("#trigger_event_name").change ->
     $("#filters").html ""
     $("#templates").html ""
-    #$("#add_more_filter").attr("disabled", false)
     prefillTemplate()
-    enableContinue()
+    refreshOffsetReference()
+    $(".filter-and-condition-container").show()
     if $(this).val() is "birthday"
       $("#alert-message").show()
     else
@@ -40,11 +40,8 @@ $(document).ready ->
       $(".filter-container").hide()
       return
     $(".filter-container").show()
-    $(".add_more_condition").show()
-    $(".add-filter").removeClass("no-more-options")
-    $(".add-filter").show()
-    $("select.select-filter").empty()
-    $(".select-filter-container").hide()
+    #$(".add_more_condition").show()
+    resetAndShowFilter()
 
     return
 
@@ -72,9 +69,33 @@ $(document).ready ->
    else
      $(".add-filter").show()
 
-  $("#select-template").change ->
-    prefillTemplate()
-    refreshOffsetReference()
+
+  $(".add-condition").click (e) ->
+    e.preventDefault()
+    already_used = $('.condition_key').map(->
+      if $(this).text() != ''
+        return $(this).val()
+      return
+    ).get()
+    condition_options = Object.keys($("div#new_condition").data("options")["suggested_values"])
+    setOptions condition_options, $("select.select-condition"), already_used, true
+    $(".select-condition").selectpicker "refresh"
+    $(this).hide()
+    if already_used.length == Object.keys($("div#new_condition").data("options")["suggested_values"]).length - 1
+      $(this).addClass("no-more-options")
+    $(".select-condition-container").show()
+
+  $(".select-condition").change ->
+   $("#add_more_conditions").click()
+   $("select.select-condition").empty()
+   $(".select-condition-container").hide()
+   if $(".add-condition").hasClass("no-more-options")
+     return
+   else
+     $(".add-condition").show()
+
+
+  $(".select-template").change ->
     enableSubmitTrigger()
     return
 
@@ -87,7 +108,7 @@ $(document).ready ->
     return
 
   $(".submit_trigger").on "click", ->
-    if $("#select-template").val() is ""
+    if $(".select-template").val() is ""
       disableSubmitTrigger()
       false
 
@@ -95,7 +116,7 @@ $(document).ready ->
   prefillTemplate = ->
     template_id = undefined
     $("select.offset_reference").empty()
-    template_id = $("#select-template").val()
+    template_id = $(".select-template").val()
     $("#template_id").val template_id
     setOptions $("div#new_trigger_template").data("options")["offset_references"][$("#trigger_event_name").val()], $("select.offset_reference")
     refreshOffsetReference()
@@ -103,19 +124,22 @@ $(document).ready ->
 
   bindConditionInstance = ->
     suggested_options = undefined
-    suggested_options = $("div#new_condition").data("options")["suggested_values"]
-    setOptions Object.keys(suggested_options), $(".conditions select.condition_key_select:last")
-    $("select.condition_key_select").change ->
-      select_box = $(this).parent().find("select.condition_value_select")
-      $(select_box).empty()
-      setOptions suggested_options[$(this).val()], select_box
-      $(select_box).selectpicker
-        container: "body"
-      $(select_box).addClass "set-background"
-      $(select_box).selectpicker "refresh"
-      return
+    suggested_options = $("div#new_condition").data("options")["suggested_values"][$("select.select-condition :selected").val()]
+    $($(".condition_key")[$(".condition_key").length - 2 ]).text(I18n.t("set_options.#{$("select.select-condition :selected").val()}"))
+    $($(".condition_key")[$(".condition_key").length - 2 ]).val($("select.select-condition :selected").val())
+    #$(".conditions .condition_key_input:last").val($("select.select-condition :selected").val())
+
+    setOptions [$("select.select-condition :selected").val()], $(".conditions select.condition_key_input:last")
+    setOptions suggested_options, $(".conditions select.condition_value_select:last")
+    $(".conditions select.condition_value_select:last").selectpicker
+      container: ".picker-container"
+    $(".add_more_condition").show()
+    
     $(".remove_this_condition").click ->
       $(this).parents("div.fields").remove()
+      $(".add-condition").removeClass("no-more-options")
+      if !$(".select-condition-container").is(":visible")
+        $(".add-condition").show()
     return
 
 
@@ -125,7 +149,8 @@ $(document).ready ->
     $($(".filter_key")[$(".filter_key").length - 2 ]).text(I18n.t("set_options.#{$("select.select-filter :selected").val()}"))
     $($(".filter_key")[$(".filter_key").length - 2 ]).val($("select.select-filter :selected").val())
 
-    suggested_options_keys = Object.keys(suggested_options)
+    #$("#filters .filter_key_input:last").val($("select.select-filter :selected").val())
+    setOptions [$("select.select-filter :selected").val()], $("#filters select.filter_key_input:last")
     setOptions suggested_options, $("#filters select.value_select:last")
     $("#filters select.value_select:last").selectpicker
       container: ".picker-container"
@@ -149,16 +174,18 @@ $(document).ready ->
        return
     return
 
+  resetAndShowFilter = ->
+    $(".add-filter").removeClass("no-more-options")
+    $(".add-filter").show()
+    $("select.select-filter").empty()
+    $(".select-filter-container").hide()
+
   refreshOffsetReference = ->
     $(".offset_reference").selectpicker "refresh"
     return
 
   disableContinueButton = ->
     $("#continue-part2").attr "disabled", true
-    return
-
-  enableContinue = ->
-    $("#continue-part2").attr "disabled", false
     return
 
   disableSubmitTrigger = ->

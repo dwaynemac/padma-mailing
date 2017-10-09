@@ -53,7 +53,23 @@
     display: none;
   }
 
+  .filter-and-condition-container {
+    display: none;
+  }
+
+  .filter_key_input {
+    display: none;
+  }
+
+  .condition_key_input {
+    display: none;
+  }
+
   #add_more_filters {
+    display: none !important;
+  }
+
+  #add_more_conditions {
     display: none !important;
   }
 
@@ -127,6 +143,10 @@
   }
 
   .select-filter-container {
+    display: none;
+  }
+
+  .select-condition-container {
     display: none;
   }
 
