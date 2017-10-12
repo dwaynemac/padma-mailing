@@ -476,11 +476,11 @@ es:
         membership: Registro de un plan
         birthday: Cumpleaños un contacto
       conditions:
-        name: Condiciones 2
-        explained: Seleccione las condiciones que tienen que cumplirse a la hora del envío del e-mail
+        name: Condiciones
+        explained: Sólo enviar si
       filters:
-        name: Condiciones 1
-        explained: Seleccione las condiciones que tienen que cumplirse a la hora del evento para programar el e-mail
+        name: Filtros
+        explained: Programar si
       templates:
         name: Modelo
         explained: Seleccione el modelo del e-mail
