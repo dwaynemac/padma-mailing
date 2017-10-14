@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.0.0'
 
 gem 'rails', '~> 3.2.11'
 gem 'ffi', '~> 1.0.11'
@@ -15,7 +15,7 @@ gem 'contacts_client', '0.0.40'
 gem 'accounts_client', '0.2.34'
 gem 'attendance_client', '0.0.4'
 
-gem 'gibbon'
+gem 'gibbon' #, '~> 2.2', '>= 2.2.3'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 gem 'rails_12factor'
 
