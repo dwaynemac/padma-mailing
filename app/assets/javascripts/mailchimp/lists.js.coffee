@@ -8,13 +8,13 @@ $(document).ready ->
   $(".table-striped").on 'nested:fieldAdded', (e) ->
     $(e.field[0].childNodes[1].childNodes[0]).val($("#new_segment_name").val())
     $("#new_segment_name").val(" ")
-    $(".selectpicker").selectpicker 
+    $(".selectpicker").selectpicker
       showSubtext: true
       container: "body"
     $(".selectpicker").addClass "set-background"
     cleanBootstrapDropdowns()
 
-  $("form input[type=radio]").on "change", ->
+  $("form.sync-contacts input[type=radio]").on "change", ->
     get_contact_scope($("#filter_method_all").is(":checked"))
 
   $(".mailchimp-section").on "change", "select", ->
@@ -22,7 +22,7 @@ $(document).ready ->
       return
     get_contact_scope($("#filter_method_all").is(":checked"))
 
-  $(".add_nested_fields").on "click", ->
+  $(".add_nested_fields.mailchimp-segments").on "click", ->
     if $("#filter_method_all").is(":checked")
       return
     $("#scope-count").text("")
@@ -30,9 +30,9 @@ $(document).ready ->
     setTimeout (->
       get_contact_scope(false)
       return
-    ), 500  
+    ), 500
 
-  $(".remove_nested_fields").on "click", ->
+  $(".remove_nested_fields.mailchimp-segments").on "click", ->
     if $("#filter_method_all").is(":checked")
       return
     $("#scope-count").text("")

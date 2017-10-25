@@ -31,6 +31,17 @@ pt-BR:
     trial_at: Data da aula experimental
     birthday_at: Data do aniversario
     ends_at: Data em que finaliza o plano
+    status: Estado do contato
+    coefficient: Coeficient do contato
+    level: Grau do contato
+    aspirante: Iniciante
+    sádhaka: Sádhaka
+    yôgin: Yôgin
+    chêla: Chêla
+    graduado: Graduado
+    asistente: Assistente
+    docente: Docente
+    maestro: Mestre
   mailchimp_configuration:
     synchronizer_not_created: 'erro interno. synchronizer nāo criado'
     api_key_is_not_valid: 'a API key nāo é válida'
@@ -553,6 +564,9 @@ pt-BR:
       add_filter: Agregar filtro
       continue_to_select_template: Continuar à 'Elejir modelo de mail'
       select_event: Escolha um evento
+      select_conditions: Escolha as condições
+      select_condition: Escolha uma condição
+      sender_data: Configure remitente y copias ocultas
       event:
         communication: Cadastro de uma comunicaçāo
         subscription_change: Cadastro de uma matrícula/evasāo

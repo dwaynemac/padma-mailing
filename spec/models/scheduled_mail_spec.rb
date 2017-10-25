@@ -52,10 +52,18 @@ describe ScheduledMail do
           it { should_not have_key 'instructor' }
         end
       end
+      context "if shceduled mail has conditions" do
+        let(:sm){create(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({status: "student"}))}
+        it { should have_key "conditions" }
+      end
     end
   end
   
   describe "get_from_display_name" do
+    before do
+      PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
+                                                         email: 'acc@mail.co'))
+    end
     subject{sm.get_from_display_name}
     describe "when from_display_name is blank" do
       let(:sm){ build(:scheduled_mail, from_display_name: nil) }
@@ -72,6 +80,10 @@ describe ScheduledMail do
   end
   
   describe "get_from_email_address" do
+    before do
+      PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
+                                                         email: 'acc@mail.co'))
+    end
     subject{sm.get_from_email_address}
     describe "when from_email_address is blank" do
       let(:sm){ build(:scheduled_mail, from_email_address: nil) }
@@ -98,6 +110,37 @@ describe ScheduledMail do
       it "returns given bccs" do
         should eq 'given@mail.co'
       end
+    end
+  end
+  context "when it has conditions" do
+    before do
+        PadmaUser.stub(:find).and_return(PadmaUser.new)
+        PadmaContact.stub(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
+      end
+    describe "and meets them" do
+      let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({"status" => "student", "coefficient" => "perfil"})) }
+      it "should send the mail" do
+        contact_hash = sm.data_hash
+        sm.conditions_met?(contact_hash).should be_true
+      end
+    end
+    describe "and does not meet them" do
+      let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({"status" => "former_student", "coefficient" => "perfil"})) }
+      it "should not send the mail" do
+        contact_hash = sm.data_hash
+        sm.conditions_met?(contact_hash).should be_false
+      end
+    end
+  end
+  context "when it does not have conditions" do
+    let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({})) }
+    before do
+      PadmaUser.stub(:find).and_return(PadmaUser.new)
+      PadmaContact.stub(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
+    end
+    it "should meet conditions" do
+      contact_hash = sm.data_hash
+      sm.conditions_met?(contact_hash).should be_true
     end
   end
 end

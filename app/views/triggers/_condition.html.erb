@@ -1,0 +1,14 @@
+<%= f.fields_for :conditions, @trigger.conditions.new do |condition| %>
+  <div class="control-group">
+    <div class="controls form-inline">
+      <span class="condition_key"></span>
+      <%= condition.select :key, [], {}, class: "selectpicker condition_key_input", "data-live-search" => "true", "data-width" => "320px", "data-container" => ".form-inline" %>
+      <div class="right-arrow glyphicon glyphicon-play"></div>
+      <%= condition.select :value, [], {}, class: "selectpicker condition_value_select", "data-live-search" => "true", "data-width" => "320px" %>
+      <a data-association="conditions" class="remove_this_condition btn btn-mini btn-danger" href="javascript:void(0)">
+        <i class="glyphicon glyphicon-remove"></i>
+      </a>
+    </div>
+  </div>
+<% end %>
+

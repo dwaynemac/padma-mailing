@@ -1,7 +1,7 @@
 class ScheduledMail < ActiveRecord::Base
   attr_accessible :local_account_id, :send_at, :template_id,
                   :delivered_at, :contact_id,
-                  :username, :event_key, :data,
+                  :username, :event_key, :data, :conditions,
                   :from_display_name, :from_email_address,
                   :bccs,
                   :recipient_email
@@ -60,6 +60,14 @@ class ScheduledMail < ActiveRecord::Base
   end
 
   def deliver_now!
+    contact_data = data_hash
+    unless conditions_met?(contact_data)
+      Rails.logger.info "Mail with data #{contact_data} cancelled, conditions not met."
+      update_attributes({
+        cancelled: true, 
+        delivered_at: Time.now })
+    end
+    
     return unless delivered_at.nil?
     
     # freeze FROM address for history
@@ -73,7 +81,7 @@ class ScheduledMail < ActiveRecord::Base
 
     PadmaMailer.template(
       template,
-      data_hash,
+      contact_data,
       recipient_email,
       get_bccs,
       get_from_display_name,
@@ -104,6 +112,15 @@ class ScheduledMail < ActiveRecord::Base
                                  updated_at: Time.zone.now.to_s )
   end
 
+  def conditions_met?(contact_data)
+    return true if conditions.blank?
+    decoded_conditions = ActiveSupport::JSON.decode(conditions)
+    conditions_count = decoded_conditions.keys.count
+    match_count = 0
+    decoded_conditions.keys.each{|key| match_count +=1 if contact_data["conditions"][key] == decoded_conditions[key]}
+    conditions_count == match_count
+  end
+
   def as_json(options = nil)
     options ||= {}
 
@@ -123,19 +140,23 @@ class ScheduledMail < ActiveRecord::Base
   def data_hash
     data_hash = {}
     json_data = data.blank?? {} : ActiveSupport::JSON.decode(data)
+    conditions_hash = conditions.blank? ? {} : ActiveSupport::JSON.decode(conditions)
 
     contact_id = json_data['contact_id'] || self.contact_id
     if contact_id
-      contact = PadmaContact.find(contact_id,
-                                select: [:email,
-                                         :first_name,
-                                         :last_name,
-                                         :gender,
-                                         :global_teacher_username
-                                        ]
-                               )
+      select_options = [:email, :first_name, :last_name, :gender, :global_teacher_username]
+      select_options += conditions_hash.keys.map(&:to_sym)
+      contact = PadmaContact.find(contact_id, select: select_options, account_name: account.name)
       teacher = PadmaUser.find_with_rails_cache(contact.global_teacher_username) if contact.try(:global_teacher_username)
       contact_drop = ContactDrop.new(contact, (teacher || padma_user));
+      unless conditions.blank?
+        conditions_to_be_added = {}
+        conditions_hash.keys.each do |key|
+          conditions_to_be_added[key] = contact.send(key) 
+        end
+        data_hash.merge!({"conditions" => conditions_to_be_added})
+      end
+
       data_hash.merge!({
         'persona' => contact_drop,
         'contact' => contact_drop
