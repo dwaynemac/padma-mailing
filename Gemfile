@@ -14,8 +14,7 @@ gem 'logical_model', '0.6.4'
 gem 'contacts_client', '0.0.40'
 gem 'accounts_client', '0.2.34'
 gem 'attendance_client', '0.0.4'
-
-gem 'gibbon', '~> 2.2', '>= 2.2.3'
+gem 'gibbon', '~> 3.1', '>= 3.1.1'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 gem 'rails_12factor'
 
