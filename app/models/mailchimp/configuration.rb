@@ -94,7 +94,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   
   def sync_mailchimp_lists_locally
     self.mailchimp_lists.destroy_all
-    api.lists.list.body["lists"].each do |list_hash|
+    api.lists.body["lists"].each do |list_hash|
       Mailchimp::List.create(
         api_id: list_hash['id'],
         name: list_hash['name'],
@@ -107,7 +107,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
     return if api_key.blank?
 
     begin
-      if api.lists.list['data'].nil?
+      if api.lists.body['lists'].blank?
         self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
       end
     rescue OpenSSL::SSL::SSLError
