@@ -37,7 +37,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   # @return [Gibbon:API]
   def api
     if @mailchimp_api.nil?
-      @mailchimp_api = Gibbon::API.new api_key
+      @mailchimp_api = Gibbon::Request.new api_key: api_key
       @mailchimp_api.throws_exceptions = false
     end
     @mailchimp_api
@@ -94,7 +94,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   
   def sync_mailchimp_lists_locally
     self.mailchimp_lists.destroy_all
-    api.lists.list['data'].each do |list_hash|
+    api.lists.list.body["lists"].each do |list_hash|
       Mailchimp::List.create(
         api_id: list_hash['id'],
         name: list_hash['name'],
