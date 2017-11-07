@@ -1,9 +1,11 @@
+# encoding: UTF-8
+
 # Trigger will schedule templates
 # when event_name is received matching given filters
 # Delivery will be scheduled according to speficied offset.
 # If no offset is set delivery will be in the moment.
 class Trigger < ActiveRecord::Base
-  attr_accessible :event_name, :local_account_id, :filters_attributes, :templates_triggerses_attributes
+  attr_accessible :event_name, :local_account_id, :filters_attributes, :conditions_attributes, :templates_triggerses_attributes
 
   VALID_EVENT_NAMES = [
       'communication',
@@ -25,7 +27,9 @@ class Trigger < ActiveRecord::Base
   has_many :templates, through: :templates_triggerses
 
   has_many :filters, dependent: :destroy
+  has_many :conditions, dependent: :destroy
   accepts_nested_attributes_for :filters
+  accepts_nested_attributes_for :conditions
 
   # @param key_name [String]
   # @param data [Hash]
@@ -62,9 +66,9 @@ class Trigger < ActiveRecord::Base
                     from_email_address: tt.from_email_address,
                     send_at: send_at,
                     event_key: key_name,
-                    data: ActiveSupport::JSON.encode(data)
+                    data: ActiveSupport::JSON.encode(data),
+                    conditions: ActiveSupport::JSON.encode(trigger.conditions.map{|c| {c.key => c.value}}.reduce(&:merge))
                 )
-                
                 sm_key = sm.inspect.to_param # before save to avoid id. 
                 if Rails.env.production? && Rails.cache.read("saved_sm:#{sm_key}") 
                   Rails.logger.warn "[notify-sysadmin] Prevented duplicate to #{sm.inspect}"

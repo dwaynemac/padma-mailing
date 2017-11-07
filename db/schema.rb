@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170202152722) do
+ActiveRecord::Schema.define(:version => 20170822145231) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -27,6 +27,14 @@ ActiveRecord::Schema.define(:version => 20170202152722) do
     t.integer  "template_id"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
+  end
+
+  create_table "conditions", :force => true do |t|
+    t.string   "key"
+    t.string   "value"
+    t.integer  "trigger_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -125,8 +133,8 @@ ActiveRecord::Schema.define(:version => 20170202152722) do
     t.integer  "local_account_id"
     t.string   "recipient_email"
     t.datetime "send_at"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.datetime "delivered_at"
     t.string   "contact_id"
     t.string   "username"
@@ -135,6 +143,8 @@ ActiveRecord::Schema.define(:version => 20170202152722) do
     t.string   "from_display_name"
     t.string   "from_email_address"
     t.string   "bccs"
+    t.text     "conditions"
+    t.boolean  "cancelled",          :default => false
   end
 
   create_table "sessions", :force => true do |t|
@@ -152,9 +162,9 @@ ActiveRecord::Schema.define(:version => 20170202152722) do
     t.string   "description"
     t.string   "subject"
     t.text     "content"
-    t.integer  "local_account_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.integer  "local_account_id", :limit => 255
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   create_table "templates_triggers", :force => true do |t|

@@ -62,6 +62,6 @@
   <% if false && ff.object.persisted? %>
     <td><%= t('mailchimp.list.segments.destroy')%></td>
   <% else -%>
-    <td><%= ff.link_to_remove '<span class="glyphicon glyphicon-trash"></span>'.html_safe %></td>
+    <td><%= ff.link_to_remove '<span class="glyphicon glyphicon-trash"></span>'.html_safe, class: 'mailchimp-segments' %></td>
   <% end %>
 </tr>
