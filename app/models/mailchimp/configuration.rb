@@ -38,7 +38,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   def api
     if @mailchimp_api.nil?
       @mailchimp_api = Gibbon::Request.new api_key: api_key
-      @mailchimp_api.throws_exceptions = false
+      #@mailchimp_api.throws_exceptions = false
     end
     @mailchimp_api
   end
@@ -94,7 +94,9 @@ class Mailchimp::Configuration < ActiveRecord::Base
   
   def sync_mailchimp_lists_locally
     self.mailchimp_lists.destroy_all
-    api.lists.body["lists"].each do |list_hash|
+    api.lists.retrieve(params: {
+      sort_field: "date_created", 
+      sort_dir: "DESC"}).body["lists"].each do |list_hash|
       Mailchimp::List.create(
         api_id: list_hash['id'],
         name: list_hash['name'],
@@ -107,10 +109,10 @@ class Mailchimp::Configuration < ActiveRecord::Base
     return if api_key.blank?
 
     begin
-      if api.lists.body['lists'].blank?
+      if api.lists.retrieve.body['lists'].blank?
         self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
       end
-    rescue OpenSSL::SSL::SSLError
+    rescue
       self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
     end
   end
