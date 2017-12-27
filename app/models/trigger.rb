@@ -67,7 +67,7 @@ class Trigger < ActiveRecord::Base
                     send_at: send_at,
                     event_key: key_name,
                     data: ActiveSupport::JSON.encode(data),
-                    conditions: ActiveSupport::JSON.encode(trigger.conditions.map{|c| {c.key => c.value}}.reduce(&:merge))
+                    conditions: encode_conditions(trigger.conditions)
                 )
                 sm_key = sm.inspect.to_param # before save to avoid id. 
                 if Rails.env.production? && Rails.cache.read("saved_sm:#{sm_key}") 
@@ -108,6 +108,7 @@ class Trigger < ActiveRecord::Base
       false
     end
   end
+  
 
   private
 
@@ -164,6 +165,14 @@ class Trigger < ActiveRecord::Base
       return is_linked_to_account?(data) && is_not_another_schools_student?(data)
     else
       true
+    end
+  end
+
+  def self.encode_conditions(conditions)
+    if conditions.blank?
+      "{}"
+    else
+      ActiveSupport::JSON.encode(conditions.map{|c| {c.key => c.value}}.reduce(&:merge))
     end
   end
 end
