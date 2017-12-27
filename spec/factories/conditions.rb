@@ -4,6 +4,5 @@ FactoryGirl.define do
   factory :condition do
     key "MyString"
     value "MyString"
-    scheduled_mail_id 1
   end
 end
