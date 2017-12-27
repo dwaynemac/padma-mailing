@@ -145,11 +145,11 @@ class ScheduledMail < ActiveRecord::Base
     contact_id = json_data['contact_id'] || self.contact_id
     if contact_id
       select_options = [:email, :first_name, :last_name, :gender, :global_teacher_username]
-      select_options += conditions_hash.keys.map(&:to_sym)
+      select_options += conditions_hash.keys.map(&:to_sym) unless conditions_hash.blank?
       contact = PadmaContact.find(contact_id, select: select_options, account_name: account.name)
       teacher = PadmaUser.find_with_rails_cache(contact.global_teacher_username) if contact.try(:global_teacher_username)
       contact_drop = ContactDrop.new(contact, (teacher || padma_user));
-      unless conditions.blank?
+      unless conditions_hash.blank?
         conditions_to_be_added = {}
         conditions_hash.keys.each do |key|
           conditions_to_be_added[key] = contact.send(key) 
