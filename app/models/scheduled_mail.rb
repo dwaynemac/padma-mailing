@@ -4,7 +4,7 @@ class ScheduledMail < ActiveRecord::Base
                   :username, :event_key, :data, :conditions,
                   :from_display_name, :from_email_address,
                   :bccs,
-                  :recipient_email
+                  :recipient_email, :cancelled
 
   paginates_per 20
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
@@ -63,6 +63,7 @@ class ScheduledMail < ActiveRecord::Base
     contact_data = data_hash
     unless conditions_met?(contact_data)
       Rails.logger.info "Mail with data #{contact_data} cancelled, conditions not met."
+      
       update_attributes({
         cancelled: true, 
         delivered_at: Time.now })
