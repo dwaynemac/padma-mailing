@@ -381,6 +381,30 @@ describe Trigger do
             s = ScheduledMail.last
             s.conditions_met?(s.data_hash).should be_true
           end
+          it "should deliver the mail" do
+            PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: "my-account",
+            select: 
+              [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com",
+                first_name: "Dwayne",
+                last_name: "Macgowan",
+                gender: "Male",
+                global_teacher_username: nil,
+                status: "student",
+                coefficient: "pmas"
+              )
+            )
+            Template.any_instance.stub(:deliver) {nil}
+            PadmaMailer.any_instance.should_receive(:template).and_return Template.last
+            Trigger.catch_message(key, data)
+            s = ScheduledMail.last
+            s.deliver_now!
+          end
 
         end
         describe "are not met" do
@@ -412,6 +436,30 @@ describe Trigger do
             s = ScheduledMail.last
             s.conditions_met?(s.data_hash).should be_false
           end
+          it "should not deliver the mail" do
+            PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: "my-account",
+            select: 
+              [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com",
+                first_name: "Dwayne",
+                last_name: "Macgowan",
+                gender: "Male",
+                global_teacher_username: nil,
+                status: "student",
+                coefficient: "perfil"
+              )
+            )
+            PadmaMailer.any_instance.should_not_receive(:template)
+            Trigger.catch_message(key, data)
+            s = ScheduledMail.last
+            s.deliver_now!
+          end
+
         end
         describe "are empty" do
           before do
