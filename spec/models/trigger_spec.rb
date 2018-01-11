@@ -155,7 +155,7 @@ describe Trigger do
         end
         it "schedules email to now+1day" do
           Trigger.catch_message key, data
-          ScheduledMail.last.send_at.should be_within(1).of(Time.now+1.day)
+          ScheduledMail.last.send_at.should be_within(10).of(Time.now+1.day)
         end
         it "ignores deliveries with send_at in the past"  do
           late_trigger
