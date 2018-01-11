@@ -302,6 +302,199 @@ describe Trigger do
           end
         end
       end
+
+      context "when conditions" do
+        let(:my_account){create(:account, name: 'my-account')}
+        let(:template2){create(:template, account: my_account)}
+        let(:key){"birthday"}
+        let(:data){{
+          contact_id: 1234, 
+          birthday_at: Time.now, 
+          linked_accounts_names: %W(my-account),
+          'local_status_for_my-account' => 'student',
+          status: 'student'}.stringify_keys!}
+         let(:birthday_trigger_with_conditions){create(:trigger,
+                               account: my_account,
+                               event_name: 'birthday',
+                               templates_triggerses_attributes: [
+                                   {template_id: template2.id,
+                                    offset_number: 1,
+                                    offset_unit: 'day',
+                                    offset_reference: 'birthday_at'}
+                               ],
+                               conditions: [
+                                 create(:condition, key: "status", value: "student"),
+                                 create(:condition, key: "coefficient", value: "pmas")
+                               ]
+          )}
+         let(:birthday_trigger_without_conditions){create(:trigger,
+                               account: my_account,
+                               event_name: 'birthday',
+                               templates_triggerses_attributes: [
+                                   {template_id: template2.id,
+                                    offset_number: 1,
+                                    offset_unit: 'day',
+                                    offset_reference: 'birthday_at'}
+                               ]
+          )}
+
+        before do
+          PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: nil,
+            select: 
+              [:email]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com"
+              )
+            )
+        end
+
+        describe "are met" do
+          before do
+            birthday_trigger_with_conditions
+          end
+          it "should generate Scheduled Mail" do
+            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+          end
+          it "should meet conditions in the Scheduled Mail" do
+            PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: "my-account",
+            select: 
+              [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com",
+                first_name: "Dwayne",
+                last_name: "Macgowan",
+                gender: "Male",
+                global_teacher_username: nil,
+                status: "student",
+                coefficient: "pmas"
+              )
+            )
+            Trigger.catch_message(key, data)
+            s = ScheduledMail.last
+            s.conditions_met?(s.data_hash).should be_true
+          end
+          it "should deliver the mail" do
+            PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: "my-account",
+            select: 
+              [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com",
+                first_name: "Dwayne",
+                last_name: "Macgowan",
+                gender: "Male",
+                global_teacher_username: nil,
+                status: "student",
+                coefficient: "pmas"
+              )
+            )
+            Template.any_instance.stub(:deliver) {nil}
+            PadmaMailer.any_instance.should_receive(:template).and_return Template.last
+            Trigger.catch_message(key, data)
+            s = ScheduledMail.last
+            s.deliver_now!
+          end
+
+        end
+        describe "are not met" do
+          before do
+            birthday_trigger_with_conditions
+          end
+          it "should generate Scheduled Mail" do
+            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+          end
+          it "should not meet conditions in the Scheduled Mail" do
+            PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: "my-account",
+            select: 
+              [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com",
+                first_name: "Dwayne",
+                last_name: "Macgowan",
+                gender: "Male",
+                global_teacher_username: nil,
+                status: "student",
+                coefficient: "perfil"
+              )
+            )
+            Trigger.catch_message(key, data)
+            s = ScheduledMail.last
+            s.conditions_met?(s.data_hash).should be_false
+          end
+          it "should not deliver the mail" do
+            PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: "my-account",
+            select: 
+              [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com",
+                first_name: "Dwayne",
+                last_name: "Macgowan",
+                gender: "Male",
+                global_teacher_username: nil,
+                status: "student",
+                coefficient: "perfil"
+              )
+            )
+            PadmaMailer.any_instance.should_not_receive(:template)
+            Trigger.catch_message(key, data)
+            s = ScheduledMail.last
+            s.deliver_now!
+          end
+
+        end
+        describe "are empty" do
+          before do
+            birthday_trigger_without_conditions
+          end
+          it "should generate ScheduledMail" do
+            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+          end
+          it "conditions generated should be empty" do
+            Trigger.catch_message(key, data)
+            ScheduledMail.last.conditions.should == "{}"
+          end
+
+          it "should meet conditions" do
+            PadmaContact.should_receive(:find).with(
+            1234,
+            account_name: "my-account",
+            select: 
+              [:email, :first_name, :last_name, :gender, :global_teacher_username]
+            ).and_return(
+              PadmaContact.new(
+                id: 123,
+                email: "dwaynemac@gmail.com",
+                first_name: "Dwayne",
+                last_name: "Macgowan",
+                gender: "Male",
+                global_teacher_username: nil
+              )
+            )
+            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+            s = ScheduledMail.last
+            s.conditions_met?(s.data_hash).should be_true
+          end
+        end
+      end
     end
   end
 end

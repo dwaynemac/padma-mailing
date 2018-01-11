@@ -1,6 +1,6 @@
 # encoding: UTF-8
 class Condition < ActiveRecord::Base
-  attr_accessible :key, :scheduled_mail_id, :value
+  attr_accessible :key, :value
 
   belongs_to :trigger
 
