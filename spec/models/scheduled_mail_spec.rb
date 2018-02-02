@@ -61,7 +61,6 @@ describe ScheduledMail do
   
   describe "get_from_display_name" do
     before do
-      RSpec::Mocks.proxy_for(PadmaAccount).reset
       PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
                                                            branded_name: 'DeROSE Method | acc-name',
                                                            email: 'acc@mail.co'))
