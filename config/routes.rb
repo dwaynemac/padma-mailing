@@ -62,6 +62,7 @@ Mailing::Application.routes.draw do
   end
   resources :activities, only: [:destroy, :index]
 
+  match 'sns', to: 'message_door#sns'
   match 'message_door', to: 'message_door#catch'
   root to: 'templates#index'
 end
