@@ -16,8 +16,7 @@ class MessageDoorController < ApplicationController
         if sns_duplicate_submission?
           render json: 'duplicate', status: 200
         else
-          Trigger.delay.catch_message(sns_topic,
-                                ActiveSupport::JSON.decode(sns_message))
+          Trigger.delay.catch_message(sns_topic,sns_message.stringify_keys!)
           
           sns_set_as_received!
           render json: "received", status: 200
