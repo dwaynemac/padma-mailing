@@ -62,7 +62,8 @@ describe ScheduledMail do
   describe "get_from_display_name" do
     before do
       PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
-                                                         email: 'acc@mail.co'))
+                                                           branded_name: 'DeROSE Method | acc-name',
+                                                           email: 'acc@mail.co'))
     end
     subject{sm.get_from_display_name}
     describe "when from_display_name is blank" do
@@ -82,7 +83,8 @@ describe ScheduledMail do
   describe "get_from_email_address" do
     before do
       PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
-                                                         email: 'acc@mail.co'))
+                                                         branded_name: 'DeROSE Method | acc-name',
+                                                           email: 'acc@mail.co'))
     end
     subject{sm.get_from_email_address}
     describe "when from_email_address is blank" do

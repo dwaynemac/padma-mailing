@@ -15,7 +15,7 @@
     <td><%= t('scheduled_mail.attributes.bccs')  %></td>
     <td><%= t('scheduled_mail.attributes.send_at') %></td>
     <td>
-      <% if @scheduled_mails.first.delivered_at %>
+      <% if @scheduled_mails.first && @scheduled_mails.first.delivered_at %>
         <%= t('scheduled_mail.attributes.delivered_at') %>
       <% else%>
         <%= t('scheduled_mail.attributes.conditions') %>
