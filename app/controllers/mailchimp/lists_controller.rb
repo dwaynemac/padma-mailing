@@ -75,6 +75,13 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     @synchro = @list.mailchimp_configuration.get_synchronizer
   end
 
+  def members
+    @list = Mailchimp::List.find(params[:id])
+    @api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
+    @unsubscribed = api.lists(@list.api_id).members.retrieve(params: {status: "unsubscribed", fields: "members.merge_fields,members.email_address"}).body["members"]
+    @cleaned = api.lists(@list.api_id).members.retrieve(params: {status: "cleaned", fields: "members.merge_fields,members.email_address"}).body["members"]
+  end
+
   protected
   
   def mailchimp_error(exception)
