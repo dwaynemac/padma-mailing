@@ -1,0 +1,91 @@
+<h1><%= @list.name %></h1>
+
+<h2>
+  Contacts
+  <% local_scope = @list.get_scope %>
+  <% if local_scope.to_i == (@list_in_mailchimp["stats"]["member_count"].to_i + 
+      @list_in_mailchimp["stats"]["unsubscribe_count"].to_i +
+      @list_in_mailchimp["stats"]["cleaned_count"].to_i)
+  %>
+    <span class="badge badge-success">OK</span>
+  <% else %>
+    <span class="badge bage-warning">Error</span>
+  <% end %>
+</h2>
+<table class="table table-striped">
+  <tr>
+    <td>Contact to synchronize</td>
+    <td><%= @list.get_scope %></td>
+  </tr>
+  <tr>
+    <td>Contacts in list as members</td>
+    <td><%= @list_in_mailchimp["stats"]["member_count"] %></td>
+  </tr>
+  <tr>
+    <td>Unsubscribed contacts</td>
+    <td><%= @list_in_mailchimp["stats"]["unsubscribe_count"] %></td>
+  </tr>
+  <tr>
+    <td>Cleaned contacts</td>
+    <td><%= @list_in_mailchimp["stats"]["cleaned_count"] %></td>
+  </tr>
+</table>
+
+<h2>Synchronization status</h2>
+<table class="table table-striped">
+  <tr>
+    <td>Status in contacts-ws</td>
+    <td><%= @synchro["status"] %></td>
+  </tr>
+  <tr>
+    <td>Last syncronized</td>
+    <td><%= @synchro["last_synchronization"] %></td>
+  </tr>
+  <tr>
+    <td>Merge fields</td>
+    <td>local: <%= JSON.parse(@synchro["merge_fields"]).count %> <br> remote: <%= @list_in_mailchimp["stats"]["merge_field_count"] %></td>
+  </tr>
+  <tr>
+    <td>Coefficient group</td>
+    <td>local: <%= JSON.parse(@synchro["coefficient_group"])["interests"].keys.count %><br>remote: </td>
+  </tr>
+  <tr>
+    <td>Currently running batches</td>
+    <td><%= @api.batches.retrieve.body["batches"].select{|b| b["status"] != "finished"}.count %></td>
+  </tr>
+</table>
+
+<h2>Statistics</h2>
+<table class="table table-striped">
+  <tr>
+    <td>Average unsubscribed</td>
+    <td><%= @list_in_mailchimp["stats"]["avg_unsub_rate"] %></td>
+  </tr>
+  <tr>
+    <td>Open rate</td>
+    <td><%= @list_in_mailchimp["stats"]["open_rate"] %></td>
+  </tr>
+  <tr>
+    <td>Click rate</td>
+    <td><%= @list_in_mailchimp["stats"]["click_rate"] %></td>
+  </tr>
+</table>
+
+<h3>Since last send</h3>
+<table class="table table-striped">
+  <tr>
+    <td>Send at</td>
+    <td><%= @list_in_mailchimp["stats"]["campaign_last_sent"] %></td>
+  </tr>
+  <tr>
+    <td>Unsubscribed</td>
+    <td><%= @list_in_mailchimp["stats"]["unsubscribe_count_since_send"] %></td>
+  </tr>
+  <tr>
+    <td>Cleaned</td>
+    <td><%= @list_in_mailchimp["stats"]["cleaned_count_since_send"] %></td>
+  </tr>
+</table>
+
+<h2>Links</h2>
+HERE WILL BE THE LINKS

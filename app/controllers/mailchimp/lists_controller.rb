@@ -49,11 +49,12 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     mailchimp_segment_attributes
   end
 
-  def get_scope
+  def preview_scope
     count = "no number has been returned"
     list = Mailchimp::List.find(params[:id])
     params[:app_key] = ENV["contacts_key"]
     params[:api_key] = list.mailchimp_configuration.api_key
+    params[:preview] = true
     params[:mailchimp_segments] = params[:data][:mailchimp_list][:mailchimp_segments_attributes].values
     params.delete :data
     response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_scope", params: params)
@@ -65,6 +66,13 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     respond_to do |format|
       format.json { render json: count }
     end
+  end
+
+  def status
+    @list = Mailchimp::List.find(params[:id])
+    @api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
+    @list_in_mailchimp = @api.lists(@list.api_id).retrieve.body
+    @synchro = @list.mailchimp_configuration.get_synchronizer
   end
 
   protected

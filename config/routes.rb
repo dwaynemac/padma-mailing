@@ -37,9 +37,10 @@ Mailing::Application.routes.draw do
     resources :lists, only: [:update] do
       member do
         get :segments
+        get :status
       end
       collection do
-        post :get_scope
+        post :preview_scope
       end
     end
 
