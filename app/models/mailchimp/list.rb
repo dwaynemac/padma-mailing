@@ -21,4 +21,13 @@ class Mailchimp::List < ActiveRecord::Base
   def primary?
     self.id == self.mailchimp_configuration.primary_list_id
   end
+
+  def get_scope
+    resp = Typhoeus.get Contacts::HOST + "/v0/mailchimp_synchronizers/get_scope", body: {
+      app_key: ENV["contacts_key"],
+      api_key: mailchimp_configuration.api_key,
+      preview: false
+    }
+    resp.body
+  end
 end
