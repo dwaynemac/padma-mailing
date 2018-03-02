@@ -24,16 +24,14 @@
   <tr>
     <td>Unsubscribed contacts</td>
     <td><%= @list_in_mailchimp["stats"]["unsubscribe_count"] %></td>
-    <td>Ver contactos</td>
   </tr>
   <tr>
     <td>Cleaned contacts</td>
     <td><%= @list_in_mailchimp["stats"]["cleaned_count"] %></td>
-    <td>Ver contactos</td>
   </tr>
 </table>
 <%= link_to "Ajustar scope", segments_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
-<%= link_to "Ver unsubscribed y cleaned", "#", class: "btn btn-primary" %>
+<%= link_to "Ver unsubscribed y cleaned", members_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
 <%= link_to "Ver contactos que no estan en mailchimp", "#", class: "btn btn-primary" %>
 <%= link_to "Ver contactos estan en mailchimp", "#", class: "btn btn-primary" %>
 

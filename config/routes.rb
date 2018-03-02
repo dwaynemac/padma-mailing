@@ -38,6 +38,8 @@ Mailing::Application.routes.draw do
       member do
         get :segments
         get :status
+        get :members
+        get :remove_member
       end
       collection do
         post :preview_scope
