@@ -77,9 +77,18 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def members
     @list = Mailchimp::List.find(params[:id])
-    @api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
+    api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
     @unsubscribed = api.lists(@list.api_id).members.retrieve(params: {status: "unsubscribed", fields: "members.merge_fields,members.email_address"}).body["members"]
     @cleaned = api.lists(@list.api_id).members.retrieve(params: {status: "cleaned", fields: "members.merge_fields,members.email_address"}).body["members"]
+  end
+
+  def remove_member
+    @list = Mailchimp::List.find(params[:id])
+    member_email = params[:email]
+    api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
+    api.lists(@list.api_id).members(subscriber_hash(member_email)).delete
+
+    redirect_to members_mailchimp_list_path(id: params[:id])
   end
 
   protected
@@ -87,5 +96,9 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   def mailchimp_error(exception)
     flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
     redirect_to segments_mailchimp_list_path(id: @list.id)
+  end
+
+  def subscriber_hash(email)
+    Digest::MD5.hexdigest(email.downcase) unless email.nil?
   end
 end
