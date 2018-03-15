@@ -60,7 +60,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_scope", params: params)
     
     if response.success?
-      count = response.body
+      count = response.body[:count]
     end
     
     respond_to do |format|
@@ -70,23 +70,23 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def status
     @list = Mailchimp::List.find(params[:id])
-    @api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
-    @list_in_mailchimp = @api.lists(@list.api_id).retrieve.body
     @synchro = @list.mailchimp_configuration.get_synchronizer
   end
 
   def members
+    @page = params[:page] || 1
+    @per = params[:per] || 4
     @list = Mailchimp::List.find(params[:id])
-    api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
-    @unsubscribed = api.lists(@list.api_id).members.retrieve(params: {status: "unsubscribed", fields: "members.merge_fields,members.email_address"}).body["members"]
-    @cleaned = api.lists(@list.api_id).members.retrieve(params: {status: "cleaned", fields: "members.merge_fields,members.email_address"}).body["members"]
+    @unsubscribed = @list.unsubscribed
+    @cleaned = @list.cleaned
   end
 
   def remove_member
     @list = Mailchimp::List.find(params[:id])
-    member_email = params[:email]
-    api = Gibbon::Request.new(api_key: @list.mailchimp_configuration.api_key)
-    api.lists(@list.api_id).members(subscriber_hash(member_email)).delete
+    res = @list.remove_member(params[:email])
+    if res[:status] == false
+      flash.alert = res[:message]
+    end
 
     redirect_to members_mailchimp_list_path(id: params[:id])
   end
@@ -98,7 +98,4 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     redirect_to segments_mailchimp_list_path(id: @list.id)
   end
 
-  def subscriber_hash(email)
-    Digest::MD5.hexdigest(email.downcase) unless email.nil?
-  end
 end
