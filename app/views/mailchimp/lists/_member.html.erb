@@ -1,0 +1,20 @@
+<% mailchimp_info = list.member(member["email"]) %>
+<td>
+  <%= link_to CRM_HOST + "/contacts/#{member["id"]}" do %>
+    <%= "#{member["first_name"]} #{member["last_name"]}" %>
+  <% end %>
+</td>
+<td>
+  <%= mailchimp_info["status"] %>
+</td>
+<td>
+  <% mailchimp_info["merge_fields"].each do |k,v| %>
+    <%= k %>: <%= v %>
+  <% end %>
+</td>
+<td>
+  sumar a la lista
+</td>
+<td>
+  borrar de la lista
+</td>
