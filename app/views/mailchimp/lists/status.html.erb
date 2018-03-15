@@ -1,11 +1,13 @@
 <h1><%= @list.name %></h1>
 
+<% remote_list = @list.remote_list %>
+
 <h2>
   Contacts
-  <% local_scope = @list.get_scope %>
-  <% if local_scope.to_i == (@list_in_mailchimp["stats"]["member_count"].to_i + 
-      @list_in_mailchimp["stats"]["unsubscribe_count"].to_i +
-      @list_in_mailchimp["stats"]["cleaned_count"].to_i)
+  <% local_scope = @list.get_scope["count"] %>
+  <% if local_scope == (remote_list["stats"]["member_count"].to_i + 
+      remote_list["stats"]["unsubscribe_count"].to_i +
+      remote_list["stats"]["cleaned_count"].to_i)
   %>
     <span class="badge badge-success">OK</span>
   <% else %>
@@ -15,19 +17,19 @@
 <table class="table table-striped">
   <tr>
     <td>Contact to synchronize</td>
-    <td><%= @list.get_scope %></td>
+    <td><%= local_scope %></td>
   </tr>
   <tr>
     <td>Contacts in list as members</td>
-    <td><%= @list_in_mailchimp["stats"]["member_count"] %></td>
+    <td><%= remote_list["stats"]["member_count"] %></td>
   </tr>
   <tr>
     <td>Unsubscribed contacts</td>
-    <td><%= @list_in_mailchimp["stats"]["unsubscribe_count"] %></td>
+    <td><%= remote_list["stats"]["unsubscribe_count"] %></td>
   </tr>
   <tr>
     <td>Cleaned contacts</td>
-    <td><%= @list_in_mailchimp["stats"]["cleaned_count"] %></td>
+    <td><%= remote_list["stats"]["cleaned_count"] %></td>
   </tr>
 </table>
 <%= link_to "Ajustar scope", segments_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
@@ -49,7 +51,7 @@ Ver contactos: obtener los IDs del get_scope de contacts y linkear a una búsque
   </tr>
   <tr>
     <td>Merge fields</td>
-    <td>local: <%= JSON.parse(@synchro["merge_fields"]).count %> <br> remote: <%= @list_in_mailchimp["stats"]["merge_field_count"] %></td>
+    <td>local: <%= JSON.parse(@synchro["merge_fields"]).count %> <br> remote: <%= remote_list["stats"]["merge_field_count"] %></td>
   </tr>
   <tr>
     <td>Coefficient group</td>
@@ -57,7 +59,7 @@ Ver contactos: obtener los IDs del get_scope de contacts y linkear a una búsque
   </tr>
   <tr>
     <td>Currently running batches</td>
-    <td><%= @api.batches.retrieve.body["batches"].select{|b| b["status"] != "finished"}.count %></td>
+    <td><%= @list.batches.select{|b| b["status"] != "finished"}.count %></td>
   </tr>
 </table>
 
@@ -65,15 +67,15 @@ Ver contactos: obtener los IDs del get_scope de contacts y linkear a una búsque
 <table class="table table-striped">
   <tr>
     <td>Average unsubscribed</td>
-    <td><%= @list_in_mailchimp["stats"]["avg_unsub_rate"] %></td>
+    <td><%= remote_list["stats"]["avg_unsub_rate"] %></td>
   </tr>
   <tr>
     <td>Open rate</td>
-    <td><%= @list_in_mailchimp["stats"]["open_rate"] %></td>
+    <td><%= remote_list["stats"]["open_rate"] %></td>
   </tr>
   <tr>
     <td>Click rate</td>
-    <td><%= @list_in_mailchimp["stats"]["click_rate"] %></td>
+    <td><%= remote_list["stats"]["click_rate"] %></td>
   </tr>
 </table>
 
@@ -81,15 +83,15 @@ Ver contactos: obtener los IDs del get_scope de contacts y linkear a una búsque
 <table class="table table-striped">
   <tr>
     <td>Send at</td>
-    <td><%= @list_in_mailchimp["stats"]["campaign_last_sent"] %></td>
+    <td><%= remote_list["stats"]["campaign_last_sent"] %></td>
   </tr>
   <tr>
     <td>Unsubscribed</td>
-    <td><%= @list_in_mailchimp["stats"]["unsubscribe_count_since_send"] %></td>
+    <td><%= remote_list["stats"]["unsubscribe_count_since_send"] %></td>
   </tr>
   <tr>
     <td>Cleaned</td>
-    <td><%= @list_in_mailchimp["stats"]["cleaned_count_since_send"] %></td>
+    <td><%= remote_list["stats"]["cleaned_count_since_send"] %></td>
   </tr>
 </table>
 
