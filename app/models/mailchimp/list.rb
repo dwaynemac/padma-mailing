@@ -35,21 +35,35 @@ class Mailchimp::List < ActiveRecord::Base
 
   def remote_list
     get_api
-    @api.lists(api_id).retrieve.body
+    begin
+      @api.lists(api_id).retrieve.body
+    rescue Gibbon::MailChimpError => e
+      return {status: "failed", message: e}
+    rescue
+      return {status: "failed", message: "could not get remote list"}
+    end
   end
 
   def batches
     get_api
-    @api.batches.retrieve.body["batches"]
+    begin
+      @api.batches.retrieve.body["batches"]
+    rescue Gibbon::MailChimpError => e
+      return {status: "failed", message: e}
+    rescue
+      return {status: "failed", message: "could not get batches"}
+    end
   end
 
-  def unsubscribed
+  def unsubscribed(count = 25, offset = 0)
     get_api
     begin
       @api.lists(api_id).members.retrieve(
         params: {
           status: "unsubscribed",
-          fields: "members.merge_fields,,e,bers.email.address"
+          fields: "members.merge_fields,members.email_address",
+          count: count,
+          offset: offset
         }
       ).body["members"]
     rescue Gibbon::MailChimpError
@@ -83,8 +97,8 @@ class Mailchimp::List < ActiveRecord::Base
   end
 
   def remove_member(email)
-    get_api
     return nil if email.blank?
+    get_api
     
     begin
       @api.lists(api_id).members(subscriber_hash(email)).delete
@@ -95,10 +109,18 @@ class Mailchimp::List < ActiveRecord::Base
     {status: true}
   end
 
+
   private
   
   def get_api
-    @api = @api || Gibbon::Request.new(api_key: mailchimp_configuration.api_key)  
+    begin
+      @api = @api || Gibbon::Request.new(api_key: mailchimp_configuration.api_key)
+    rescue Gibbon::MailChimpError => e
+      Rails.logger.info "Mailchimp api failed with error: #{e}"
+      return nil
+    rescue
+      return nil
+    end
   end
 
   def subscriber_hash(email)
