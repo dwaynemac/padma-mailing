@@ -75,15 +75,31 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def members
     @page = params[:page] || 1
-    @per = params[:per] || 4
+    @per = params[:per] || 25
     @list = Mailchimp::List.find(params[:id])
-    @unsubscribed = @list.unsubscribed
-    @cleaned = @list.cleaned
+    @only_unsubscribed = false
+    if params[:unsubscribed] == "true"
+      @only_unsubscribed = true
+    end
   end
 
   def remove_member
     @list = Mailchimp::List.find(params[:id])
     res = @list.remove_member(params[:email])
+    res = {status: false, message: "contact has no email"} if res.nil?
+
+    if res[:status] == false
+      flash.alert = res[:message]
+    end
+
+    redirect_to members_mailchimp_list_path(id: params[:id])
+  end
+
+  def subscribe
+    @list = Mailchimp::List.find(params[:id])
+    res = @list.subscribe_contact(params[:email])
+    res = {status: false, message: "contact has no email"} if res.nil?
+
     if res[:status] == false
       flash.alert = res[:message]
     end

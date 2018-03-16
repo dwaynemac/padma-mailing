@@ -2,6 +2,7 @@
 
 <% remote_list = @list.remote_list %>
 
+<% if remote_list["status"] != "failed" %>
 <h2>
   Contacts
   <% local_scope = @list.get_scope["count"] %>
@@ -33,9 +34,9 @@
   </tr>
 </table>
 <%= link_to "Ajustar scope", segments_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
-<%= link_to "Ver unsubscribed y cleaned", members_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
+<%= link_to "Ver unsubscribed y cleaned", members_mailchimp_list_path(id: @list.id, unsubscribed: true), class: "btn btn-primary" %>
 <%= link_to "Ver contactos que no estan en mailchimp", "#", class: "btn btn-primary" %>
-<%= link_to "Ver contactos estan en mailchimp", "#", class: "btn btn-primary" %>
+<%= link_to "Ver el estado de todos los contactos", members_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
 
 Ver contactos: obtener los IDs del get_scope de contacts y linkear a una búsqueda en CRM de esos IDs
 
@@ -97,3 +98,6 @@ Ver contactos: obtener los IDs del get_scope de contacts y linkear a una búsque
 
 <h2>Links</h2>
 HERE WILL BE THE LINKS
+<% else %>
+  CONNECTION ERROR
+<% end %>

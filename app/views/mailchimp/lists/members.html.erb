@@ -3,5 +3,5 @@
 <h2>Scope</h2>
 <%= @list.get_scope(@page, @per)["count"] %>
 
-<%= render "mailchimp/lists/unsubscribed", list: @list, unsubscribed: @unsubscribed, cleaned: @cleaned %>
-<%= render "mailchimp/lists/subscribed", list: @list, page: @page, per: @per %>
+<%= render "mailchimp/lists/unsubscribed", list: @list, unsubscribed: @list.unsubscribed || [], cleaned: @list.cleaned || [] if @only_unsubscribed %>
+<%= render "mailchimp/lists/subscribed", list: @list, page: @page, per: @per unless @only_unsubscribed %>
