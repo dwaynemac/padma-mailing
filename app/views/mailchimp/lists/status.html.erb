@@ -56,7 +56,8 @@
   </tr>
   <tr>
     <td>
-      <% if @synchro["last_synchronization"].blank? || @synchro["last_synchronization"].to_date <= 2.days.ago.to_date %>
+      <% date_diff = (Date.today - @synchro["last_synchronization"].to_date).to_i %>
+      <% if @synchro["last_synchronization"].blank? || date_diff >= 2 %>
         <span class="badge alert-danger">Error</span>
       <% else %>
         <span class="badge alert-success">OK</span>
@@ -64,8 +65,8 @@
       Last syncronized
     </td>
     <td>
-      <%= @synchro["last_synchronization"] %> 
-      (<%= (Date.today - @synchro["last_synchronization"].to_date).to_i %>) days ago 
+      <%= @synchro["last_synchronization"] %> <br> 
+      <%= date_diff %> days ago 
     </td>
   </tr>
   <tr>
@@ -144,8 +145,6 @@
   </tr>
 </table>
 
-<h2>Links</h2>
-HERE WILL BE THE LINKS
 <% else %>
   CONNECTION ERROR
 <% end %>
