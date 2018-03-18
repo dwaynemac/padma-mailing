@@ -4,16 +4,16 @@
 
 <% if remote_list["status"] != "failed" %>
 <h2>
-  Contacts
   <% local_scope = @list.get_scope["count"] %>
   <% if local_scope == (remote_list["stats"]["member_count"].to_i + 
       remote_list["stats"]["unsubscribe_count"].to_i +
       remote_list["stats"]["cleaned_count"].to_i)
   %>
-    <span class="badge badge-success">OK</span>
+    <span class="badge alert-success">OK</span>
   <% else %>
-    <span class="badge bage-warning">Error</span>
+    <span class="badge alert-danger">Error</span>
   <% end %>
+  Contacts
 </h2>
 <table class="table table-striped">
   <tr>
@@ -33,34 +33,82 @@
     <td><%= remote_list["stats"]["cleaned_count"] %></td>
   </tr>
 </table>
+
 <%= link_to "Ajustar scope", segments_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
 <%= link_to "Ver unsubscribed y cleaned", members_mailchimp_list_path(id: @list.id, unsubscribed: true), class: "btn btn-primary" %>
-<%= link_to "Ver contactos que no estan en mailchimp", "#", class: "btn btn-primary" %>
+<%= link_to "Ver contactos que no estan en mailchimp", members_mailchimp_list_path(id: @list.id, ), class: "btn btn-primary" %>
 <%= link_to "Ver el estado de todos los contactos", members_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
-
-Ver contactos: obtener los IDs del get_scope de contacts y linkear a una búsqueda en CRM de esos IDs
 
 <h2>Synchronization status</h2>
 <table class="table table-striped">
   <tr>
-    <td>Status in contacts-ws</td>
+    <td>
+      <% if @synchro["status"].blank? || @synchro["status"] == "failed" %>
+        <span class="badge alert-danger">Error</span>
+      <% elsif @synchro["status"] == "working" %>
+        <span class="badge alert-danger">Working</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Status in contacts-ws
+    </td>
     <td><%= @synchro["status"] %></td>
   </tr>
   <tr>
-    <td>Last syncronized</td>
-    <td><%= @synchro["last_synchronization"] %></td>
+    <td>
+      <% if @synchro["last_synchronization"].blank? || @synchro["last_synchronization"].to_date <= 2.days.ago.to_date %>
+        <span class="badge alert-danger">Error</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Last syncronized
+    </td>
+    <td>
+      <%= @synchro["last_synchronization"] %> 
+      (<%= (Date.today - @synchro["last_synchronization"].to_date).to_i %>) days ago 
+    </td>
   </tr>
   <tr>
-    <td>Merge fields</td>
+    <td>
+      <% if @synchro["merge_fields"].blank? || JSON.parse(@synchro["merge_fields"]).count != (remote_list["stats"]["merge_field_count"] - 4) %>
+        <span class="badge alert-danger">Error</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Merge fields
+    </td>
     <td>local: <%= JSON.parse(@synchro["merge_fields"]).count %> <br> remote: <%= remote_list["stats"]["merge_field_count"] %></td>
   </tr>
   <tr>
-    <td>Coefficient group</td>
-    <td>local: <%= JSON.parse(@synchro["coefficient_group"])["interests"].keys.count %><br>remote: </td>
+    <% coeff_group = @list.coefficient_group(
+        JSON.parse(@synchro["coefficient_group"])["id"]
+      ) 
+    %>
+    <td>
+      <% if @synchro["coefficient_group"].blank? || JSON.parse(@synchro["coefficient_group"])["interests"].keys.count != coeff_group["interests"].count %>
+        <span class="badge alert-danger">Error</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Coefficient group
+    </td>
+    <td>
+      local: <%= JSON.parse(@synchro["coefficient_group"])["interests"].keys.count %>
+      <br>
+      remote: <%= coeff_group["interests"].count %>
+    </td>
   </tr>
   <tr>
-    <td>Currently running batches</td>
-    <td><%= @list.batches.select{|b| b["status"] != "finished"}.count %></td>
+    <td>
+      <% batches = @list.batches %>
+      <% if batches.select{|b| b["status"] != "finished"}.count > 0 %>
+        <span class="badge alert-warning">Running</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Currently running batches
+    </td>
+    <td><%= batches.select{|b| b["status"] != "finished"}.count %></td>
   </tr>
 </table>
 

@@ -55,6 +55,17 @@ class Mailchimp::List < ActiveRecord::Base
     end
   end
 
+  def coefficient_group(group_id)
+    get_api
+    begin
+      @api.lists(api_id).interest_categories(group_id).interests.retrieve.body
+    rescue Gibbon::MailChimpError => e
+      return {status: "failed", message: e}
+    rescue
+      return {status: "failed", message: "could not get group"}
+    end
+  end
+
   def unsubscribed(count = 25, offset = 0)
     get_api
     begin
@@ -71,13 +82,15 @@ class Mailchimp::List < ActiveRecord::Base
     end
   end
 
-  def cleaned
+  def cleaned(count = 25, offset = 0)
     get_api
     begin
       @api.lists(api_id).members.retrieve(
         params: {
           status: "cleaned", 
-          fields: "members.merge_fields,members.email_address"
+          fields: "members.merge_fields,members.email_address",
+          count: count,
+          offset: offset
         }
       ).body["members"]
     rescue Gibbon::MailChimpError
@@ -94,6 +107,39 @@ class Mailchimp::List < ActiveRecord::Base
     rescue Gibbon::MailChimpError
       return nil #TODO show error
     end
+  end
+
+  def contacts_not_synchronized(search_count = 100)
+    get_api
+
+    sc = get_scope(1, search_count)
+    if sc["count"] > search_count
+      (sc["count"]/search_count).times do |p|
+        sc["contacts"] << get_scope(p+2,search_count)["contacts"]
+        sc["contacts"].flatten!(1)
+      end
+    end
+    
+    mailchimp_members = @api.lists(api_id).members.retrieve(
+      params: {
+        fields: "members.email_address,total_items",
+        count: search_count
+      }
+    ).body
+
+    if mailchimp_members["total_items"] > search_count
+      (mailchimp_members["total_items"]/search_count).times do |p|
+        mailchimp_members["members"] << @api.lists(api_id).members.retrieve(
+          params: {
+            fields: "members.email_address",
+            count: search_count,
+            offset: (p+1)*search_count
+          }
+        ).body["members"]
+        mailchimp_members["members"].flatten!(1)
+      end
+    end
+    sc["contacts"].map{|c| c["email"]} - mailchimp_members["members"].map{|m| m["email_address"]}
   end
 
   def remove_member(email)
