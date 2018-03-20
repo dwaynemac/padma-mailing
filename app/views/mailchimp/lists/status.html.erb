@@ -2,9 +2,9 @@
 
 <% remote_list = @list.remote_list %>
 
-<% if remote_list["status"] != "failed" %>
+<% local_scope = @list.get_scope["count"] %>
+<% unless remote_list.blank? || remote_list["status"] != "failed" || !local_scope.blank? %>
 <h2>
-  <% local_scope = @list.get_scope["count"] %>
   <% if local_scope == (remote_list["stats"]["member_count"].to_i + 
       remote_list["stats"]["unsubscribe_count"].to_i +
       remote_list["stats"]["cleaned_count"].to_i)
