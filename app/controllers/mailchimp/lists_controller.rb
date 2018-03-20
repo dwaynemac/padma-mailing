@@ -60,7 +60,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_scope", params: params)
     
     if response.success?
-      count = response.body[:count]
+      count = response.body
     end
     
     respond_to do |format|
