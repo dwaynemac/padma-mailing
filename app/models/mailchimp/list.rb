@@ -62,8 +62,26 @@ class Mailchimp::List < ActiveRecord::Base
       #TODO add who unsubscribed "sources"
       
       subscription_change(message, contact_id)
+    when "cleaned"
+      contact_id = PadmaContact.search(
+        where: {
+          email: params["data"]["email"]
+        },
+        account_name: mailchimp_configuration.account.name,
+        select: [:id]
+      ).first.try :id
+
+      message = "Has been cleaned due to"
+      if params["data"]["reason"] == "hard"
+        message << " too many bounces"
+      else
+        message << "abuse"
+      end
+      subscription_change(message, contact_id)
     when "campaign"
-      inform_camp
+      if params["data"]["status"] == "sent"
+        inform_campaign("Campaign #{params["data"]["subject"]} sent")
+      end
     end
   end
 
@@ -83,7 +101,7 @@ class Mailchimp::List < ActiveRecord::Base
     )
   end
 
-  def campaign(campaign_name, contact_id)
+  def inform_campaign(campaign_name)
     ActivityStream::Activity.new(
       object_type: 'Mailchimp::List',
       generator: ActivityStream::LOCAL_APP_NAME,
