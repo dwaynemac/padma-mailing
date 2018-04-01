@@ -1,9 +1,9 @@
 <h1><%= @list.name %></h1>
 
 <% remote_list = @list.remote_list %>
-
 <% local_scope = @list.get_scope["count"] %>
-<% unless remote_list.blank? || remote_list["status"] != "failed" || !local_scope.blank? %>
+
+<% unless remote_list.blank? || remote_list["status"] == "failed" || local_scope.blank? %>
 <h2>
   <% if local_scope == (remote_list["stats"]["member_count"].to_i + 
       remote_list["stats"]["unsubscribe_count"].to_i +
@@ -58,7 +58,7 @@
     <td>
       <% date_diff = (Date.today - @synchro["last_synchronization"].to_date).to_i %>
       <% if @synchro["last_synchronization"].blank? || date_diff >= 2 %>
-        <span class="badge alert-danger">Error</span>
+        <span class="badge alert-warning">Maybe not up to date</span>
       <% else %>
         <span class="badge alert-success">OK</span>
       <% end %>
