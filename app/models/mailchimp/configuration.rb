@@ -43,6 +43,20 @@ class Mailchimp::Configuration < ActiveRecord::Base
     @mailchimp_api
   end
 
+  def get_synchronizer
+    response = Typhoeus.get Contacts::HOST + "/v0/mailchimp_synchronizers/#{self.synchronizer_id}", body: {
+      app_key: Contacts::API_KEY,
+      account_name: account.name,
+      api_key: api_key
+    }
+
+    if response.success?
+      JSON.parse(response.body)
+    else
+      false
+    end
+  end
+
   def create_synchronizer
     response = Typhoeus.post Contacts::HOST + '/v0/mailchimp_synchronizers', body: {
       app_key: Contacts::API_KEY,
