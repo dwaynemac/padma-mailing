@@ -44,6 +44,7 @@ RSpec.configure do |config|
   config.include(FactoryGirl::Syntax::Methods)
   config.include(MailerMacros)
   config.before(:each) do
+    Rails.cache.clear
     reset_email
   end
 end
