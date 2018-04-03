@@ -4,7 +4,7 @@ describe TemplatesTriggers do
   let(:trigger){ create(:trigger) }
   let(:template){ create(:template) }
   
-  before(:each, :templates_triggers_spec => true) do
+  before(:each) do
     allow(PadmaAccount).to receive(:find).and_return(
       PadmaAccount.new(
         full_name: 'acc-name', 
@@ -76,7 +76,7 @@ describe TemplatesTriggers do
     end
   end
   
-  describe "get_from_display_name", templates_triggers_spec: true do
+  describe "get_from_display_name" do
     describe "if from_display_name is blank" do
       let(:tt){TemplatesTriggers.new(trigger: trigger, template_id: template.id, from_display_name: nil)}
       it "should return account's branded name" do
@@ -94,7 +94,7 @@ describe TemplatesTriggers do
     end
   end
   
-  describe "get_from_email_address", templates_triggers_spec: true do
+  describe "get_from_email_address" do
     describe "if from_email_address is blank" do
       let(:tt){TemplatesTriggers.new(trigger: trigger, template: template, from_email_address: nil)}
       it "should return account's email" do

@@ -93,10 +93,10 @@ describe Trigger do
                                ]
     )}
     describe "if accounts-ws if offline" do
-      before(:each, :nil_account => true) do
+      before(:each) do
         allow(PadmaAccount).to receive(:find).and_return nil
       end
-      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}", :nil_account => true do
+      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}" do
         let(:key){:communication}
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before(:each) do
@@ -115,11 +115,11 @@ describe Trigger do
     end
     describe "if accounts-ws is online and account is enabled" do
       let(:padma_account) { PadmaAccount.new(name: 'my-account', enabled: true) }
-      before(:each, :online_account => true) do
+      before(:each) do
         # if account is enabled
         allow(PadmaAccount).to receive(:find).and_return(PadmaAccount.new(name: 'my-account', enabled: true))
       end
-      context "with data containing avoid_mailing_triggers: true", :online_account => true do
+      context "with data containing avoid_mailing_triggers: true" do
         let(:key){:communication}
         let(:data){{avoid_mailing_triggers: true, contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before(:each) do
@@ -129,7 +129,7 @@ describe Trigger do
           expect{Trigger.catch_message(key,data)}.not_to change{ScheduledMail.count}
         end
       end
-      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}", :online_account => true  do
+      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}"  do
         let(:key){:communication}
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before(:each) do
@@ -160,7 +160,7 @@ describe Trigger do
         end
       end
 
-      context "with :subscription_change", :online_account => true  do
+      context "with :subscription_change"  do
         let(:key){"subscription_change"}
         let(:data){
           {
@@ -187,7 +187,7 @@ describe Trigger do
           end
       end
 
-      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'account-without-triggers'}", :online_account => true  do
+      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'account-without-triggers'}" do
         let(:key){:communication}
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'account-without-triggers'}.stringify_keys!}
         it "wont schedule emails" do
@@ -197,7 +197,7 @@ describe Trigger do
         end
       end
 
-      context "with :birthday, {contact_id: 1234, birthday_at: now, account_name: 'my-account'}", :online_account => true  do
+      context "with :birthday, {contact_id: 1234, birthday_at: now, account_name: 'my-account'}" do
         describe "if contact is a student of the account" do
           let(:key){"birthday"}
           let(:data){{
@@ -300,7 +300,7 @@ describe Trigger do
         end
       end
 
-      context "when conditions", :online_account => true  do
+      context "when conditions" do
         let(:my_account){create(:account, name: 'my-account')}
         let(:template2){create(:template, account: my_account)}
         let(:key){"birthday"}
