@@ -79,7 +79,7 @@ end
 group :development do
   gem 'git-pivotal-tracker-integration'
   gem 'padma-deployment'
-  gem 'debugger'
+  gem 'debugger2'
   gem 'foreman'
   gem 'subcontractor', '0.6.1'
 end
