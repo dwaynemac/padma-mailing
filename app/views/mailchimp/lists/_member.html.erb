@@ -1,0 +1,31 @@
+<% mailchimp_info = list.member(member["email"]) %>
+<td>
+  <%= link_to CRM_HOST + "/contacts/#{member["id"]}" do %>
+    <%= "#{member["first_name"]} #{member["last_name"]}" %>
+  <% end %>
+</td>
+<td>
+  <% alert_type = if mailchimp_info.blank?
+                    "danger" 
+                  elsif (mailchimp_info["status"] == ("unsubscribed" || "cleaned")) 
+                    "warning" 
+                  else 
+                    "primary"
+                  end %>
+  <div class="alert alert-<%= alert_type %>" role="alert">
+    <%= mailchimp_info.blank? ? "not in list" : mailchimp_info["status"] %>
+   </div>
+</td>
+<td>
+  <% unless mailchimp_info.blank? %>
+    <% mailchimp_info["merge_fields"].each do |k,v| %>
+      <%= k %>: <%= v %><br>
+    <% end %>
+  <% end %>
+</td>
+<td>
+</td>
+<td>
+  <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe,
+  remove_member_mailchimp_list_path(list.id, email: member["email_address"]) %>
+</td>

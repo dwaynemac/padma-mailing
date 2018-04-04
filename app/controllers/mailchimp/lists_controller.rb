@@ -49,11 +49,12 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     mailchimp_segment_attributes
   end
 
-  def get_scope
+  def preview_scope
     count = "no number has been returned"
     list = Mailchimp::List.find(params[:id])
     params[:app_key] = ENV["contacts_key"]
     params[:api_key] = list.mailchimp_configuration.api_key
+    params[:preview] = true
     params[:mailchimp_segments] = params[:data][:mailchimp_list][:mailchimp_segments_attributes].values
     params.delete :data
     response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_scope", params: params)
@@ -67,10 +68,50 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     end
   end
 
+  def status
+    @list = Mailchimp::List.find(params[:id])
+    @synchro = @list.mailchimp_configuration.get_synchronizer
+  end
+
+  def members
+    @page = params[:page] || 1
+    @per = params[:per] || 25
+    @list = Mailchimp::List.find(params[:id])
+    @only_unsubscribed = false
+    if params[:unsubscribed] == "true"
+      @only_unsubscribed = true
+    end
+  end
+
+  def remove_member
+    @list = Mailchimp::List.find(params[:id])
+    res = @list.remove_member(params[:email])
+    res = {status: false, message: "contact has no email"} if res.nil?
+
+    if res[:status] == false
+      flash.alert = res[:message]
+    end
+
+    redirect_to members_mailchimp_list_path(id: params[:id])
+  end
+
+  def subscribe
+    @list = Mailchimp::List.find(params[:id])
+    res = @list.subscribe_contact(params[:email])
+    res = {status: false, message: "contact has no email"} if res.nil?
+
+    if res[:status] == false
+      flash.alert = res[:message]
+    end
+
+    redirect_to members_mailchimp_list_path(id: params[:id])
+  end
+
   protected
   
   def mailchimp_error(exception)
     flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
     redirect_to segments_mailchimp_list_path(id: @list.id)
   end
+
 end

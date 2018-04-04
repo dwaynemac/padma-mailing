@@ -60,7 +60,7 @@ $(document).ready ->
     else if item["value"] != undefined && item["value"] != ""
       res[iname].push(item["value"].replace(/exstudent/, "former_student"))
     
-  $.post "/mailchimp/lists/get_scope.json",
+  $.post "/mailchimp/lists/preview_scope.json",
     id: $("form").last().attr("id").replace(/edit_mailchimp_list_/, "")
     filter_method: if all then "all" else "segments"
     data: res
