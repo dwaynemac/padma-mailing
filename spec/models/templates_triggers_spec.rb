@@ -1,13 +1,17 @@
 require 'spec_helper'
 
 describe TemplatesTriggers do
-  
   let(:trigger){ create(:trigger) }
   let(:template){ create(:template) }
   
-  before do
-    Rails.cache.clear
-    PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name', branded_name: 'DeROSE Method | acc-name', email: "acc-mail@mail.co"))
+  before(:each) do
+    allow(PadmaAccount).to receive(:find).and_return(
+      PadmaAccount.new(
+        full_name: 'acc-name', 
+        branded_name: 'DeROSE Method | acc-name', 
+        email: "acc-mail@mail.co"
+      )
+    )
   end
   
   it { should belong_to :trigger }
@@ -25,26 +29,26 @@ describe TemplatesTriggers do
     let(:trigger){TemplatesTriggers.new}
     it "should require offset_unit" do
       trigger.valid?
-      trigger.errors[:offset_unit].should_not include I18n.t('errors.messages.blank')
+      expect(trigger.errors[:offset_unit]).to_not include I18n.t('errors.messages.blank')
     end
   end
 
   describe "#valid_offset_unit?" do
 
     it "considers 'asdf' invalid" do
-      TemplatesTriggers.new(offset_unit: 'asdf').valid_offset_unit?.should be_false
+      TemplatesTriggers.new(offset_unit: 'asdf').valid_offset_unit?.should be_falsey
     end
 
     it "considers 'hour' valid" do
-      TemplatesTriggers.new(offset_unit: 'hour').valid_offset_unit?.should be_true
+      TemplatesTriggers.new(offset_unit: 'hour').valid_offset_unit?.should be_truthy
     end
 
     it "considers 'hours' valid" do
-      TemplatesTriggers.new(offset_unit: 'hours').valid_offset_unit?.should be_true
+      TemplatesTriggers.new(offset_unit: 'hours').valid_offset_unit?.should be_truthy
     end
 
     it "considers 'month' valid" do
-      TemplatesTriggers.new(offset_unit: 'month').valid_offset_unit?.should be_true
+      TemplatesTriggers.new(offset_unit: 'month').valid_offset_unit?.should be_truthy
     end
   end
   

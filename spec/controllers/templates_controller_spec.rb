@@ -5,11 +5,11 @@ describe TemplatesController do
     context "without params" do
       before do
         @account = FactoryGirl.create(:account)
-        PadmaAccount.stub!(:find).and_return(PadmaAccount.new(name: @account.name, enabled: true))
+        allow(PadmaAccount).to receive(:find).and_return(PadmaAccount.new(name: @account.name, enabled: true))
         @user = FactoryGirl.create(:user)
         pu = PadmaUser.new(username: @user.username)
-        User.any_instance.stub(:padma_enabled?).and_return true
-        User.any_instance.stub(:padma).and_return pu
+        allow_any_instance_of(User).to receive(:padma_enabled?).and_return true
+        allow_any_instance_of(User).to receive(:padma).and_return pu
         sign_in(@user)
         get :index
       end

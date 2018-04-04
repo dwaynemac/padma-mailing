@@ -86,7 +86,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.4.0'
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'capybara'
