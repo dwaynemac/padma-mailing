@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe Trigger do
-  before do
-    RSpec::Mocks.proxy_for(PadmaAccount).reset
-  end
   it { should belong_to(:account).with_foreign_key(:local_account_id) }
   it { should validate_presence_of(:local_account_id) }
   it { should have_many :filters }
@@ -96,13 +93,13 @@ describe Trigger do
                                ]
     )}
     describe "if accounts-ws if offline" do
-      before do
-        PadmaAccount.stub(:find).and_return nil
+      before(:each) do
+        allow(PadmaAccount).to receive(:find).and_return nil
       end
       context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}" do
         let(:key){:communication}
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
-        before do
+        before(:each) do
           trigger # create trigger
           PadmaContact.should_receive(:find)
                       .with(1234,
@@ -117,27 +114,27 @@ describe Trigger do
       end
     end
     describe "if accounts-ws is online and account is enabled" do
-      before do
+      let(:padma_account) { PadmaAccount.new(name: 'my-account', enabled: true) }
+      before(:each) do
         # if account is enabled
-        PadmaAccount.stub(:find).and_return PadmaAccount.new(name: 'my-account',
-                                                             enabled: true)
+        allow(PadmaAccount).to receive(:find).and_return(PadmaAccount.new(name: 'my-account', enabled: true))
       end
       context "with data containing avoid_mailing_triggers: true" do
         let(:key){:communication}
         let(:data){{avoid_mailing_triggers: true, contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
-        before do
+        before(:each) do
           trigger # create trigger
         end
         it "wont create a ScheduledEmail" do
           expect{Trigger.catch_message(key,data)}.not_to change{ScheduledMail.count}
         end
       end
-      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}" do
+      context "with :communication, {contact_id: 1234, communicated_at: now, account_name: 'my-account'}"  do
         let(:key){:communication}
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
-        before do
+        before(:each) do
           trigger # create trigger
-          PadmaContact.should_receive(:find)
+          expect(PadmaContact).to receive(:find)
                       .with(1234,
                             select: [:email],
                             account_name: 'my-account')
@@ -163,7 +160,7 @@ describe Trigger do
         end
       end
 
-      context "with :subscription_change" do
+      context "with :subscription_change"  do
         let(:key){"subscription_change"}
         let(:data){
           {
@@ -176,10 +173,10 @@ describe Trigger do
             username: "alex.falke",
             type: "Enrollment"
           }.stringify_keys!}
-          before do
+          before(:each) do
             enrollment_trigger
             enrollment_trigger.filters.create(key: "type", value: "Enrollment")
-            PadmaContact.should_receive(:find)
+            expect(PadmaContact).to receive(:find)
                         .with(1234,
                               select: [:email],
                               account_name: 'third-account')
@@ -209,9 +206,9 @@ describe Trigger do
                         linked_accounts_names: %W(my-account),
                         'local_status_for_my-account' => 'student',
                         status: 'student'}.stringify_keys!}
-          before do
+          before(:each) do
             birthday_trigger
-            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
                 PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           end
           it "calls PadmaContact" do
@@ -230,7 +227,7 @@ describe Trigger do
                         linked_accounts_names: %W(my-account),
                         'local_status_for_my-account' => 'prospect',
                         status: 'student'}.stringify_keys!}
-          before do
+          before(:each) do
             birthday_trigger
             PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
                 PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
@@ -251,7 +248,7 @@ describe Trigger do
                         linked_accounts_names: %W(my-account),
                         'local_status_for_my-account' => 'prospect',
                         status: 'prospect'}.stringify_keys!}
-          before do
+          before(:each) do
             birthday_trigger
             PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
             PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
@@ -271,7 +268,7 @@ describe Trigger do
             birthday_at: Time.now,
             status: 'prospect'}.stringify_keys!
           }
-          before do
+          before(:each) do
             birthday_trigger
             PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
               PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
@@ -290,7 +287,7 @@ describe Trigger do
               linked_accounts_names: %W(my-account),
               status: 'prospect'}.stringify_keys!
           }
-          before do
+          before(:each) do
             birthday_trigger
             PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
               PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
@@ -338,8 +335,8 @@ describe Trigger do
                                ]
           )}
 
-        before do
-          PadmaContact.should_receive(:find).with(
+        before(:each) do
+          expect(PadmaContact).to receive(:find).with(
             1234,
             account_name: nil,
             select: 
@@ -353,7 +350,7 @@ describe Trigger do
         end
 
         describe "are met" do
-          before do
+          before(:each) do
             birthday_trigger_with_conditions
           end
           it "should generate Scheduled Mail" do
@@ -379,7 +376,7 @@ describe Trigger do
             )
             Trigger.catch_message(key, data)
             s = ScheduledMail.last
-            s.conditions_met?(s.data_hash).should be_true
+            s.conditions_met?(s.data_hash).should be_truthy
           end
           it "should deliver the mail" do
             PadmaContact.should_receive(:find).with(
@@ -408,14 +405,14 @@ describe Trigger do
 
         end
         describe "are not met" do
-          before do
+          before(:each) do
             birthday_trigger_with_conditions
           end
           it "should generate Scheduled Mail" do
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
           end
           it "should not meet conditions in the Scheduled Mail" do
-            PadmaContact.should_receive(:find).with(
+            expect(PadmaContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
@@ -434,7 +431,7 @@ describe Trigger do
             )
             Trigger.catch_message(key, data)
             s = ScheduledMail.last
-            s.conditions_met?(s.data_hash).should be_false
+            s.conditions_met?(s.data_hash).should be_falsey
           end
           it "should not deliver the mail" do
             PadmaContact.should_receive(:find).with(
@@ -462,7 +459,7 @@ describe Trigger do
 
         end
         describe "are empty" do
-          before do
+          before(:each) do
             birthday_trigger_without_conditions
           end
           it "should generate ScheduledMail" do
@@ -491,7 +488,7 @@ describe Trigger do
             )
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
             s = ScheduledMail.last
-            s.conditions_met?(s.data_hash).should be_true
+            s.conditions_met?(s.data_hash).should be_truthy
           end
         end
       end

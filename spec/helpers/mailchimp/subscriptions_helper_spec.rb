@@ -1,51 +1,37 @@
 require 'spec_helper'
 
 describe Mailchimp::SubscriptionsHelper do
+  let(:pc){ Mailchimp::PetalController.new { include Mailchimp::SubscriptionController } }
+  let(:user){ FactoryGirl.create(:user) }
+  let(:padma_user){ PadmaUser.new(username: user.username) }
+  let(:account){ FactoryGirl.create(:account) }
+  let(:padma_account){ PadmaAccount.new(name: account.name, enabled: true, enabled_petals: enabled_petals) }
+
+  before(:each) do
+    allow(user).to receive(:current_account).and_return(account)
+    allow_any_instance_of(User).to receive(:padma_enabled?).and_return true
+    allow_any_instance_of(User).to receive(:padma).and_return padma_user
+    allow_any_instance_of(Account).to receive(:padma).and_return(padma_account)
+    allow_any_instance_of(Mailchimp::PetalController).to receive(:current_user).and_return(user)
+  end
+
   describe "mailchimp_enabled?" do
-    subject { mailchimp_enabled? }
+    subject { pc.mailchimp_enabled? }
     describe "if account has no enabled_petals ([])" do
       let(:enabled_petals){[]}
-      before { stub_current_user }
-      it { should be_false }
+      it { should be_falsey }
     end
     describe "if account has enabled_petals nil" do
       let(:enabled_petals){nil}
-      before { stub_current_user }
-      it { should be_false }
+      it { should be_falsey }
     end
     describe "if account has other enabled petals, not mailchimp" do
       let(:enabled_petals){%W(petal1 petal2)}
-      before { stub_current_user }
-      it { should be_false }
+      it { should be_falsey }
     end
     describe "if account has mailchimp in its enabled petals" do
       let(:enabled_petals){%W(petal1 petal2 mailchimp)}
-      before { stub_current_user }
-      it { should be_true }
-    end
-  end
-
-  def stub_current_user
-    @account = FactoryGirl.create(:account)
-    pa = PadmaAccount.new(name: @account.name, enabled: true, enabled_petals: enabled_petals)
-    Account.any_instance.stub(:padma).and_return(pa)
-
-    @user = FactoryGirl.create(:user)
-    pu = PadmaUser.new(username: @user.username)
-
-    @user.stub(:current_account).and_return(@account)
-
-    User.any_instance.stub(:padma_enabled?).and_return true
-    User.any_instance.stub(:padma).and_return pu
-    
-    # hack to stub current_user
-    (1..10).each do |i|
-      (1..10).each do |j|
-        begin
-          eval "RSpec::Core::ExampleGroup::Nested_#{i}::Nested_1::Nested_#{j}.any_instance.stub(:current_user).and_return(@user)"
-        rescue NameError
-        end
-      end
+      it { should be_truthy }
     end
   end
 end

@@ -39,11 +39,15 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  # In Rspec 3.x the spec type is not automatically inferred from a file location, 
+  # and you must manually set it
+  config.infer_spec_type_from_file_location!
 
   config.include Devise::TestHelpers, :type => :controller
   config.include(FactoryGirl::Syntax::Methods)
   config.include(MailerMacros)
   config.before(:each) do
+    Rails.cache.clear
     reset_email
   end
 end
