@@ -6,7 +6,6 @@ describe Api::V0::Mailchimp::ListsController do
   let(:account){create(:account)}
   let(:contact){create(:contact)}
   before do
-    RSpec::Mocks.proxy_for(PadmaAccount).reset
     PadmaContact.stub(:search).and_return([PadmaContact.new(id: 1234)])
     ActivityStream::Activity.stub(:new)
     Mailchimp::List.any_instance.stub_chain(:mailchimp_configuration, :account).and_return(account)
