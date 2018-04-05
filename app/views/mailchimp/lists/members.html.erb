@@ -1,0 +1,7 @@
+<h1><%= @list.name %> Members</h1>
+
+<h2>Scope</h2>
+<%= @list.get_scope(@page, @per)["count"] %>
+
+<%= render "mailchimp/lists/unsubscribed", list: @list, unsubscribed: @list.unsubscribed || [], cleaned: @list.cleaned || [] if @only_unsubscribed %>
+<%= render "mailchimp/lists/subscribed", list: @list, page: @page, per: @per unless @only_unsubscribed %>

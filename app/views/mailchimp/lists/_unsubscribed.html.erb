@@ -1,0 +1,31 @@
+<h2>Unsubscribed members</h2>
+<%= unsubscribed.count %> unsubscribed members
+<table class="table table-striped">
+  <% unsubscribed.each do |member| %>
+    <tr>
+      <td>
+        <%= link_to "#{member['merge_fields']['FNAME']} #{member['merge_fields']['LNAME']}",
+            CRM_HOST + "/contacts?scope=local&q=#{member['email_address']}"
+        %>
+      </td>
+      <td><%= member["email_address"] %></td>
+      <td>
+        <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe,
+          remove_member_mailchimp_list_path(list.id, email: member["email_address"])
+        %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<h2>Cleaned members</h2>
+<%= cleaned.count %> cleaned members
+<table class="table table-striped">
+  <% cleaned.each do |member| %>
+    <tr>
+      <td><%= "#{member['merge_fields']['FNAME']} #{member['merge_fields']['LNAME']}" %></td>
+      <td><%= member["email_address"] %></td>
+      <td></td>
+    </tr>
+  <% end %>
+</table>
