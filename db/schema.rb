@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20180409122703) do
+ActiveRecord::Schema.define(:version => 20180409122411) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(:version => 20180409122703) do
     t.datetime "updated_at",                                   :null => false
     t.string   "contact_attributes"
     t.boolean  "receive_notifications",      :default => true
-    t.string   "notifications_types"
   end
 
   create_table "mailchimp_segments", :force => true do |t|
