@@ -18,6 +18,8 @@ class Mailchimp::List < ActiveRecord::Base
       !Mailchimp::Segment.new(attr).valid?
     }
 
+  before_create :set_defaults
+
   def primary?
     self.id == self.mailchimp_configuration.primary_list_id
   end
@@ -27,25 +29,11 @@ class Mailchimp::List < ActiveRecord::Base
     
     case type
     when "subscribe"
-      contact_id = PadmaContact.search(
-        where: {
-          email: params["data"]["email"]
-        },
-        account_name: mailchimp_configuration.account.name,
-        select: [:id]
-      ).first.try :id
-
+      contact_id = get_contact_id_by_email(params["data"]["email"])
       message = "Has been subscribed to list: #{name}"
-      
       subscription_change(message,contact_id)
     when "unsubscribe"
-      contact_id = PadmaContact.search(
-        where: {
-          email: params["data"]["email"]
-        },
-        account_name: mailchimp_configuration.account.name,
-        select: [:id]
-      ).first.try :id
+      contact_id = get_contact_id_by_email(params["data"]["email"])
       
       message = "Has been "
       if params["data"]["action"] == "unsub"
@@ -59,17 +47,9 @@ class Mailchimp::List < ActiveRecord::Base
         message << "marking as a spam complaint"
       end
 
-      #TODO add who unsubscribed "sources"
-      
       subscription_change(message, contact_id)
     when "cleaned"
-      contact_id = PadmaContact.search(
-        where: {
-          email: params["data"]["email"]
-        },
-        account_name: mailchimp_configuration.account.name,
-        select: [:id]
-      ).first.try :id
+      contact_id = get_contact_id_by_email(params["data"]["email"])
 
       message = "Has been cleaned due to"
       if params["data"]["reason"] == "hard"
@@ -80,13 +60,17 @@ class Mailchimp::List < ActiveRecord::Base
       subscription_change(message, contact_id)
     when "campaign"
       if params["data"]["status"] == "sent"
-        inform_campaign("Campaign #{params["data"]["subject"]} sent")
+        inform_campaign(
+          "Campaign #{params["data"]["subject"]} from list #{name} sent"
+        )
       end
     end
   end
 
   def subscription_change(message, contact_id)
-    ActivityStream::Activity.new(
+    return nil if contact_id.blank?
+
+    a = ActivityStream::Activity.new(
       target_id: contact_id,
       target_type: 'Contact',
       object_id: id,
@@ -99,6 +83,7 @@ class Mailchimp::List < ActiveRecord::Base
       created_at: Time.zone.now.to_s,
       updated_at: Time.zone.now.to_s
     )
+    a.create(username: "Mailing system", account_name: mailchimp_configuration.account.name)
   end
 
   def inform_campaign(campaign_name)
@@ -248,6 +233,145 @@ class Mailchimp::List < ActiveRecord::Base
   end
 
 
+  # Adds a webhook to receive information about the MailChimp List
+  #
+  # options tell which events to listen for
+  # default values are subscribe, unsubscribe, cleaned and campaign
+  #
+  # sources tell which source to listen for an action
+  # user when the user subscribes/unsubcribes
+  # admin when the MailChimp admin makes the changes
+  # api when the api makes the changes
+  # all are true by default
+  #
+  # options sent has to have every option, and set to true or false
+  # or it will load defaults
+  #
+  # same for sources
+  #
+  # options = {
+  #   events: {
+  #     subscribe: true,
+  #     unsubscribe: true,
+  #     cleaned: true,
+  #     campaign: true,
+  #     profile: false,
+  #     upemail: false
+  #   },
+  #   sources: {
+  #     user: true,
+  #     admin: true,
+  #     api: false
+  #   }
+  # }
+
+  def add_webhook
+    get_api
+    
+    unless notifications_valid?
+      Rails.logger.info "notifications types are not valid"
+      return nil
+    end
+      
+
+    begin
+      @api.lists(api_id).webhooks.create(
+        body: {
+          url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
+            id, 
+            only_path: false, 
+            host: APP_CONFIG["mailing-url"].gsub("http://","")
+          ),
+          events: {
+            subscribe: notifications_types["events"][:subscribe],
+            unsubscribe: notifications_types["events"][:unsubscribe],
+            cleaned:  notifications_types["events"][:cleaned],
+            campaign: notifications_types["events"][:campaign],
+            profile:  notifications_types["events"][:profile],
+            upemail:  notifications_types["events"][:upemail]
+          },
+          sources: {
+            user: notifications_types["sources"][:user],
+            admin: notifications_types["sources"][:admin],
+            api: notifications_types["sources"][:api]
+          }
+        }
+      )
+    rescue Gibbon::MailChimpError => e
+      Rails.logger.info "Mailchimp webhook failed with error: #{e}"
+      return nil
+    end
+  end
+
+  def has_webhook?
+    get_api
+    resp = nil
+
+    begin
+      resp = @api.lists(api_id).webhooks.retrieve.body
+    rescue Gibbon::MailChimpError => e
+      Rails.logger.info "Mailchimp webhook failed with error: #{e}"
+      return false
+    end
+    return resp["webhooks"].count > 0
+  end
+
+  def remove_webhook
+    get_api
+
+    begin
+      webhook = @api.lists(api_id).webhooks.retrieve.body["webhooks"].try :first
+      unless webhook.nil?
+        @api.lists(api_id).webhooks(webhook["id"]).delete
+      end
+    rescue Gibbon::MailChimpError => e
+      Rails.logger.info "Mailchimp webhook failed with error: #{e}"
+      return nil
+    end
+  end
+
+  def notifications_valid?
+    return false if notifications.nil? || notifications.blank?
+
+    notifications = decode notifications_types
+    return events_valid?(notifications["events"]) && sources_valid?(notifications["sources"])
+  end
+
+  def events_valid?(events)
+    return false if events.nil?
+
+    return %w(subscribe unsubscribe cleaned campaign profile upemail).all? { |t| !events[t].nil? && ([true, false].include? events[t]) }
+  end
+  
+  def sources_valid?(sources)
+    return false if sources.nil?
+
+    return %w(user admin api).all? { |t| !sources[t].nil? && ([true, false].include? sources[t]) }
+  end
+
+  def set_default_notifications
+    notifications = encode(
+      {
+        events: {
+          subscribe: true,
+          unsubscribe: true,
+          cleaned: true,
+          campaign: true,
+          profile: false,
+          upemail: false
+        },
+        sources: {
+          user: true,
+          admin: true,
+          api: true
+        }
+      }
+    )
+
+    puts notifications
+    update_attribute(:notifications_types, notifications)
+  end
+
   private
   
   def get_api
@@ -261,7 +385,45 @@ class Mailchimp::List < ActiveRecord::Base
     end
   end
 
+  def get_contact_id_by_email(email)
+    PadmaContact.search(
+      where: {
+        email: email
+      },
+      account_name: mailchimp_configuration.account.name,
+      select: [:id]
+    ).first.try :id
+  end
+
   def subscriber_hash(email)
     Digest::MD5.hexdigest(email.downcase) unless email.nil?
+  end
+
+  def encode(string)
+    ActiveSupport::JSON.encode(string)
+  end
+  
+  def decode(string)
+    ActiveSupport::JSON.decode(string)
+  end
+
+  def set_defaults
+    self.notifications_types = encode(
+      {
+        events: {
+          subscribe: true,
+          unsubscribe: true,
+          cleaned: true,
+          campaign: true,
+          profile: false,
+          upemail: false
+        },
+        sources: {
+          user: true,
+          admin: true,
+          api: true
+        }
+      }
+    )
   end
 end
