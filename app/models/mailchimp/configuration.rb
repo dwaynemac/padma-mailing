@@ -123,9 +123,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
     return if api_key.blank?
 
     begin
-      if api.lists.retrieve.body['lists'].blank?
-        self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
-      end
+      api.lists.retrieve.body['lists']
     rescue
       self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
     end
