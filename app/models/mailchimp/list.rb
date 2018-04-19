@@ -4,7 +4,8 @@ class Mailchimp::List < ActiveRecord::Base
   attr_accessible :name
   attr_accessible :mailchimp_segments_attributes
   attr_accessible :contact_attributes
-  
+  attr_accessible :receive_notifications
+
   belongs_to :mailchimp_configuration, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::Configuration" 
 
   has_many :mailchimp_segments,
@@ -269,80 +270,68 @@ class Mailchimp::List < ActiveRecord::Base
     get_api
     
     unless notifications_valid?(notifications)
-      Rails.logger.info "notifications types are not valid"
-      return nil
+      Rails.logger.info "notifications: #{notifications} not valid"
+      return { id: nil, errors: "notifications: #{notifications} not valid" }
     end
-      
+    
+    if has_webhook?
+      Rails.logger.info "already has a webhook"
+      return { id: nil, errors: "The list already has a webhook" }
+    end  
 
     begin
       @api.lists(api_id).webhooks.create(
         body: {
-          url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
-            id, 
-            only_path: false, 
-            host: APP_CONFIG["mailing-url"].gsub("http://","")
-          ),
+          url: "mailing.padm.am", #Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
+           # id, 
+           # only_path: false, 
+           # host: APP_CONFIG["mailing-url"].gsub("http://","")
+          #),
           events: {
-            subscribe: notifications["events"][:subscribe],
-            unsubscribe: notifications["events"][:unsubscribe],
-            cleaned:  notifications["events"][:cleaned],
-            campaign: notifications["events"][:campaign],
-            profile:  notifications["events"][:profile],
-            upemail:  notifications["events"][:upemail]
+            subscribe: notifications["events"]["subscribe"],
+            unsubscribe: notifications["events"]["unsubscribe"],
+            cleaned:  notifications["events"]["cleaned"],
+            campaign: notifications["events"]["campaign"],
+            profile:  notifications["events"]["profile"],
+            upemail:  notifications["events"]["upemail"]
           },
           sources: {
-            user: notifications["sources"][:user],
-            admin: notifications["sources"][:admin],
-            api: notifications["sources"][:api]
+            user: notifications["sources"]["user"],
+            admin: notifications["sources"]["admin"],
+            api: notifications["sources"]["api"]
           }
         }
-      )
+      ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return nil
+      return { id: nil, errors: e }
     end
   end
 
-  def update_webhook(notifications)
+  def update_webhook(type, key, value)
     get_api
     
-    unless notifications_valid?
-      Rails.logger.info "notifications types are not valid"
-      return nil
-    end
-      
+    #unless notifications_valid?
+    #  Rails.logger.info "notifications types are not valid"
+    #  return nil
+    #end
 
     begin
       webhook = @api.lists(api_id).webhooks.retrieve.body["webhooks"].try :first
       if webhook.nil?
        return {status: false, message: "there is no webhook associated with this list"} 
       else
+        webhook[type][key] = (value == "true")
         @api.lists(api_id).webhooks(webhook["id"]).update(
           body: {
-            url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
-              id, 
-              only_path: false, 
-              host: APP_CONFIG["mailing-url"].gsub("http://","")
-            ),
-            events: {
-              subscribe: notifications["events"][:subscribe],
-              unsubscribe: notifications["events"][:unsubscribe],
-              cleaned:  notifications["events"][:cleaned],
-              campaign: notifications["events"][:campaign],
-              profile:  notifications["events"][:profile],
-              upemail:  notifications["events"][:upemail]
-            },
-            sources: {
-              user: notifications["sources"][:user],
-              admin: notifications["sources"][:admin],
-              api: notifications["sources"][:api]
-            }
+            events: webhook["events"],
+            sources: webhook["sources"]
           }
-        )
+        ).body
       end
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return nil
+      return { id: nil, errors: e }
     end
   end
 
@@ -376,7 +365,6 @@ class Mailchimp::List < ActiveRecord::Base
   def notifications_valid?(notifications)
     return false if notifications.nil? || notifications.blank?
 
-    notifications = decode notifications_types
     return events_valid?(notifications["events"]) && sources_valid?(notifications["sources"])
   end
 
@@ -392,20 +380,20 @@ class Mailchimp::List < ActiveRecord::Base
     return %w(user admin api).all? { |t| !sources[t].nil? && ([true, false].include? sources[t]) }
   end
 
-  def get_default_notifications
+  def default_notifications
     {
-      events: {
-        subscribe: true,
-        unsubscribe: true,
-        cleaned: true,
-        campaign: true,
-        profile: false,
-        upemail: false
+      "events" => {
+        "subscribe"=> true,
+        "unsubscribe" => true,
+        "cleaned" => true,
+        "campaign" => true,
+        "profile" => false,
+        "upemail" => false
       },
-      sources: {
-        user: true,
-        admin: true,
-        api: true
+      "sources" => {
+        "user" => true,
+        "admin" => true,
+        "api" => true
       }
     }
   end
