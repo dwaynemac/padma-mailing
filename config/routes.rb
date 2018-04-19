@@ -47,6 +47,9 @@ Mailing::Application.routes.draw do
         get :status
         get :members
         get :remove_member
+        post :receive_notifications
+        post :update_notifications
+        post :remove_notifications
       end
       collection do
         post :preview_scope
