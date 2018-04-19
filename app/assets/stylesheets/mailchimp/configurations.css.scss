@@ -153,3 +153,13 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.notifications {
+  display: block;
+}
+
+.notifications.invisible {
+  display: none;
+}
+
+// end of things that are going to go to list
