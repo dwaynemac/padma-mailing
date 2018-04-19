@@ -22,3 +22,4 @@
 //= require bootstrap-select.min
 //= require bootstrap-select-patch
 //= require mailchimp/lists
+//= require mailchimp/configurations
