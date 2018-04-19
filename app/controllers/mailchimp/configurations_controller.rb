@@ -5,6 +5,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   before_filter :require_set_up, only: [:show]
   
   def show
+    @webhook = Gibbon::Request.new(api_key: @configuration.api_key).lists(@configuration.primary_list.api_id).webhooks.retrieve.body["webhooks"].try :first
     # @configuration setted by get_configuration
     if @configuration.api_key
       params[:app_key] = ENV["contacts_key"]
