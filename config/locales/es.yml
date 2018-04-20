@@ -263,7 +263,7 @@ es:
     list:
       show:
         notifications:
-          title: Mantener registro 
+          title: Registro automático en padma 
           events:
             title: Tipo de evento
             subscribe: Subscripción

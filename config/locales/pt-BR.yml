@@ -348,7 +348,7 @@ pt-BR:
     list:
       show:
         notifications:
-          title: Manter registro 
+          title: Registro automático em padma
           events:
             title: Tipo de evento
             subscribe: Assinatura
