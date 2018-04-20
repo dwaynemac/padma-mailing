@@ -34,11 +34,12 @@ $(document).ready ->
 
 @remove_notifications = (element, list_id) ->
   $.post "/mailchimp/lists/"+list_id+"/remove_notifications.json", ->
+    $(".notifications").toggle()
     $(".spinner").toggle()
   .done ->
-    $(".notifications").toggle()
     $.gritter.add {title: ":)", text: "updated", class_name: "success"}
   .fail ->
+    $(".notifications").toggle()
     $(element).prop("checked", !value)
     $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
   .always ->
