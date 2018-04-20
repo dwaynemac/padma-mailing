@@ -106,6 +106,10 @@
 /* Hide default HTML checkbox */
 .switch input {display:none;}
 
+.switch.header-switch {
+  vertical-align: bottom;
+}
+
 /* The slider */
 .slider {
   position: absolute;
