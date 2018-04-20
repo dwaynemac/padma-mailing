@@ -6,6 +6,23 @@ class Mailchimp::List < ActiveRecord::Base
   attr_accessible :contact_attributes
   attr_accessible :receive_notifications
 
+  DEFAULT_NOTIFICATIONS =
+    {
+      "events" => {
+        "subscribe"=> true,
+        "unsubscribe" => true,
+        "cleaned" => true,
+        "campaign" => true,
+        "profile" => false,
+        "upemail" => false
+      },
+      "sources" => {
+        "user" => true,
+        "admin" => true,
+        "api" => true
+      }
+    }
+  
   belongs_to :mailchimp_configuration, foreign_key: :mailchimp_configuration_id, class_name: "Mailchimp::Configuration" 
 
   has_many :mailchimp_segments,
@@ -380,23 +397,6 @@ class Mailchimp::List < ActiveRecord::Base
     return %w(user admin api).all? { |t| !sources[t].nil? && ([true, false].include? sources[t]) }
   end
 
-  def default_notifications
-    {
-      "events" => {
-        "subscribe"=> true,
-        "unsubscribe" => true,
-        "cleaned" => true,
-        "campaign" => true,
-        "profile" => false,
-        "upemail" => false
-      },
-      "sources" => {
-        "user" => true,
-        "admin" => true,
-        "api" => true
-      }
-    }
-  end
 
   private
   
