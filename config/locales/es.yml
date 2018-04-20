@@ -263,7 +263,7 @@ es:
     list:
       show:
         notifications:
-          title: Notificaciones
+          title: Mantener registro 
           events:
             title: Tipo de evento
             subscribe: Subscripción

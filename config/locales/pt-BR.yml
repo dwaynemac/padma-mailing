@@ -348,7 +348,7 @@ pt-BR:
     list:
       show:
         notifications:
-          title: Notificações 
+          title: Manter registro 
           events:
             title: Tipo de evento
             subscribe: Assinatura
