@@ -349,18 +349,37 @@ pt-BR:
       show:
         notifications:
           title: Registro automático em padma
+          description: Se ativado, esses eventos serão gravados na sua tela inicial. 
           events:
             title: Tipo de evento
-            subscribe: Assinatura
-            unsubscribe: Desubscrição
-            cleaned: Desativado
-            campaign: Campanha
-            profile: Modificação do perfil
-            upemail: Modificação do email
+            description: Escolha os eventos que você deseja registrar
+            subscribe:
+              title: Assinatura
+              description: É gravado quando um usuário adere à sua lista 
+            unsubscribe: 
+              title: Desubscrição
+              description: É gravado quando um usuário cancela a inscrição de sua lista
+            cleaned:
+              title: Eliminado
+              description: Ele é registrado quando o MailChimp exclui um usuário por mensagens devolvidas ou por uma reclamação do usuário
+            campaign:
+              title: Campanha
+              description: É registrado quando uma campanha é enviada
+            profile: 
+              title: Modificação do perfil
+              description: É gravado quando um usuário faz uma alteração em seus dados
+            upemail: 
+              title: Modificação do email
+              description: É registrado quando um usuário modifica seu email
           sources:
             title: Modificação do
-            user: Usuario
-            admin: Administrador da lista
+            description: É escolhido quem vai registrar as mudanças
+            user:
+              title: Usuário
+              description: É gravado se o usuário fizer uma alteração
+            admin: 
+              title: Administrador da lista
+              description: É gravado se o administrador da lista fizer uma alteração
             api: PADMA
       update:
         couldnt_update_segments: Nāo conseguimos atualizar a configuraçāo de segmentos.

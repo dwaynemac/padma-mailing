@@ -49,16 +49,19 @@
         <input type="checkbox" class="inputslider receive_notifications" <%= "checked" if @configuration.primary_list.receive_notifications %>>
         <span class="slider round"></span>
       </label>
+    <label><%= t("mailchimp.list.show.notifications.description") %></label>
     </header>
     <span class="invisible list_id"><%= @configuration.primary_list.id %></span>
     <div class='card-body'>
       <div class="notifications <%= "invisible" unless @configuration.primary_list.receive_notifications %>">
         <h2><%= t("mailchimp.list.show.notifications.events.title") %></h2>
+        <%= t("mailchimp.list.show.notifications.events.description") %>
         <table class="table table-striped">
           <tr>
             <td>
+              <h2><%= t("mailchimp.list.show.notifications.events.subscribe.title") %></h2>
               <label>
-                <%= t("mailchimp.list.show.notifications.events.subscribe") %>
+                <%= t("mailchimp.list.show.notifications.events.subscribe.description") %>
               </label>
             </td>
             <td>
@@ -70,8 +73,9 @@
           </tr>
           <tr>
             <td>
+              <h2><%= t("mailchimp.list.show.notifications.events.unsubscribe.title") %></h2>
               <label>
-                <%= t("mailchimp.list.show.notifications.events.unsubscribe") %>
+                <%= t("mailchimp.list.show.notifications.events.unsubscribe.description") %>
               </label>
             </td>
             <td>
@@ -83,8 +87,9 @@
           </tr>
           <tr>
             <td>
+              <h2><%= t("mailchimp.list.show.notifications.events.cleaned.title") %></h2>
               <label>
-                <%= t("mailchimp.list.show.notifications.events.cleaned") %>
+                <%= t("mailchimp.list.show.notifications.events.cleaned.description") %>
               </label>
             </td>
             <td>
@@ -96,21 +101,9 @@
           </tr>
           <tr>
             <td>
+              <h2><%= t("mailchimp.list.show.notifications.events.profile.title") %></h2>
               <label>
-                <%= t("mailchimp.list.show.notifications.events.campaign") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="campaign" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["campaign"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <label>
-                <%= t("mailchimp.list.show.notifications.events.profile") %>
+                <%= t("mailchimp.list.show.notifications.events.profile.description") %>
               </label>
             </td>
             <td>
@@ -122,8 +115,9 @@
           </tr>
           <tr>
             <td>
+              <h2><%= t("mailchimp.list.show.notifications.events.upemail.title") %></h2>
               <label>
-                <%= t("mailchimp.list.show.notifications.events.upemail") %>
+                <%= t("mailchimp.list.show.notifications.events.upemail.description") %>
               </label>
             </td>
             <td>
@@ -133,13 +127,29 @@
               </label>
             </td>
           </tr>
+          <tr>
+            <td>
+              <h2><%= t("mailchimp.list.show.notifications.events.campaign.title") %></h2>
+              <label>
+                <%= t("mailchimp.list.show.notifications.events.campaign.description") %>
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="campaign" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["campaign"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
         </table>
         <h2><%= t("mailchimp.list.show.notifications.sources.title") %></h2>
+        <%= t("mailchimp.list.show.notifications.sources.description") %>
         <table class="table table-striped">
           <tr>
             <td>
+              <h2><%= t("mailchimp.list.show.notifications.sources.user.title") %></h2>
               <label>
-                <%= t("mailchimp.list.show.notifications.sources.user") %>
+                <%= t("mailchimp.list.show.notifications.sources.user.description") %>
               </label>
             </td>
             <td>
@@ -151,8 +161,9 @@
           </tr>
           <tr>
             <td>
+              <h2><%= t("mailchimp.list.show.notifications.sources.admin.title") %></h2>
               <label>
-                <%= t("mailchimp.list.show.notifications.sources.admin") %>
+                <%= t("mailchimp.list.show.notifications.sources.admin.description") %>
               </label>
             </td>
             <td>
