@@ -2,14 +2,21 @@
 require 'spec_helper'
 
 describe Api::V0::Mailchimp::ListsController do
-  let(:list){create(:mailchimp_list)}
-  let(:account){create(:account)}
-  let(:contact){create(:contact)}
   before do
     PadmaContact.stub(:search).and_return([PadmaContact.new(id: 1234)])
     ActivityStream::Activity.stub(:new)
     Mailchimp::List.any_instance.stub_chain(:mailchimp_configuration, :account).and_return(account)
+    Mailchimp::List.any_instance.stub(:add_webhook)
+    Mailchimp::Configuration.any_instance.stub(:sync_mailchimp_lists_locally)
   end
+  let(:account){create(:account)}
+  let(:conf){
+    c = build(:mailchimp_configuration, local_account_id: account.id)
+    c.save(:validate => false)
+    c
+  }
+  let(:list){create(:mailchimp_list, mailchimp_configuration_id: conf.id)}
+  let(:contact){create(:contact)}
   describe "#webhooks" do
     context "without api key" do
       before do
