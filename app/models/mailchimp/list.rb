@@ -19,7 +19,7 @@ class Mailchimp::List < ActiveRecord::Base
       "sources" => {
         "user" => true,
         "admin" => true,
-        "api" => true
+        "api" => false
       }
     }
   
