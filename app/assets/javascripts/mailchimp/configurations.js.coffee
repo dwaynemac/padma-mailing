@@ -9,7 +9,6 @@
 
 $(document).ready ->
   $(".receive_notifications").on "click", ->
-    $(".notifications").toggle()
     if $(".receive_notifications")[0].checked
       receive_notifications(this, $(".list_id")[0].innerHTML)
     else
@@ -22,28 +21,40 @@ $(document).ready ->
     update_notifications(this, $(".list_id")[0].innerHTML, "sources", this.name, this.checked)
 
 @receive_notifications = (element, list_id) ->
-  $.post "/mailchimp/lists/"+list_id+"/receive_notifications.json"
+  $.post "/mailchimp/lists/"+list_id+"/receive_notifications.json", ->
+    $(".spinner").toggle()
   .done ->
+    $(".notifications").toggle()
     $.gritter.add {title: ":)", text: "updated", class_name: "success"}
   .fail ->
     $(element).prop("checked", !value)
     $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
+  .always ->
+    $(".spinner").toggle()
 
 @remove_notifications = (element, list_id) ->
-  $.post "/mailchimp/lists/"+list_id+"/remove_notifications.json"
+  $.post "/mailchimp/lists/"+list_id+"/remove_notifications.json", ->
+    $(".spinner").toggle()
   .done ->
+    $(".notifications").toggle()
     $.gritter.add {title: ":)", text: "updated", class_name: "success"}
   .fail ->
     $(element).prop("checked", !value)
     $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
+  .always ->
+    $(".spinner").toggle()
 
 @update_notifications = (element, list_id, type, key, value) ->
   $.post "/mailchimp/lists/"+list_id+"/update_notifications.json",
     type: type
     key: key
     value: value
+  , ->
+    $(".spinner").toggle()
   .done ->
     $.gritter.add {title: ":)", text: "updated", class_name: "success"}
   .fail (xhr, status, error) ->
     $(element).prop("checked", !value)
     $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
+  .always ->
+    $(".spinner").toggle()

@@ -40,7 +40,12 @@
   </section>
   
   <section class='card card-primary'>
-    <header class='card-title'>Notifications</header>
+    <header class='card-title'>
+      Notifications
+      <span class="spinner">
+        <%= image_tag "spinner.gif" %>
+      </span>
+    </header>
     <span class="invisible list_id"><%= @configuration.primary_list.id %></span>
     <div class='card-body'>
       <p>
