@@ -36,8 +36,6 @@ class Mailchimp::List < ActiveRecord::Base
       !Mailchimp::Segment.new(attr).valid?
     }
 
-  before_create :set_defaults
-
   def primary?
     self.id == self.mailchimp_configuration.primary_list_id
   end
