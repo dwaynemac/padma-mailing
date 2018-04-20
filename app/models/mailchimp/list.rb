@@ -36,6 +36,8 @@ class Mailchimp::List < ActiveRecord::Base
       !Mailchimp::Segment.new(attr).valid?
     }
 
+  after_create :add_webhook
+
   def primary?
     self.id == self.mailchimp_configuration.primary_list_id
   end
@@ -281,7 +283,7 @@ class Mailchimp::List < ActiveRecord::Base
   #   }
   # }
 
-  def add_webhook(notifications)
+  def add_webhook(notifications = DEFAULT_NOTIFICATIONS)
     get_api
     
     unless notifications_valid?(notifications)
