@@ -346,6 +346,22 @@ pt-BR:
       reload_when_finished: Recarregue esta tela depois de criar a nova lista.
       sync_with_chosen_list: Sincroniçar com a lista escolhida
     list:
+      show:
+        notifications:
+          title: Notificações 
+          events:
+            title: Tipo de evento
+            subscribe: Assinatura
+            unsubscribe: Desubscrição
+            cleaned: Desativado
+            campaign: Campanha
+            profile: Modificação do perfil
+            upemail: Modificação do email
+          sources:
+            title: Modificação do
+            user: Usuario
+            admin: Administrador da lista
+            api: PADMA
       update:
         couldnt_update_segments: Nāo conseguimos atualizar a configuraçāo de segmentos.
       segments:

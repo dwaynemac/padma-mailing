@@ -41,7 +41,7 @@
   
   <section class='card card-primary'>
     <header class='card-title'>
-      Notifications
+      <%= t("mailchimp.list.show.notifications.title") %>
       <span class="spinner">
         <%= image_tag "spinner.gif" %>
       </span>
@@ -53,12 +53,12 @@
     <span class="invisible list_id"><%= @configuration.primary_list.id %></span>
     <div class='card-body'>
       <div class="notifications <%= "invisible" unless @configuration.primary_list.receive_notifications %>">
-        <h2>Events</h2>
+        <h2><%= t("mailchimp.list.show.notifications.events.title") %></h2>
         <table class="table table-striped">
           <tr>
             <td>
               <label>
-                Subscription
+                <%= t("mailchimp.list.show.notifications.events.subscribe") %>
               </label>
             </td>
             <td>
@@ -71,7 +71,7 @@
           <tr>
             <td>
               <label>
-                Unsubscription
+                <%= t("mailchimp.list.show.notifications.events.unsubscribe") %>
               </label>
             </td>
             <td>
@@ -84,7 +84,7 @@
           <tr>
             <td>
               <label>
-                Cleaned
+                <%= t("mailchimp.list.show.notifications.events.cleaned") %>
               </label>
             </td>
             <td>
@@ -97,7 +97,7 @@
           <tr>
             <td>
               <label>
-                Campaign
+                <%= t("mailchimp.list.show.notifications.events.campaign") %>
               </label>
             </td>
             <td>
@@ -110,7 +110,7 @@
           <tr>
             <td>
               <label>
-                Profile 
+                <%= t("mailchimp.list.show.notifications.events.profile") %>
               </label>
             </td>
             <td>
@@ -123,7 +123,7 @@
           <tr>
             <td>
               <label>
-                Email change 
+                <%= t("mailchimp.list.show.notifications.events.upemail") %>
               </label>
             </td>
             <td>
@@ -134,12 +134,12 @@
             </td>
           </tr>
         </table>
-        <h2>Sources</h2>
+        <h2><%= t("mailchimp.list.show.notifications.sources.title") %></h2>
         <table class="table table-striped">
           <tr>
             <td>
               <label>
-                User 
+                <%= t("mailchimp.list.show.notifications.sources.user") %>
               </label>
             </td>
             <td>
@@ -152,7 +152,7 @@
           <tr>
             <td>
               <label>
-                Admin 
+                <%= t("mailchimp.list.show.notifications.sources.admin") %>
               </label>
             </td>
             <td>
@@ -165,7 +165,7 @@
           <tr>
             <td>
               <label>
-                API
+                <%= t("mailchimp.list.show.notifications.sources.api") %>
               </label>
             </td>
             <td>
