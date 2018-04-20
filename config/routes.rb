@@ -19,6 +19,13 @@ Mailing::Application.routes.draw do
           get :failed_rows # GET /api/v0/imports/:id/failed_rows
         end
       end
+      namespace 'mailchimp' do
+        resources :lists do
+          member do
+            get :webhooks
+          end
+        end
+      end
     end
   end
 
@@ -40,6 +47,9 @@ Mailing::Application.routes.draw do
         get :status
         get :members
         get :remove_member
+        post :receive_notifications
+        post :update_notifications
+        post :remove_notifications
       end
       collection do
         post :preview_scope

@@ -49,6 +49,48 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     mailchimp_segment_attributes
   end
 
+  def receive_notifications
+    @list = Mailchimp::List.find(params[:id])
+    resp = @list.add_webhook(Mailchimp::List::DEFAULT_NOTIFICATIONS)
+
+    if !resp["id"].nil?
+      @list.receive_notifications = true
+      @list.save
+      respond_to do |format|
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: resp["errors"], status: 400 }
+      end
+    end
+  end
+
+  def remove_notifications
+    @list = Mailchimp::List.find(params[:id])
+    @list.receive_notifications = false
+    @list.remove_webhook
+    
+    respond_to do |format|
+      format.json { render json: nil, status: :ok }
+    end
+  end
+
+  def update_notifications
+    @list = Mailchimp::List.find(params[:id])
+    resp = @list.update_webhook(params[:type], params[:key], params[:value])
+
+    if !resp["id"].nil?
+      respond_to do |format|
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: resp[:errors], status: 400 }
+      end
+    end
+  end
+
   def preview_scope
     count = "no number has been returned"
     list = Mailchimp::List.find(params[:id])

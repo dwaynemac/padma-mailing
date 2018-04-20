@@ -261,6 +261,22 @@ es:
         students: Lista con alumnos
       list_syncronization: Lista para sincronizar con mailchimp
     list:
+      show:
+        notifications:
+          title: Registro automático en padma 
+          events:
+            title: Tipo de evento
+            subscribe: Subscripción
+            unsubscribe: Desubscripción
+            cleaned: Desactivado
+            campaign: Campaña
+            profile: Modificación de perfil
+            upemail: Cambio de email
+          sources:
+            title: Cambios desde
+            user: Usuario
+            admin: Administrador de la lista
+            api: PADMA
       update:
         couldnt_update_segments: No se pudo actualizar la configuración de segmentos.
       segments:
