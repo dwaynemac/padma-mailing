@@ -45,82 +45,137 @@
       <span class="spinner">
         <%= image_tag "spinner.gif" %>
       </span>
+      <label class="switch">
+        <input type="checkbox" class="inputslider receive_notifications" <%= "checked" if @configuration.primary_list.receive_notifications %>>
+        <span class="slider round"></span>
+      </label>
     </header>
     <span class="invisible list_id"><%= @configuration.primary_list.id %></span>
     <div class='card-body'>
-      <p>
-        Notifications
-        <label class="switch">
-          <input type="checkbox" class="inputslider receive_notifications" <%= "checked" if @configuration.primary_list.receive_notifications %>>
-          <span class="slider round"></span>
-        </label>
-      </p>
       <div class="notifications <%= "invisible" unless @configuration.primary_list.receive_notifications %>">
         <h2>Events</h2>
-        <div>
-          Subscription
-          <label class="switch">
-            <input type="checkbox" name="subscribe" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["subscribe"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          Unsubscription
-          <label class="switch">
-            <input type="checkbox" name="unsubscribe" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["unsubscribe"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          Cleaned 
-          <label class="switch">
-            <input type="checkbox" name="cleaned" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["cleaned"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          Campaign 
-          <label class="switch">
-            <input type="checkbox" name="campaign" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["campaign"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          Profile 
-          <label class="switch">
-            <input type="checkbox" name="profile" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["profile"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          Email change 
-          <label class="switch">
-            <input type="checkbox" name="upemail" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["upemail"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              <label>
+                Subscription
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="subscribe" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["subscribe"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Unsubscription
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="unsubscribe" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["unsubscribe"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Cleaned
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="cleaned" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["cleaned"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Campaign
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="campaign" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["campaign"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Profile 
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="profile" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["profile"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Email change 
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="upemail" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["upemail"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+        </table>
         <h2>Sources</h2>
-        <div>
-          User
-          <label class="switch">
-            <input type="checkbox" name="user" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["user"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          Admin
-          <label class="switch">
-            <input type="checkbox" name="admin" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["admin"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div>
-          API
-          <label class="switch">
-            <input type="checkbox" name="api" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["api"] %>>
-            <span class="slider round"></span>
-          </label>
-        </div>
+        <table class="table table-striped">
+          <tr>
+            <td>
+              <label>
+                User 
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="user" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["user"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                Admin 
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="admin" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["admin"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>
+                API
+              </label>
+            </td>
+            <td>
+              <label class="switch">
+                <input type="checkbox" name="api" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["api"] %>>
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
   </section>
