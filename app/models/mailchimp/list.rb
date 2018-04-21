@@ -78,9 +78,7 @@ class Mailchimp::List < ActiveRecord::Base
       subscription_change(message, contact_id)
     when "campaign"
       if params["data"]["status"] == "sent"
-        inform_campaign(
-          "Campaign #{params["data"]["subject"]} from list #{name} sent"
-        )
+        inform_campaign(params["data"]["subject"])
       end
     end
   end
@@ -105,16 +103,20 @@ class Mailchimp::List < ActiveRecord::Base
   end
 
   def inform_campaign(campaign_name)
-    ActivityStream::Activity.new(
+    a = ActivityStream::Activity.new(
+      target_id: 'Contact',
+      target_type: 'contact-still-not-created',
+      object_id: id,
       object_type: 'Mailchimp::List',
       generator: ActivityStream::LOCAL_APP_NAME,
-      content: "List #{name}: campaign #{campagin_name} has been sent",
+      content: "List #{name}: campaign #{campaign_name} has been sent",
       public: false,
       username: "Mailing system",
       account_name: mailchimp_configuration.account.name,
       created_at: Time.zone.now.to_s,
       updated_at: Time.zone.now.to_s
     )
+    a.create(username: "Mailing system", account_name: mailchimp_configuration.account.name)
   end
 
   def get_scope(page = 1, per = 25)
@@ -299,11 +301,11 @@ class Mailchimp::List < ActiveRecord::Base
     begin
       @api.lists(api_id).webhooks.create(
         body: {
-          url: "mailing.padm.am", #Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
-           # id, 
-           # only_path: false, 
-           # host: APP_CONFIG["mailing-url"].gsub("http://","")
-          #),
+          url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
+            id, 
+            only_path: false, 
+            host: APP_CONFIG["mailing-url"].gsub("http://","")
+          ),
           events: {
             subscribe: notifications["events"]["subscribe"],
             unsubscribe: notifications["events"]["unsubscribe"],
