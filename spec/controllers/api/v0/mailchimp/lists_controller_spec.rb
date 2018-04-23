@@ -81,7 +81,7 @@ describe Api::V0::Mailchimp::ListsController do
     end
     context "on campaign sent" do
       before do
-        Mailchimp::List.any_instance.should_receive(:inform_campaign).with("Campaign newcamp from list #{list.name} sent")
+        Mailchimp::List.any_instance.should_receive(:inform_campaign).with("newcamp")
       end
       it "should create an activity" do
         get :webhooks,

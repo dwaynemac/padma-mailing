@@ -263,19 +263,38 @@ es:
     list:
       show:
         notifications:
-          title: Registro automático en padma 
+          title: Registro automático en padma
+          description: Si se activa, estos eventos van a ser registrados en su pantalla inicial de padma 
           events:
             title: Tipo de evento
-            subscribe: Subscripción
-            unsubscribe: Desubscripción
-            cleaned: Desactivado
-            campaign: Campaña
-            profile: Modificación de perfil
-            upemail: Cambio de email
+            description: Elija los eventos que quiera registrar
+            subscribe: 
+              title: Subscripción
+              description: Se registra cuando un usuario se adhiere a su lista 
+            unsubscribe: 
+              title: Desubscripción
+              description: Se registra cuando un usuario se da de baja de su lista
+            cleaned:
+              title: Eliminado
+              description: Se registra cuando MailChimp elimina un usuario por mails rebotados o por una queja del usuario
+            campaign:
+              title: Campaña
+              description: Se registra cuando se envía una campaña
+            profile: 
+              title: Modificación de perfil
+              description: Se registra cuando un usuario realiza un cambio en sus datos
+            upemail: 
+              title: Cambio de email
+              description: Se registra cuando un usuario modifica su email
           sources:
             title: Cambios desde
-            user: Usuario
-            admin: Administrador de la lista
+            description: Se elige de quién van a registrarse modificaciones
+            user:
+              title: Usuario
+              description: Se registra si el usuario realiza un cambio
+            admin: 
+              title: Administrador de la lista
+              description: Se registra si el administrador de la lista realiza un cambio
             api: PADMA
       update:
         couldnt_update_segments: No se pudo actualizar la configuración de segmentos.
