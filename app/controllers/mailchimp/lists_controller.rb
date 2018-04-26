@@ -51,7 +51,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def receive_notifications
     @list = Mailchimp::List.find(params[:id])
-    resp = @list.add_webhook(Mailchimp::List::DEFAULT_NOTIFICATIONS)
+    resp = @list.add_webhook
 
     if !resp["id"].nil?
       @list.receive_notifications = true
@@ -70,6 +70,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     @list = Mailchimp::List.find(params[:id])
     @list.receive_notifications = false
     @list.remove_webhook
+    @list.save
     
     respond_to do |format|
       format.json { render json: nil, status: :ok }
