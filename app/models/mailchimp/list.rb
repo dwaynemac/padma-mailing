@@ -299,6 +299,8 @@ class Mailchimp::List < ActiveRecord::Base
     end  
 
     begin
+      # this next line is only for testing
+      Rails.logger.info "URL: #{Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(id, only_path: false, host: APP_CONFIG['mailing-url'].gsub('http://',''))}"
       @api.lists(api_id).webhooks.create(
         body: {
           url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
