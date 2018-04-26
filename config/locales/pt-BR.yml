@@ -604,6 +604,7 @@ pt-BR:
       select_condition: Escolha uma condição
       sender_data: Configure remitente y copias ocultas
       event:
+        name: Evento disparador
         communication: Cadastro de uma comunicaçāo
         subscription_change: Cadastro de uma matrícula/evasāo
         trial_lesson: Cadastro de uma aula experimental
