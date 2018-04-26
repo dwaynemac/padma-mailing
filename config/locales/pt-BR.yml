@@ -614,7 +614,7 @@ pt-BR:
         explained: O email só será enviado se estas condições são verdadeiras na hora de enviar a mensagem.
       filters:
         name: Filtros
-        explained: O email só será programado para envío se estes criterios são verdadeiros na hora do evento seleccionado (ej: matricula)
+        explained: "O email só será programado para envío se estes criterios são verdadeiros na hora do evento seleccionado (ej: matricula)"
       sender:
         name: Remetente
         explained: Aqui pode alterar o remetente, copia oculta, etc.
