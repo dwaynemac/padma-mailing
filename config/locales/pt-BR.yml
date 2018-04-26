@@ -618,6 +618,9 @@ pt-BR:
       sender:
         name: Remetente
         explained: Aqui pode alterar o remetente, copia oculta, etc.
+      templates:
+        name: 'Modelo'
+        explained: Selecione o modelo de email
   contact:
     mercury:
       tags:
