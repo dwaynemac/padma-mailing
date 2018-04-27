@@ -61,7 +61,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       end
     else
       respond_to do |format|
-        format.json { render json: resp["errors"], status: 400 }
+        format.json { render json: resp[:errors], status: 500 }
       end
     end
   end

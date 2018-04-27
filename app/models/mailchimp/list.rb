@@ -323,7 +323,7 @@ class Mailchimp::List < ActiveRecord::Base
       ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return { id: nil, errors: e }
+      return { id: nil, errors: e.body["errors"] }
     end
   end
 
@@ -350,7 +350,7 @@ class Mailchimp::List < ActiveRecord::Base
       end
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return { id: nil, errors: e }
+      return { id: nil, errors: e.body["errors"] }
     end
   end
 
