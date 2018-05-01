@@ -292,11 +292,6 @@ class Mailchimp::List < ActiveRecord::Base
       Rails.logger.info "notifications: #{notifications} not valid"
       return { id: nil, errors: "notifications: #{notifications} not valid" }
     end
-    
-    if has_webhook?
-      Rails.logger.info "already has a webhook"
-      return { id: nil, errors: "The list already has a webhook" }
-    end  
 
     begin
       @api.lists(api_id).webhooks.create(
