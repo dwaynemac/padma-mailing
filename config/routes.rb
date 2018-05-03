@@ -22,7 +22,7 @@ Mailing::Application.routes.draw do
       namespace 'mailchimp' do
         resources :lists do
           member do
-            get :webhooks
+            post :webhooks
           end
         end
       end
