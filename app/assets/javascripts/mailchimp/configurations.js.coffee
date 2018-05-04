@@ -24,8 +24,8 @@ $(document).ready ->
   $(".spinner").toggle()
   $.post "/mailchimp/lists/"+list_id+"/receive_notifications.json"
   .done ->
-    $(".notifications").removeClass("invisible")
     $(".notifications").toggle()
+    $(".notifications").removeClass("invisible")
     $.gritter.add {title: ":)", text: "updated", class_name: "success"}
   .fail (xhr, status, error) ->
     $(element).prop("checked", !value)
