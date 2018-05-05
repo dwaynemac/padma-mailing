@@ -50,27 +50,19 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   end
 
   def receive_notifications
-    @list = Mailchimp::List.find(params[:id])
-    resp = @list.add_webhook
+    list = Mailchimp::List.find(params[:id])
+    list.add_webhook
 
-    if !resp["id"].nil?
-      @list.receive_notifications = true
-      @list.save
-      respond_to do |format|
-        format.json { render json: nil, status: :ok }
-      end
-    else
-      respond_to do |format|
-        format.json { render json: resp[:errors], status: 500 }
-      end
+    respond_to do |format|
+      format.json { render json: nil, status: :ok }
     end
   end
 
   def remove_notifications
-    @list = Mailchimp::List.find(params[:id])
-    @list.receive_notifications = false
-    @list.remove_webhook
-    @list.save
+    list = Mailchimp::List.find(params[:id])
+    list.receive_notifications = false
+    list.remove_webhook
+    list.save
     
     respond_to do |format|
       format.json { render json: nil, status: :ok }
@@ -78,8 +70,8 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   end
 
   def update_notifications
-    @list = Mailchimp::List.find(params[:id])
-    resp = @list.update_webhook(params[:type], params[:key], params[:value])
+    list = Mailchimp::List.find(params[:id])
+    resp = list.update_webhook(params[:type], params[:key], params[:value])
 
     if !resp["id"].nil?
       respond_to do |format|
