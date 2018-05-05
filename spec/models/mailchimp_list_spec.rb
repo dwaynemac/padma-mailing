@@ -17,6 +17,10 @@ describe Mailchimp::List do
         list.add_webhook_without_delay
         list.receive_notifications.should be_falsy
       end
+      it "should show setted error" do
+        list.add_webhook_without_delay
+        list.errors.full_messages.first.should == "some error"
+      end
     end
     context "on success" do
       before do
