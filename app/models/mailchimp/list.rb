@@ -5,6 +5,7 @@ class Mailchimp::List < ActiveRecord::Base
   attr_accessible :mailchimp_segments_attributes
   attr_accessible :contact_attributes
   attr_accessible :receive_notifications
+  attr_accessible :webhook_configuration
 
   DEFAULT_NOTIFICATIONS =
     {
@@ -36,6 +37,7 @@ class Mailchimp::List < ActiveRecord::Base
       !Mailchimp::Segment.new(attr).valid?
     }
 
+  before_create :set_defaults
   after_create :add_webhook
 
   def primary?
@@ -403,6 +405,10 @@ class Mailchimp::List < ActiveRecord::Base
 
 
   private
+
+  def set_defaults
+    self.webhook_notifications = "{}"
+  end
   
   def get_api
     begin
