@@ -314,14 +314,14 @@ class Mailchimp::List < ActiveRecord::Base
         ).body
       rescue Gibbon::MailChimpError => e
         Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-        resp = { id: nil, errors: e.body["errors"] }
+        resp = { "id" => nil, errors: e.body["errors"] }
       end
     else
       Rails.logger.info "notifications: #{notifications} not valid"
-      resp = { id: nil, errors: "notifications: #{notifications} not valid" }
+      resp = { "id" => nil, errors: "notifications: #{notifications} not valid" }
     end
 
-    if resp[:id].nil?
+    if resp["id"].nil?
       self.errors.add(:base, resp[:errors])
     else
       update_attribute(:receive_notifications, true)
