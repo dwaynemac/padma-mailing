@@ -15,10 +15,10 @@ $(document).ready ->
       remove_notifications(this, $(".list_id")[0].innerHTML, this.checked)
 
   $(".update_events_notifications").on "click", ->
-    update_notifications(this, $(".list_id")[0].innerHTML, "events", this.name, this.checked)
+    update_single_notification(this, $(".list_id")[0].innerHTML, "events", this.name, this.checked)
   
   $(".update_sources_notifications").on "click", ->
-    update_notifications(this, $(".list_id")[0].innerHTML, "sources", this.name, this.checked)
+    update_single_notification(this, $(".list_id")[0].innerHTML, "sources", this.name, this.checked)
 
 @receive_notifications = (element, list_id, value) ->
   $(".spinner").toggle()
@@ -46,9 +46,9 @@ $(document).ready ->
   .always ->
     $(".spinner").toggle()
 
-@update_notifications = (element, list_id, type, key, value) ->
+@update_single_notification = (element, list_id, type, key, value) ->
   $(".spinner").toggle()
-  $.post "/mailchimp/lists/"+list_id+"/update_notifications.json",
+  $.post "/mailchimp/lists/"+list_id+"/update_single_notification.json",
     type: type
     key: key
     value: value

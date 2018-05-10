@@ -50,6 +50,7 @@ Mailing::Application.routes.draw do
         get :remove_member
         post :receive_notifications
         post :update_notifications
+        post :update_single_notification
         post :remove_notifications
       end
       collection do

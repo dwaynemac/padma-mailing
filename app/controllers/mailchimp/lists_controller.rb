@@ -55,6 +55,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
     respond_to do |format|
       format.json { render json: nil, status: :ok }
+      format.html { redirect_to list.mailchimp_configuration }
     end
   end
 
@@ -69,9 +70,9 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     end
   end
 
-  def update_notifications
+  def update_single_notification
     list = Mailchimp::List.find(params[:id])
-    resp = list.update_webhook(params[:type], params[:key], params[:value])
+    resp = list.update_notifications({params[:type] => { params[:key] => params[:value] }})
 
     if !resp["id"].nil?
       respond_to do |format|
@@ -79,7 +80,24 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       end
     else
       respond_to do |format|
-        format.json { render json: resp[:errors], status: 400 }
+        format.json { render json: list.errors_full_messages, status: 400 }
+      end
+    end
+
+  end
+
+  def update_notifications
+    list = Mailchimp::List.find(params[:id])
+    resp = list.update_notifications(params[:notifications])
+
+    if !resp["id"].nil?
+      respond_to do |format|
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      respond_to do |format|
+        list.update_notifications(params[:notifications]) #TODO reverse update
+        format.json { render json: list.errors_full_messages, status: 400 }
       end
     end
   end
