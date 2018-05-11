@@ -9,6 +9,7 @@ class Mailchimp::List < ActiveRecord::Base
 
   DEFAULT_NOTIFICATIONS =
     {
+      "id" => '',
       "events" => {
         "subscribe"=> true,
         "unsubscribe" => true,
@@ -310,34 +311,57 @@ class Mailchimp::List < ActiveRecord::Base
     if resp["id"].nil?
       self.errors.add(:base, resp[:errors])
     else
+      new_config = decode(webhook_configuration)
+      new_config[:id] = resp["id"]
+      update_attribute(:webhook_configuration, encode(new_config))
       update_attribute(:receive_notifications, true)
     end
   end
   handle_asynchronously :add_webhook
 
-  def update_webhook(type, key, value)
+  def update_notifications(params)
+    notifications = decode(webhook_configuration)
+    unless params["events"].blank?
+      params["events"].each do |k,v|
+        notifications["events"][k] = (v == "true")
+      end
+    end
+    unless params["sources"].blank?
+      params["sources"].each do |k,v|
+        notifications["sources"][k] = (v == "true")
+      end
+    end
+    update_attribute(:webhook_configuration, encode(notifications))
+    resp = update_webhook
+    if resp["id"].nil?
+      unless params["events"].blank?
+        params["events"].each do |k,v|
+          notifications["events"][k] = !notifications["events"][k]
+        end
+      end
+      unless params["sources"].blank?
+        params["sources"].each do |k,v|
+          notifications["sources"][k] = !notifications["sources"][k]
+        end
+      end
+      update_attribute(:webhook_configuration, encode(notifications))
+    end
+    resp
+  end
+
+  def update_webhook
     get_api
-    
     webhook = decode(webhook_configuration)
-    webhook[type][key] = (value == "true")
-    update_attribute(:webhook_configuration, encode(webhook))
 
     begin
-      webhook = @api.lists(api_id).webhooks.retrieve.body["webhooks"].try :first
-      if webhook.nil?
-       return {status: false, message: "there is no webhook associated with this list"} 
-      else
-        @api.lists(api_id).webhooks(webhook["id"]).update(
-          body: {
-            events: webhook["events"],
-            sources: webhook["sources"]
-          }
-        ).body
-      end
+      @api.lists(api_id).webhooks(webhook["id"]).update(
+        body: {
+          events: webhook["events"],
+          sources: webhook["sources"]
+        }
+      ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      webhook[type][key] = !webhook[type][key]
-      update_attribute(:webhook_configuration, encode(webhook))
       return { id: nil, errors: e.body["errors"] }
     end
   end
