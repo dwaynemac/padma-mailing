@@ -80,7 +80,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       end
     else
       respond_to do |format|
-        format.json { render json: list.errors_full_messages, status: 400 }
+        format.json { render json: resp[:errors], status: 400 }
       end
     end
 
@@ -97,7 +97,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     else
       respond_to do |format|
         list.update_notifications(params[:notifications]) #TODO reverse update
-        format.json { render json: list.errors_full_messages, status: 400 }
+        format.json { render json: resp[:errors], status: 400 }
       end
     end
   end
