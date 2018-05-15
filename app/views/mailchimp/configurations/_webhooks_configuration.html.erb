@@ -11,7 +11,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="subscribe" class="inputslider update_events_notifications" <%= "checked" if webhook["events"]["subscribe"] %>>
+          <input type="checkbox" name="notifications[events][subscribe]" class="inputslider <%= "update_events_notifications" unless new_config %>" <%= "checked" if webhook["events"]["subscribe"] %>>
           <span class="slider round"></span>
         </label>
       </td>
@@ -25,7 +25,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="unsubscribe" class="inputslider update_events_notifications" <%= "checked" if webhook["events"]["unsubscribe"] %>>
+          <input type="checkbox" name="notifications[events][unsubscribe]" class="inputslider <%= "update_events_notifications" unless new_config %>" <%= "checked" if webhook["events"]["unsubscribe"] %>>
           <span class="slider round"></span>
         </label>
       </td>
@@ -39,7 +39,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="cleaned" class="inputslider update_events_notifications" <%= "checked" if webhook["events"]["cleaned"] %>>
+          <input type="checkbox" name="notifications[events][cleaned]" class="inputslider <%= "update_events_notifications" unless new_config %>" <%= "checked" if webhook["events"]["cleaned"] %>>
           <span class="slider round"></span>
         </label>
       </td>
@@ -53,7 +53,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="profile" class="inputslider update_events_notifications" <%= "checked" if webhook["events"]["profile"] %>>
+          <input type="checkbox" name="notifications[events][profile]" class="inputslider <%= "update_events_notifications" unless new_config %>" <%= "checked" if webhook["events"]["profile"] %>>
           <span class="slider round"></span>
         </label>
       </td>
@@ -67,7 +67,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="upemail" class="inputslider update_events_notifications" <%= "checked" if webhook["events"]["upemail"] %>>
+          <input type="checkbox" name="notifications[events][upemail]" class="inputslider <%= "update_events_notifications" unless new_config %>" <%= "checked" if webhook["events"]["upemail"] %>>
           <span class="slider round"></span>
         </label>
       </td>
@@ -81,7 +81,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="campaign" class="inputslider update_events_notifications" <%= "checked" if webhook["events"]["campaign"] %>>
+          <input type="checkbox" name="notifications[events][campaign]" class="inputslider <%= "update_events_notifications" unless new_config %>" <%= "checked" if webhook["events"]["campaign"] %>>
           <span class="slider round"></span>
         </label>
       </td>
@@ -99,7 +99,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="user" class="inputslider update_sources_notifications" <%= "checked" if webhook["sources"]["user"] %>>
+          <input type="checkbox" name="notifications[sources][user]" class="inputslider <%= "update_sources_notifications" unless new_config %>" <%= "checked" if webhook["sources"]["user"] %>>
           <span class="slider round"></span>
         </label>
       </td>
@@ -113,7 +113,7 @@
       </td>
       <td>
         <label class="switch">
-          <input type="checkbox" name="admin" class="inputslider update_sources_notifications" <%= "checked" if webhook["sources"]["admin"] %>>
+          <input type="checkbox" name="notifications[sources][admin]" class="inputslider <%= "update_sources_notifications" unless new_config %>" <%= "checked" if webhook["sources"]["admin"] %>>
           <span class="slider round"></span>
         </label>
       </td>

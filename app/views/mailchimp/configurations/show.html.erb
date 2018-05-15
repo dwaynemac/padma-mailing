@@ -45,20 +45,20 @@
       <span class="spinner">
         <%= image_tag "spinner.gif" %>
       </span>
-      <label class="switch header-switch">
-        <input type="checkbox" class="inputslider receive_notifications" <%= "checked" if @configuration.primary_list.receive_notifications %>>
-        <span class="slider round"></span>
-      </label>
+      <a href="" class='btn btn-danger' data-toggle="modal" data-target="#create-notifications"><%= t('.enable_webhook') %></a>
+      <%= link_to "Receive notifications", receive_notifications_mailchimp_list_path(@configuration.primary_list.id), method: :post, class: "btn btn-primary" %>
     <label><%= t("mailchimp.list.show.notifications.description") %></label>
     </header>
     <span class="invisible list_id"><%= @configuration.primary_list.id %></span>
     <div class='card-body'>
       <%= render "mailchimp/configurations/webhooks_configuration", 
         configuration: @configuration,
-        webhook: @webhook
+        webhook: @webhook,
+        new_config: false
       %>
     </div>
   </section>
 </div>
 
+<%= render 'mailchimp/configurations/notifications_modal', configuration: @configuration, webhook: @webhook %>
 <%= render 'mailchimp/subscriptions/cancel_subscription_modal' %>

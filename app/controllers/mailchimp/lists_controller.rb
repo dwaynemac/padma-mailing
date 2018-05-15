@@ -88,6 +88,19 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def update_notifications
     list = Mailchimp::List.find(params[:id])
+    if params[:notifications][:events].nil?
+      redirect_to remove_notifications_mailchimp_list(id: params[:id])
+    end
+    %w("subscribe unsubsribe cleaned profile upemail campaign").each do |option|
+      if params[:notifications][:events][option].nil?
+        params[:notifications][:events][option] = false
+      end
+    end
+    %w("admin user").each do |option|
+      if params[:notifications][:sources][option].nil?
+        params[:notifications][:sources][option] = false
+      end
+    end
     resp = list.update_notifications(params[:notifications])
 
     if !resp["id"].nil?
@@ -96,7 +109,6 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       end
     else
       respond_to do |format|
-        list.update_notifications(params[:notifications]) #TODO reverse update
         format.json { render json: resp[:errors], status: 400 }
       end
     end
