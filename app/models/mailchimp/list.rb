@@ -323,12 +323,12 @@ class Mailchimp::List < ActiveRecord::Base
     notifications = decode(webhook_configuration)
     unless params["events"].blank?
       params["events"].each do |k,v|
-        notifications["events"][k] = (v == "true")
+        notifications["events"][k] = v
       end
     end
     unless params["sources"].blank?
       params["sources"].each do |k,v|
-        notifications["sources"][k] = (v == "true")
+        notifications["sources"][k] = v
       end
     end
     update_attribute(:webhook_configuration, encode(notifications))
@@ -362,7 +362,7 @@ class Mailchimp::List < ActiveRecord::Base
       ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return { id: nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
+      return { "id" => nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
     end
   end
 

@@ -72,7 +72,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def update_single_notification
     list = Mailchimp::List.find(params[:id])
-    resp = list.update_notifications({params[:type] => { params[:key] => params[:value] }})
+    resp = list.update_notifications({params[:type] => { params[:key] => (params[:value] == "true") }})
 
     if !resp["id"].nil?
       respond_to do |format|
@@ -91,24 +91,31 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     if params[:notifications][:events].nil?
       redirect_to remove_notifications_mailchimp_list(id: params[:id])
     end
-    %w("subscribe unsubsribe cleaned profile upemail campaign").each do |option|
-      if params[:notifications][:events][option].nil?
-        params[:notifications][:events][option] = false
+    %w(subscribe unsubscribe cleaned profile upemail campaign).each do |o|
+      if params[:notifications][:events][o.to_sym].nil?
+        params[:notifications][:events][o.to_sym] = false
+      else
+        params[:notifications][:events][o.to_sym] = true
       end
     end
-    %w("admin user").each do |option|
-      if params[:notifications][:sources][option].nil?
-        params[:notifications][:sources][option] = false
+    %w(admin user).each do |o|
+      if params[:notifications][:sources][o.to_sym].nil?
+        params[:notifications][:sources][o.to_sym] = false
+      else
+        params[:notifications][:sources][o.to_sym] = true
       end
     end
     resp = list.update_notifications(params[:notifications])
 
     if !resp["id"].nil?
       respond_to do |format|
+        format.html { redirect_to mailchimp_configuration_path }
         format.json { render json: nil, status: :ok }
       end
     else
+      flash.alert = resp[:errors]
       respond_to do |format|
+        format.html { redirect_to mailchimp_configuration_path }
         format.json { render json: resp[:errors], status: 400 }
       end
     end
