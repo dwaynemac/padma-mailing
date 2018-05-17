@@ -45,8 +45,10 @@
       <span class="spinner">
         <%= image_tag "spinner.gif" %>
       </span>
-      <a href="" class='btn btn-danger' data-toggle="modal" data-target="#create-notifications"><%= t('.enable_webhook') %></a>
-      <%= link_to "Receive notifications", receive_notifications_mailchimp_list_path(@configuration.primary_list.id), method: :post, class: "btn btn-primary" %>
+      <a href="" class='btn btn-primary' data-toggle="modal" data-target="#create-notifications">
+        <span class="<%= "hidden" unless @configuration.primary_list.receive_notifications %>"><%= t('.enable_webhook') %></span>
+        <span class="<%= "hidden" if @configuration.primary_list.receive_notifications %>"><%= t('.disable_webhook') %></span>
+      </a>
     <label><%= t("mailchimp.list.show.notifications.description") %></label>
     </header>
     <span class="invisible list_id"><%= @configuration.primary_list.id %></span>
