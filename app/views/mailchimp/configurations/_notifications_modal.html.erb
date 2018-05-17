@@ -10,8 +10,8 @@
         <%= render "mailchimp/configurations/webhooks_configuration", configuration: configuration, webhook: webhook, new_config: true %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('.keep_subscription') %></button>
-        <button type="submit" class="btn btn-danger" data-disable-with="..."><%= t('mailchimp.subscriptions.show.cancel_integration') %></button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal"><%= t('mailchimp.configuration.add_notifications.cancel') %></button>
+        <button type="submit" class="btn btn-default" data-disable-with="..."><%= t('mailchimp.configuration.add_notifications.add') %></button>
       </div>
     </div>
     <% end -%>
