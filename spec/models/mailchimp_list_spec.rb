@@ -14,11 +14,11 @@ describe Mailchimp::List do
         allow_any_instance_of(Gibbon::Request).to receive_message_chain(:lists, :webhooks, :create, :body).and_return({"id"=> nil, errors: "some error"})
       end
       it "should not change receive notifications" do
-        list.add_webhook_without_delay
+        list.add_webhook
         list.receive_notifications.should be_falsy
       end
       it "should show setted error" do
-        list.add_webhook_without_delay
+        list.add_webhook
         list.errors.full_messages.first.should == "some error"
       end
     end
@@ -27,7 +27,7 @@ describe Mailchimp::List do
         allow_any_instance_of(Gibbon::Request).to receive_message_chain(:lists, :webhooks, :create, :body).and_return({"id"=> "1234", errors: "some error"})
       end
       it "should set receive notifications to true" do
-        list.add_webhook_without_delay
+        list.add_webhook
         list.receive_notifications.should be_truthy
       end
     end
