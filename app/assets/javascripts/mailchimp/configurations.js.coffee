@@ -9,11 +9,11 @@
 
 $(document).ready ->
   $(".receive_notifications").on "click", ->
-    if $(".receive_notifications")[0].checked
-      receive_notifications(this, $(".list_id")[0].innerHTML, this.checked)
-    else
-      remove_notifications(this, $(".list_id")[0].innerHTML, this.checked)
+    receive_notifications(this, $(".list_id")[0].innerHTML)
 
+  $(".remove_notifications").on "click", ->
+    remove_notifications(this, $(".list_id")[0].innerHTML)
+  
   $(".update_events_notifications").on "click", ->
     update_single_notification(this, $(".list_id")[0].innerHTML, "events", this.name, this.checked)
   
@@ -21,17 +21,19 @@ $(document).ready ->
     update_single_notification(this, $(".list_id")[0].innerHTML, "sources", this.name, this.checked)
 
 @receive_notifications = (element, list_id, value) ->
-  $(".spinner").toggle()
+  #$(".spinner").toggle()
+  $(".notifications_modal").show()
+  $(".notifications_modal").removeClass("invisible")
   $.post "/mailchimp/lists/"+list_id+"/receive_notifications.json"
-  .done ->
-    $(".notifications").toggle()
-    $(".notifications").removeClass("invisible")
-    $.gritter.add {title: ":)", text: "updated", class_name: "success"}
-  .fail (xhr, status, error) ->
-    $(element).prop("checked", !value)
-    $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
-  .always ->
-    $(".spinner").toggle()
+  #.done ->
+  #  $(".notifications").toggle()
+  #  $(".notifications").removeClass("invisible")
+  #  $.gritter.add {title: ":)", text: "updated", class_name: "success"}
+  #.fail (xhr, status, error) ->
+  #  $(element).prop("checked", !value)
+  #  $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
+  #.always ->
+  #  $(".spinner").toggle()
 
 @remove_notifications = (element, list_id, value) ->
   $(".spinner").toggle()
@@ -39,9 +41,10 @@ $(document).ready ->
     $(".notifications").toggle()
   .done ->
     $.gritter.add {title: ":)", text: "updated", class_name: "success"}
+    $(".remove_notifications").addClass("hidden")
+    $(".receive_notifications").removeClass("hidden")
   .fail (xhr, status, error) ->
     $(".notifications").toggle()
-    $(element).prop("checked", !value)
     $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
   .always ->
     $(".spinner").toggle()

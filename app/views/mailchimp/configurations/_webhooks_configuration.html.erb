@@ -1,4 +1,4 @@
-<div class="notifications <%= "invisible" unless configuration.primary_list.receive_notifications %>">
+<div class="notifications <%= "invisible" unless configuration.primary_list.receive_notifications %> <%= "notifications_modal" if new_config %>">
   <h2><%= t("mailchimp.list.show.notifications.events.title") %></h2>
   <%= t("mailchimp.list.show.notifications.events.description") %>
   <table class="table table-striped">
