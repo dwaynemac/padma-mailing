@@ -72,7 +72,9 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def update_single_notification
     list = Mailchimp::List.find(params[:id])
-    resp = list.update_notifications({params[:type] => { params[:key] => (params[:value] == "true") }})
+    type = params[:key].scan(/(?<=\[).+?(?=\])/).first
+    key = params[:key].scan(/(?<=\[).+?(?=\])/).last
+    resp = list.update_notifications({"#{type}" => { "#{key}" => (params[:value] == "true") }})
 
     if !resp["id"].nil?
       respond_to do |format|
