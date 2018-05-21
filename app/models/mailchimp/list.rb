@@ -394,6 +394,12 @@ class Mailchimp::List < ActiveRecord::Base
     end
   end
 
+  def get_webhook_configuration
+    update_attribute(:webhook_configuration, encode(DEFAULT_NOTIFICATIONS)) if webhook_configuration.blank?
+
+    decode(webhook_configuration)
+  end
+
   def notifications_valid?(notifications)
     return false if notifications.nil? || notifications.blank?
 

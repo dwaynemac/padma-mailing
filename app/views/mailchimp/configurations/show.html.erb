@@ -58,11 +58,11 @@
       <%= render "mailchimp/configurations/webhooks_configuration", 
         configuration: @configuration,
         webhook: @webhook,
-        new_config: false
+        new_config: false unless (@webhook.nil? || @webhook["id"].blank?)
       %>
     </div>
   </section>
 </div>
 
-<%= render 'mailchimp/configurations/notifications_modal', configuration: @configuration, webhook: @webhook %>
+<%= render 'mailchimp/configurations/notifications_modal', configuration: @configuration, webhook: @webhook unless (@webhook.nil? || @webhook["id"].blank?) %>
 <%= render 'mailchimp/subscriptions/cancel_subscription_modal' %>

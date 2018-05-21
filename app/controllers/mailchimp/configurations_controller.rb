@@ -6,7 +6,8 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   
   def show
     # @configuration setted by get_configuration
-    @webhook = @configuration.primary_list.decode(@configuration.primary_list.webhook_configuration) 
+    @webhook = @configuration.primary_list.get_webhook_configuration
+    
     if @configuration.api_key
       params[:app_key] = ENV["contacts_key"]
       params[:api_key] = @configuration.api_key
