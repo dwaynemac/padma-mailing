@@ -51,32 +51,29 @@ class Mailchimp::List < ActiveRecord::Base
     case type
     when "subscribe"
       contact_id = get_contact_id_by_email(params["data"]["email"])
-      message = "Has been subscribed to list: #{name}"
+      message = I18n.t("mailchimp.webhook.subscribed_to", list_name: name)
       subscription_change(message,contact_id)
     when "unsubscribe"
       contact_id = get_contact_id_by_email(params["data"]["email"])
-      
-      message = "Has been "
       if params["data"]["action"] == "unsub"
-        message << "unsubscribed"
+        message = I18n.t("mailchimp.webhook.unsubscribed_from", list_name: name)
       else
-        message << "deleted"
+        message = I18n.t("mailchimp.webhook.deleted_from", list_name: name)
       end
-      message << " from list: #{name}"
 
       if params["data"]["reason"] == "abuse"
-        message << "marking as a spam complaint"
+        message << I18n.t("mailchimp.webhook.abuse_reason")
       end
 
       subscription_change(message, contact_id)
     when "cleaned"
       contact_id = get_contact_id_by_email(params["data"]["email"])
 
-      message = "Has been cleaned due to"
+      message = I18n.t("mailchimp.webhook.cleaned_from", list_name: name)
       if params["data"]["reason"] == "hard"
-        message << " too many bounces"
+        message << I18n.t("mailchimp.webhook.bounce_reason")
       else
-        message << "abuse"
+        message << I18n.t("mailchimp.webhook.abuse_reason")
       end
       subscription_change(message, contact_id)
     when "campaign"
@@ -112,7 +109,7 @@ class Mailchimp::List < ActiveRecord::Base
       object_id: id,
       object_type: 'Mailchimp::List',
       generator: ActivityStream::LOCAL_APP_NAME,
-      content: "List #{name}: campaign #{campaign_name} has been sent",
+      content: I18n.t("mailchimp.webhook.campaign_sent", list_name: name, campaign_name: campaign_name),
       public: false,
       username: "Mailing system",
       account_name: mailchimp_configuration.account.name,
