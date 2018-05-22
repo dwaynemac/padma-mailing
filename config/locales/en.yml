@@ -107,8 +107,14 @@ en:
     segment:
       gender: Gender
       man: Man
-      
-      
+    webhook:
+      subscribed_to: "Has been subscribed to list: %{list_name}"
+      unsubscribed_from: "Has been unsubscribed from list: %{list_name}"
+      deleted_from: "Was deleted from list: %{list_name}"
+      cleaned_from: "Was cleaned from list: %{list_name}"
+      abuse_reason: " complaining about abuse"
+      bounce_reason: " because mails has bounced too many times"
+      campaign_sent: "List: %{list_name}: Campaign %{campaign_name} has been sent"
   layouts:
     navbar:
       templates: Templates
