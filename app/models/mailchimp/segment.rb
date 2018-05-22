@@ -18,6 +18,7 @@ class Mailchimp::Segment < ActiveRecord::Base
   attr_accessible :coefficient
   attr_accessible :name
   attr_accessible :followed_by
+  attr_accessible :list_id
 
   attr_accessor :_destroy
   attr_accessible :_destroy

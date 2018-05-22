@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20180505202137) do
+ActiveRecord::Schema.define(:version => 20180522130813) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(:version => 20180505202137) do
     t.string   "contact_segment_id"
     t.string   "gender"
     t.string   "followed_by"
+    t.string   "list_id"
   end
 
   create_table "mercury_images", :force => true do |t|
