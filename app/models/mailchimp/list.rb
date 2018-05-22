@@ -5,9 +5,11 @@ class Mailchimp::List < ActiveRecord::Base
   attr_accessible :mailchimp_segments_attributes
   attr_accessible :contact_attributes
   attr_accessible :receive_notifications
+  attr_accessible :webhook_configuration
 
   DEFAULT_NOTIFICATIONS =
     {
+      "id" => '',
       "events" => {
         "subscribe"=> true,
         "unsubscribe" => true,
@@ -36,6 +38,7 @@ class Mailchimp::List < ActiveRecord::Base
       !Mailchimp::Segment.new(attr).valid?
     }
 
+  before_create :set_defaults
   after_create :add_webhook
 
   def primary?
@@ -48,32 +51,29 @@ class Mailchimp::List < ActiveRecord::Base
     case type
     when "subscribe"
       contact_id = get_contact_id_by_email(params["data"]["email"])
-      message = "Has been subscribed to list: #{name}"
+      message = I18n.t("mailchimp.webhook.subscribed_to", list_name: name)
       subscription_change(message,contact_id)
     when "unsubscribe"
       contact_id = get_contact_id_by_email(params["data"]["email"])
-      
-      message = "Has been "
       if params["data"]["action"] == "unsub"
-        message << "unsubscribed"
+        message = I18n.t("mailchimp.webhook.unsubscribed_from", list_name: name)
       else
-        message << "deleted"
+        message = I18n.t("mailchimp.webhook.deleted_from", list_name: name)
       end
-      message << " from list: #{name}"
 
       if params["data"]["reason"] == "abuse"
-        message << "marking as a spam complaint"
+        message << I18n.t("mailchimp.webhook.abuse_reason")
       end
 
       subscription_change(message, contact_id)
     when "cleaned"
       contact_id = get_contact_id_by_email(params["data"]["email"])
 
-      message = "Has been cleaned due to"
+      message = I18n.t("mailchimp.webhook.cleaned_from", list_name: name)
       if params["data"]["reason"] == "hard"
-        message << " too many bounces"
+        message << I18n.t("mailchimp.webhook.bounce_reason")
       else
-        message << "abuse"
+        message << I18n.t("mailchimp.webhook.abuse_reason")
       end
       subscription_change(message, contact_id)
     when "campaign"
@@ -109,7 +109,7 @@ class Mailchimp::List < ActiveRecord::Base
       object_id: id,
       object_type: 'Mailchimp::List',
       generator: ActivityStream::LOCAL_APP_NAME,
-      content: "List #{name}: campaign #{campaign_name} has been sent",
+      content: I18n.t("mailchimp.webhook.campaign_sent", list_name: name, campaign_name: campaign_name),
       public: false,
       username: "Mailing system",
       account_name: mailchimp_configuration.account.name,
@@ -285,67 +285,81 @@ class Mailchimp::List < ActiveRecord::Base
   #   }
   # }
 
-  def add_webhook(notifications = DEFAULT_NOTIFICATIONS)
+  def add_webhook
     get_api
-    
-    unless notifications_valid?(notifications)
-      Rails.logger.info "notifications: #{notifications} not valid"
-      return { id: nil, errors: "notifications: #{notifications} not valid" }
-    end
-
+    resp = {}
     begin
-      @api.lists(api_id).webhooks.create(
+      resp = @api.lists(api_id).webhooks.create(
         body: {
           url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
             id, 
             only_path: false, 
             host: APP_CONFIG["mailing-url"].gsub("http://","")
           ),
-          events: {
-            subscribe: notifications["events"]["subscribe"],
-            unsubscribe: notifications["events"]["unsubscribe"],
-            cleaned:  notifications["events"]["cleaned"],
-            campaign: notifications["events"]["campaign"],
-            profile:  notifications["events"]["profile"],
-            upemail:  notifications["events"]["upemail"]
-          },
-          sources: {
-            user: notifications["sources"]["user"],
-            admin: notifications["sources"]["admin"],
-            api: notifications["sources"]["api"]
-          }
+          events: decode(webhook_configuration)["events"],
+          sources: decode(webhook_configuration)["sources"]
         }
       ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return { id: nil, errors: e.body["errors"] }
+      resp = { "id" => nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
+    end
+
+    if resp["id"].nil?
+      self.errors.add(:base, resp[:errors])
+    else
+      new_config = decode(webhook_configuration)
+      new_config[:id] = resp["id"]
+      update_attribute(:webhook_configuration, encode(new_config))
+      update_attribute(:receive_notifications, true)
     end
   end
+  #handle_asynchronously :add_webhook
 
-  def update_webhook(type, key, value)
+  def update_notifications(params)
+    notifications = decode(webhook_configuration)
+    unless params["events"].blank?
+      params["events"].each do |k,v|
+        notifications["events"][k] = v
+      end
+    end
+    unless params["sources"].blank?
+      params["sources"].each do |k,v|
+        notifications["sources"][k] = v
+      end
+    end
+    update_attribute(:webhook_configuration, encode(notifications))
+    resp = update_webhook
+    if resp["id"].nil?
+      unless params["events"].blank?
+        params["events"].each do |k,v|
+          notifications["events"][k] = !notifications["events"][k]
+        end
+      end
+      unless params["sources"].blank?
+        params["sources"].each do |k,v|
+          notifications["sources"][k] = !notifications["sources"][k]
+        end
+      end
+      update_attribute(:webhook_configuration, encode(notifications))
+    end
+    resp
+  end
+
+  def update_webhook
     get_api
-    
-    #unless notifications_valid?
-    #  Rails.logger.info "notifications types are not valid"
-    #  return nil
-    #end
+    webhook = decode(webhook_configuration)
 
     begin
-      webhook = @api.lists(api_id).webhooks.retrieve.body["webhooks"].try :first
-      if webhook.nil?
-       return {status: false, message: "there is no webhook associated with this list"} 
-      else
-        webhook[type][key] = (value == "true")
-        @api.lists(api_id).webhooks(webhook["id"]).update(
-          body: {
-            events: webhook["events"],
-            sources: webhook["sources"]
-          }
-        ).body
-      end
+      @api.lists(api_id).webhooks(webhook["id"]).update(
+        body: {
+          events: webhook["events"],
+          sources: webhook["sources"]
+        }
+      ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return { id: nil, errors: e.body["errors"] }
+      return { "id" => nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
     end
   end
 
@@ -366,14 +380,20 @@ class Mailchimp::List < ActiveRecord::Base
     get_api
 
     begin
-      webhook = @api.lists(api_id).webhooks.retrieve.body["webhooks"].try :first
-      unless webhook.nil?
-        @api.lists(api_id).webhooks(webhook["id"]).delete
-      end
+      webhook = decode(webhook_configuration)
+      @api.lists(api_id).webhooks(webhook["id"]).delete
+      webhook["id"] = ""
+      update_attribute(:webhook_configuration, encode(webhook))
+      update_attribute(:receive_notifications, false)
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
       return nil
     end
+  end
+
+  def get_webhook_configuration
+    update_attribute(:webhook_configuration, encode(DEFAULT_NOTIFICATIONS)) if webhook_configuration.blank?
+    decode(webhook_configuration)
   end
 
   def notifications_valid?(notifications)
@@ -394,8 +414,19 @@ class Mailchimp::List < ActiveRecord::Base
     return %w(user admin api).all? { |t| !sources[t].nil? && ([true, false].include? sources[t]) }
   end
 
+  def encode(string)
+    ActiveSupport::JSON.encode(string)
+  end
+
+  def decode(string)
+    ActiveSupport::JSON.decode(string)
+  end
 
   private
+
+  def set_defaults
+    self.webhook_configuration = encode(DEFAULT_NOTIFICATIONS)
+  end
   
   def get_api
     begin
@@ -421,4 +452,5 @@ class Mailchimp::List < ActiveRecord::Base
   def subscriber_hash(email)
     Digest::MD5.hexdigest(email.downcase) unless email.nil?
   end
+
 end

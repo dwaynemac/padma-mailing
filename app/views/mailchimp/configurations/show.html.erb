@@ -45,138 +45,24 @@
       <span class="spinner">
         <%= image_tag "spinner.gif" %>
       </span>
-      <label class="switch header-switch">
-        <input type="checkbox" class="inputslider receive_notifications" <%= "checked" if @configuration.primary_list.receive_notifications %>>
-        <span class="slider round"></span>
-      </label>
+      <a href="#" class="btn btn-primary receive_notifications <%= "hidden" if @configuration.primary_list.receive_notifications %>" data-toggle="modal" data-target="#create-notifications">
+        <span class="enable_notifications_text"><%= t('.enable_webhook') %></span>
+      </a>
+      <a href="#" class="btn btn-danger remove_notifications <%= "hidden" unless @configuration.primary_list.receive_notifications %>">
+        <span class="disable_notifications_text"><%= t('.disable_webhook') %></span>
+      </a>
     <label><%= t("mailchimp.list.show.notifications.description") %></label>
     </header>
     <span class="invisible list_id"><%= @configuration.primary_list.id %></span>
     <div class='card-body'>
-      <div class="notifications <%= "invisible" unless @configuration.primary_list.receive_notifications %>">
-        <h2><%= t("mailchimp.list.show.notifications.events.title") %></h2>
-        <%= t("mailchimp.list.show.notifications.events.description") %>
-        <table class="table table-striped">
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.events.subscribe.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.events.subscribe.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="subscribe" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["subscribe"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.events.unsubscribe.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.events.unsubscribe.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="unsubscribe" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["unsubscribe"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.events.cleaned.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.events.cleaned.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="cleaned" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["cleaned"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.events.profile.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.events.profile.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="profile" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["profile"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.events.upemail.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.events.upemail.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="upemail" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["upemail"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.events.campaign.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.events.campaign.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="campaign" class="inputslider update_events_notifications" <%= "checked" if @webhook["events"]["campaign"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-        </table>
-        <h2><%= t("mailchimp.list.show.notifications.sources.title") %></h2>
-        <%= t("mailchimp.list.show.notifications.sources.description") %>
-        <table class="table table-striped">
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.sources.user.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.sources.user.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="user" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["user"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <h2><%= t("mailchimp.list.show.notifications.sources.admin.title") %></h2>
-              <label>
-                <%= t("mailchimp.list.show.notifications.sources.admin.description") %>
-              </label>
-            </td>
-            <td>
-              <label class="switch">
-                <input type="checkbox" name="admin" class="inputslider update_sources_notifications" <%= "checked" if @webhook["sources"]["admin"] %>>
-                <span class="slider round"></span>
-              </label>
-            </td>
-          </tr>
-        </table>
-      </div>
+      <%= render "mailchimp/configurations/webhooks_configuration", 
+        configuration: @configuration,
+        webhook: @webhook,
+        new_config: false unless (@webhook.nil? || @webhook["id"].blank?)
+      %>
     </div>
   </section>
 </div>
 
+<%= render 'mailchimp/configurations/notifications_modal', configuration: @configuration, webhook: @webhook unless @webhook.nil? %>
 <%= render 'mailchimp/subscriptions/cancel_subscription_modal' %>

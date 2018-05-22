@@ -416,6 +416,14 @@ pt-BR:
         p_former_students: Ex-alunos (p)
         students: Alunos
       list_syncronization: Lista para sincronizar com mailchimp
+    webhook:
+      subscribed_to: "Ele se inscreveu na lista: %{list_name}"
+      unsubscribed_from: "Canceló inscrição da lista: %{list_name}"
+      deleted_from: "Removido da lista: %{list_name}"
+      cleaned_from: "Removido da lista: %{list_name}"
+      abuse_reason: " queixando-se de abuso"
+      bounce_reason: " porque o email retornou muitas vezes"
+      campaign_sent: "Lista: %{list_name}: A campanha %{campaign_name} foi enviada"
     errors:
       rest_client: "Houve um erro na sincronização com Mailchimp: %{error_message}"
   new: 

@@ -50,36 +50,31 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   end
 
   def receive_notifications
-    @list = Mailchimp::List.find(params[:id])
-    resp = @list.add_webhook
+    list = Mailchimp::List.find(params[:id])
+    list.add_webhook
 
-    if !resp["id"].nil?
-      @list.receive_notifications = true
-      @list.save
-      respond_to do |format|
-        format.json { render json: nil, status: :ok }
-      end
-    else
-      respond_to do |format|
-        format.json { render json: resp[:errors], status: 500 }
-      end
+    respond_to do |format|
+      format.json { render json: nil, status: :ok }
+      format.html { redirect_to list.mailchimp_configuration }
     end
   end
 
   def remove_notifications
-    @list = Mailchimp::List.find(params[:id])
-    @list.receive_notifications = false
-    @list.remove_webhook
-    @list.save
+    list = Mailchimp::List.find(params[:id])
+    list.receive_notifications = false
+    list.remove_webhook
+    list.save
     
     respond_to do |format|
       format.json { render json: nil, status: :ok }
     end
   end
 
-  def update_notifications
-    @list = Mailchimp::List.find(params[:id])
-    resp = @list.update_webhook(params[:type], params[:key], params[:value])
+  def update_single_notification
+    list = Mailchimp::List.find(params[:id])
+    type = params[:key].scan(/(?<=\[).+?(?=\])/).first
+    key = params[:key].scan(/(?<=\[).+?(?=\])/).last
+    resp = list.update_notifications({"#{type}" => { "#{key}" => (params[:value] == "true") }})
 
     if !resp["id"].nil?
       respond_to do |format|
@@ -87,6 +82,42 @@ class Mailchimp::ListsController < Mailchimp::PetalController
       end
     else
       respond_to do |format|
+        format.json { render json: resp[:errors], status: 400 }
+      end
+    end
+
+  end
+
+  def update_notifications
+    list = Mailchimp::List.find(params[:id])
+    if params[:notifications][:events].nil?
+      redirect_to remove_notifications_mailchimp_list(id: params[:id])
+    end
+    %w(subscribe unsubscribe cleaned profile upemail campaign).each do |o|
+      if params[:notifications][:events][o.to_sym].nil?
+        params[:notifications][:events][o.to_sym] = false
+      else
+        params[:notifications][:events][o.to_sym] = true
+      end
+    end
+    %w(admin user).each do |o|
+      if params[:notifications][:sources][o.to_sym].nil?
+        params[:notifications][:sources][o.to_sym] = false
+      else
+        params[:notifications][:sources][o.to_sym] = true
+      end
+    end
+    resp = list.update_notifications(params[:notifications])
+
+    if !resp["id"].nil?
+      respond_to do |format|
+        format.html { redirect_to mailchimp_configuration_path }
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      flash.alert = resp[:errors]
+      respond_to do |format|
+        format.html { redirect_to mailchimp_configuration_path }
         format.json { render json: resp[:errors], status: 400 }
       end
     end

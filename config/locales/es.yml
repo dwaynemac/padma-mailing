@@ -324,6 +324,14 @@ es:
         working: "La lista se está sincronizando"
         failed: "Falló la sincronización de la lista"
         not_found: "No encontramos la sincronización"
+    webhook:
+      subscribed_to: "Se subscribió a la lista: %{list_name}"
+      unsubscribed_from: "Se desuscribió de la lista: %{list_name}"
+      deleted_from: "Se eliminó de la lista: %{list_name}"
+      cleaned_from: "Se eliminó de la lista: %{list_name}"
+      abuse_reason: " quejándose de abuso"
+      bounce_reason: " porque el mail rebotó demasiadas veces"
+      campaign_sent: "Lista: %{list_name}: Se envió la campaña %{campaign_name}"
     errors:
       rest_client: "Hubo un error en la sincronización con Mailchimp: %{error_message}"
   new: Nuevo

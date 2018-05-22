@@ -8,6 +8,7 @@ describe Api::V0::Mailchimp::ListsController do
     Mailchimp::List.any_instance.stub_chain(:mailchimp_configuration, :account).and_return(account)
     Mailchimp::List.any_instance.stub(:add_webhook)
     Mailchimp::Configuration.any_instance.stub(:sync_mailchimp_lists_locally)
+    I18n.default_locale = "en"
   end
   let(:account){create(:account)}
   let(:conf){
