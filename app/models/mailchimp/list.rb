@@ -291,11 +291,11 @@ class Mailchimp::List < ActiveRecord::Base
     begin
       resp = @api.lists(api_id).webhooks.create(
         body: {
-          url: "http://mailing.padm.am", #Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
-            #id, 
-            #only_path: false, 
-            #host: APP_CONFIG["mailing-url"].gsub("http://","")
-          #),
+          url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
+            id, 
+            only_path: false, 
+            host: APP_CONFIG["mailing-url"].gsub("http://","")
+          ),
           events: decode(webhook_configuration)["events"],
           sources: decode(webhook_configuration)["sources"]
         }
