@@ -302,7 +302,7 @@ class Mailchimp::List < ActiveRecord::Base
       ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      resp = { "id" => nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
+      resp = { "id" => nil, errors: get_errors(e.body) }
     end
 
     if resp["id"].nil?
@@ -346,7 +346,7 @@ class Mailchimp::List < ActiveRecord::Base
       ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return { "id" => nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
+      return { "id" => nil, errors: get_errors(e.body) }
     end
   end
 
@@ -434,6 +434,20 @@ class Mailchimp::List < ActiveRecord::Base
       account_name: mailchimp_configuration.account.name,
       select: [:id]
     ).first.try :id
+  end
+
+  def get_errors(e)
+    errors = ""
+    if e["errors"].nil?
+      errors = "#{e["title"]}: #{e["detail"]}"
+    else
+      e['errors'].each_with_index do |current_error, i|
+        errors << "#{current_error['field']}: #{current_error['message']}"
+        errors << " - " unless ( i == e["errors"].count - 1 )
+      end
+    end
+
+    errors
   end
 
   def subscriber_hash(email)
