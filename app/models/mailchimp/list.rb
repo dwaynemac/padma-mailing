@@ -318,31 +318,18 @@ class Mailchimp::List < ActiveRecord::Base
 
   def update_notifications(params)
     notifications = decode(webhook_configuration)
-    unless params["events"].blank?
-      params["events"].each do |k,v|
-        notifications["events"][k] = v
-      end
-    end
-    unless params["sources"].blank?
-      params["sources"].each do |k,v|
-        notifications["sources"][k] = v
-      end
-    end
+    previous_notifications = notifications
+    
+    notifications["events"] = params[:events]
+    notifications["sources"] = params[:sources]
+
     update_attribute(:webhook_configuration, encode(notifications))
     resp = update_webhook
+    
     if resp["id"].nil?
-      unless params["events"].blank?
-        params["events"].each do |k,v|
-          notifications["events"][k] = !notifications["events"][k]
-        end
-      end
-      unless params["sources"].blank?
-        params["sources"].each do |k,v|
-          notifications["sources"][k] = !notifications["sources"][k]
-        end
-      end
-      update_attribute(:webhook_configuration, encode(notifications))
+      update_attribute(:webhook_configuration, encode(previous_notifications))
     end
+    
     resp
   end
 
