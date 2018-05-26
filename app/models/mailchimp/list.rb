@@ -400,6 +400,13 @@ class Mailchimp::List < ActiveRecord::Base
     return %w(user admin api).all? { |t| !sources[t].nil? && ([true, false].include? sources[t]) }
   end
 
+  def reset_notifications
+    notifications = decode(webhook_configuration)
+    notifications["events"] = DEFAULT_NOTIFICATIONS["events"]
+    notifications["sources"] = DEFAULT_NOTIFICATIONS["sources"]
+    update_attribute(:webhook_configuration, encode(notifications))
+  end
+
   def encode(string)
     ActiveSupport::JSON.encode(string)
   end
