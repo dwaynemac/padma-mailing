@@ -255,35 +255,6 @@ class Mailchimp::List < ActiveRecord::Base
 
   # Adds a webhook to receive information about the MailChimp List
   #
-  # options tell which events to listen for
-  # default values are subscribe, unsubscribe, cleaned and campaign
-  #
-  # sources tell which source to listen for an action
-  # user when the user subscribes/unsubcribes
-  # admin when the MailChimp admin makes the changes
-  # api when the api makes the changes
-  # all are true by default
-  #
-  # options sent has to have every option, and set to true or false
-  # or it will load defaults
-  #
-  # same for sources
-  #
-  # options = {
-  #   events: {
-  #     subscribe: true,
-  #     unsubscribe: true,
-  #     cleaned: true,
-  #     campaign: true,
-  #     profile: false,
-  #     upemail: false
-  #   },
-  #   sources: {
-  #     user: true,
-  #     admin: true,
-  #     api: false
-  #   }
-  # }
 
   def add_webhook
     get_api
