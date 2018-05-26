@@ -99,23 +99,34 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   def update_notifications
     list = Mailchimp::List.find(params[:id])
     if params[:notifications][:events].nil?
-      redirect_to remove_notifications_mailchimp_list(id: params[:id])
-    end
-    %w(subscribe unsubscribe cleaned profile upemail campaign).each do |o|
-      if params[:notifications][:events][o.to_sym].nil?
-        params[:notifications][:events][o.to_sym] = false
-      else
-        params[:notifications][:events][o.to_sym] = true
+      list.remove_webhook
+      resp = { 
+        "id" => nil, 
+        errors: "#{I18n.t("mailchimp.list.show.notifications.events.title")}: #{I18n.t("mailchimp.webhook.errors.none_selected")}" 
+      }
+    elsif params[:notifications][:sources].nil?
+      list.remove_webhook
+      resp = { 
+        "id" => nil, 
+        errors: "#{I18n.t("mailchimp.list.show.notifications.sources.title")}: #{I18n.t("mailchimp.webhook.errors.none_selected")}"
+      } 
+    else
+      %w(subscribe unsubscribe cleaned profile upemail campaign).each do |o|
+        if params[:notifications][:events][o.to_sym].nil?
+          params[:notifications][:events][o.to_sym] = false
+        else
+          params[:notifications][:events][o.to_sym] = true
+        end
       end
-    end
-    %w(admin user).each do |o|
-      if params[:notifications][:sources][o.to_sym].nil?
-        params[:notifications][:sources][o.to_sym] = false
-      else
-        params[:notifications][:sources][o.to_sym] = true
+      %w(admin user).each do |o|
+        if params[:notifications][:sources][o.to_sym].nil?
+          params[:notifications][:sources][o.to_sym] = false
+        else
+          params[:notifications][:sources][o.to_sym] = true
+        end
       end
+      resp = list.update_notifications(params[:notifications])
     end
-    resp = list.update_notifications(params[:notifications])
 
     if !resp["id"].nil?
       respond_to do |format|
