@@ -61,20 +61,28 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def remove_notifications
     list = Mailchimp::List.find(params[:id])
-    list.receive_notifications = false
-    list.remove_webhook
-    list.save
+    resp = list.remove_webhook
     
-    respond_to do |format|
-      format.json { render json: nil, status: :ok }
+    if !list.receive_notifications
+      respond_to do |format|
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: resp[:errors], status: 400 }
+      end
     end
   end
 
   def update_single_notification
     list = Mailchimp::List.find(params[:id])
+    notifications = list.decode(list.webhook_configuration)
     type = params[:key].scan(/(?<=\[).+?(?=\])/).first
     key = params[:key].scan(/(?<=\[).+?(?=\])/).last
-    resp = list.update_notifications({"#{type}" => { "#{key}" => (params[:value] == "true") }})
+    notifications[type][key] = params[:value] == "true"
+    
+    resp = list.update_notifications(notifications)
+
 
     if !resp["id"].nil?
       respond_to do |format|

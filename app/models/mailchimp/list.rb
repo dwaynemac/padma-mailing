@@ -291,11 +291,11 @@ class Mailchimp::List < ActiveRecord::Base
     begin
       resp = @api.lists(api_id).webhooks.create(
         body: {
-          url: Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
-            id, 
-            only_path: false, 
-            host: APP_CONFIG["mailing-url"].gsub("http://","")
-          ),
+          url: "http://mailing.padm.am", #Rails.application.routes.url_helpers.webhooks_api_v0_mailchimp_list_url(
+            #id, 
+            #only_path: false, 
+            #host: APP_CONFIG["mailing-url"].gsub("http://","")
+          #),
           events: decode(webhook_configuration)["events"],
           sources: decode(webhook_configuration)["sources"]
         }
@@ -320,9 +320,8 @@ class Mailchimp::List < ActiveRecord::Base
     notifications = decode(webhook_configuration)
     previous_notifications = notifications
     
-    notifications["events"] = params[:events]
-    notifications["sources"] = params[:sources]
-
+    notifications["events"] = params["events"]
+    notifications["sources"] = params["sources"]
     update_attribute(:webhook_configuration, encode(notifications))
     resp = update_webhook
     
@@ -374,7 +373,7 @@ class Mailchimp::List < ActiveRecord::Base
       update_attribute(:receive_notifications, false)
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return nil
+      return {errors: get_errors(e.body)}
     end
   end
 
