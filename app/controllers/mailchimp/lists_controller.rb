@@ -55,7 +55,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
     respond_to do |format|
       format.json { render json: nil, status: :ok }
-      format.html { redirect_to list.mailchimp_configuration }
+      format.html { redirect_to mailchimp_configuration_path }
     end
   end
 
