@@ -255,35 +255,6 @@ class Mailchimp::List < ActiveRecord::Base
 
   # Adds a webhook to receive information about the MailChimp List
   #
-  # options tell which events to listen for
-  # default values are subscribe, unsubscribe, cleaned and campaign
-  #
-  # sources tell which source to listen for an action
-  # user when the user subscribes/unsubcribes
-  # admin when the MailChimp admin makes the changes
-  # api when the api makes the changes
-  # all are true by default
-  #
-  # options sent has to have every option, and set to true or false
-  # or it will load defaults
-  #
-  # same for sources
-  #
-  # options = {
-  #   events: {
-  #     subscribe: true,
-  #     unsubscribe: true,
-  #     cleaned: true,
-  #     campaign: true,
-  #     profile: false,
-  #     upemail: false
-  #   },
-  #   sources: {
-  #     user: true,
-  #     admin: true,
-  #     api: false
-  #   }
-  # }
 
   def add_webhook
     get_api
@@ -302,7 +273,7 @@ class Mailchimp::List < ActiveRecord::Base
       ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      resp = { "id" => nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
+      resp = { "id" => nil, errors: get_errors(e.body) }
     end
 
     if resp["id"].nil?
@@ -318,31 +289,17 @@ class Mailchimp::List < ActiveRecord::Base
 
   def update_notifications(params)
     notifications = decode(webhook_configuration)
-    unless params["events"].blank?
-      params["events"].each do |k,v|
-        notifications["events"][k] = v
-      end
-    end
-    unless params["sources"].blank?
-      params["sources"].each do |k,v|
-        notifications["sources"][k] = v
-      end
-    end
+    previous_notifications = notifications
+    
+    notifications["events"] = params["events"]
+    notifications["sources"] = params["sources"]
     update_attribute(:webhook_configuration, encode(notifications))
     resp = update_webhook
+    
     if resp["id"].nil?
-      unless params["events"].blank?
-        params["events"].each do |k,v|
-          notifications["events"][k] = !notifications["events"][k]
-        end
-      end
-      unless params["sources"].blank?
-        params["sources"].each do |k,v|
-          notifications["sources"][k] = !notifications["sources"][k]
-        end
-      end
-      update_attribute(:webhook_configuration, encode(notifications))
+      update_attribute(:webhook_configuration, encode(previous_notifications))
     end
+    
     resp
   end
 
@@ -359,7 +316,7 @@ class Mailchimp::List < ActiveRecord::Base
       ).body
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return { "id" => nil, errors: "#{e.body['title']}: #{e.body['detail']}"}
+      return { "id" => nil, errors: get_errors(e.body) }
     end
   end
 
@@ -387,7 +344,7 @@ class Mailchimp::List < ActiveRecord::Base
       update_attribute(:receive_notifications, false)
     rescue Gibbon::MailChimpError => e
       Rails.logger.info "Mailchimp webhook failed with error: #{e}"
-      return nil
+      return {errors: get_errors(e.body)}
     end
   end
 
@@ -412,6 +369,13 @@ class Mailchimp::List < ActiveRecord::Base
     return false if sources.nil?
 
     return %w(user admin api).all? { |t| !sources[t].nil? && ([true, false].include? sources[t]) }
+  end
+
+  def reset_notifications
+    notifications = decode(webhook_configuration)
+    notifications["events"] = DEFAULT_NOTIFICATIONS["events"]
+    notifications["sources"] = DEFAULT_NOTIFICATIONS["sources"]
+    update_attribute(:webhook_configuration, encode(notifications))
   end
 
   def encode(string)
@@ -447,6 +411,20 @@ class Mailchimp::List < ActiveRecord::Base
       account_name: mailchimp_configuration.account.name,
       select: [:id]
     ).first.try :id
+  end
+
+  def get_errors(e)
+    errors = ""
+    if e["errors"].nil?
+      errors = "#{e["title"]}: #{e["detail"]}"
+    else
+      e['errors'].each_with_index do |current_error, i|
+        errors << "#{current_error['field']}: #{current_error['message']}"
+        errors << " - " unless ( i == e["errors"].count - 1 )
+      end
+    end
+
+    errors
   end
 
   def subscriber_hash(email)

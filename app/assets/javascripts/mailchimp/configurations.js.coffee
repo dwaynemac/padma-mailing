@@ -37,14 +37,13 @@ $(document).ready ->
 
 @remove_notifications = (element, list_id, value) ->
   $(".spinner").toggle()
-  $.post "/mailchimp/lists/"+list_id+"/remove_notifications.json", ->
-    $(".notifications").toggle()
+  $.post "/mailchimp/lists/"+list_id+"/remove_notifications.json"
   .done ->
+    $(".notifications").toggle()
     $.gritter.add {title: ":)", text: "updated", class_name: "success"}
     $(".remove_notifications").addClass("hidden")
     $(".receive_notifications").removeClass("hidden")
   .fail (xhr, status, error) ->
-    $(".notifications").toggle()
     $.gritter.add {title: ":(", text: "#{xhr.responseText}" , class_name: "alert"}
   .always ->
     $(".spinner").toggle()

@@ -424,6 +424,8 @@ pt-BR:
       abuse_reason: " queixando-se de abuso"
       bounce_reason: " porque o email retornou muitas vezes"
       campaign_sent: "Lista: %{list_name}: A campanha %{campaign_name} foi enviada"
+      errors:
+        none_selected: "Você tem que escolher pelo menos uma opção para ativar as notificações"
     errors:
       rest_client: "Houve um erro na sincronização com Mailchimp: %{error_message}"
   new: 
