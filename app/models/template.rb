@@ -98,10 +98,10 @@ class Template < ActiveRecord::Base
     }
 
     interview_booking_options = {
-      "[Interview Bookings Date]" => "{{interview_bookings.date}}",
-      "[Interview Bookings Time]" => "{{interview_bookings.time}}",
-      "[Interview Bookings Instructors Name]" => "{{interview_bookings.instructor.name}}",
-      "[Interview Bookings Instructors Email]" => "{{interview_bookings.instructor.email}}"
+      "[Interview Bookings Date]" => "{{interview_booking.date}}",
+      "[Interview Bookings Time]" => "{{interview_booking.time}}",
+      "[Interview Bookings Instructors Name]" => "{{interview_booking.instructor.name}}",
+      "[Interview Bookings Instructors Email]" => "{{interview_booking.instructor.email}}"
     }
 
     tags.merge!(time_slot_options).merge!(instructor_options).merge!(contact_options).merge!(trial_lesson_options).merge!(interview_booking_options)
