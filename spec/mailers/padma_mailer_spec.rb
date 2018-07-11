@@ -85,6 +85,48 @@ describe PadmaMailer do
     
   end
 
+  context "sending a interview_booking mail" do
+    context "with new liquid variables" do
+      before do
+        @subject = "Hola Luis"
+        recipient = "luisperichon@gmail.com"
+        @interview_at = DateTime.new(2018, 05, 20, 15, 04).to_s
+
+        template = Template.new(
+                      name: "new_template", 
+                      subject: @subject, 
+                      content: "Queriamos recordarte que tu entrevista es el {{interview_booking.date}} a las {{interview_booking.time}} y la dara el instructor {{interview_booking.instructor.name}}")
+        template.account = account
+        template.save!
+
+        data_hash = {
+            'interview_booking' => InterviewBookingDrop.new(
+              @interview_at, 
+              PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"),
+              PadmaUser.new(email: "luis.perichon@metododerose.org", username: "luis.perichon")
+            )
+        }
+
+        PadmaMailer.template(template, data_hash, recipient,
+                             'bcc@mail.com', 'from@mail.com').deliver
+      end
+
+      it "should send the correct liquid variable: date" do
+        last_email.body.raw_source.should include "20"
+        last_email.body.raw_source.should include "05"
+      end
+
+      it "should send the correct liquid variable: instructor name" do
+        last_email.body.raw_source.should include "Luis Perichon"
+      end
+
+      it "should send the correct liquid variable: time" do
+        last_email.body.raw_source.should include "15:04"
+      end
+    end
+    
+  end
+  
   context "with acounts-ws and contacts-ws online" do
     before do
       Rails.cache.clear
