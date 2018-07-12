@@ -100,7 +100,7 @@ describe Trigger do
                                        template_id: template.id,
                                        offset_number: 1,
                                        offset_unit: 'day',
-                                       offset_reference: 'interview_at'
+                                       offset_reference: 'interview_on'
                                      }
                                    ]
                                   )}
@@ -216,7 +216,7 @@ describe Trigger do
             contact_id: 1234, 
             account_name: 'my-account', 
             id: 9999, 
-            interview_at: Time.now,
+            interview_on: Time.now,
             username: "alex.falke",
             will_interview_username: "luis.perichon",
             type: "InterviewBooking"

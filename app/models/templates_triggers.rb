@@ -22,7 +22,7 @@ class TemplatesTriggers < ActiveRecord::Base
       trial_lesson: %W(trial_at),
       birthday: %W(birthday_at),
       membership: %W(ends_on),
-      interview_booking: %W(interview_at)
+      interview_booking: %W(interview_on)
   }
   
   def formatted_from_address

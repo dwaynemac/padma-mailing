@@ -90,7 +90,7 @@ describe PadmaMailer do
       before do
         @subject = "Hola Luis"
         recipient = "luisperichon@gmail.com"
-        @interview_at = DateTime.new(2018, 05, 20, 15, 04).to_s
+        @interview_on = DateTime.new(2018, 05, 20, 15, 04).to_s
 
         template = Template.new(
                       name: "new_template", 
@@ -101,7 +101,7 @@ describe PadmaMailer do
 
         data_hash = {
             'interview_booking' => InterviewBookingDrop.new(
-              @interview_at, 
+              @interview_on, 
               PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"),
               PadmaUser.new(email: "luis.perichon@metododerose.org", username: "luis.perichon")
             )

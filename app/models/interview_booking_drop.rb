@@ -1,16 +1,16 @@
 class InterviewBookingDrop < Liquid::Drop
-  def initialize(interview_at, padma_user, will_interview)
-    @interview_at = DateTime.parse(interview_at)
+  def initialize(interview_on, padma_user, will_interview)
+    @interview_on = DateTime.parse(interview_on)
     @user = UserDrop.new(padma_user)
     @will_interview = UserDrop.new(will_interview)
   end
 
   def date
-    @interview_at.to_date
+    @interview_on.to_date
   end
 
   def time
-    @interview_at.to_time.strftime('%H:%M')
+    @interview_on.to_time.strftime('%H:%M')
   end
 
   def instructor
