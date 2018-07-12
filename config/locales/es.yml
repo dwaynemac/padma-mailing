@@ -106,6 +106,7 @@ es:
   set_options:
     email: Email
     interview: Entrevista
+    interview_on: Entrevista agendada
     phone_call: Llamada telefónica
     website_contact: Web
     student: Alumno
@@ -130,6 +131,7 @@ es:
     communicated_at: Día de la comunicación
     changed_at: Día de la matrícula/evasión
     trial_at: Día de la clase de prueba
+    interview_on: Día de la entrevista agendada
     birthday_at: Día del cumpleaños
     ends_on: Día en que termina el plan
     status: Estado del contacto
@@ -414,6 +416,8 @@ es:
       tags:
         contact_instructor_email: para ingresar el email del instructor del alumno/ex-alumno
         contact_instructor_name: para ingresar el nombre del instructor del alumno/ex-alumno
+        interview_booking_instructor_email: para ingresar el email del instructor que dará la entrevista
+        interview_booking_instructor_name: para ingresar el nombre del instructor que dará la entrevista
         trial_lesson_instructor_email: para ingresar el email del instructor que registró la clase de prueba
         trial_lesson_instructor_name: para ingresar el nombre del instructor que registró la clase de prueba
         trial_lesson_time_slot_instructor_email: para ingresar el email del instructor de la clase en que se hará la prueba
@@ -464,10 +468,13 @@ es:
           time_slot_description: Datos del horario como hora y nombre
           trial_lesson: Clase de prueba
           trial_lesson_description: Datos de la clase de prueba como su fecha, el nombre de la clase, la hora, etc.
+          interview_booking: Entrevista agendada
+          interview_booking_description: Datos de la entrevista agendada como su fecha, la hora y el instructor que la dará
       contact_description: ! 'Datos del contacto que recibe el email. ej: nombre, apellido, etc.'
       instructor_description: Datos del instructor
       time_slot_description: Datos del horario de clase como nombre y horario
       trial_lesson_description: Datos de la clase de prueba
+      interview_booking_description: Datos de la entrevista agendada
       contact:
         options:
           select_tag: Elija el dato
@@ -493,6 +500,7 @@ es:
       description:
         communication: una comunicación
         trial_lesson: una clase de prueba
+        interview_booking: una entrevista agendada
       when_event: Cuando se registre
       with: con
       and: y 
@@ -518,6 +526,7 @@ es:
         communication: Registro de una comunicación
         subscription_change: Registro de una matrícula/evasion
         trial_lesson: Registro de una clase de prueba
+        interview_booking: Registro de una entrevista agendada
         membership: Registro de un plan
         birthday: Cumpleaños un contacto
       conditions:
