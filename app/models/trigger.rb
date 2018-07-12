@@ -12,7 +12,8 @@ class Trigger < ActiveRecord::Base
       'subscription_change',
       'trial_lesson',
       'birthday',
-      'membership'
+      'membership',
+      'interview_booking'
   ]
 
   # This events don't need to come with an account_name. All others MUST.

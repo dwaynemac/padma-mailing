@@ -195,6 +195,15 @@ class ScheduledMail < ActiveRecord::Base
           })
         #when :birthday
         #when :membership
+        when :interview_booking
+          interview_on = json_data['interview_on']
+          will_interview = (json_data['will_interview'])? PadmaUser.find_with_rails_cache(json_data['will_interview']) : padma_user
+          interview_booking_drop = InterviewBookingDrop.new(
+            interview_on, padma_user, will_interview
+          )
+          data_hash.merge!({
+            'interview_booking' => interview_booking_drop
+          })
       end
     end
 
