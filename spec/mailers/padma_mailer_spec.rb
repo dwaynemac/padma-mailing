@@ -90,7 +90,7 @@ describe PadmaMailer do
       before do
         @subject = "Hola Luis"
         recipient = "luisperichon@gmail.com"
-        @interview_on = DateTime.new(2018, 05, 20, 15, 04).to_s
+        @interview_on = "3018-05-20 15:04:00"
 
         template = Template.new(
                       name: "new_template", 
