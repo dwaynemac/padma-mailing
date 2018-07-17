@@ -91,7 +91,6 @@ describe PadmaMailer do
         @subject = "Hola Luis"
         recipient = "luisperichon@gmail.com"
         @interview_on = "3018-05-20 18:04:00"
-        Time.zone = account.padma.timezone
 
         template = Template.new(
                       name: "new_template", 
@@ -104,7 +103,8 @@ describe PadmaMailer do
             'interview_booking' => InterviewBookingDrop.new(
               @interview_on, 
               PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"),
-              PadmaUser.new(email: "luis.perichon@metododerose.org", username: "luis.perichon")
+              PadmaUser.new(email: "luis.perichon@metododerose.org", username: "luis.perichon"),
+              account.padma.timezone
             )
         }
 
