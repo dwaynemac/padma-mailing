@@ -3,7 +3,7 @@ require "spec_helper"
 describe PadmaMailer do
   let(:account){create(:account)}
   before do
-    account.stub(:padma).and_return PadmaAccount.new email: 'asd@mail.com'
+    account.stub(:padma).and_return PadmaAccount.new email: 'asd@mail.com', timezone: 'Buenos Aires'
   end
   
   describe "#template" do
@@ -90,7 +90,8 @@ describe PadmaMailer do
       before do
         @subject = "Hola Luis"
         recipient = "luisperichon@gmail.com"
-        @interview_on = "3018-05-20 15:04:00"
+        @interview_on = "3018-05-20 18:04:00"
+        Time.zone = account.padma.timezone
 
         template = Template.new(
                       name: "new_template", 
