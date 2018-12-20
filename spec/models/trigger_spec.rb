@@ -92,15 +92,15 @@ describe Trigger do
                                     offset_reference: 'birthday_at'}
                                ]
     )}
-    let(:interview_trigger){create(:trigger,
+    let(:next_action_trigger){create(:trigger,
                                    account: create(:account, name: 'my-account'),
-                                   event_name: 'interview_booking',
+                                   event_name: 'next_action',
                                    templates_triggerses_attributes: [
                                      {
                                        template_id: template.id,
                                        offset_number: 1,
                                        offset_unit: 'day',
-                                       offset_reference: 'interview_on'
+                                       offset_reference: 'action_on'
                                      }
                                    ]
                                   )}
@@ -209,20 +209,20 @@ describe Trigger do
         end
       end
       
-      context "with :interview_booking"  do
-        let(:key){"interview_booking"}
+      context "with :next_action"  do
+        let(:key){"next_action"}
         let(:data){
           {
             contact_id: 1234, 
             account_name: 'my-account', 
             id: 9999, 
-            interview_on: Time.now,
+            action_on: Time.now,
             username: "alex.falke",
             will_interview_username: "luis.perichon",
             type: "InterviewBooking"
           }.stringify_keys!}
           before(:each) do
-            interview_trigger
+            next_action_trigger
             expect(PadmaContact).to receive(:find)
                         .with(1234,
                               select: [:email],

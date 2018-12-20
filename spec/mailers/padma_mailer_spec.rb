@@ -85,23 +85,23 @@ describe PadmaMailer do
     
   end
 
-  context "sending a interview_booking mail" do
+  context "sending a next action mail" do
     context "with new liquid variables" do
       before do
         @subject = "Hola Luis"
         recipient = "luisperichon@gmail.com"
-        @interview_on = "3018-05-20 18:04:00"
+        @action_on = "3018-05-20 18:04:00"
 
         template = Template.new(
                       name: "new_template", 
                       subject: @subject, 
-                      content: "Queriamos recordarte que tu entrevista es el {{interview_booking.date}} a las {{interview_booking.time}} y la dara el instructor {{interview_booking.instructor.name}}")
+                      content: "Queriamos recordarte que tu entrevista es el {{next_action.date}} a las {{next_action.time}} y la dara el instructor {{next_action.instructor.name}}")
         template.account = account
         template.save!
 
         data_hash = {
-            'interview_booking' => InterviewBookingDrop.new(
-              @interview_on, 
+            'next_action' => NextActionDrop.new(
+              @action_on, 
               PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"),
               PadmaUser.new(email: "luis.perichon@metododerose.org", username: "luis.perichon"),
               account.padma.timezone

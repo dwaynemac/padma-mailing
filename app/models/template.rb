@@ -97,14 +97,14 @@ class Template < ActiveRecord::Base
                             "[Trial Lesson's Time Slot Name]" => "{{trial_lesson.time_slot.name}}"
     }
 
-    interview_booking_options = {
-      "[Interview Bookings Date]" => "{{interview_booking.date}}",
-      "[Interview Bookings Time]" => "{{interview_booking.time}}",
-      "[Interview Bookings Instructors Name]" => "{{interview_booking.instructor.name}}",
-      "[Interview Bookings Instructors Email]" => "{{interview_booking.instructor.email}}"
+    next_action_options = {
+      "[Next Action Date]" => "{{next_action.date}}",
+      "[Next Action Time]" => "{{next_action.time}}",
+      "[Next Action Instructors Name]" => "{{next_action.instructor.name}}",
+      "[Next Action Instructors Email]" => "{{next_action.instructor.email}}"
     }
 
-    tags.merge!(time_slot_options).merge!(instructor_options).merge!(contact_options).merge!(trial_lesson_options).merge!(interview_booking_options)
+    tags.merge!(time_slot_options).merge!(instructor_options).merge!(contact_options).merge!(trial_lesson_options).merge!(next_action_options)
   end
 
   def self.convert_tag_into_liquid_format(new_snippet_value, search_by_key = true)
