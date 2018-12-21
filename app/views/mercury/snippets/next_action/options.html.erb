@@ -6,10 +6,10 @@
       <div class="control-group string optional">
         <label class="string optional control-label" ><%= t('templates.mercury.select_tag') %></label>
         <div class="controls">
-          <% next_action_options = [ ["Date", "[Next Action Date]"], 
+          <% next_action_options = [ ["Follow up Date", "[Next Action Date]"],
                                       ["Instructor Name", "[Next Action Instructors Name]"],
                                       ["Instructor Email", "[Next Action Instructors Email]"],
-                                      ["Next Action Time", "[Next Action Time]"]]
+                                      ["Follow up Time", "[Next Action Time]"]]
            %>
            <%= select_tag "next_action", options_for_select(next_action_options, params[:next_action]), :class=>'span6'%>
         </div>
