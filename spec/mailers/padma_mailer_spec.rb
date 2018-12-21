@@ -128,6 +128,29 @@ describe PadmaMailer do
     
   end
   
+  it "should replace snippets flawlessly" do
+    content = "Hola, te esperamos el día <div class=\"next_action-snippet\" data-snippet=\"snippet_3\">{{next_action.date}}</div> a las <div class=\"next_action-snippet\" data-snippet=\"snippet_4\">{{next_action.time}}</div> para tener una entrevista con:<div class=\"next_action-snippet\" data-snippet=\"snippet_6\">{{next_action.instructor.name}}</div> Además, voy a probar hacerlo manualmente: date: {{next_action.date}} time: {{next_action.time}} instructor name: {{next_action.instructor.name}} instructor mail: {{next_action.instructor.email}}"
+    @subject = "Hola"
+    action_on = "3018-05-20 18:04:00"
+    recipient = "luisperichon@gmail.com"
+    template = Template.new(name: "new_template", subject: @subject, content: content)
+    template.account = account
+    template.save!
+        
+    data_hash = {
+            'next_action' => NextActionDrop.new(
+              action_on, 
+              PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"),
+              PadmaUser.new(email: "luis.perichon@metododerose.org", username: "luis.perichon"),
+              "UTC"
+            )
+        }
+    
+    PadmaMailer.template(template, data_hash, recipient,
+                         'bcc@mail.com', 'from@mail.com').deliver
+    last_email.body.raw_source.should == "<!DOCTYPE html>\n<html>\n    <head>\n      <meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\" />\n    </head>\n    <body>\n      Hola, te esperamos el día 3018-05-20 a las 18:04 para tener una entrevista con:Luis Perichon Además, voy a probar hacerlo manualmente: date: 3018-05-20 time: 18:04 instructor name: Luis Perichon instructor mail: luis.perichon@metododerose.org\n    </body>\n</html>\n"
+  end
+
   context "with acounts-ws and contacts-ws online" do
     before do
       Rails.cache.clear
