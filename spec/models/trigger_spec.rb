@@ -219,10 +219,11 @@ describe Trigger do
             action_on: Time.now,
             username: "alex.falke",
             will_interview_username: "luis.perichon",
-            type: "InterviewBooking"
+            next_action_type: "interview"
           }.stringify_keys!}
           before(:each) do
             next_action_trigger
+            next_action_trigger.filters.create(key: "next_action_type", value: "interview")
             expect(PadmaContact).to receive(:find)
                         .with(1234,
                               select: [:email],
