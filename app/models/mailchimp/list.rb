@@ -48,7 +48,7 @@ class Mailchimp::List < ActiveRecord::Base
   def create_activity(params)
     type = params["type"]
     I18n.locale = User.where(
-      current_account_id: Account.find(mailchimp_configuration.local_account_id)
+      current_account_id: mailchimp_configuration.local_account_id
     ).last.try :locale
 
     case type
