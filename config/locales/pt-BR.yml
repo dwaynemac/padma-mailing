@@ -30,6 +30,7 @@ pt-BR:
     changed_at: Data da matrícula/evasāo
     trial_at: Data da aula experimental
     interview_on: Data do atendimento agendado
+    action_on: Data do follow up 
     birthday_at: Data do aniversario
     ends_at: Data em que finaliza o plano
     status: Estado do contato
@@ -528,6 +529,8 @@ pt-BR:
         trial_lesson_time_slot_instructor_name: para ingresar o nome do instrutor da turma em que acontecerá a aula experimental
         interview_booking_instructor_email: para ingresar o email do instrutor do atendimento
         interview_booking_instructor_name: para ingresar o nome do instrutor do atendimento
+        next_action_instructor_email: para ingresar o email do instrutor do follow up
+        next_action_instructor_name: para ingresar o nome do instrutor do follow up
       bccs: BCC
       from_display_name: Nome remetente
       from_email_address: E-Mail remetente
@@ -572,12 +575,15 @@ pt-BR:
           trial_lesson: Aula experimental
           trial_lesson_description: Dados da aula experimental como a data, o nome da turma, o horario, etc.
           interview_booking: Atendimento agendado
-          interview_booking: Dados do atendimento agendado como a data, a hora, o nome do instrutor, etc.
+          interview_booking_description: Dados do atendimento agendado como a data, a hora, o nome do instrutor, etc.
+          next_action: Follow up agendado
+          next_action: Dados do follow up agendado como a data, a hora, o nome do instrutor, etc.
       contact_description: ! 'Datos del contacto que recibe el email. ej: nombre, apellido, etc.'
       instructor_description: Dados do instrutor
       time_slot_description: Dados da turma 
       trial_lesson_description: Dados da aula experimental
       interview_booking_description: Dados do atendimento agendado
+      next_action_description: Dados do follow up agendado
       contact:
         options:
           select_tag: Selecione o dado
@@ -625,6 +631,7 @@ pt-BR:
         subscription_change: Cadastro de uma matrícula/evasāo
         trial_lesson: Cadastro de uma aula experimental
         interview_booking: Cadastro de um atendimento agendado
+        next_action: Cadastro de um follow up agendado
         membership: Cadastro de um plano de pago
         birthday: Aniversário de um contato
       conditions:

@@ -92,15 +92,15 @@ describe Trigger do
                                     offset_reference: 'birthday_at'}
                                ]
     )}
-    let(:interview_trigger){create(:trigger,
+    let(:next_action_trigger){create(:trigger,
                                    account: create(:account, name: 'my-account'),
-                                   event_name: 'interview_booking',
+                                   event_name: 'next_action',
                                    templates_triggerses_attributes: [
                                      {
                                        template_id: template.id,
                                        offset_number: 1,
                                        offset_unit: 'day',
-                                       offset_reference: 'interview_on'
+                                       offset_reference: 'action_on'
                                      }
                                    ]
                                   )}
@@ -209,30 +209,85 @@ describe Trigger do
         end
       end
       
-      context "with :interview_booking"  do
-        let(:key){"interview_booking"}
-        let(:data){
-          {
-            contact_id: 1234, 
-            account_name: 'my-account', 
-            id: 9999, 
-            interview_on: Time.now,
-            username: "alex.falke",
-            will_interview_username: "luis.perichon",
-            type: "InterviewBooking"
-          }.stringify_keys!}
-          before(:each) do
-            interview_trigger
-            expect(PadmaContact).to receive(:find)
-                        .with(1234,
-                              select: [:email],
-                              account_name: 'my-account')
-                        .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
-          end
-          it "creates a ScheduledMail" do
-            expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
-          end
+      describe "with :next_action" do
+        context "and next_action_type matches filter"  do
+          let(:key){"next_action"}
+          let(:data){
+            {
+              contact_id: 1234, 
+              account_name: 'my-account', 
+              id: 9999, 
+              action_on: Time.now,
+              username: "alex.falke",
+              will_interview_username: "luis.perichon",
+              next_action_type: "interview"
+            }.stringify_keys!}
+            before(:each) do
+              next_action_trigger
+              next_action_trigger.filters.create(key: "next_action_type", value: "interview")
+              expect(PadmaContact).to receive(:find)
+                          .with(1234,
+                                select: [:email],
+                                account_name: 'my-account')
+                          .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+            end
+            it "creates a ScheduledMail" do
+              expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+            end
+        end
+
+        context "and next_action_type does not match filter"  do
+          let(:key){"next_action"}
+          let(:data){
+            {
+              contact_id: 1234, 
+              account_name: 'my-account', 
+              id: 9999, 
+              action_on: Time.now,
+              username: "alex.falke",
+              will_interview_username: "luis.perichon",
+              next_action_type: "follow_up"
+            }.stringify_keys!}
+            before(:each) do
+              next_action_trigger
+              next_action_trigger.filters.create(key: "next_action_type", value: "interview")
+              expect(PadmaContact).to receive(:find)
+                          .with(1234,
+                                select: [:email],
+                                account_name: 'my-account')
+                          .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+            end
+            it "creates a ScheduledMail" do
+              expect{Trigger.catch_message(key, data)}.not_to change{ScheduledMail.count}
+            end
+        end
+
+        context "with no filter"  do
+          let(:key){"next_action"}
+          let(:data){
+            {
+              contact_id: 1234, 
+              account_name: 'my-account', 
+              id: 9999, 
+              action_on: Time.now,
+              username: "alex.falke",
+              will_interview_username: "luis.perichon",
+              next_action_type: "interview"
+            }.stringify_keys!}
+            before(:each) do
+              next_action_trigger
+              expect(PadmaContact).to receive(:find)
+                          .with(1234,
+                                select: [:email],
+                                account_name: 'my-account')
+                          .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+            end
+            it "creates a ScheduledMail" do
+              expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+            end
+        end
       end
+
 
       context "with :birthday, {contact_id: 1234, birthday_at: now, account_name: 'my-account'}" do
         describe "if contact is a student of the account" do
