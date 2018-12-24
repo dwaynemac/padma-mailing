@@ -32,4 +32,26 @@ describe Mailchimp::List do
       end
     end
   end
+  describe "#create_activity" do
+    before do
+      allow_any_instance_of(User).to receive(:locale).and_return("es")
+      allow_any_instance_of(Mailchimp::List).to receive(:subscription_change).and_return(nil)
+      allow_any_instance_of(Mailchimp::List).to receive(:add_webhook).and_return(nil)
+      a = FactoryGirl.create(:account)
+      configuration.local_account_id = a.id
+      u = FactoryGirl.create(:user, current_account_id: a.id)
+      allow_any_instance_of(Mailchimp::List).to receive(:get_contact_id_by_email).and_return(u.id)
+    end
+    it "should send message with correct locale" do
+      I18n.locale = "en"
+      params = {
+        type: "subscribe",
+        data: {
+          email: "email@mail.com"
+        }
+      }
+      list.create_activity(params)
+      I18n.locale.should == :es
+    end
+  end
 end
