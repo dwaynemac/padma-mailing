@@ -8,6 +8,7 @@ describe Api::V0::Mailchimp::ListsController do
     Mailchimp::List.any_instance.stub_chain(:mailchimp_configuration, :account).and_return(account)
     Mailchimp::List.any_instance.stub(:add_webhook)
     Mailchimp::Configuration.any_instance.stub(:sync_mailchimp_lists_locally)
+    Mailchimp::List.any_instance.stub(:mailchimp_configuration).and_return(conf)
     I18n.default_locale = "en"
   end
   let(:account){create(:account)}
@@ -16,7 +17,7 @@ describe Api::V0::Mailchimp::ListsController do
     c.save(:validate => false)
     c
   }
-  let(:list){create(:mailchimp_list, mailchimp_configuration_id: conf.id)}
+  let(:list){create(:mailchimp_list, mailchimp_configuration: conf)}
   let(:contact){create(:contact)}
   describe "#webhooks" do
     context "without api key" do
