@@ -26,7 +26,7 @@ class Filter < ActiveRecord::Base
           gender: %W(male female)
       },
       next_action: {
-        next_action_type: %W(interview)
+        next_action_type: %W(interview follow_up)
       }
   }
 

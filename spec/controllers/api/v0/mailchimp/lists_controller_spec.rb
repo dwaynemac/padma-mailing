@@ -29,7 +29,7 @@ describe Api::V0::Mailchimp::ListsController do
     end
     context "on subscribe" do
       before do
-        Mailchimp::List.any_instance.should_receive(:subscription_change).with("Has been subscribed to list: #{list.name}", 1234)
+        Mailchimp::List.any_instance.should_receive(:subscription_change).with(I18n.t("mailchimp.webhook.subscribed_to", list_name: list.name), 1234)
       end
       it "should create an activity" do
         get :webhooks,
@@ -55,7 +55,7 @@ describe Api::V0::Mailchimp::ListsController do
     end
     context "on unsubscribe" do
       before do
-        Mailchimp::List.any_instance.should_receive(:subscription_change).with("Has been unsubscribed from list: #{list.name}", 1234)
+        Mailchimp::List.any_instance.should_receive(:subscription_change).with(I18n.t("mailchimp.webhook.unsubscribed_from", list_name: list.name), 1234)
       end
       it "should create an activity" do
         get :webhooks,

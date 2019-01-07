@@ -106,6 +106,7 @@ es:
   set_options:
     email: Email
     interview: Entrevista
+    follow_up: Follow up
     interview_on: Entrevista agendada
     action_on: Follow up
     next_action_type: Tipo de follow up
@@ -151,6 +152,7 @@ es:
     suggested_values:
       email: Email
       interview: Entrevista
+      follow_up: Follow up
       phone_call: Llamada telefónica
       website_contact: Web
       student: Alumno
@@ -538,6 +540,7 @@ es:
         membership: Registro de un plan
         next_action: Registro de un follow up
         birthday: Cumpleaños un contacto
+        next_action: Registro de un follow up agendado
       conditions:
         name: Condiciones
         explained: Sólo enviar si

@@ -4,6 +4,7 @@ pt-BR:
   set_options:
     email: Email
     interview: Entrevista
+    follow_up: Follow up
     phone_call: Telefonema
     website_contact: Web
     student: Aluno
@@ -249,6 +250,7 @@ pt-BR:
     suggested_values:
       email: Email
       interview: Entrevista
+      follow_up: Follow up
       phone_call: Telefonema
       website_contact: Web
       student: Aluno
