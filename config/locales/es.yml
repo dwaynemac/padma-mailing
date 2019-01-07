@@ -536,6 +536,7 @@ es:
         trial_lesson: Registro de una clase de prueba
         interview_booking: Registro de una acción a realizar 
         membership: Registro de un plan
+        next_action: Registro de un follow up
         birthday: Cumpleaños un contacto
       conditions:
         name: Condiciones
