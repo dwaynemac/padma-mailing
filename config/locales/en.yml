@@ -57,6 +57,7 @@ en:
   filter:
     suggested_values:
       interview: Interview
+      follow_up: Follow up
       phone_call: Phonecall
       email: Email
       website_contact: Web
