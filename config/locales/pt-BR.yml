@@ -422,7 +422,7 @@ pt-BR:
       list_syncronization: Lista para sincronizar com mailchimp
     webhook:
       subscribed_to: "Ele se inscreveu na lista: %{list_name}"
-      unsubscribed_from: "Canceló inscrição da lista: %{list_name}"
+      unsubscribed_from: "Cancelou inscrição da lista: %{list_name}"
       deleted_from: "Removido da lista: %{list_name}"
       cleaned_from: "Removido da lista: %{list_name}"
       abuse_reason: " queixando-se de abuso"
