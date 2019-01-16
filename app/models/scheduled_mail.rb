@@ -100,6 +100,11 @@ class ScheduledMail < ActiveRecord::Base
   end
 
   def creation_activity
+    account_config = account.padma
+
+    I18n.locale = account_config.locale unless account_config.nil?
+    Time.zone = account_config.timezone unless account_config.nil?
+
     ActivityStream::Activity.new(target_id: self.contact_id,
                                  target_type: 'Contact',
                                  object_id: template.id,
