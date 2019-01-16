@@ -34,7 +34,7 @@ describe Mailchimp::List do
   end
   describe "#create_activity" do
     before do
-      allow_any_instance_of(User).to receive(:locale).and_return("es")
+      allow_any_instance_of(Account).to receive(:padma).and_return(PadmaAccount.new(locale: "es", timezone: "Buenos Aires"))
       allow_any_instance_of(Mailchimp::List).to receive(:subscription_change).and_return(nil)
       allow_any_instance_of(Mailchimp::List).to receive(:add_webhook).and_return(nil)
       a = FactoryGirl.create(:account)
@@ -52,6 +52,17 @@ describe Mailchimp::List do
       }
       list.create_activity(params)
       I18n.locale.should == :es
+    end
+    it "should send message with correct timezone" do
+      Time.zone = "Sydney"
+      params = {
+        type: "subscribe",
+        data: {
+          email: "email@mail.com"
+        }
+      }
+      list.create_activity(params)
+      Time.zone.name.should == "Buenos Aires"
     end
   end
 end
