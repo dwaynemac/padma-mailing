@@ -158,7 +158,7 @@ describe PadmaMailer do
         PadmaContact.new( first_name: 'dw', last_name: 'mac', email: 'as@co.co' )
       )
       PadmaAccount.stub(:find).and_return(
-        PadmaAccount.new(email: 'account@mail.com', full_name: 'a')
+        PadmaAccount.new(email: 'account@mail.com', full_name: 'a', locale: "es", timezone: "Buenos Aires")
       )
     end
     it "replaces <div class=\"contact-snippet\" data-snippet=\"snippet_0\">{{contact.full_name}}</div> with contact's full name" do
@@ -197,7 +197,7 @@ HTML_CODE
         PadmaContact.new( first_name: 'dw', last_name: 'mac', gender: 'male' )
       )
       PadmaAccount.stub(:find).and_return(
-        PadmaAccount.new(email: 'account@mail.com')
+        PadmaAccount.new(email: 'account@mail.com', locale: "es", timezone: "Buenos Aires")
       )
     end
     

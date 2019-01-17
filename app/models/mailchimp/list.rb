@@ -47,9 +47,10 @@ class Mailchimp::List < ActiveRecord::Base
 
   def create_activity(params)
     type = params["type"]
-    I18n.locale = User.where(
-      current_account_id: mailchimp_configuration.local_account_id
-    ).last.try :locale
+    account_config = mailchimp_configuration.account.padma
+
+    I18n.locale = account_config.locale unless account_config.nil?
+    Time.zone = account_config.timezone unless account_config.nil?
 
     case type
     when "subscribe"
