@@ -444,6 +444,7 @@ describe Trigger do
         describe "are met" do
           before(:each) do
             birthday_trigger_with_conditions
+            allow_any_instance_of(Account).to receive(:padma).and_return(PadmaAccount.new(name: 'my-account', enabled: true, locale: "es", timezone: "Buenos Aires"))
           end
           it "should generate Scheduled Mail" do
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
