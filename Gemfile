@@ -67,9 +67,9 @@ gem 'aws-sdk'
 # Use unicorn as the app server
 # gem 'unicorn'
 gem 'puma'
+gem 'appsignal', '~> 2.8'
 group :production do
   gem 'pg'
-  gem 'appsignal', '1.0'
 end
 
 group :doc do
