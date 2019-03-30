@@ -1,12 +1,16 @@
 require 'spec_helper'
 
 describe ScheduledMail do
-  before do
-    RSpec::Mocks.proxy_for(PadmaAccount).reset
-    PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
-                                                         branded_name: 'DeROSE Method | acc-name',
-                                                         email: 'acc@mail.co'))
+
+  before(:each) do
+    padma_account1 = PadmaAccount.new(
+      full_name: 'acc-name',
+      branded_name: 'DeROSE Method | acc-name',
+      email: 'acc@mail.co'
+    )
+    allow(PadmaAccount).to receive(:find).and_return(padma_account1)
   end
+  
   it { should belong_to(:account).with_foreign_key(:local_account_id) }
   it { should belong_to(:template) }
 
@@ -15,7 +19,7 @@ describe ScheduledMail do
   describe "data_hash" do
     subject{sm.data_hash}
     context "with accounts-ws and contacts-ws online" do
-      before do
+      before(:each) do
         PadmaUser.stub(:find).and_return(PadmaUser.new)
         PadmaContact.stub(:find).and_return(PadmaContact.new)
       end
@@ -60,44 +64,31 @@ describe ScheduledMail do
   end
   
   describe "get_from_display_name" do
-    before do
-      RSpec::Mocks.proxy_for(PadmaAccount).reset
-      PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
-                                                           branded_name: 'DeROSE Method | acc-name',
-                                                           email: 'acc@mail.co'))
-    end
-    subject{sm.get_from_display_name}
     describe "when from_display_name is blank" do
-      let(:sm){ build(:scheduled_mail, from_display_name: nil) }
       it "returns account's branded_name" do
-        should eq 'DeROSE Method | acc-name'
+        sm = build(:scheduled_mail, from_display_name: nil)
+        expect(sm.get_from_display_name).to eq 'DeROSE Method | acc-name'
       end
     end
     describe "when from_display_name has no meta var" do
-      let(:sm){ build(:scheduled_mail, from_display_name: 'given')}
       it "returns given from_display_name" do
-        should eq 'given'
+        sm = build(:scheduled_mail, from_display_name: 'given')
+        expect(sm.get_from_display_name).to eq 'given'
       end
     end
   end
   
   describe "get_from_email_address" do
-    before do
-      PadmaAccount.stub(:find).and_return(PadmaAccount.new(full_name: 'acc-name',
-                                                         branded_name: 'DeROSE Method | acc-name',
-                                                           email: 'acc@mail.co'))
-    end
-    subject{sm.get_from_email_address}
     describe "when from_email_address is blank" do
-      let(:sm){ build(:scheduled_mail, from_email_address: nil) }
       it "returns account's email" do
-        should eq 'acc@mail.co'
+        sm = build(:scheduled_mail, from_email_address: nil)
+        expect(sm.get_from_email_address).to eq 'acc@mail.co'
       end
     end
     describe "when from_email_address has no meta var" do
-      let(:sm){ build(:scheduled_mail, from_email_address: 'given@mail.co')}
       it "returns given from_email_address" do
-        should eq 'given@mail.co'
+        sm = build(:scheduled_mail, from_email_address: 'given@mail.co')
+        expect(sm.get_from_email_address).to eq 'given@mail.co'
       end
     end
   end
@@ -116,7 +107,7 @@ describe ScheduledMail do
     end
   end
   context "when it has conditions" do
-    before do
+    before(:each) do
         PadmaUser.stub(:find).and_return(PadmaUser.new)
         PadmaContact.stub(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
       end
@@ -124,26 +115,26 @@ describe ScheduledMail do
       let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({"status" => "student", "coefficient" => "perfil"})) }
       it "should send the mail" do
         contact_hash = sm.data_hash
-        sm.conditions_met?(contact_hash).should be_true
+        sm.conditions_met?(contact_hash).should be_truthy
       end
     end
     describe "and does not meet them" do
       let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({"status" => "former_student", "coefficient" => "perfil"})) }
       it "should not send the mail" do
         contact_hash = sm.data_hash
-        sm.conditions_met?(contact_hash).should be_false
+        sm.conditions_met?(contact_hash).should be_falsey
       end
     end
   end
   context "when it does not have conditions" do
     let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({})) }
-    before do
+    before(:each) do
       PadmaUser.stub(:find).and_return(PadmaUser.new)
       PadmaContact.stub(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
     end
     it "should meet conditions" do
       contact_hash = sm.data_hash
-      sm.conditions_met?(contact_hash).should be_true
+      expect(sm.conditions_met?(contact_hash)).to be_truthy
     end
   end
 end

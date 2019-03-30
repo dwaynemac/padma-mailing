@@ -7,11 +7,10 @@ describe Template do
   it { should belong_to(:account).with_foreign_key(:local_account_id)}
   it { should validate_presence_of :account }
 
-
   describe "#deliver" do
-    before do
-      PadmaAccount.stub(:find).and_return{PadmaAccount.new()}
-      ScheduledMail.any_instance.stub(:deliver_now!).and_return true
+    before(:each) do
+      allow(PadmaAccount).to receive(:find).and_return(PadmaAccount.new(full_name: 'acc-name', email: 'acc@mail.com'))
+      allow_any_instance_of(ScheduledMail).to receive(:deliver_now!).and_return true
     end
     let(:user){create(:user, current_account: create(:account))}
     let(:data){{to: 'email@ser.com', user: user, contact_id: 'cid' }}
@@ -60,11 +59,11 @@ describe Template do
     let(:template){build(:template, content: content)}
     context "if template has merge tags" do
       let(:content){"{{header}} {{another.level}} hello {{contact.first_name}}, this is a mail from {{contact.instructor.name}} {false variabl}. We expect you at {{contact.trial.time_slot}} {{contact.instructor.signature}}"}
-      it { should be_true }
+      it { should be_truthy }
     end
     context "if template has NO merge tags" do
       let(:content){"text withou {valid} tags"}
-      it { should be_false }
+      it { should be_falsey }
     end
 
   end

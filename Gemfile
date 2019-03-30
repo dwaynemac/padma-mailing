@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '1.9.3'
+ruby '2.0.0'
 
 gem 'rails', '~> 3.2.11'
 gem 'ffi', '~> 1.0.11'
@@ -9,13 +9,13 @@ gem 'i18n-js'
 
 gem 'rack-cors'
 
+gem 'messaging_client', '~> 0.1'
 gem 'activity_stream_client', '0.0.16'
 gem 'logical_model', '0.6.4'
 gem 'contacts_client', '0.0.40'
 gem 'accounts_client', '0.2.34'
 gem 'attendance_client', '0.0.4'
-
-gem 'gibbon'
+gem 'gibbon', '~> 3.1', '>= 3.1.1'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 gem 'rails_12factor'
 
@@ -39,7 +39,7 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', '0.2.25'
+gem 'padma-assets', '0.2.29'
 
 gem 'rest-client'
 
@@ -66,9 +66,10 @@ gem 'aws-sdk'
 
 # Use unicorn as the app server
 # gem 'unicorn'
+gem 'puma'
+gem 'appsignal', '~> 2.8'
 group :production do
   gem 'pg'
-  gem 'appsignal', '1.0'
 end
 
 group :doc do
@@ -79,14 +80,14 @@ end
 group :development do
   gem 'git-pivotal-tracker-integration'
   gem 'padma-deployment'
-  gem 'debugger'
+  gem 'debugger2'
   gem 'foreman'
   gem 'subcontractor', '0.6.1'
 end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.4.0'
   gem 'shoulda'
   gem 'factory_girl_rails'
   gem 'capybara'

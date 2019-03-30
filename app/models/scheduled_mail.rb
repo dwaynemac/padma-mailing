@@ -100,6 +100,11 @@ class ScheduledMail < ActiveRecord::Base
   end
 
   def creation_activity
+    account_config = account.padma
+
+    I18n.locale = account_config.locale unless account_config.nil?
+    Time.zone = account_config.timezone unless account_config.nil?
+
     ActivityStream::Activity.new(target_id: self.contact_id,
                                  target_type: 'Contact',
                                  object_id: template.id,
@@ -195,6 +200,15 @@ class ScheduledMail < ActiveRecord::Base
           })
         #when :birthday
         #when :membership
+        when :next_action
+          action_on = json_data['action_on']
+          will_interview = (json_data['will_interview_username'])? PadmaUser.find_with_rails_cache(json_data['will_interview_username']) : padma_user
+          next_action_drop = NextActionDrop.new(
+            action_on, padma_user, will_interview, account.padma.timezone
+          )
+          data_hash.merge!({
+            'next_action' => next_action_drop
+          })
       end
     end
 

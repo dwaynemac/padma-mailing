@@ -21,7 +21,8 @@ class TemplatesTriggers < ActiveRecord::Base
       subscription_change: %W(changed_at),
       trial_lesson: %W(trial_at),
       birthday: %W(birthday_at),
-      membership: %W(ends_on)
+      membership: %W(ends_on),
+      next_action: %W(action_on)
   }
   
   def formatted_from_address

@@ -49,11 +49,105 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     mailchimp_segment_attributes
   end
 
-  def get_scope
+  def receive_notifications
+    list = Mailchimp::List.find(params[:id])
+    list.add_webhook
+
+    respond_to do |format|
+      format.json { render json: nil, status: :ok }
+      format.html { redirect_to mailchimp_configuration_path }
+    end
+  end
+
+  def remove_notifications
+    list = Mailchimp::List.find(params[:id])
+    resp = list.remove_webhook
+    
+    if !list.receive_notifications
+      respond_to do |format|
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: resp[:errors], status: 400 }
+      end
+    end
+  end
+
+  def update_single_notification
+    list = Mailchimp::List.find(params[:id])
+    notifications = list.decode(list.webhook_configuration)
+    type = params[:key].scan(/(?<=\[).+?(?=\])/).first
+    key = params[:key].scan(/(?<=\[).+?(?=\])/).last
+    notifications[type][key] = params[:value] == "true"
+    
+    resp = list.update_notifications(notifications)
+
+
+    if !resp["id"].nil?
+      respond_to do |format|
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: resp[:errors], status: 400 }
+      end
+    end
+
+  end
+
+  def update_notifications
+    list = Mailchimp::List.find(params[:id])
+    if params[:notifications][:events].nil?
+      list.remove_webhook
+      resp = { 
+        "id" => nil, 
+        errors: "#{I18n.t("mailchimp.list.show.notifications.events.title")}: #{I18n.t("mailchimp.webhook.errors.none_selected")}" 
+      }
+    elsif params[:notifications][:sources].nil?
+      list.remove_webhook
+      resp = { 
+        "id" => nil, 
+        errors: "#{I18n.t("mailchimp.list.show.notifications.sources.title")}: #{I18n.t("mailchimp.webhook.errors.none_selected")}"
+      } 
+    else
+      %w(subscribe unsubscribe cleaned profile upemail campaign).each do |o|
+        if params[:notifications][:events][o.to_sym].nil?
+          params[:notifications][:events][o.to_sym] = false
+        else
+          params[:notifications][:events][o.to_sym] = true
+        end
+      end
+      %w(admin user).each do |o|
+        if params[:notifications][:sources][o.to_sym].nil?
+          params[:notifications][:sources][o.to_sym] = false
+        else
+          params[:notifications][:sources][o.to_sym] = true
+        end
+      end
+      resp = list.update_notifications(params[:notifications])
+    end
+
+    if !resp["id"].nil?
+      respond_to do |format|
+        format.html { redirect_to mailchimp_configuration_path }
+        format.json { render json: nil, status: :ok }
+      end
+    else
+      flash.alert = resp[:errors]
+      respond_to do |format|
+        format.html { redirect_to mailchimp_configuration_path }
+        format.json { render json: resp[:errors], status: 400 }
+      end
+    end
+  end
+
+  def preview_scope
     count = "no number has been returned"
     list = Mailchimp::List.find(params[:id])
     params[:app_key] = ENV["contacts_key"]
     params[:api_key] = list.mailchimp_configuration.api_key
+    params[:preview] = true
     params[:mailchimp_segments] = params[:data][:mailchimp_list][:mailchimp_segments_attributes].values
     params.delete :data
     response = Typhoeus.get("#{Contacts::HOST}/v0/mailchimp_synchronizers/get_scope", params: params)
@@ -67,10 +161,50 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     end
   end
 
+  def status
+    @list = Mailchimp::List.find(params[:id])
+    @synchro = @list.mailchimp_configuration.get_synchronizer
+  end
+
+  def members
+    @page = params[:page] || 1
+    @per = params[:per] || 25
+    @list = Mailchimp::List.find(params[:id])
+    @only_unsubscribed = false
+    if params[:unsubscribed] == "true"
+      @only_unsubscribed = true
+    end
+  end
+
+  def remove_member
+    @list = Mailchimp::List.find(params[:id])
+    res = @list.remove_member(params[:email])
+    res = {status: false, message: "contact has no email"} if res.nil?
+
+    if res[:status] == false
+      flash.alert = res[:message]
+    end
+
+    redirect_to members_mailchimp_list_path(id: params[:id])
+  end
+
+  def subscribe
+    @list = Mailchimp::List.find(params[:id])
+    res = @list.subscribe_contact(params[:email])
+    res = {status: false, message: "contact has no email"} if res.nil?
+
+    if res[:status] == false
+      flash.alert = res[:message]
+    end
+
+    redirect_to members_mailchimp_list_path(id: params[:id])
+  end
+
   protected
   
   def mailchimp_error(exception)
     flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
     redirect_to segments_mailchimp_list_path(id: @list.id)
   end
+
 end

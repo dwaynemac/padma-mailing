@@ -48,11 +48,11 @@
           <td>
             <% unless sm.delivered? %>
               <%= button_to t('helpers.links.cancel'),
-                              scheduled_mail_path(sm),
-                              method: :delete,
-                              #data: { confirm: t('confirm') },
-                              :onclick => "return confirm('#{t('confirm')}')",
-                              class: 'btn btn-mini btn-danger' %>
+                scheduled_mail_path(id: sm, only_pending: true),
+                method: :delete,
+                #data: { confirm: t('confirm') },
+                :onclick => "return confirm('#{t('confirm')}')",
+                class: 'btn btn-mini btn-danger' %>
               <% end %>
           </td>
         </tr>

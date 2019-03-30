@@ -1,0 +1,15 @@
+<h2>Members</h2>
+<table class="table table-striped">
+  <% @list.get_scope(@page, @per)["contacts"].each do |member| %>
+    <tr>
+      <%= render "mailchimp/lists/member", list: @list, member: member %>
+    </tr>
+  <% end %>
+</table>
+
+<% if @page.to_i > 1 %>
+  <%= link_to "Back", members_mailchimp_list_path(id: @list.id, page: @page.to_i - 1, per: @per) %>
+<% end %>
+<% if @list.get_scope(@page, @per)["count"] > @page.to_i * @per.to_i %>
+  <%= link_to "Next", members_mailchimp_list_path(id: @list.id, page: @page.to_i + 1, per: @per) %>
+<% end %>

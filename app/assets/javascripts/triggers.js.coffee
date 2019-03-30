@@ -36,7 +36,7 @@ $(document).ready ->
       $("#alert-message").show()
     else
       $("#alert-message").hide()
-    if $(this).val() is "trial_lesson" or $(this).val() is "membership"
+    if $(this).val() is "trial_lesson" or $(this).val() is "membership" or $(this).val() is "interview_booking"
       $(".filter-container").hide()
       return
     $(".filter-container").show()

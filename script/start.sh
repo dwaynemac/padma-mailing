@@ -1,1 +1,1 @@
-foreman start -f Procfile.dev
+foreman start -f Procfile

@@ -1,0 +1,150 @@
+<h1><%= @list.name %></h1>
+
+<% remote_list = @list.remote_list %>
+<% local_scope = @list.get_scope["count"] %>
+
+<% unless remote_list.blank? || remote_list["status"] == "failed" || local_scope.blank? %>
+<h2>
+  <% if local_scope == (remote_list["stats"]["member_count"].to_i + 
+      remote_list["stats"]["unsubscribe_count"].to_i +
+      remote_list["stats"]["cleaned_count"].to_i)
+  %>
+    <span class="badge alert-success">OK</span>
+  <% else %>
+    <span class="badge alert-danger">Error</span>
+  <% end %>
+  Contacts
+</h2>
+<table class="table table-striped">
+  <tr>
+    <td>Contact to synchronize</td>
+    <td><%= local_scope %></td>
+  </tr>
+  <tr>
+    <td>Contacts in list as members</td>
+    <td><%= remote_list["stats"]["member_count"] %></td>
+  </tr>
+  <tr>
+    <td>Unsubscribed contacts</td>
+    <td><%= remote_list["stats"]["unsubscribe_count"] %></td>
+  </tr>
+  <tr>
+    <td>Cleaned contacts</td>
+    <td><%= remote_list["stats"]["cleaned_count"] %></td>
+  </tr>
+</table>
+
+<%= link_to "Ajustar scope", segments_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
+<%= link_to "Ver unsubscribed y cleaned", members_mailchimp_list_path(id: @list.id, unsubscribed: true), class: "btn btn-primary" %>
+<%= link_to "Ver contactos que no estan en mailchimp", members_mailchimp_list_path(id: @list.id, ), class: "btn btn-primary" %>
+<%= link_to "Ver el estado de todos los contactos", members_mailchimp_list_path(id: @list.id), class: "btn btn-primary" %>
+
+<h2>Synchronization status</h2>
+<table class="table table-striped">
+  <tr>
+    <td>
+      <% if @synchro["status"].blank? || @synchro["status"] == "failed" %>
+        <span class="badge alert-danger">Error</span>
+      <% elsif @synchro["status"] == "working" %>
+        <span class="badge alert-danger">Working</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Status in contacts-ws
+    </td>
+    <td><%= @synchro["status"] %></td>
+  </tr>
+  <tr>
+    <td>
+      <% date_diff = (Date.today - @synchro["last_synchronization"].to_date).to_i %>
+      <% if @synchro["last_synchronization"].blank? || date_diff >= 2 %>
+        <span class="badge alert-warning">Maybe not up to date</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Last syncronized
+    </td>
+    <td>
+      <%= @synchro["last_synchronization"] %> <br> 
+      <%= date_diff %> days ago 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <% if @synchro["merge_fields"].blank? || JSON.parse(@synchro["merge_fields"]).count != (remote_list["stats"]["merge_field_count"] - 4) %>
+        <span class="badge alert-danger">Error</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Merge fields
+    </td>
+    <td>local: <%= JSON.parse(@synchro["merge_fields"]).count %> <br> remote: <%= remote_list["stats"]["merge_field_count"] %></td>
+  </tr>
+  <tr>
+    <% coeff_group = @list.coefficient_group(
+        JSON.parse(@synchro["coefficient_group"])["id"]
+      ) 
+    %>
+    <td>
+      <% if @synchro["coefficient_group"].blank? || JSON.parse(@synchro["coefficient_group"])["interests"].keys.count != coeff_group["interests"].count %>
+        <span class="badge alert-danger">Error</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Coefficient group
+    </td>
+    <td>
+      local: <%= JSON.parse(@synchro["coefficient_group"])["interests"].keys.count %>
+      <br>
+      remote: <%= coeff_group["interests"].count %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <% batches = @list.batches %>
+      <% if batches.select{|b| b["status"] != "finished"}.count > 0 %>
+        <span class="badge alert-warning">Running</span>
+      <% else %>
+        <span class="badge alert-success">OK</span>
+      <% end %>
+      Currently running batches
+    </td>
+    <td><%= batches.select{|b| b["status"] != "finished"}.count %></td>
+  </tr>
+</table>
+
+<h2>Statistics</h2>
+<table class="table table-striped">
+  <tr>
+    <td>Average unsubscribed</td>
+    <td><%= remote_list["stats"]["avg_unsub_rate"] %></td>
+  </tr>
+  <tr>
+    <td>Open rate</td>
+    <td><%= remote_list["stats"]["open_rate"] %></td>
+  </tr>
+  <tr>
+    <td>Click rate</td>
+    <td><%= remote_list["stats"]["click_rate"] %></td>
+  </tr>
+</table>
+
+<h3>Since last send</h3>
+<table class="table table-striped">
+  <tr>
+    <td>Send at</td>
+    <td><%= remote_list["stats"]["campaign_last_sent"] %></td>
+  </tr>
+  <tr>
+    <td>Unsubscribed</td>
+    <td><%= remote_list["stats"]["unsubscribe_count_since_send"] %></td>
+  </tr>
+  <tr>
+    <td>Cleaned</td>
+    <td><%= remote_list["stats"]["cleaned_count_since_send"] %></td>
+  </tr>
+</table>
+
+<% else %>
+  CONNECTION ERROR
+<% end %>

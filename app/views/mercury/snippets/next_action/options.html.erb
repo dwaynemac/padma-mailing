@@ -1,0 +1,26 @@
+<%= form_for 'options', {url: '', html: {class: 'form-horizontal', style: 'width:615px'}} do |f| %>
+
+  <div class="form-inputs mercury-display-pane-container">
+
+    <fieldset>
+      <div class="control-group string optional">
+        <label class="string optional control-label" ><%= t('templates.mercury.select_tag') %></label>
+        <div class="controls">
+          <% next_action_options = [ ["Follow up Date", "[Next Action Date]"],
+                                      ["Instructor Name", "[Next Action Instructors Name]"],
+                                      ["Instructor Email", "[Next Action Instructors Email]"],
+                                      ["Follow up Time", "[Next Action Time]"]]
+           %>
+           <%= select_tag "next_action", options_for_select(next_action_options, params[:next_action]), :class=>'span6'%>
+        </div>
+        <!-- hide descriptions until lorem ipsum removed -->
+        <div class="description" style="display: none"></div>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="form-actions mercury-display-controls">
+    <input class="btn btn-primary" name="commit" type="submit" value="<%= t('templates.mercury.insert_tag') %>"/>
+  </div>
+
+<% end %>

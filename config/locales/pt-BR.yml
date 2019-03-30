@@ -4,6 +4,7 @@ pt-BR:
   set_options:
     email: Email
     interview: Entrevista
+    follow_up: Follow up
     phone_call: Telefonema
     website_contact: Web
     student: Aluno
@@ -29,6 +30,8 @@ pt-BR:
     communicated_at: Data da comunicaçāo
     changed_at: Data da matrícula/evasāo
     trial_at: Data da aula experimental
+    interview_on: Data do atendimento agendado
+    action_on: Data do follow up 
     birthday_at: Data do aniversario
     ends_at: Data em que finaliza o plano
     status: Estado do contato
@@ -247,6 +250,7 @@ pt-BR:
     suggested_values:
       email: Email
       interview: Entrevista
+      follow_up: Follow up
       phone_call: Telefonema
       website_contact: Web
       student: Aluno
@@ -346,6 +350,41 @@ pt-BR:
       reload_when_finished: Recarregue esta tela depois de criar a nova lista.
       sync_with_chosen_list: Sincroniçar com a lista escolhida
     list:
+      show:
+        notifications:
+          title: Registro automático em padma
+          description: Se ativado, esses eventos serão gravados na sua tela inicial. 
+          events:
+            title: Tipo de evento
+            description: Escolha os eventos que você deseja registrar
+            subscribe:
+              title: Assinatura
+              description: É gravado quando um usuário adere à sua lista 
+            unsubscribe: 
+              title: Desubscrição
+              description: É gravado quando um usuário cancela a inscrição de sua lista
+            cleaned:
+              title: Eliminado
+              description: Ele é registrado quando o MailChimp exclui um usuário por mensagens devolvidas ou por uma reclamação do usuário
+            campaign:
+              title: Campanha
+              description: É registrado quando uma campanha é enviada
+            profile: 
+              title: Modificação do perfil
+              description: É gravado quando um usuário faz uma alteração em seus dados
+            upemail: 
+              title: Modificação do email
+              description: É registrado quando um usuário modifica seu email
+          sources:
+            title: Modificação do
+            description: É escolhido quem vai registrar as mudanças
+            user:
+              title: Usuário
+              description: É gravado se o usuário fizer uma alteração
+            admin: 
+              title: Administrador da lista
+              description: É gravado se o administrador da lista fizer uma alteração
+            api: PADMA
       update:
         couldnt_update_segments: Nāo conseguimos atualizar a configuraçāo de segmentos.
       segments:
@@ -381,6 +420,16 @@ pt-BR:
         p_former_students: Ex-alunos (p)
         students: Alunos
       list_syncronization: Lista para sincronizar com mailchimp
+    webhook:
+      subscribed_to: "Ele se inscreveu na lista: %{list_name}"
+      unsubscribed_from: "Cancelou inscrição da lista: %{list_name}"
+      deleted_from: "Removido da lista: %{list_name}"
+      cleaned_from: "Removido da lista: %{list_name}"
+      abuse_reason: " queixando-se de abuso"
+      bounce_reason: " porque o email retornou muitas vezes"
+      campaign_sent: "Lista: %{list_name}: A campanha %{campaign_name} foi enviada"
+      errors:
+        none_selected: "Você tem que escolher pelo menos uma opção para ativar as notificações"
     errors:
       rest_client: "Houve um erro na sincronização com Mailchimp: %{error_message}"
   new: 
@@ -480,6 +529,10 @@ pt-BR:
         trial_lesson_instructor_name: para ingresar o nome do instrutor que cadastrou a aula experimental
         trial_lesson_time_slot_instructor_email: para ingresar o email do instrutor da turma em que acontecerá a aula experimental
         trial_lesson_time_slot_instructor_name: para ingresar o nome do instrutor da turma em que acontecerá a aula experimental
+        interview_booking_instructor_email: para ingresar o email do instrutor do atendimento
+        interview_booking_instructor_name: para ingresar o nome do instrutor do atendimento
+        next_action_instructor_email: para ingresar o email do instrutor do follow up
+        next_action_instructor_name: para ingresar o nome do instrutor do follow up
       bccs: BCC
       from_display_name: Nome remetente
       from_email_address: E-Mail remetente
@@ -523,10 +576,16 @@ pt-BR:
           time_slot_description: Dados da turma como hora e nome.
           trial_lesson: Aula experimental
           trial_lesson_description: Dados da aula experimental como a data, o nome da turma, o horario, etc.
+          interview_booking: Atendimento agendado
+          interview_booking_description: Dados do atendimento agendado como a data, a hora, o nome do instrutor, etc.
+          next_action: Follow up agendado
+          next_action: Dados do follow up agendado como a data, a hora, o nome do instrutor, etc.
       contact_description: ! 'Datos del contacto que recibe el email. ej: nombre, apellido, etc.'
       instructor_description: Dados do instrutor
       time_slot_description: Dados da turma 
       trial_lesson_description: Dados da aula experimental
+      interview_booking_description: Dados do atendimento agendado
+      next_action_description: Dados do follow up agendado
       contact:
         options:
           select_tag: Selecione o dado
@@ -560,6 +619,7 @@ pt-BR:
       select_template: Selecione o modelo
       title: Novo disparador
       event_select_message: Escolha um evento e seus filtros
+      select_filters: Que se cree si cumple con los siguientes filtros
       template_select_message: Escolha un modelo
       add_filter: Agregar filtro
       continue_to_select_template: Continuar à 'Elejir modelo de mail'
@@ -568,11 +628,26 @@ pt-BR:
       select_condition: Escolha uma condição
       sender_data: Configure remitente y copias ocultas
       event:
+        name: Evento disparador
         communication: Cadastro de uma comunicaçāo
         subscription_change: Cadastro de uma matrícula/evasāo
         trial_lesson: Cadastro de uma aula experimental
+        interview_booking: Cadastro de um atendimento agendado
+        next_action: Cadastro de um follow up agendado
         membership: Cadastro de um plano de pago
         birthday: Aniversário de um contato
+      conditions:
+        name: Condições
+        explained: O email só será enviado se estas condições são verdadeiras na hora de enviar a mensagem.
+      filters:
+        name: Filtros
+        explained: "O email só será programado para envío se estes criterios são verdadeiros na hora do evento seleccionado (ej: matricula)"
+      sender:
+        name: Remetente
+        explained: Aqui pode alterar o remetente, copia oculta, etc.
+      templates:
+        name: 'Modelo'
+        explained: Selecione o modelo de email
   contact:
     mercury:
       tags:

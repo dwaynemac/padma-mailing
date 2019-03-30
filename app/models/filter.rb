@@ -24,6 +24,9 @@ class Filter < ActiveRecord::Base
           local_status: %W(student former_student prospect),
           local_coefficient: %W(unknown fp pmenos perfil pmas),
           gender: %W(male female)
+      },
+      next_action: {
+        next_action_type: %W(interview follow_up)
       }
   }
 

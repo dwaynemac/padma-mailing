@@ -37,10 +37,24 @@ class Mailchimp::Configuration < ActiveRecord::Base
   # @return [Gibbon:API]
   def api
     if @mailchimp_api.nil?
-      @mailchimp_api = Gibbon::API.new api_key
-      @mailchimp_api.throws_exceptions = false
+      @mailchimp_api = Gibbon::Request.new api_key: api_key
+      #@mailchimp_api.throws_exceptions = false
     end
     @mailchimp_api
+  end
+
+  def get_synchronizer
+    response = Typhoeus.get Contacts::HOST + "/v0/mailchimp_synchronizers/#{self.synchronizer_id}", body: {
+      app_key: Contacts::API_KEY,
+      account_name: account.name,
+      api_key: api_key
+    }
+
+    if response.success?
+      JSON.parse(response.body)
+    else
+      false
+    end
   end
 
   def create_synchronizer
@@ -94,7 +108,9 @@ class Mailchimp::Configuration < ActiveRecord::Base
   
   def sync_mailchimp_lists_locally
     self.mailchimp_lists.destroy_all
-    api.lists.list['data'].each do |list_hash|
+    api.lists.retrieve(params: {
+      sort_field: "date_created", 
+      sort_dir: "DESC"}).body["lists"].each do |list_hash|
       Mailchimp::List.create(
         api_id: list_hash['id'],
         name: list_hash['name'],
@@ -107,10 +123,8 @@ class Mailchimp::Configuration < ActiveRecord::Base
     return if api_key.blank?
 
     begin
-      if api.lists.list['data'].nil?
-        self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
-      end
-    rescue OpenSSL::SSL::SSLError
+      api.lists.retrieve.body['lists']
+    rescue
       self.errors.add(:api_key, I18n.t('mailchimp_configuration.api_key_is_not_valid'))
     end
   end

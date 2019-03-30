@@ -1,9 +1,34 @@
 class MessageDoorController < ApplicationController
+  include SnsHelper
 
   skip_before_filter :mock_login
   skip_before_filter :authenticate_user!
   skip_before_filter :require_padma_account
   skip_before_filter :set_current_account
+
+  def sns
+    case sns_type
+    when 'SubscriptionConfirmation'
+      # confirm subscription to Topic
+      render json: Typhoeus.get(sns_data[:SubscribeURL]).body, status: 200
+    when 'Notification'
+      if sns_verified?
+        if sns_duplicate_submission?
+          render json: 'duplicate', status: 200
+        else
+          Trigger.delay.catch_message(sns_topic,sns_message.stringify_keys!)
+          
+          sns_set_as_received!
+          render json: "received", status: 200
+        end
+      else
+        render json: 'unverified', status: 403
+      end
+    else
+      render json: 'WTF', status: 400
+    end
+  end
+
 
   ##
   #
