@@ -11,8 +11,17 @@ module IntercomEventsHelper
         metadata: options[:metadata]
       })
     end
-    Intercom::Event.delay.create(intercom_options)
+    i = intercom_client
+    i.events.delay.create(intercom_options)
   rescue => e
     Rails.logger.warn "failed registering on intercom: #{e.message}"
+  end
+
+  def intercom_client
+    if @intercom.nil?
+      @intercom = Intercom::Client.new(token: ENV["intercom_token"])
+    else
+      @intercom
+    end
   end
 end

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+ruby '2.1.10'
 
 gem 'rails', '~> 3.2.11'
 gem 'ffi', '~> 1.0.11'
@@ -19,7 +19,7 @@ gem 'gibbon', '~> 3.1', '>= 3.1.1'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 gem 'rails_12factor'
 
-gem 'intercom'
+gem 'intercom', '~> 3.7.6'
 gem 'intercom-rails'
 
 gem 'mercury-rails'
