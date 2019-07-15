@@ -65,8 +65,8 @@ en:
     destroy:
       success: Delivery canceled
     index:
-      pending: pending
-      title: Scheduled Mails
+      pending: Scheduled Mails 
+      title: Mails history
   edit: Edit
   destroy: Delete
   new: New
