@@ -13,7 +13,7 @@ gem 'messaging_client', '~> 0.1'
 gem 'activity_stream_client', '0.0.16'
 gem 'logical_model', '0.6.4'
 gem 'contacts_client', '0.0.40'
-gem 'accounts_client', '0.2.34'
+gem 'accounts_client', '0.2.38'
 gem 'attendance_client', '0.0.4'
 gem 'gibbon', '~> 3.1', '>= 3.1.1'
 # gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
@@ -29,7 +29,6 @@ gem 'strong_parameters'
 
 # CAS authentication
 gem 'devise', '1.5.0'
-gem 'devise_cas_authenticatable', '~> 1.3'
 
 # authorization
 gem 'cancan'

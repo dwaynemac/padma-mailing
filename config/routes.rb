@@ -6,9 +6,10 @@ Mailing::Application.routes.draw do
   mount Mercury::Engine => '/'
 
   devise_for :users do
-    match "/login", :to => "devise/cas_sessions#new"
-    match '/logout', to: "devise/cas_sessions#destroy"
+    match "/login", :to => "sso_sessions#show"
+    match '/logout', to: "sso_sessions#destroy"
   end
+  resource :sso_session
 
   namespace :api do
     namespace 'v0' do

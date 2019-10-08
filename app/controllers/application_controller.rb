@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery
 
   include IntercomEventsHelper
+  include SsoSessionsHelper
+
+  before_filter :get_sso_session
 
   before_filter :mock_login
   before_filter :authenticate_user!
