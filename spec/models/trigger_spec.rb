@@ -170,6 +170,15 @@ describe Trigger do
           late_trigger
           expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
         end
+        it "ignores duplicated messages" do
+          expect(PadmaContact).to receive(:find)
+                      .with(1234,
+                            select: [:email],
+                            account_name: 'my-account')
+                      .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+          expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
+          expect{Trigger.catch_message(key, data)}.not_to change{ScheduledMail.count}
+        end
       end
 
       context "with :subscription_change"  do
