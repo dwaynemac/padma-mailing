@@ -1,6 +1,7 @@
 class Template < ActiveRecord::Base
   attr_accessible :content, :description, :name, :subject,
-                  :attachments_attributes, :attachments
+                  :attachments_attributes, :attachments,
+                  :parent_templates_folder_id
 
   validates_presence_of :subject
   validates_presence_of :name
