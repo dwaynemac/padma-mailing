@@ -33,13 +33,18 @@ class TemplatesTriggers < ActiveRecord::Base
 
   # @return [Fixnum] offset in seconds
   def offset
-    return nil unless valid_offset_unit?
+    return nil unless (valid_offset_unit? && valid_offset_number? )
     self.offset_number.send(self.offset_unit)
   end
 
   # @return [Boolean]
   def valid_offset_unit?
     %W(hours days weeks months).include? self.offset_unit.pluralize
+  end
+
+  # @return [Boolean]
+  def valid_offset_number?
+    offset_number != 0
   end
 
   # @return [NilClass] if time not available
