@@ -13,7 +13,10 @@
 <nav>
   <div>
     <% if @current_folder %>
-      <h2><%= @current_folder.name %></h2>
+      <h2 class="rest_in_place" data-url="<%= url_for(@current_folder) %>" data-object="templates_folder" data-attribute="name" ><%= @current_folder.name %></h2>
+      <script>
+        $(".rest_in_place").rest_in_place()
+      </script>
     <% end %>
   </div>
   <div class="pull-right">
@@ -53,7 +56,14 @@
   <% @folders.each do |folder| %>
     <tr>
       <td colspan="5"><%= link_to folder.name, templates_path(folder_id: folder.id) %></td>
-      <td></td>
+      <td>
+        <%= button_to t('destroy'),
+                    folder,
+                    method: :delete,
+                    #confirm: t('confirm'),
+                    :onclick => "return confirm('#{t('confirm')}')",
+                    class: 'btn-danger' %>
+      </td>
     </tr>
   <% end %>
   <% @templates.each do |template| %>
@@ -79,6 +89,10 @@
                   data-target="#delete_template_<%= template.id %>_modal">
             <%= t('destroy') %>
           </button>
+          <%= form_for template do |f| %>
+            <%= f.select :parent_templates_folder_id, options_for_select(@folders.map{|f| [f.name,f.id]}) %>
+            <%= f.submit "move" %>
+          <% end %>
         </td>
       </tr>
       <div id="delete_template_<%= template.id %>_modal" class="modal fade" tabindex="-1">
