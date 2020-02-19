@@ -33,7 +33,7 @@ class TemplatesTriggers < ActiveRecord::Base
 
   # @return [Fixnum] offset in seconds
   def offset
-    return nil unless (valid_offset_unit? && valid_offset_number? )
+    return 0 unless (valid_offset_unit? && valid_offset_number? )
     self.offset_number.send(self.offset_unit)
   end
 
