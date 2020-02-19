@@ -11,5 +11,14 @@ class TemplatesFoldersController < ApplicationController
     end
   end
 
+  def destroy
+    @templates_folder.destroy
+    respond_to do |format|
+      format.html do
+        redirect_to templates_path(folder_id: @templates_folder.parent_templates_folder_id), notice: "ok!"
+      end
+    end
+  end
+
 
 end
