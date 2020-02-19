@@ -9,6 +9,19 @@
             full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
   <% end %>
 <% end %>
+
+<nav>
+  <div>
+    <% if @current_folder %>
+      <h2><%= @current_folder.name %></h2>
+    <% end %>
+  </div>
+  <div class="pull-right">
+    <%= link_to t('.new_template'), "/editor" + new_template_path(page_title: t("templates.show.title")),
+                class: 'btn btn-primary' %>
+  </div>
+</nav>
+
 <table class="table table-striped" id="templates">
   <thead>
   <tr>
@@ -21,6 +34,28 @@
   </tr>
   </thead>
   <tbody>
+    <% if @current_folder %>
+      <tr>
+        <td colspan="5" class="pull-left">
+          <h2><%= link_to "..", templates_path(folder_id: @current_folder.parent_templates_folder_id) %></h2>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <td colspan="6">
+        <%= form_for TemplatesFolder.new(parent_templates_folder_id: params[:folder_id]) do |f| %>
+          <%= f.hidden_field :parent_templates_folder_id %>
+          <%= f.text_field :name %>
+          <%= f.button t(".create_folder") %>
+        <% end %>
+      </td>
+    </tr>
+  <% @folders.each do |folder| %>
+    <tr>
+      <td colspan="5"><%= link_to folder.name, templates_path(folder_id: folder.id) %></td>
+      <td></td>
+    </tr>
+  <% end %>
   <% @templates.each do |template| %>
       <tr>
         <td><%= link_to template.name, template_path(template) %></td>
@@ -71,6 +106,3 @@
   <% end %>
   </tbody>
 </table>
-
-<%= link_to t('new'), "/editor" + new_template_path(page_title: t("templates.show.title")),
-            class: 'btn btn-primary' %>

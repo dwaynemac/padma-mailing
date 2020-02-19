@@ -415,6 +415,8 @@ es:
       title: Histórico de mails
       pending: Mails programados 
   templates:
+    form:
+      folder: Carpeta
     templates:
       available_dinamic_tags: En los siguientes campos podés utilizar las siguientes fórmulas (incluyendo las llaves dobles {{ }}) para ingresar datos dinámicos
       tags:

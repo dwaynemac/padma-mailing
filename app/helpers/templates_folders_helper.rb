@@ -1,0 +1,2 @@
+module TemplatesFoldersHelper
+end

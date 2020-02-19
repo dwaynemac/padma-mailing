@@ -8,6 +8,7 @@ class Account < ActiveRecord::Base
   has_many :imports, foreign_key: :local_account_id
 
   has_one :mailchimp_configuration, foreign_key: :local_account_id, class_name: "Mailchimp::Configuration"
+  has_many :templates_folders, foreign_key: :local_account_id, class_name: "TemplatesFolder"
 
   # Hook to Padma Account API
   # @param [TrueClass] cache: Specify if Cache should be used. default: true

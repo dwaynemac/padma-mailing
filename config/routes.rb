@@ -68,6 +68,9 @@ Mailing::Application.routes.draw do
     end
   end
   resources :triggers
+  resources :templates_folders do
+    resources :templates
+  end
   resources :templates do
     resources :attachments
     member do
