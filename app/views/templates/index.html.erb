@@ -42,7 +42,7 @@
     <% if @current_folder %>
       <tr>
         <td colspan="5" class="pull-left">
-          <h2><%= link_to "..", templates_path(folder_id: @current_folder.parent_templates_folder_id) %></h2>
+          <h2><%= link_to folder_icon+" ..", templates_path(folder_id: @current_folder.parent_templates_folder_id) %></h2>
         </td>
       </tr>
     <% end %>
@@ -57,7 +57,7 @@
     </tr>
   <% @folders.each do |folder| %>
     <tr>
-      <td colspan="5"><%= link_to folder.name, templates_path(folder_id: folder.id) %></td>
+      <td colspan="5"><%= link_to folder_icon+" "+folder.name, templates_path(folder_id: folder.id) %></td>
       <td>
         <%= button_to t('destroy'),
                     folder,
