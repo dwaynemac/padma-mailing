@@ -7,11 +7,7 @@ class TemplatesFolder < ActiveRecord::Base
   has_many :templates
 
   def self.for_folder(folder_id=nil)
-    if folder_id.nil?
-      self.scoped
-    else
-      self.where(parent_templates_folder_id: folder_id)
-    end
+    self.where(parent_templates_folder_id: folder_id)
   end
 
 end
