@@ -1,0 +1,7 @@
+<% if @current_folder %>
+  <tr>
+    <td colspan="5" class="pull-left">
+      <h2><%= link_to folder_icon+" ..", templates_path(folder_id: @current_folder.parent_templates_folder_id) %></h2>
+    </td>
+  </tr>
+<% end %>

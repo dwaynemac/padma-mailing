@@ -1,0 +1,12 @@
+<tr>
+  <td colspan="5"><%= link_to folder_icon+" "+folder.name, templates_path(folder_id: folder.id) %></td>
+  <td>
+    <%= button_to t('destroy'),
+                folder,
+                method: :delete,
+                #confirm: t('confirm'),
+                :onclick => "return confirm('#{t('confirm')}')",
+                class: 'btn-danger' %>
+  </td>
+</tr>
+

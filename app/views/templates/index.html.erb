@@ -34,35 +34,9 @@
   </tr>
   </thead>
   <tbody>
-    <% if @current_folder %>
-      <tr>
-        <td colspan="5" class="pull-left">
-          <h2><%= link_to folder_icon+" ..", templates_path(folder_id: @current_folder.parent_templates_folder_id) %></h2>
-        </td>
-      </tr>
-    <% end %>
-    <tr>
-      <td colspan="6">
-        <%= form_for TemplatesFolder.new(parent_templates_folder_id: params[:folder_id]) do |f| %>
-          <%= f.hidden_field :parent_templates_folder_id %>
-          <%= f.text_field :name %>
-          <%= f.button t(".create_folder"), class: "btn" %>
-        <% end %>
-      </td>
-    </tr>
-  <% @folders.each do |folder| %>
-    <tr>
-      <td colspan="5"><%= link_to folder_icon+" "+folder.name, templates_path(folder_id: folder.id) %></td>
-      <td>
-        <%= button_to t('destroy'),
-                    folder,
-                    method: :delete,
-                    #confirm: t('confirm'),
-                    :onclick => "return confirm('#{t('confirm')}')",
-                    class: 'btn-danger' %>
-      </td>
-    </tr>
-  <% end %>
+  <%= render "goto_parent" %>
+  <%= render "new_folder" %>
+  <%= render partial: "folder", collection: @folders %>
   <% @templates.each do |template| %>
       <tr>
         <td><%= link_to template.name, template_path(template) %></td>
