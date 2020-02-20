@@ -62,14 +62,5 @@ table#templates td:last-child {
 }
 
 .edit_template {
-  display: block;
-}
-
-.edit_template #template_parent_templates_folder_id {
-  display: inline;
-  width: 70%;
-}
-
-.edit_template input[type=submit] {
-  display: inline;
+  white-space: nowrap;
 }
