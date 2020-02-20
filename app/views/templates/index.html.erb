@@ -60,12 +60,7 @@
                   data-target="#delete_template_<%= template.id %>_modal">
             <%= t('destroy') %>
           </button>
-          <%= form_for template do |f| %>
-            <input type="hidden" name="back_to" value="<%= url_for params %>" ></input>
-            <% folders = ((@current_folder.nil? or @current_folder.parent.nil?)? [] : [[@current_folder.parent.name , @current_folder.parent.id]]) %>
-            <%= f.select :parent_templates_folder_id, options_for_select(folders+@folders.map{|f| [f.name,f.id]}) %>
-            <%= f.submit "move" %>
-          <% end %>
+          <%= render partial: 'move_to_folder', locals: { template: template } %>
         </td>
       </tr>
       <div id="delete_template_<%= template.id %>_modal" class="modal fade" tabindex="-1">
