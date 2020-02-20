@@ -13,6 +13,8 @@ class TemplatesFolder < ActiveRecord::Base
 
   has_many :templates, dependent: :nullify, foreign_key: :parent_templates_folder_id
 
+  validates :name, presence: true
+
   def self.for_folder(folder_id=nil)
     self.where(parent_templates_folder_id: folder_id)
   end

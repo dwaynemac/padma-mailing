@@ -6,7 +6,11 @@ class TemplatesFoldersController < ApplicationController
     @templates_folder = current_user.current_account.templates_folders.create(params[:templates_folder])
     respond_to do |format|
       format.html do
-        redirect_to templates_path(folder_id: @templates_folder.parent_templates_folder_id), notice: "ok!"
+        if @templates_folder.persisted?
+          redirect_to templates_path(folder_id: @templates_folder.parent_templates_folder_id), notice: "ok!"
+        else
+          redirect_to templates_path(folder_id: @templates_folder.parent_templates_folder_id), alert: "error"
+        end
       end
     end
   end

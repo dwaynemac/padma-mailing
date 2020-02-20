@@ -518,6 +518,8 @@ pt-BR:
       two_words_connector: ! ' e '
       words_connector: ! ', '
   templates:
+    new_folder:
+      create_folder: "Criar pasta"
     show:
       title: Modelo de mail
     templates:
