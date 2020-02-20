@@ -12,12 +12,7 @@
 
 <nav>
   <div>
-    <% if @current_folder %>
-      <h2 class="rest_in_place" data-url="<%= url_for(@current_folder) %>" data-object="templates_folder" data-attribute="name" ><%= @current_folder.name %></h2>
-      <script>
-        $(".rest_in_place").rest_in_place()
-      </script>
-    <% end %>
+    <%= render 'current_folder' %>
   </div>
   <div class="pull-right">
     <% if @current_folder.nil? %>
