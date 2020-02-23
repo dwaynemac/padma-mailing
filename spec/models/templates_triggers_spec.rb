@@ -50,6 +50,22 @@ describe TemplatesTriggers do
     it "considers 'month' valid" do
       TemplatesTriggers.new(offset_unit: 'month').valid_offset_unit?.should be_truthy
     end
+
+    it "considers 'years' valid" do
+      TemplatesTriggers.new(offset_unit: 'years').valid_offset_unit?.should be_truthy
+    end
+  end
+
+  describe "#valid_offset_number?" do
+    it "considers '0' invalid" do
+      TemplatesTriggers.new(offset_number: 0).valid_offset_number?.should be_falsey
+    end
+    it "considers '1' valid" do
+      TemplatesTriggers.new(offset_number: 1).valid_offset_number?.should be_truthy
+    end
+    it "considers '-1' valid" do
+      TemplatesTriggers.new(offset_number: -1).valid_offset_number?.should be_truthy
+    end
   end
   
   describe "#delivery_time" do
