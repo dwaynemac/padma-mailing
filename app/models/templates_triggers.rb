@@ -39,7 +39,7 @@ class TemplatesTriggers < ActiveRecord::Base
 
   # @return [Boolean]
   def valid_offset_unit?
-    %W(hours days weeks months).include? self.offset_unit.pluralize
+    %W(hours days weeks months years).include? self.offset_unit.pluralize
   end
 
   # @return [Boolean]
