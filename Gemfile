@@ -93,6 +93,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rake', '< 12'
+  gem 'rake', '< 13'
   gem 'coveralls', require: false
 end
