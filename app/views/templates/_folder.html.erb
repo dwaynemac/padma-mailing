@@ -1,5 +1,7 @@
 <tr>
-  <td colspan="5"><%= link_to folder_icon+" "+folder.name, templates_path(folder_id: folder.id) %></td>
+  <td colspan="5">
+    <%= link_to folder_icon+" "+folder.name, templates_path(folder_id: folder.id, contact_id: params[:contact_id]) %>
+  </td>
   <td>
     <%= button_to t('destroy'),
                 folder,
