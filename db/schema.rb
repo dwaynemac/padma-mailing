@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20180505202137) do
+ActiveRecord::Schema.define(:version => 20200219185054) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -165,8 +165,17 @@ ActiveRecord::Schema.define(:version => 20180505202137) do
     t.string   "subject"
     t.text     "content"
     t.integer  "local_account_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "parent_templates_folder_id"
+  end
+
+  create_table "templates_folders", :force => true do |t|
+    t.integer  "local_account_id"
+    t.integer  "parent_templates_folder_id"
+    t.string   "name"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "templates_triggers", :force => true do |t|

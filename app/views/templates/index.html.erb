@@ -9,6 +9,19 @@
             full_name: (@contact.last_name.nil? ? @contact.first_name : @contact.first_name + " " + @contact.last_name)) %></h3>
   <% end %>
 <% end %>
+
+<nav>
+  <div>
+    <%= render 'current_folder' %>
+  </div>
+  <div class="pull-right">
+    <% if @current_folder.nil? %>
+      <%= link_to t('.new_template'), "/editor" + new_template_path(page_title: t("templates.show.title")),
+                  class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</nav>
+
 <table class="table table-striped" id="templates">
   <thead>
   <tr>
@@ -21,6 +34,9 @@
   </tr>
   </thead>
   <tbody>
+  <%= render "goto_parent" %>
+  <%= render "new_folder" %>
+  <%= render partial: "folder", collection: @folders %>
   <% @templates.each do |template| %>
       <tr>
         <td><%= link_to template.name, template_path(template) %></td>
@@ -44,6 +60,7 @@
                   data-target="#delete_template_<%= template.id %>_modal">
             <%= t('destroy') %>
           </button>
+          <%= render partial: 'move_to_folder', locals: { template: template } %>
         </td>
       </tr>
       <div id="delete_template_<%= template.id %>_modal" class="modal fade" tabindex="-1">
@@ -71,6 +88,3 @@
   <% end %>
   </tbody>
 </table>
-
-<%= link_to t('new'), "/editor" + new_template_path(page_title: t("templates.show.title")),
-            class: 'btn btn-primary' %>

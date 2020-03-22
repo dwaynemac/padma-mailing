@@ -1,12 +1,15 @@
 class Template < ActiveRecord::Base
   attr_accessible :content, :description, :name, :subject,
-                  :attachments_attributes, :attachments
+                  :attachments_attributes, :attachments,
+                  :parent_templates_folder_id
 
   validates_presence_of :subject
   validates_presence_of :name
 
   validates_presence_of :account
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
+
+  belongs_to :templates_folder
 
   has_many :templates_triggerses, dependent: :destroy, class_name: 'TemplatesTriggers'
   has_many :triggers, through: :templates_triggerses, class_name: 'TemplatesTriggers'
@@ -109,6 +112,10 @@ class Template < ActiveRecord::Base
 
   def self.convert_tag_into_liquid_format(new_snippet_value, search_by_key = true)
     search_by_key ? self.tag_options_list[new_snippet_value] : self.tag_options_list.invert[new_snippet_value]
+  end
+
+  def self.for_folder(folder_id=nil)
+    self.where(parent_templates_folder_id: folder_id)
   end
 
   private

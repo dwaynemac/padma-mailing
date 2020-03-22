@@ -412,9 +412,13 @@ es:
       success: Envío cancelado
     index:
       still_pending: pendiente
-      pending: Mails programados
-      title: Mails pendientes
+      title: Histórico de mails
+      pending: Mails programados 
   templates:
+    move_to_folder:
+      move: Mover 
+    new_folder:
+      create_folder: "Crear carpeta"
     templates:
       available_dinamic_tags: En los siguientes campos podés utilizar las siguientes fórmulas (incluyendo las llaves dobles {{ }}) para ingresar datos dinámicos
       tags:

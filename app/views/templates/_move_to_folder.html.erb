@@ -1,0 +1,6 @@
+<%= form_for template do |f| %>
+  <input type="hidden" name="back_to" value="<%= url_for params %>" ></input>
+  <% folders = ((@current_folder.nil? or @current_folder.parent.nil?)? [] : [[@current_folder.parent.name , @current_folder.parent.id]]) %>
+  <%= f.select :parent_templates_folder_id, options_for_select(folders+@folders.map{|f| [f.name,f.id]}) %>
+  <%= f.submit t(".move") %>
+<% end %>

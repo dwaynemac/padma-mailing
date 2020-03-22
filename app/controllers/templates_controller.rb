@@ -7,7 +7,11 @@ class TemplatesController < ApplicationController
   def index
     # @templates initialized by load_and_authorize_resource
 
-    @account = current_user.current_account
+    @account   = current_user.current_account
+
+    @current_folder = @account.templates_folders.find(params[:folder_id]) if params[:folder_id]
+    @templates = @templates.for_folder(params[:folder_id])
+    @folders   = @account.templates_folders.for_folder(params[:folder_id])
 
     if params[:contact_id]
       @contact = PadmaContact.find(params[:contact_id],
@@ -50,9 +54,17 @@ class TemplatesController < ApplicationController
     @attachment = @template.attachments.new(params[:template][:attachment])
     params[:template].delete :attachment
 
+    rt = if params[:back_to]
+      params[:back_to]
+    elsif params[:template][:parent_templates_folder_id]
+      templates_path(folder_id: params[:template][:parent_templates_folder_id])
+    else
+      @template
+    end
+
     if @template.update_attributes(params[:template])
       respond_to do |format|
-        format.html { redirect_to @template }
+        format.html { redirect_to rt }
         format.js
       end
     elsif !@attachment.valid?

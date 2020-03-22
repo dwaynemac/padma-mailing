@@ -1,7 +1,8 @@
 class MessageDoorController < ApplicationController
   include SnsHelper
+  include SsoSessionsHelper
 
-  skip_before_filter :mock_login
+  skip_before_filter :get_sso_session
   skip_before_filter :authenticate_user!
   skip_before_filter :require_padma_account
   skip_before_filter :set_current_account
@@ -16,7 +17,12 @@ class MessageDoorController < ApplicationController
         if sns_duplicate_submission?
           render json: 'duplicate', status: 200
         else
-          Trigger.delay.catch_message(sns_topic,sns_message.stringify_keys!)
+          case sns_topic
+          when "sso_session_destroyed"
+            set_sso_session_destroyed_flag(sns_message[:username])
+          else
+            Trigger.delay.catch_message(sns_topic,sns_message.stringify_keys!)
+          end
           
           sns_set_as_received!
           render json: "received", status: 200

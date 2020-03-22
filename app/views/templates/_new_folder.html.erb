@@ -1,0 +1,11 @@
+<tr>
+  <%= form_for TemplatesFolder.new(parent_templates_folder_id: params[:folder_id]) do |f| %>
+    <td colspan="5">
+        <%= f.hidden_field :parent_templates_folder_id %>
+        <%= f.text_field :name %>
+    </td>
+    <td>
+        <%= f.button t(".create_folder"), class: "btn btn-primary" %>
+    </td>
+  <% end %>
+</tr>

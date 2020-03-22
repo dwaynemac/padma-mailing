@@ -3,7 +3,9 @@ class User < ActiveRecord::Base
 
   include Accounts::IsAUser
 
-  devise :cas_authenticatable
+  devise :database_authenticatable
+  def encrypted_password
+  end
 
   validates_uniqueness_of :username
   validates_presence_of :username

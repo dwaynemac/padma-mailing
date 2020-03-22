@@ -6,6 +6,7 @@ class Ability
 
     # user can do everything on templates of his account.
     can :manage, Template, local_account_id: user.current_account_id
+    can :manage, TemplatesFolder, local_account_id: user.current_account_id
 
     ##
     # Activities
