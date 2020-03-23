@@ -51,8 +51,10 @@ class TemplatesController < ApplicationController
 
   def update
     # @template initialized by load_and_authorize_resource
-    @attachment = @template.attachments.new(params[:template][:attachment])
-    params[:template].delete :attachment
+    if params[:template].has_key?(:attachment)
+      @attachment = @template.attachments.new(params[:template][:attachment])
+      params[:template].delete :attachment
+    end
 
     rt = if params[:back_to]
       params[:back_to]
