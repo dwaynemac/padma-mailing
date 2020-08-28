@@ -9,7 +9,7 @@ class Template < ActiveRecord::Base
   validates_presence_of :account
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id
 
-  belongs_to :templates_folder
+  belongs_to :templates_folder, foreign_key: :parent_templates_folder_id
 
   has_many :templates_triggerses, dependent: :destroy, class_name: 'TemplatesTriggers'
   has_many :triggers, through: :templates_triggerses, class_name: 'TemplatesTriggers'
