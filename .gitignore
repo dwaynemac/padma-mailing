@@ -21,3 +21,5 @@ Procfile.dev
 *.swp
 *.swo
 /coverage
+/.generators
+/.rakeTasks
