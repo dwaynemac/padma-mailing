@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.10'
 
-gem 'rails', '~> 3.2.11'
+gem 'rails', '~> 4.0.0'
 gem 'ffi', '~> 1.0.11'
 
 gem 'i18n-js'
@@ -11,12 +11,11 @@ gem 'rack-cors'
 
 gem 'messaging_client', '~> 0.1'
 gem 'activity_stream_client', '0.0.16'
-gem 'logical_model', '0.6.4'
-gem 'contacts_client', '0.0.40'
+gem 'logical_model', '0.6.6'
+gem 'contacts_client', '0.0.54'
 gem 'accounts_client', '0.2.38'
 gem 'attendance_client', '0.0.4'
 gem 'gibbon', '~> 3.1', '>= 3.1.1'
-# gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 gem 'rails_12factor'
 
 gem 'intercom', '~> 3.7.6'
@@ -38,22 +37,20 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', '0.2.29'
+gem 'padma-assets', '0.2.39'
 
 gem 'rest-client'
 
 gem 'kaminari'
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem "less-rails"
-  gem 'therubyracer', :platforms => :ruby
-  gem 'less-rails-bootstrap', '~> 3.0.6'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-fileupload-rails'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+gem "less-rails"
+gem 'therubyracer', :platforms => :ruby
+gem 'less-rails-bootstrap', '~> 3.0.6'
+gem 'uglifier', '>= 1.0.3'
+gem 'jquery-fileupload-rails'
 
 gem 'jquery-rails'
 
