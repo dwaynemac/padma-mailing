@@ -1,5 +1,5 @@
 class Filter < ActiveRecord::Base
-  attr_accessible :key, :trigger_id, :value
+  # attr_accessible :key, :trigger_id, :value
 
   belongs_to :trigger
 

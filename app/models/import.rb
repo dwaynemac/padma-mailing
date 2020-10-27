@@ -4,7 +4,7 @@ OpenURI::Buffer.send :remove_const, 'StringMax' if OpenURI::Buffer.const_defined
 OpenURI::Buffer.const_set 'StringMax', 0
 
 class Import < ActiveRecord::Base
-  attr_accessible :csv_file, :headers, :status, :type
+  # attr_accessible :csv_file, :headers, :status, :type
   attr_accessor   :mail_header, :mail_header_content_type, :mail_header_file_name, :mail_header_file_size, :mail_header_updated_at,
                   :mail_footer, :mail_footer_content_type, :mail_footer_file_name, :mail_footer_file_size, :mail_footer_updated_at
 

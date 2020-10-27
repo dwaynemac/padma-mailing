@@ -1,10 +1,10 @@
 class TemplatesTriggers < ActiveRecord::Base
 
-  attr_accessible :template_id, :template,
-                  :trigger_id, :trigger,
-                  :offset_unit, :offset_number, :offset_reference,
-                  :from_display_name, :from_email_address,
-                  :bccs
+  # attr_accessible :template_id, :template,
+  #                :trigger_id, :trigger,
+  #                :offset_unit, :offset_number, :offset_reference,
+  #                :from_display_name, :from_email_address,
+  #                :bccs
 
   belongs_to :trigger
 

@@ -1,10 +1,10 @@
 class ScheduledMail < ActiveRecord::Base
-  attr_accessible :local_account_id, :send_at, :template_id,
-                  :delivered_at, :contact_id,
-                  :username, :event_key, :data, :conditions,
-                  :from_display_name, :from_email_address,
-                  :bccs,
-                  :recipient_email, :cancelled
+  # attr_accessible :local_account_id, :send_at, :template_id,
+  #                :delivered_at, :contact_id,
+  #                :username, :event_key, :data, :conditions,
+  #                :from_display_name, :from_email_address,
+  #                :bccs,
+  #                :recipient_email, :cancelled
 
   paginates_per 20
   belongs_to :account, class_name: "Account", foreign_key: :local_account_id

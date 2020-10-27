@@ -1,5 +1,5 @@
 class TemplatesFolder < ActiveRecord::Base
-  attr_accessible :parent_templates_folder_id, :name
+  # attr_accessible :parent_templates_folder_id, :name
 
   belongs_to :account, foreign_key: :local_account_id
   belongs_to :parent,
