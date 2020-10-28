@@ -15,7 +15,7 @@ class Api::V0::ApiController < ActionController::Base
 
   def require_app_key
     unless params[:app_key] == APP_KEY
-      render :text => "wrong app key", :status => 401
+      render :plain => "wrong app key", :status => 401
     end
   end
 
