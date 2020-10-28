@@ -29,11 +29,7 @@ module Mailing
 
     # Enable escaping HTML in JSON.
     config.active_support.escape_html_entities_in_json = true
-    # Enable the asset pipeline
-    config.assets.enabled = true
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-    config.assets.initialize_on_precompile = false
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
