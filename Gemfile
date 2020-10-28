@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.10'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 4.1.2'
 gem 'ffi', '~> 1.0.11'
 
 gem 'i18n-js'
@@ -81,7 +81,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.0'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'shoulda'
   gem 'factory_girl_rails'
