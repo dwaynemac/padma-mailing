@@ -21,7 +21,7 @@ gem 'rails_12factor'
 gem 'intercom', '~> 3.7.6'
 gem 'intercom-rails'
 
-gem 'mercury-rails'
+gem 'mercury-rails', git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
 
 gem 'nokogiri'
 

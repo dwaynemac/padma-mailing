@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/afalkear/mercury.git
+  revision: 92b74c5ea9f1da40ce33b78c375dd45a7b802f54
+  branch: upgrade-paths
+  specs:
+    mercury-rails (0.3.1)
+      coffee-script
+      paperclip
+      rails (>= 3.1.0)
+
+GIT
   remote: git://github.com/dwaynemac/yard-rest-plugin.git
   revision: 33ac0b0cfe8667e8aa8bac02d59eada21ba4b72c
   specs:
@@ -1109,10 +1119,6 @@ GEM
       typhoeus (= 0.5.0.alpha)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mercury-rails (0.3.1)
-      coffee-script
-      paperclip
-      rails (>= 3.1.0)
     messaging_client (0.2.0)
       aws-sdk-sns (~> 1)
       logical_model (>= 0.5.0)
@@ -1290,7 +1296,7 @@ DEPENDENCIES
   less-rails-bootstrap (~> 3.0.6)
   liquid
   logical_model (= 0.6.6)
-  mercury-rails
+  mercury-rails!
   messaging_client (~> 0.1)
   nested_form
   nokogiri
