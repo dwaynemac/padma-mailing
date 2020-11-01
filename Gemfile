@@ -26,7 +26,7 @@ gem 'mercury-rails', git: 'git://github.com/afalkear/mercury.git', branch: 'upgr
 gem 'nokogiri'
 
 # CAS authentication
-gem 'devise', '1.5.0'
+gem 'devise', '3.4.1'
 
 # authorization
 gem 'cancan'
