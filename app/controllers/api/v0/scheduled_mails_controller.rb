@@ -11,7 +11,7 @@ class Api::V0::ScheduledMailsController < Api::V0::ApiController
       if @scope.empty?
         @scheduled_mails = []
       else
-        @scheduled_mails = @scope.where(params[:where])
+        @scheduled_mails = @scope.where(where_params)
       end
     else
       @scheduled_mails = @scope
@@ -30,5 +30,9 @@ class Api::V0::ScheduledMailsController < Api::V0::ApiController
       else
         ScheduledMail.scoped
       end
+    end
+
+    def where_params
+      params.require(:where).permit!
     end
 end
