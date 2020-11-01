@@ -148,7 +148,7 @@ describe PadmaMailer do
     
     PadmaMailer.template(template, data_hash, recipient,
                          'bcc@mail.com', 'from@mail.com').deliver
-    last_email.body.raw_source.should == "<!DOCTYPE html>\n<html>\n    <head>\n      <meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\" />\n    </head>\n    <body>\n      Hola, te esperamos el día 3018-05-20 a las 18:04 para tener una entrevista con:Luis Perichon Además, voy a probar hacerlo manualmente: date: 3018-05-20 time: 18:04 instructor name: Luis Perichon instructor mail: luis.perichon@metododerose.org\n    </body>\n</html>\n"
+    last_email.body.raw_source.should == "<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n      <meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\" />\r\n    </head>\r\n    <body>\r\n      Hola, te esperamos el día 3018-05-20 a las 18:04 para tener una entrevista con:Luis Perichon Además, voy a probar hacerlo manualmente: date: 3018-05-20 time: 18:04 instructor name: Luis Perichon instructor mail: luis.perichon@metododerose.org\r\n    </body>\r\n</html>\r\n"
   end
 
   context "with acounts-ws and contacts-ws online" do
@@ -177,17 +177,7 @@ describe PadmaMailer do
                            'a@b.c',
                            'a@b.c',
                            'a@b.c').deliver
-      expected_result = <<HTML_CODE
-<!DOCTYPE html>
-<html>
-    <head>
-      <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-    </head>
-    <body>
-      hello dw mac.
-    </body>
-</html>
-HTML_CODE
+      expected_result = "<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n      <meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\" />\r\n    </head>\r\n    <body>\r\n      hello dw mac.\r\n    </body>\r\n</html>\r\n"
       expect(last_email.body.raw_source).to eq expected_result
     end
   end
@@ -218,17 +208,7 @@ HTML_CODE
                            'a@b.c',
                            'blah',
                            'a@b.c').deliver
-      expected_result = <<HTML_CODE
-<!DOCTYPE html>
-<html>
-    <head>
-      <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-    </head>
-    <body>
-      Hola dw, como andas<br>estas invitado a nuestra escuela.<br>Eso es todoo<br>
-    </body>
-</html>
-HTML_CODE
+      expected_result = "<!DOCTYPE html>\r\n<html>\r\n    <head>\r\n      <meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\" />\r\n    </head>\r\n    <body>\r\n      Hola dw, como andas<br>estas invitado a nuestra escuela.<br>Eso es todoo<br>\r\n    </body>\r\n</html>\r\n"
       expect(last_email.body.raw_source).to eq expected_result
     end
   end
