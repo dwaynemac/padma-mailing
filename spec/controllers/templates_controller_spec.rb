@@ -15,7 +15,7 @@ describe TemplatesController do
       end
       it { should respond_with(:success) } # response.should be_success
       it "should assign to templates" do
-        assigns(:templates).should_not be_nil
+        expect(assigns(:templates)).not_to be_nil
       end
     end
   end
