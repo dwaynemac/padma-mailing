@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Account do
-  let(:account) { FactoryGirl.create(:account) }
+  let(:account) { FactoryBot.create(:account) }
   before(:each) do
     allow(PadmaAccount).to receive(:find).and_return(PadmaAccount.new(:name => account.name, :enabled => true))
   end

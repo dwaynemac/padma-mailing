@@ -84,7 +84,7 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.0'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'shoulda'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'capybara'
 end
 

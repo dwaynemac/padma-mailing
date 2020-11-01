@@ -1,5 +1,5 @@
 #encoding: UTF-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe Api::V0::Mailchimp::ListsController do
   before do

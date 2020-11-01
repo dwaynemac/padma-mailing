@@ -1,4 +1,4 @@
-require "spec_helper"
+require "rails_helper"
 
 describe PadmaMailer do
   let(:account){create(:account)}

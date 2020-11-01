@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Trigger do
   it { should belong_to(:account).with_foreign_key(:local_account_id) }

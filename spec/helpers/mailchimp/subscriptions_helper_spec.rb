@@ -1,10 +1,10 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Mailchimp::SubscriptionsHelper do
   let(:pc){ Mailchimp::PetalController.new { include Mailchimp::SubscriptionController } }
-  let(:user){ FactoryGirl.create(:user) }
+  let(:user){ FactoryBot.create(:user) }
   let(:padma_user){ PadmaUser.new(username: user.username) }
-  let(:account){ FactoryGirl.create(:account) }
+  let(:account){ FactoryBot.create(:account) }
   let(:padma_account){ PadmaAccount.new(name: account.name, enabled: true, enabled_petals: enabled_petals) }
 
   before(:each) do
