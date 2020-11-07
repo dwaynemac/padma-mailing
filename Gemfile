@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.10'
+ruby '2.3.8'
 
 gem 'rails', '~> 4.1.2'
 gem 'ffi', '~> 1.0.11'
@@ -21,7 +21,8 @@ gem 'rails_12factor'
 gem 'intercom', '~> 3.7.6'
 gem 'intercom-rails'
 
-gem 'mercury-rails', git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
+gem 'mercury-rails', path: "~/workspace/my_forks/mercury" #git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
+gem "wysiwyg-rails"
 
 gem 'nokogiri'
 
