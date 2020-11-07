@@ -1,6 +1,7 @@
 class TemplatesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
+  before_filter :load_template, only: [:create]
   load_and_authorize_resource
   before_filter :modified_mercury_editor_tag_text, only: [:mercury_create, :mercury_update]
 
@@ -39,6 +40,7 @@ class TemplatesController < ApplicationController
   def edit
     @initialize_tags = mercury_tags_json
     # @template initialized by load_and_authorize_resource
+    render layout: "froala"
   end
 
   def create
@@ -64,7 +66,7 @@ class TemplatesController < ApplicationController
       @template
     end
 
-    if @template.update_attributes(params[:template])
+    if @template.update_attributes(template_params)
       respond_to do |format|
         format.html { redirect_to rt }
         format.js
@@ -179,4 +181,19 @@ class TemplatesController < ApplicationController
     end
   end
 
+  def load_template
+    @template = Template.new(template_params)
+  end
+
+  def template_params
+    params.require(:template).permit(
+      :content,
+      :description,
+      :name,
+      :subject,
+      :attachments_attributes,
+      :attachments,
+      :parent_templates_folder_id
+    )
+  end
 end
