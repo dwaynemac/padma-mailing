@@ -10,6 +10,8 @@ Mailing::Application.routes.draw do
     match '/logout', to: "sso_sessions#destroy", via: [:get, :delete]
   end
   resource :sso_session
+  get "/login", :to => "sso_sessions#show"
+  match '/logout', to: "sso_sessions#destroy", via: [:get, :delete]
 
   namespace :api do
     namespace 'v0' do
