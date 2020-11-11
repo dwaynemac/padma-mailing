@@ -17,10 +17,10 @@ class ScheduledMail < ActiveRecord::Base
 
   def formatted_from_address
     address = Mail::Address.new( get_from_email_address )
-    address.display_name = get_from_display_name 
+    address.display_name = get_from_display_name
     address.format
   end
-  
+
   def get_bccs
     if self.bccs.blank?
       # padma_user.try(:email) if self.username
@@ -28,15 +28,15 @@ class ScheduledMail < ActiveRecord::Base
       parse_liquid(bccs,data_hash)
     end
   end
-  
+
   def get_from_display_name
     self.from_display_name.blank?? default_from_display_name : parse_liquid(from_display_name,data_hash)
   end
-  
+
   def get_from_email_address
     self.from_email_address.blank?? default_from_email_address : parse_liquid(from_email_address,data_hash)
   end
-  
+
   def parse_liquid(text,data)
     parsed = Liquid::Template.parse(text).render(data)
     if parsed =~ /Liquid error/
@@ -45,11 +45,11 @@ class ScheduledMail < ActiveRecord::Base
       parsed
     end
   end
-  
+
   def default_from_email_address
     account.try(:padma).try(:email)
   end
-  
+
   def default_from_display_name
     account.try(:padma).try(:branded_name)
   end
@@ -63,20 +63,20 @@ class ScheduledMail < ActiveRecord::Base
     contact_data = data_hash
     unless conditions_met?(contact_data)
       Rails.logger.info "Mail with data #{contact_data} cancelled, conditions not met."
-      
+
       update_attributes({
-        cancelled: true, 
+        cancelled: true,
         delivered_at: Time.now })
     end
-    
+
     return unless delivered_at.nil?
-    
+
     # freeze FROM address for history
     new_attributes = {}
-    
+
     new_attributes = new_attributes.merge( { from_display_name: get_from_display_name } )
     new_attributes = new_attributes.merge( { from_email_address: get_from_email_address} )
-    
+
     # freeze BCCs address for history
     new_attributes = new_attributes.merge( { bccs: get_bccs } )
 
@@ -87,9 +87,9 @@ class ScheduledMail < ActiveRecord::Base
       get_bccs,
       get_from_display_name,
       get_from_email_address
-    ).deliver
+    ).deliver_now
     new_attributes = new_attributes.merge( { delivered_at: Time.now } )
-    
+
     update_attributes(new_attributes)
 
     # Send notification to activities
@@ -158,7 +158,7 @@ class ScheduledMail < ActiveRecord::Base
       unless conditions_hash.blank?
         conditions_to_be_added = {}
         conditions_hash.keys.each do |key|
-          conditions_to_be_added[key] = contact.send(key) 
+          conditions_to_be_added[key] = contact.send(key)
         end
         data_hash.merge!({"conditions" => conditions_to_be_added})
       end
@@ -176,7 +176,7 @@ class ScheduledMail < ActiveRecord::Base
     unless event_key.blank?
       case event_key.to_sym
         when :subscription_change
-          
+
           subscription_change_drop = SubscriptionChangeDrop.new(
             contact_drop: contact_drop,
             instructor_drop: user
@@ -188,7 +188,7 @@ class ScheduledMail < ActiveRecord::Base
             'dropout'
           end
           data_hash.merge!(data_alias => subscription_change_drop)
-          
+
         #when :communication
         when :trial_lesson
           trial_at = json_data['trial_at']
