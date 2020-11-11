@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.8'
 
-gem 'rails', '~> 4.1.2'
+gem 'rails', '~> 4.2'
 gem 'ffi', '~> 1.0.11'
 
 gem 'i18n-js'
@@ -21,8 +21,12 @@ gem 'rails_12factor'
 gem 'intercom', '~> 3.7.6'
 gem 'intercom-rails'
 
-gem 'mercury-rails', path: "~/workspace/my_forks/mercury" #git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
+# gem 'mercury-rails', path: "~/workspace/my_forks/mercury" #git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
 gem "wysiwyg-rails"
+
+# responders gem for using respond_with
+gem 'responders', '~> 2.0'
+gem 'sprockets', '3.6.3'
 
 gem 'nokogiri'
 
@@ -46,9 +50,9 @@ gem 'kaminari'
 gem 'sass-rails'
 gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem "less-rails"
+# gem "less-rails"
 gem 'therubyracer', :platforms => :ruby
-gem 'less-rails-bootstrap', '~> 3.0.6'
+gem 'less-rails-bootstrap', '~> 3.3.5.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'jquery-fileupload-rails'
 
