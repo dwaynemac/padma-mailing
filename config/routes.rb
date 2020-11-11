@@ -1,9 +1,9 @@
 Mailing::Application.routes.draw do
 
-  namespace :mercury do
-     resources :images
-  end
-  mount Mercury::Engine => '/'
+  #  namespace :mercury do
+  #   resources :images
+  #end
+  #mount Mercury::Engine => '/'
 
   devise_for :users do
     get "/login", :to => "sso_sessions#show"
