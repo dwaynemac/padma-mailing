@@ -62,7 +62,7 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
   end
   
   def update
-    @configuration.update_attributes(params[:mailchimp_configuration])
+    @configuration.update_attributes(mailchimp_configuration_params)
     @configuration.update_synchronizer
     redirect_to mailchimp_configuration_path
   end
@@ -96,5 +96,8 @@ class Mailchimp::ConfigurationsController < Mailchimp::PetalController
     end
   end
 
+  def mailchimp_configuration_params
+    params.require(:mailchimp_configuration).permit!
+  end
   
 end

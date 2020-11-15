@@ -21,9 +21,10 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def update
     @list = Mailchimp::List.find(params[:id])
-    params[:mailchimp_list][:contact_attributes] = params[:mailchimp_list][:contact_attributes].reject(&:empty?).join(",")
-    params[:mailchimp_list][:mailchimp_segments_attributes] = set_status(params[:mailchimp_list][:mailchimp_segments_attributes])
-    if @list.update_attributes(params[:mailchimp_list])
+    permitted_mailchimp_list_params = mailchimp_list_params
+    permitted_mailchimp_list_params[:contact_attributes] = permitted_mailchimp_list_params[:contact_attributes].reject(&:empty?).join(",")
+    permitted_mailchimp_list_params[:mailchimp_segments_attributes] = set_status(permitted_mailchimp_list_params[:mailchimp_segments_attributes])
+    if @list.update_attributes(permitted_mailchimp_list_params)
       @list.mailchimp_configuration
            .update_attribute(:filter_method ,params[:filter_method]) # no validation here.
       @list.mailchimp_configuration.update_synchronizer
@@ -98,6 +99,7 @@ class Mailchimp::ListsController < Mailchimp::PetalController
 
   def update_notifications
     list = Mailchimp::List.find(params[:id])
+    permitted_notifications_params = notifications_params
     if params[:notifications][:events].nil?
       list.remove_webhook
       resp = { 
@@ -113,19 +115,19 @@ class Mailchimp::ListsController < Mailchimp::PetalController
     else
       %w(subscribe unsubscribe cleaned profile upemail campaign).each do |o|
         if params[:notifications][:events][o.to_sym].nil?
-          params[:notifications][:events][o.to_sym] = false
+          permitted_notifications_params[:events][o.to_sym] = false
         else
-          params[:notifications][:events][o.to_sym] = true
+          permitted_notifications_params[:events][o.to_sym] = true
         end
       end
       %w(admin user).each do |o|
         if params[:notifications][:sources][o.to_sym].nil?
-          params[:notifications][:sources][o.to_sym] = false
+          permitted_notifications_params[:sources][o.to_sym] = false
         else
-          params[:notifications][:sources][o.to_sym] = true
+          permitted_notifications_params[:sources][o.to_sym] = true
         end
       end
-      resp = list.update_notifications(params[:notifications])
+      resp = list.update_notifications(permitted_notifications_params)
     end
 
     if !resp["id"].nil?
@@ -205,6 +207,14 @@ class Mailchimp::ListsController < Mailchimp::PetalController
   def mailchimp_error(exception)
     flash.alert = t("mailchimp.errors.rest_client",error_message: exception.response.to_str)
     redirect_to segments_mailchimp_list_path(id: @list.id)
+  end
+
+  def mailchimp_list_params
+    params.require(:mailchimp_list).permit!
+  end
+
+  def notifications_params
+    params.require(:notifications).permit!
   end
 
 end
