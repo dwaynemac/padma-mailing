@@ -32,7 +32,7 @@ class TemplatesController < ApplicationController
     # @template initialized by load_and_authorize_resource
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render layout: "froala" }
       format.json { render json: @product }
     end
   end
@@ -185,6 +185,7 @@ class TemplatesController < ApplicationController
 
   def load_template
     @template = Template.new(template_params)
+    @template.local_account_id = current_user.current_account.id
   end
 
   def template_params
