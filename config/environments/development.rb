@@ -33,6 +33,7 @@ Rails.application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  config.assets.check_precompiled_asset = false
 
   config.before_configuration do
     env_file = File.join(Rails.root, 'config', 'local_env.yml')
@@ -44,6 +45,7 @@ Rails.application.configure do
   # Use Amazon S3 to store files
   config.paperclip_defaults = {
       :storage => :s3,
+      :s3_region => ENV["AWS_REGION"],
       :s3_credentials => {
           :bucket => ENV['AWS_BUCKET_NAME'],
           :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
