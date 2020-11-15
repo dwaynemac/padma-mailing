@@ -12,7 +12,6 @@
 //
 //= require padma-assets
 //= require jquery_nested_form
-//= require twitter/bootstrap
 //= require i18n
 //= require i18n/translations
 //= require templates

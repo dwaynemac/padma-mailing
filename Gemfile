@@ -52,7 +52,7 @@ gem 'coffee-rails'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem "less-rails"
 gem 'therubyracer', :platforms => :ruby
-gem 'less-rails-bootstrap', '~> 3.3.5.0'
+#gem 'less-rails-bootstrap', '~> 3.3.5.0'
 gem 'uglifier', '>= 1.0.3'
 gem 'jquery-fileupload-rails'
 
