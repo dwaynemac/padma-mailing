@@ -52,9 +52,11 @@ class TemplatesController < ApplicationController
   end
 
   def update
+    @template = Template.find params[:id]
     # @template initialized by load_and_authorize_resource
     if params[:template].has_key?(:attachment)
-      @attachment = @template.attachments.new(params[:template][:attachment])
+      debugger
+      @attachment = @template.attachments.new(template_params)
       params[:template].delete :attachment
     end
 
@@ -186,14 +188,14 @@ class TemplatesController < ApplicationController
   end
 
   def template_params
-    params.require(:template).permit(
-      :content,
-      :description,
-      :name,
-      :subject,
-      :attachments_attributes,
-      :attachments,
-      :parent_templates_folder_id
-    )
+    params.require(:template).permit!#(
+      #:content,
+      #:description,
+      #:name,
+      #:subject,
+      #:attachments_attributes,
+      #:parent_templates_folder_id,
+      #:attachment
+    #)
   end
 end
