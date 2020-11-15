@@ -80,7 +80,6 @@ end
 group :development do
   gem 'git-pivotal-tracker-integration'
   gem 'padma-deployment'
-  gem 'debugger2'
   gem 'foreman'
   gem 'subcontractor', '0.6.1'
 end
@@ -89,6 +88,7 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.0'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'shoulda'
+  gem 'byebug'
   gem 'factory_bot_rails'
   gem 'capybara'
 end
