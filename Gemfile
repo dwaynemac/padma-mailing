@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.8'
+ruby '2.6.8'
 
 gem 'rails', '~> 4.2'
 
@@ -28,13 +28,13 @@ gem 'intercom-rails'
 gem "wysiwyg-rails"
 
 # responders gem for using respond_with
-gem 'responders', '~> 2.0'
+gem 'responders', '2.4.1'
 gem 'sprockets', '3.6.3'
 
 gem 'nokogiri'
 
 # CAS authentication
-gem 'devise', '3.4.1'
+gem 'devise', '4.4.0'
 
 # authorization
 gem 'cancan'
