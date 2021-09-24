@@ -68,9 +68,7 @@ gem 'aws-sdk'
 # gem 'unicorn'
 gem 'puma'
 gem 'appsignal', '~> 2.8'
-group :production do
-  gem 'pg'
-end
+gem "pg", "0.21"
 
 group :doc do
   gem 'yard', '~> 0.7.4'
@@ -85,7 +83,6 @@ group :development do
 end
 
 group :development, :test do
-  gem 'sqlite3', '~> 1.3.0'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'shoulda'
   gem 'byebug'
