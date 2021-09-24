@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 ruby '2.3.8'
 
 gem 'rails', '~> 4.2'
-gem 'ffi', '~> 1.0.11'
 
 gem 'i18n-js'
 
