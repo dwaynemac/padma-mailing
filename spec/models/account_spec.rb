@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Account do
-  let(:account) { FactoryGirl.create(:account) }
+  let(:account) { FactoryBot.create(:account) }
   before(:each) do
     allow(PadmaAccount).to receive(:find).and_return(PadmaAccount.new(:name => account.name, :enabled => true))
   end
@@ -10,7 +10,7 @@ describe Account do
   it {should validate_presence_of :name}
   it {should validate_uniqueness_of :name}
 
-  it { should have_many(:templates).with_foreign_key(:local_account_id)}
+  it { should have_many(:templates).class_name('Template').with_foreign_key(:local_account_id)}
 
   describe "#padma" do
     it "should give access to padma accounts api" do

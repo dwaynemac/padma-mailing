@@ -4,8 +4,10 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <title><%= params[:page_title] %> - PADMA</title>
-    <%= stylesheet_link_tag    'mercury' %>
-    <%= javascript_include_tag 'jquery-1.7', 'mercury' %>
+    <%= stylesheet_link_tag 'mercury' %>
+    <%= stylesheet_link_tag 'mercury/bootstrap-ish' %>
+    <%= javascript_include_tag 'jquery-1.7' %>
+    <%= javascript_include_tag 'mercury' %>
   </head>
   <body>
   <script type="text/javascript">

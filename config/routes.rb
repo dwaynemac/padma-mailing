@@ -1,15 +1,17 @@
 Mailing::Application.routes.draw do
 
-  namespace :mercury do
-     resources :images
-  end
-  mount Mercury::Engine => '/'
+  #  namespace :mercury do
+  #   resources :images
+  #end
+  #mount Mercury::Engine => '/'
 
   devise_for :users do
-    match "/login", :to => "sso_sessions#show"
-    match '/logout', to: "sso_sessions#destroy"
+    get "/login", :to => "sso_sessions#show"
+    match '/logout', to: "sso_sessions#destroy", via: [:get, :delete]
   end
   resource :sso_session
+  get "/login", :to => "sso_sessions#show"
+  match '/logout', to: "sso_sessions#destroy", via: [:get, :delete]
 
   namespace :api do
     namespace 'v0' do
@@ -81,7 +83,7 @@ Mailing::Application.routes.draw do
   end
   resources :activities, only: [:destroy, :index]
 
-  match 'sns', to: 'message_door#sns'
-  match 'message_door', to: 'message_door#catch'
+  post 'sns', to: 'message_door#sns'
+  get 'message_door', to: 'message_door#catch'
   root to: 'templates#index'
 end

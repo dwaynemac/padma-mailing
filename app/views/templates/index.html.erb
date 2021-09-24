@@ -16,7 +16,7 @@
   </div>
   <div class="pull-right">
     <% if @current_folder.nil? %>
-      <%= link_to t('.new_template'), "/editor" + new_template_path(page_title: t("templates.show.title")),
+      <%= link_to t('.new_template'), new_template_path(page_title: t("templates.show.title")),
                   class: 'btn btn-primary' %>
     <% end %>
   </div>
@@ -50,7 +50,7 @@
                       template,
                       class: 'btn btn-mini btn-default' %>
           <%= link_to t('edit'),
-                      "/editor" + edit_template_path(template, page_title: t("templates.show.title")),
+                      edit_template_path(template, page_title: t("templates.show.title")),
                       class: 'btn btn-mini btn-default' %>
         </td>
         <td>

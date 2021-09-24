@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe ScheduledMail do
 
@@ -20,8 +20,8 @@ describe ScheduledMail do
     subject{sm.data_hash}
     context "with accounts-ws and contacts-ws online" do
       before(:each) do
-        PadmaUser.stub(:find).and_return(PadmaUser.new)
-        PadmaContact.stub(:find).and_return(PadmaContact.new)
+        allow(PadmaUser).to receive(:find).and_return(PadmaUser.new)
+        allow(PadmaContact).to receive(:find).and_return(PadmaContact.new)
       end
       context "if scheduled mail has contact_id" do
         let(:sm){create(:scheduled_mail, contact_id: 1)}
@@ -108,29 +108,29 @@ describe ScheduledMail do
   end
   context "when it has conditions" do
     before(:each) do
-        PadmaUser.stub(:find).and_return(PadmaUser.new)
-        PadmaContact.stub(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
+        allow(PadmaUser).to receive(:find).and_return(PadmaUser.new)
+        allow(PadmaContact).to receive(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
       end
     describe "and meets them" do
       let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({"status" => "student", "coefficient" => "perfil"})) }
       it "should send the mail" do
         contact_hash = sm.data_hash
-        sm.conditions_met?(contact_hash).should be_truthy
+        expect(sm.conditions_met?(contact_hash)).to be_truthy
       end
     end
     describe "and does not meet them" do
       let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({"status" => "former_student", "coefficient" => "perfil"})) }
       it "should not send the mail" do
         contact_hash = sm.data_hash
-        sm.conditions_met?(contact_hash).should be_falsey
+        expect(sm.conditions_met?(contact_hash)).to be_falsey
       end
     end
   end
   context "when it does not have conditions" do
     let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({})) }
     before(:each) do
-      PadmaUser.stub(:find).and_return(PadmaUser.new)
-      PadmaContact.stub(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
+      allow(PadmaUser).to receive(:find).and_return(PadmaUser.new)
+      allow(PadmaContact).to receive(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
     end
     it "should meet conditions" do
       contact_hash = sm.data_hash

@@ -1,34 +1,40 @@
 source 'https://rubygems.org'
 
-ruby '2.1.10'
+ruby '2.6.8'
 
-gem 'rails', '~> 3.2.11'
-gem 'ffi', '~> 1.0.11'
+gem 'rails', '~> 4.2'
 
 gem 'i18n-js'
 
 gem 'rack-cors'
 
-gem 'messaging_client', '~> 0.1'
-gem 'activity_stream_client', '0.0.16'
-gem 'logical_model', '0.6.4'
-gem 'contacts_client', '0.0.40'
-gem 'accounts_client', '0.2.38'
+# Padma Clients
+gem 'logical_model', '0.7.1'
+gem 'activity_stream_client', '0.1.0'
+gem 'contacts_client', '~> 0.1.0'
+gem 'accounts_client', '0.3.0'
+gem 'messaging_client', '~> 0.3.0'
+
+gem 'padma-assets', '0.2.39'
+
 gem 'attendance_client', '0.0.4'
 gem 'gibbon', '~> 3.1', '>= 3.1.1'
-# gem 'mailchimp_client', path: '~/ws/padma/clients/mailchimp_client'
 gem 'rails_12factor'
 
 gem 'intercom', '~> 3.7.6'
 gem 'intercom-rails'
 
-gem 'mercury-rails'
+# gem 'mercury-rails', path: "~/workspace/my_forks/mercury" #git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
+gem "wysiwyg-rails"
+
+# responders gem for using respond_with
+gem 'responders', '2.4.1'
+gem 'sprockets', '3.6.3'
 
 gem 'nokogiri'
-gem 'strong_parameters'
 
 # CAS authentication
-gem 'devise', '1.5.0'
+gem 'devise', '4.4.0'
 
 # authorization
 gem 'cancan'
@@ -38,22 +44,18 @@ gem 'delayed_job_active_record' # must be declared after 'protected_attributes' 
 gem 'liquid'
 gem "nested_form"
 
-gem 'padma-assets', '0.2.29'
-
 gem 'rest-client'
 
 gem 'kaminari'
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem "less-rails"
-  gem 'therubyracer', :platforms => :ruby
-  gem 'less-rails-bootstrap', '~> 3.0.6'
-  gem 'uglifier', '>= 1.0.3'
-  gem 'jquery-fileupload-rails'
-end
+gem 'sass-rails'
+gem 'coffee-rails'
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem "less-rails"
+gem 'therubyracer', :platforms => :ruby
+#gem 'less-rails-bootstrap', '~> 3.3.5.0'
+gem 'uglifier', '>= 1.0.3'
+gem 'jquery-fileupload-rails'
 
 gem 'jquery-rails'
 
@@ -67,9 +69,7 @@ gem 'aws-sdk'
 # gem 'unicorn'
 gem 'puma'
 gem 'appsignal', '~> 2.8'
-group :production do
-  gem 'pg'
-end
+gem "pg", "0.21"
 
 group :doc do
   gem 'yard', '~> 0.7.4'
@@ -79,16 +79,15 @@ end
 group :development do
   gem 'git-pivotal-tracker-integration'
   gem 'padma-deployment'
-  gem 'debugger2'
   gem 'foreman'
   gem 'subcontractor', '0.6.1'
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'rspec-rails', '~> 3.4.0'
   gem 'shoulda'
-  gem 'factory_girl_rails'
+  gem 'byebug'
+  gem 'factory_bot_rails'
   gem 'capybara'
 end
 

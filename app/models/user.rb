@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :username
+  # attr_accessible :username
 
   include Accounts::IsAUser
 

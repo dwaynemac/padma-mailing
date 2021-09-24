@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   # Mocks CAS login in development
   def mock_login
     if Rails.env.development?
-      user = User.find_or_create_by_username("luis.perichon")
+      user = User.find_or_create_by(username: "luis.perichon")
       sign_in(user)
     end
   end
@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
 
   def set_current_account
     if signed_in? && current_user.padma_enabled?
-      current_user.current_account = Account.find_or_create_by_name(current_user.padma.current_account_name)
+      current_user.current_account = Account.find_or_create_by(name: current_user.padma.current_account_name)
     end
   end
 

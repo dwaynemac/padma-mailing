@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Filter do
 
@@ -12,12 +12,12 @@ describe Filter do
 
     it "wont convert local_status to local_status_for_AccountName" do
       f = create(:filter, trigger: trigger, key: 'local_status', value: 'student')
-      f.key.should == "local_status_for_#{trigger.account.name}"
+      expect(f.key).to eq "local_status_for_#{trigger.account.name}"
     end
 
     it "wont convert local_coefficient to local_coefficient_for_AccountName" do
       f = create(:filter, trigger: trigger, key: 'local_coefficient', value: 'perfil')
-      f.key.should == "local_coefficient_for_#{trigger.account.name}"
+      expect(f.key).to eq "local_coefficient_for_#{trigger.account.name}"
     end
   end
 
@@ -26,12 +26,12 @@ describe Filter do
 
     it "does NOT convert local_status to local_status_for_AccountName" do
       f = create(:filter, trigger: trigger, key: 'local_status', value: 'student')
-      f.key.should_not == "local_status_for_#{trigger.account.name}"
+      expect(f.key).not_to eq "local_status_for_#{trigger.account.name}"
     end
 
     it "does NOT convert local_coefficient to local_coefficient_for_AccountName" do
       f = create(:filter, trigger: trigger, key: 'local_coefficient', value: 'perfil')
-      f.key.should_not == "local_coefficient_for_#{trigger.account.name}"
+      expect(f.key).not_to eq "local_coefficient_for_#{trigger.account.name}"
     end
   end
 

@@ -6,21 +6,21 @@ require 'rest_client'
 #   perfil = p + pmas
 #
 class Mailchimp::Segment < ActiveRecord::Base
-  attr_accessible :api_id
-  attr_accessible :mailchimp_list_id
-  attr_accessible :contact_segment_id # this segment mapped in contacts-ws
+  # attr_accessible :api_id
+  # attr_accessible :mailchimp_list_id
+  # attr_accessible :contact_segment_id # this segment mapped in contacts-ws
 
   # CONDITIONS FOR SEGMENT
-  attr_accessible :prospect
-  attr_accessible :exstudent
-  attr_accessible :student
-  attr_accessible :gender
-  attr_accessible :coefficient
-  attr_accessible :name
-  attr_accessible :followed_by
+  # attr_accessible :prospect
+  # attr_accessible :exstudent
+  # attr_accessible :student
+  # attr_accessible :gender
+  # attr_accessible :coefficient
+  # attr_accessible :name
+  # attr_accessible :followed_by
 
   attr_accessor :_destroy
-  attr_accessible :_destroy
+  # attr_accessible :_destroy
 
   belongs_to :mailchimp_list, foreign_key: :mailchimp_list_id, class_name: "Mailchimp::List"
   

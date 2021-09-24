@@ -111,15 +111,24 @@ class Api::V0::ImportsController < Api::V0::ApiController
 
   def initialize_import
     scope = @account.imports
-    scope.new(params[:import])
+    scope.new(import_params)
   end
 
 
   def get_account
     if params[:account_name]
       account_name = params[:account_name]
-      @account = Account.find_or_create_by_name(account_name)
+      @account = Account.find_or_create_by(name: account_name)
     end
+  end
+
+  def import_params
+    params.require(:import).permit(
+      :csv_file,
+      :headers,
+      :status,
+      :type
+    )
   end
 
 end

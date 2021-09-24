@@ -1,14 +1,14 @@
 #encoding: UTF-8
-require 'spec_helper'
+require 'rails_helper'
 
 describe Api::V0::Mailchimp::ListsController do
   before do
-    PadmaContact.stub(:search).and_return([PadmaContact.new(id: 1234)])
-    ActivityStream::Activity.stub(:new)
-    Mailchimp::List.any_instance.stub_chain(:mailchimp_configuration, :account).and_return(account)
-    Mailchimp::List.any_instance.stub(:add_webhook)
-    Mailchimp::Configuration.any_instance.stub(:sync_mailchimp_lists_locally)
-    Mailchimp::List.any_instance.stub(:mailchimp_configuration).and_return(conf)
+    allow(PadmaContact).to receive(:search).and_return([PadmaContact.new(id: 1234)])
+    allow(ActivityStream::Activity).to receive(:new)
+    allow_any_instance_of(Mailchimp::List).to receive_message_chain(:mailchimp_configuration, :account).and_return(account)
+    allow_any_instance_of(Mailchimp::List).to receive(:add_webhook)
+    allow_any_instance_of(Mailchimp::Configuration).to receive(:sync_mailchimp_lists_locally)
+    allow_any_instance_of(Mailchimp::List).to receive(:mailchimp_configuration).and_return(conf)
     I18n.default_locale = "en"
   end
   let(:account){create(:account)}
@@ -29,7 +29,7 @@ describe Api::V0::Mailchimp::ListsController do
     end
     context "on subscribe" do
       before do
-        Mailchimp::List.any_instance.should_receive(:subscription_change).with(I18n.t("mailchimp.webhook.subscribed_to", list_name: list.name), 1234)
+        expect_any_instance_of(Mailchimp::List).to receive(:subscription_change).with(I18n.t("mailchimp.webhook.subscribed_to", list_name: list.name), 1234)
       end
       it "should create an activity" do
         get :webhooks,
@@ -55,7 +55,7 @@ describe Api::V0::Mailchimp::ListsController do
     end
     context "on unsubscribe" do
       before do
-        Mailchimp::List.any_instance.should_receive(:subscription_change).with(I18n.t("mailchimp.webhook.unsubscribed_from", list_name: list.name), 1234)
+        expect_any_instance_of(Mailchimp::List).to receive(:subscription_change).with(I18n.t("mailchimp.webhook.unsubscribed_from", list_name: list.name), 1234)
       end
       it "should create an activity" do
         get :webhooks,
@@ -83,7 +83,7 @@ describe Api::V0::Mailchimp::ListsController do
     end
     context "on campaign sent" do
       before do
-        Mailchimp::List.any_instance.should_receive(:inform_campaign).with("newcamp")
+        expect_any_instance_of(Mailchimp::List).to receive(:inform_campaign).with("newcamp")
       end
       it "should create an activity" do
         get :webhooks,
@@ -100,7 +100,7 @@ describe Api::V0::Mailchimp::ListsController do
     end
     context "on campaign not sent" do
       before do
-        Mailchimp::List.any_instance.should_not_receive(:inform_campaign).with("Campaign newcamp from list #{list.name} sent")
+        expect_any_instance_of(Mailchimp::List).not_to receive(:inform_campaign).with("Campaign newcamp from list #{list.name} sent")
       end
       it "should create an activity" do
         get :webhooks,

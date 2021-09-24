@@ -1,11 +1,11 @@
 class Mailchimp::List < ActiveRecord::Base
-  attr_accessible :api_id
-  attr_accessible :mailchimp_configuration_id
-  attr_accessible :name
-  attr_accessible :mailchimp_segments_attributes
-  attr_accessible :contact_attributes
-  attr_accessible :receive_notifications
-  attr_accessible :webhook_configuration
+  # attr_accessible :api_id
+  # attr_accessible :mailchimp_configuration_id
+  # attr_accessible :name
+  # attr_accessible :mailchimp_segments_attributes
+  # attr_accessible :contact_attributes
+  # attr_accessible :receive_notifications
+  # attr_accessible :webhook_configuration
 
   DEFAULT_NOTIFICATIONS =
     {

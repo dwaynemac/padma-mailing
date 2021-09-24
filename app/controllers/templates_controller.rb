@@ -1,6 +1,7 @@
 class TemplatesController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
+  before_filter :load_template, only: [:create]
   load_and_authorize_resource
   before_filter :modified_mercury_editor_tag_text, only: [:mercury_create, :mercury_update]
 
@@ -31,7 +32,7 @@ class TemplatesController < ApplicationController
     # @template initialized by load_and_authorize_resource
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { render layout: "froala" }
       format.json { render json: @product }
     end
   end
@@ -39,6 +40,7 @@ class TemplatesController < ApplicationController
   def edit
     @initialize_tags = mercury_tags_json
     # @template initialized by load_and_authorize_resource
+    render layout: "froala"
   end
 
   def create
@@ -50,9 +52,11 @@ class TemplatesController < ApplicationController
   end
 
   def update
+    @template = Template.find params[:id]
     # @template initialized by load_and_authorize_resource
     if params[:template].has_key?(:attachment)
-      @attachment = @template.attachments.new(params[:template][:attachment])
+      debugger
+      @attachment = @template.attachments.new(template_params)
       params[:template].delete :attachment
     end
 
@@ -64,7 +68,7 @@ class TemplatesController < ApplicationController
       @template
     end
 
-    if @template.update_attributes(params[:template])
+    if @template.update_attributes(template_params)
       respond_to do |format|
         format.html { redirect_to rt }
         format.js
@@ -179,4 +183,20 @@ class TemplatesController < ApplicationController
     end
   end
 
+  def load_template
+    @template = Template.new(template_params)
+    @template.local_account_id = current_user.current_account.id
+  end
+
+  def template_params
+    params.require(:template).permit!#(
+      #:content,
+      #:description,
+      #:name,
+      #:subject,
+      #:attachments_attributes,
+      #:parent_templates_folder_id,
+      #:attachment
+    #)
+  end
 end

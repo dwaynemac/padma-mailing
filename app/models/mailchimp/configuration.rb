@@ -5,10 +5,10 @@ class Mailchimp::Configuration < ActiveRecord::Base
   # This is a bug in Rails 3.2 that is fixed in Rails 4.0.0.
   self.table_name = 'mailchimp_configurations'
   
-  attr_accessible :api_key
-  attr_accessible :local_account_id
-  attr_accessible :synchronizer_id
-  attr_accessible :filter_method
+  # attr_accessible :api_key
+  # attr_accessible :local_account_id
+  # attr_accessible :synchronizer_id
+  # attr_accessible :filter_method
   attr_accessor :status
 
   validates_presence_of :api_key
@@ -17,7 +17,7 @@ class Mailchimp::Configuration < ActiveRecord::Base
   belongs_to :account, foreign_key: :local_account_id
 
   # List with which PADMA is synced
-  attr_accessible :primary_list_id
+  # attr_accessible :primary_list_id
   belongs_to :primary_list, foreign_key: :primary_list_id, class_name: 'Mailchimp::List'
 
   has_many :mailchimp_segments,

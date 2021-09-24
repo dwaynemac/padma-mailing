@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe MessageDoorController do
 
@@ -13,13 +13,13 @@ describe MessageDoorController do
   before do
     Delayed::Worker.delay_jobs = false
     # if account is enabled
-    PadmaAccount.stub(:find).and_return PadmaAccount.new(name: 'stubbedAccount', enabled: true)
+    allow(PadmaAccount).to receive(:find).and_return PadmaAccount.new(name: 'stubbedAccount', enabled: true)
   end
 
   describe "real life example" do
     before do
       Rails.cache.clear
-      PadmaContact.stub(:find).and_return PadmaContact.new email: 'dwa@asd.com'
+      allow(PadmaContact).to receive(:find).and_return PadmaContact.new email: 'dwa@asd.com'
       account = create(:account, name: 'testing')
       template = create(:template, account: account )
       t = create(:trigger, event_name: 'subscription_change', account: account)

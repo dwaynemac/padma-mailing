@@ -1,8 +1,8 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Mailchimp::List do
-  let(:configuration){FactoryGirl.create(:mailchimp_configuration, api_key: "1234")}
-  let(:list){FactoryGirl.create(:mailchimp_list, receive_notifications: false, mailchimp_configuration: configuration)}
+  let(:configuration){FactoryBot.create(:mailchimp_configuration, api_key: "1234")}
+  let(:list){FactoryBot.create(:mailchimp_list, receive_notifications: false, mailchimp_configuration: configuration)}
   before do
     allow_any_instance_of(Mailchimp::Configuration).to receive(:api_key_is_valid).and_return(true)
     allow_any_instance_of(Mailchimp::Configuration).to receive(:create_synchronizer).and_return(true)
@@ -15,11 +15,11 @@ describe Mailchimp::List do
       end
       it "should not change receive notifications" do
         list.add_webhook
-        list.receive_notifications.should be_falsy
+        expect(list.receive_notifications).to be_falsy
       end
       it "should show setted error" do
         list.add_webhook
-        list.errors.full_messages.first.should == "some error"
+        expect(list.errors.full_messages.first).to eq "some error"
       end
     end
     context "on success" do
@@ -28,7 +28,7 @@ describe Mailchimp::List do
       end
       it "should set receive notifications to true" do
         list.add_webhook
-        list.receive_notifications.should be_truthy
+        expect(list.receive_notifications).to be_truthy
       end
     end
   end
@@ -37,9 +37,9 @@ describe Mailchimp::List do
       allow_any_instance_of(Account).to receive(:padma).and_return(PadmaAccount.new(locale: "es", timezone: "Buenos Aires"))
       allow_any_instance_of(Mailchimp::List).to receive(:subscription_change).and_return(nil)
       allow_any_instance_of(Mailchimp::List).to receive(:add_webhook).and_return(nil)
-      a = FactoryGirl.create(:account)
+      a = FactoryBot.create(:account)
       configuration.local_account_id = a.id
-      u = FactoryGirl.create(:user, current_account_id: a.id)
+      u = FactoryBot.create(:user, current_account_id: a.id)
       allow_any_instance_of(Mailchimp::List).to receive(:get_contact_id_by_email).and_return(u.id)
     end
     it "should send message with correct locale" do
@@ -51,7 +51,7 @@ describe Mailchimp::List do
         }
       }
       list.create_activity(params)
-      I18n.locale.should == :es
+      expect(I18n.locale).to eq :es
     end
     it "should send message with correct timezone" do
       Time.zone = "Sydney"
@@ -62,7 +62,7 @@ describe Mailchimp::List do
         }
       }
       list.create_activity(params)
-      Time.zone.name.should == "Buenos Aires"
+      expect(Time.zone.name).to eq "Buenos Aires"
     end
   end
 end

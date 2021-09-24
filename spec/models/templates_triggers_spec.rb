@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe TemplatesTriggers do
   let(:trigger){ create(:trigger) }
@@ -22,7 +22,7 @@ describe TemplatesTriggers do
     let(:trigger){TemplatesTriggers.new(offset_number: 1)}
     it "should require offset_unit" do
       trigger.valid?
-      trigger.errors[:offset_unit].should include I18n.t('errors.messages.blank')
+      expect(trigger.errors[:offset_unit]).to include I18n.t('errors.messages.blank')
     end
   end
   context "if offset_number is NOT set" do
@@ -36,35 +36,35 @@ describe TemplatesTriggers do
   describe "#valid_offset_unit?" do
 
     it "considers 'asdf' invalid" do
-      TemplatesTriggers.new(offset_unit: 'asdf').valid_offset_unit?.should be_falsey
+      expect(TemplatesTriggers.new(offset_unit: 'asdf').valid_offset_unit?).to be_falsey
     end
 
     it "considers 'hour' valid" do
-      TemplatesTriggers.new(offset_unit: 'hour').valid_offset_unit?.should be_truthy
+      expect(TemplatesTriggers.new(offset_unit: 'hour').valid_offset_unit?).to be_truthy
     end
 
     it "considers 'hours' valid" do
-      TemplatesTriggers.new(offset_unit: 'hours').valid_offset_unit?.should be_truthy
+      expect(TemplatesTriggers.new(offset_unit: 'hours').valid_offset_unit?).to be_truthy
     end
 
     it "considers 'month' valid" do
-      TemplatesTriggers.new(offset_unit: 'month').valid_offset_unit?.should be_truthy
+      expect(TemplatesTriggers.new(offset_unit: 'month').valid_offset_unit?).to be_truthy
     end
 
     it "considers 'years' valid" do
-      TemplatesTriggers.new(offset_unit: 'years').valid_offset_unit?.should be_truthy
+      expect(TemplatesTriggers.new(offset_unit: 'years').valid_offset_unit?).to be_truthy
     end
   end
 
   describe "#valid_offset_number?" do
     it "considers '0' invalid" do
-      TemplatesTriggers.new(offset_number: 0).valid_offset_number?.should be_falsey
+      expect(TemplatesTriggers.new(offset_number: 0).valid_offset_number?).to be_falsey
     end
     it "considers '1' valid" do
-      TemplatesTriggers.new(offset_number: 1).valid_offset_number?.should be_truthy
+      expect(TemplatesTriggers.new(offset_number: 1).valid_offset_number?).to be_truthy
     end
     it "considers '-1' valid" do
-      TemplatesTriggers.new(offset_number: -1).valid_offset_number?.should be_truthy
+      expect(TemplatesTriggers.new(offset_number: -1).valid_offset_number?).to be_truthy
     end
   end
   
@@ -74,20 +74,20 @@ describe TemplatesTriggers do
       context "with a valid time" do
         let(:data){{communicated_at: "2013-02-21 18:56:46 -0300"}}
         it "returns Time" do
-          tt.delivery_time(data).should be_a(Time)
+          expect(tt.delivery_time(data)).to be_a(Time)
         end
       end
       context "with an invalid time" do
         let(:data){{communicated_at: "whatever"}}
         it "returns nil" do
-          tt.delivery_time(data).should be_nil
+          expect(tt.delivery_time(data)).to be_nil
         end
       end
     end
     context "with a data without needed data" do
       let(:data){{some: 'thing', else: 'here'}}
       it "returns nil" do
-        tt.delivery_time(data).should be_nil
+        expect(tt.delivery_time(data)).to be_nil
       end
     end
   end

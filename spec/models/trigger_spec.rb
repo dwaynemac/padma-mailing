@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Trigger do
   it { should belong_to(:account).with_foreign_key(:local_account_id) }
@@ -113,7 +113,7 @@ describe Trigger do
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before(:each) do
           trigger # create trigger
-          PadmaContact.should_receive(:find)
+          expect(PadmaContact).to receive(:find)
                       .with(1234,
                             select: [:email],
                             account_name: 'my-account')
@@ -164,7 +164,7 @@ describe Trigger do
         end
         it "schedules email to now+1day" do
           Trigger.catch_message key, data
-          ScheduledMail.last.send_at.should be_within(10).of(Time.now+1.day)
+          expect(ScheduledMail.last.send_at).to be_within(10).of(Time.now+1.day)
         end
         it "ignores deliveries with send_at in the past"  do
           late_trigger
@@ -330,7 +330,7 @@ describe Trigger do
                         status: 'student'}.stringify_keys!}
           before(:each) do
             birthday_trigger
-            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
                 PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           end
           it "calls PadmaContact" do
@@ -351,7 +351,7 @@ describe Trigger do
                         status: 'prospect'}.stringify_keys!}
           before(:each) do
             birthday_trigger
-            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
             PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           end
           it "calls PadmaContact" do
@@ -371,7 +371,7 @@ describe Trigger do
           }
           before(:each) do
             birthday_trigger
-            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
               PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
             )
           end
@@ -390,7 +390,7 @@ describe Trigger do
           }
           before(:each) do
             birthday_trigger
-            PadmaContact.should_receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
               PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
             )
           end
@@ -459,7 +459,7 @@ describe Trigger do
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
           end
           it "should meet conditions in the Scheduled Mail" do
-            PadmaContact.should_receive(:find).with(
+            expect(PadmaContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
@@ -478,10 +478,10 @@ describe Trigger do
             )
             Trigger.catch_message(key, data)
             s = ScheduledMail.last
-            s.conditions_met?(s.data_hash).should be_truthy
+            expect(s.conditions_met?(s.data_hash)).to be_truthy
           end
           it "should deliver the mail" do
-            PadmaContact.should_receive(:find).with(
+            expect(PadmaContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
@@ -498,8 +498,8 @@ describe Trigger do
                 coefficient: "pmas"
               )
             )
-            Template.any_instance.stub(:deliver) {nil}
-            PadmaMailer.any_instance.should_receive(:template).and_return Template.last
+            allow_any_instance_of(Template).to receive(:deliver) {nil}
+            expect_any_instance_of(PadmaMailer).to receive(:template).and_return Template.last
             Trigger.catch_message(key, data)
             s = ScheduledMail.last
             s.deliver_now!
@@ -533,10 +533,10 @@ describe Trigger do
             )
             Trigger.catch_message(key, data)
             s = ScheduledMail.last
-            s.conditions_met?(s.data_hash).should be_falsey
+            expect(s.conditions_met?(s.data_hash)).to be_falsey
           end
           it "should not deliver the mail" do
-            PadmaContact.should_receive(:find).with(
+            expect(PadmaContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
@@ -553,7 +553,7 @@ describe Trigger do
                 coefficient: "perfil"
               )
             )
-            PadmaMailer.any_instance.should_not_receive(:template)
+            expect_any_instance_of(PadmaMailer).not_to receive(:template)
             Trigger.catch_message(key, data)
             s = ScheduledMail.last
             s.deliver_now!
@@ -569,11 +569,11 @@ describe Trigger do
           end
           it "conditions generated should be empty" do
             Trigger.catch_message(key, data)
-            ScheduledMail.last.conditions.should == "{}"
+            expect(ScheduledMail.last.conditions).to eq "{}"
           end
 
           it "should meet conditions" do
-            PadmaContact.should_receive(:find).with(
+            expect(PadmaContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
@@ -590,7 +590,7 @@ describe Trigger do
             )
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
             s = ScheduledMail.last
-            s.conditions_met?(s.data_hash).should be_truthy
+            expect(s.conditions_met?(s.data_hash)).to be_truthy
           end
         end
       end

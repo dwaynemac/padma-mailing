@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe Template do
   it { should validate_presence_of :subject }
@@ -138,7 +138,7 @@ In feugiat fermentum mattis. Lorem ipsum dolor sit amet, consectetur adipiscing 
 Fusce vehicula imperdiet mollis. Etiam dapibus imperdiet tempor. Curabitur semper orci ac tellus iaculis congue. Nam sit amet enim a arcu adipiscing molestie. Nam quam lorem, convallis eu fermentum et, tempus a neque. In hac habitasse platea dictumst. Curabitur quam est, cursus convallis sollicitudin vitae, pulvinar eget mi.
 Curabitur fermentum libero et nisl condimentum non rhoncus eros facilisis. Curabitur eget tortor nulla, vel faucibus massa. In eu massa eu augue imperdiet aliquam. Vivamus non nisi nisi, a ullamcorper neque. Phasellus congue, felis vel tempus blandit, dolor elit porta leo, et rutrum leo justo sed massa. Nulla feugiat fringilla varius. Maecenas vel elit orci.
 Mauris enim risus, porta nec fringilla tristique, sagittis vitae massa. Curabitur fermentum lobortis nisi vitae convallis. Vestibulum blandit risus velit. Mauris nec nulla purus, eget pretium libero. Fusce lacus felis, blandit et pellentesque sit amet, viverra non nulla. Nulla facilisi. Nam nec varius arcu. Nullam laoreet massa tellus, at malesuada massa. Sed condimentum nulla vitae lorem consequat consequat. Donec gravida, ligula suscipit vestibulum feugiat, urna augue venenatis sem, eu scelerisque nisi tortor imperdiet magna. Sed mattis, dui vehicula mollis interdum, felis nulla ornare nibh, ac dignissim turpis velit non tellus. Aenean pretium blandit euismod. Quisque vitae nisi neque. Sed vulputate volutpat libero, in varius ligula scelerisque in. Curabitur aliquet tempus mi, vel sagittis felis aliquam non. Etiam accumsan dapibus ante non molestie."
-      account = FactoryGirl.create(:account)
+      account = FactoryBot.create(:account)
       template = Template.new(name: "new_template", subject: "this_subject", content: content)
       template.account = account
 

@@ -20,6 +20,7 @@ Procfile.dev
 /public/*
 *.swp
 *.swo
+.byebug_history
 /coverage
 /.generators
 /.rakeTasks
