@@ -9,11 +9,15 @@ gem 'i18n-js'
 
 gem 'rack-cors'
 
-gem 'messaging_client', '~> 0.1'
-gem 'activity_stream_client', '0.0.16'
-gem 'logical_model', '0.6.6'
-gem 'contacts_client', '0.0.54'
-gem 'accounts_client', '0.2.38'
+# Padma Clients
+gem 'logical_model', '0.7.1'
+gem 'activity_stream_client', '0.1.0'
+gem 'contacts_client', '~> 0.1.0'
+gem 'accounts_client', '0.3.0'
+gem 'messaging_client', '~> 0.3.0'
+
+gem 'padma-assets', '0.2.39'
+
 gem 'attendance_client', '0.0.4'
 gem 'gibbon', '~> 3.1', '>= 3.1.1'
 gem 'rails_12factor'
@@ -40,8 +44,6 @@ gem 'cancan'
 gem 'delayed_job_active_record' # must be declared after 'protected_attributes' gem
 gem 'liquid'
 gem "nested_form"
-
-gem 'padma-assets', '0.2.39'
 
 gem 'rest-client'
 
