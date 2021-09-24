@@ -135,6 +135,9 @@ en:
       template:
         name: Name
         subject: Subject
+        description: Description
+        content_html: Body HTML
+        content: Body
       mailchimp/segment:
         name: Name
     models:

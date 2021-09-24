@@ -1,0 +1,20 @@
+<%= form_for @template do |f| %>
+  <div class="form-group">
+    <%= t("activerecord.attributes.template.name") %>: <%= f.text_field :name %>
+  </div>
+  <div class="form-group">
+    <%= t("activerecord.attributes.template.description") %>: <%= f.text_field :description %>
+  </div>
+  <div class="form-group">
+    <%= t("activerecord.attributes.template.subject") %>: <%= f.text_field :subject %>
+  </div>
+  <%= t("activerecord.attributes.template.content_html") %>: <%= f.text_area :content, size: "80x100" %>
+  <div class="form-group">
+    <%= f.button :submit, class: 'btn btn-primary' %>
+    <% if @template.id.nil? %>
+      <%= link_to "Cancel", templates_path, class: 'btn btn-danger' %>
+    <% else %>
+      <%= link_to "Cancel", template_path(@template.id), class: 'btn btn-danger' %>
+    <% end %>
+  </div>
+<% end %>

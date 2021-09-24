@@ -76,6 +76,7 @@ Mailing::Application.routes.draw do
   resources :templates do
     resources :attachments
     member do
+      get "edit_html"
       post 'deliver'
       put :mercury_update
     end

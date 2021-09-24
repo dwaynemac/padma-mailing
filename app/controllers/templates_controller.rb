@@ -43,6 +43,10 @@ class TemplatesController < ApplicationController
     render layout: "froala"
   end
 
+  def edit_html
+
+  end
+
   def create
     # @template initialized by load_and_authorize_resource
     @template.update_attribute("local_account_id", current_user.current_account.id)

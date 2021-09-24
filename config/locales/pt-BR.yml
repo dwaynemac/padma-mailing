@@ -56,6 +56,8 @@ pt-BR:
         name: Nome
         description: Descriçāo
         subject: Asunto
+        content_html: HTML do conteúdo
+        content: Conteúdo
       templates_triggers:
         template: Modelo
       trigger:

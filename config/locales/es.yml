@@ -9,6 +9,8 @@ es:
         name: Nombre
         description: Descripción
         subject: Asunto
+        content_html: HTML del cuerpo
+        content: Cuerpo
       templates_triggers:
         template: Modelo
       trigger:
