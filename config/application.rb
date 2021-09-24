@@ -23,7 +23,7 @@ module Mailing
     config.i18n.default_locale = 'pt-BR'
     config.i18n.available_locales = %W(en es pt-BR)
 
-    config.middleware.use SimplesIdeias::I18n::Middleware
+    #config.middleware.use SimplesIdeias::I18n::Middleware
 
     config.encoding = "utf-8"
 
