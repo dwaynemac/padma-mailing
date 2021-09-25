@@ -32,7 +32,7 @@ class TemplatesController < ApplicationController
     # @template initialized by load_and_authorize_resource
 
     respond_to do |format|
-      format.html { render layout: "froala" }
+      format.html { render layout: "quill" }
       format.json { render json: @product }
     end
   end
@@ -40,7 +40,7 @@ class TemplatesController < ApplicationController
   def edit
     @initialize_tags = mercury_tags_json
     # @template initialized by load_and_authorize_resource
-    render layout: "froala"
+    render layout: "quill"
   end
 
   def edit_html

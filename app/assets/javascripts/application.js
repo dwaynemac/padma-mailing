@@ -22,7 +22,6 @@
 //= require bootstrap-select-patch
 //= require mailchimp/lists
 //= require mailchimp/configurations
-//= require froala_editor.min.js
 //= require plugins/align.min.js
 //= require plugins/char_counter.min.js
 //= require plugins/code_beautifier.min.js
