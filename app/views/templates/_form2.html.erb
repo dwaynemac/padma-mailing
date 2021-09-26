@@ -8,7 +8,11 @@
   <div class="form-group">
   Subject: <%= f.text_field :subject %>
   </div>
-  Content: <%= f.text_area :content, id: "wysiwyg"%>
+  Content:
+  <div id="quill-editor-container">
+    <%= @template.content.html_safe if @template %>
+  </div>
+  <%= f.hidden_field :content, id: "wysiwyg"%>
   <div class="form-group">
     <%= f.button :submit, class: 'btn btn-primary' %>
     <% if @template.id.nil? %>
