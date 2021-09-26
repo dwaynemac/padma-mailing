@@ -19,13 +19,25 @@ jQuery ->
     [{ 'color': [] }, { 'background': [] }],
     [{ 'font': [] }],
     [{ 'align': [] }],
-    ['image', 'code-block'],
+    ['image'],
     ['clean']
   ]
+
+  imageHandler = ->
+    range = quill.getSelection()
+    value = prompt('please copy paste the image url here.')
+    if value
+      quill.insertEmbed range.index, 'image', value, Quill.sources.USER
+    return
  
   options =
     modules: {
-      toolbar: toolbarOptions
+      toolbar: {
+        container: toolbarOptions
+        handlers: {
+          image: imageHandler
+        }
+      }
     }
     placeholder: 'Write here ...'
     theme: 'snow'
