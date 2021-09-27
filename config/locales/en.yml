@@ -17,6 +17,33 @@ en:
       deliver_to_headline: Send template to %{full_name}
       contact_has_no_mail: Contact %{full_name} has no email. Enter a mail manually in the mail field
       add_attachemnts: Add attachment
+    quill:
+      contact:
+        full_name: Full name 
+        first_name: First name
+        last_name: Last name
+        gender: Gender
+        ending: Masculine or femenine ending
+        instructor:
+          name: Instructors name
+          email: Instructors email
+      next_action:
+        date: Date
+        time: Time
+        instructor:
+          name: Instructors name
+          email: Instructors email
+      instructor:
+        name: Instructors name
+        email: Instructors email
+      trial_lesson:
+        date: Date
+        instructor:
+          name: Instructors name
+          email: Instructors email
+        time_slot:
+          time: Trial lessons time
+          name: Trial lessons name
     deliver:
       success: Template delivered
     mercury:

@@ -570,6 +570,33 @@ pt-BR:
     send_to_mail:
       cant_send: Preciso do contato para enviar.
       needs_data: Este modelo tem variávels dinámicas. Nāo pode ser enviado manualmente para um email. Para envia a um contato ingrese no perfil dele e utilice a opçāo 'enviar modelo de mail'
+    quill:
+      contact:
+        full_name: Nome completo
+        first_name: Nome
+        last_name: Sobrenome
+        gender: Gênero
+        ending: Final femenina o masculina
+        instructor:
+          name: Nome do instrutor
+          email: E-mail do instrutor
+      next_action:
+        date: Data
+        time: Hora
+        instructor:
+          name: Nome do instrutor
+          email: E-mail do instrutor
+      instructor:
+        name: Nome do instrutor
+        email: E-mail do instrutor
+      trial_lesson:
+        date: Data
+        instructor:
+          name: Nome do instrutor
+          email: E-mail do instrutor
+        time_slot:
+          time: Hora da aula experimental
+          name: Nome da aula experimental
     mercury:
       snippets:
         panel:
