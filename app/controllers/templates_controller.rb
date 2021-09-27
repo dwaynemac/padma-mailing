@@ -33,7 +33,7 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: "quill" }
-      format.json { render json: @product }
+      format.json { render json: @template }
     end
   end
 
