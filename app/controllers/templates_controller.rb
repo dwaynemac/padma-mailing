@@ -33,7 +33,7 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: "quill" }
-      format.json { render json: @template }
+      format.json { render json: @product }
     end
   end
 
@@ -152,7 +152,7 @@ class TemplatesController < ApplicationController
   def has_unsupported_quill_tags?(content)
     unsupported = false
     %w(<html <table <xml <title).each do |ut|
-      if content.match(/#{ut}/)
+      if content =~ /#{ut}/
         unsupported = true
         break
       end
