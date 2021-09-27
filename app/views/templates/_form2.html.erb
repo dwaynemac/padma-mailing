@@ -10,7 +10,7 @@
   </div>
   Content: 
   <div id="quill-editor-container">
-    <%= @template.content.html_safe if @template %>
+    <%= @template.content.html_safe if @template && @template.content %>
   </div>
   <div class="hidden">
     <select id="contact-select">
