@@ -18,6 +18,8 @@ en:
       contact_has_no_mail: Contact %{full_name} has no email. Enter a mail manually in the mail field
       add_attachemnts: Add attachment
     quill:
+      html:
+        redirected_to_html_editor: Using HTML editor as email content has unsupported tags for the basic editor 
       contact:
         full_name: Full name 
         first_name: First name

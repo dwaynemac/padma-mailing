@@ -126,7 +126,7 @@ jQuery ->
     # Trial lessons
     triallessonDropDown.attach(quill)
 
-    form = $('.edit_template')[0]
+    form = $('.edit_template, .new_template')[0]
     form.onsubmit = ->
       # populate hidden input
       about = $('#wysiwyg')[0]
