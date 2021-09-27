@@ -152,7 +152,7 @@ class TemplatesController < ApplicationController
   def has_unsupported_quill_tags?(content)
     unsupported = false
     %w(<html <table <xml <title).each do |ut|
-      if content =~ /#{ut}/
+      if content.match?(/#{ut}/)
         unsupported = true
         break
       end
