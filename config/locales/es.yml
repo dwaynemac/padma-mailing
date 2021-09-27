@@ -468,6 +468,33 @@ es:
     send_to_mail:
       cant_send: No puede enviar sin contacto.
       needs_data: Este modelo tiene etiquetas dinámicas. No puede ser enviado manualmente a una dirección de email. Si quiere enviarlo a un contacto ingrese a su perfil y utilice la opción 'enviar modelo de mail'
+    quill:
+      contact:
+        full_name: Nombre completo
+        first_name: Nombre
+        last_name: Apellido
+        gender: Género
+        ending: Terminación femenina o masculina
+        instructor:
+          name: Nombre del instructor
+          email: Email del instructor
+      next_action:
+        date: Fecha
+        time: Hora
+        instructor:
+          name: Nombre del instructor
+          email: Email del instructor
+      instructor:
+        name: Nombre del instructor
+        email: Email del instructor
+      trial_lesson:
+        date: Fecha
+        instructor:
+          name: Nombre del instructor
+          email: Email del instructor
+        time_slot:
+          time: Hora de la clase de prueba
+          name: Nombre de la clase de prueba
     mercury:
       snippets:
         panel:
