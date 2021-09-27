@@ -8,9 +8,43 @@
   <div class="form-group">
   Subject: <%= f.text_field :subject %>
   </div>
-  Content:
+  Content: 
   <div id="quill-editor-container">
     <%= @template.content.html_safe if @template %>
+  </div>
+  <div class="hidden">
+    <select id="contact-select">
+      <option value="{{contact.full_name}}"><%= I18n.t('templates.quill.contact.full_name') %></option>
+      <option value="{{contact.first_name}}"><%= I18n.t('templates.quill.contact.first_name') %></option>
+      <option value="{{contact.last_name}}"><%= I18n.t('templates.quill.contact.last_name') %></option>
+      <option value="{{contact.gender}}"><%= I18n.t('templates.quill.contact.gender') %></option>
+      <option value="{{contact.a_u_o}}"><%= I18n.t('templates.quill.contact.ending') %></option>
+      <option value="{{contact.instructor.name}}"><%= I18n.t('templates.quill.contact.instructor.name') %></option>
+      <option value="{{contact.instructor.email}}"><%= I18n.t('templates.quill.contact.instructor.email') %></option>
+    </select>
+  </div>
+  <div class="hidden">
+    <select id="next-action-select">
+      <option value="{{next_action.date}}"><%= I18n.t('templates.quill.next_action.date') %></option>
+      <option value="{{next_action.time}}"><%= I18n.t('templates.quill.next_action.time') %></option>
+      <option value="{{next_action.instructor.name}}"><%= I18n.t('templates.quill.next_action.instructor.name') %></option>
+      <option value="{{next_action.instructor.email}}"><%= I18n.t('templates.quill.next_action.instructor.email') %></option>
+    </select>
+  </div>
+  <div class="hidden">
+    <select id="instructor-select">
+      <option value="{{instructor.name}}"><%= I18n.t('templates.quill.instructor.name') %></option>
+      <option value="{{instructor.email}}"><%= I18n.t('templates.quill.instructor.email') %></option>
+    </select>
+  </div>
+  <div class="hidden">
+    <select id="trial-lesson-select">
+      <option value="{{trial_lesson.date}}"><%= I18n.t('templates.quill.trial_lesson.date') %></option>
+      <option value="{{trial_lesson.instructor.name}}"><%= I18n.t('templates.quill.trial_lesson.instructor.name') %></option>
+      <option value="{{trial_lesson.instructor.email}}"><%= I18n.t('templates.quill.trial_lesson.instructor.email') %></option>
+      <option value="{{trial_lesson.time_slot.time}}"><%= I18n.t('templates.quill.trial_lesson.time_slot.time') %></option>
+      <option value="{{trial_lesson.time_slot.name}}"><%= I18n.t('templates.quill.trial_lesson.time_slot.name') %></option>
+    </select>
   </div>
   <%= f.hidden_field :content, id: "wysiwyg"%>
   <div class="form-group">
