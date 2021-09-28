@@ -47,7 +47,7 @@
     </select>
   </div>
   <%= f.hidden_field :content, id: "wysiwyg"%>
-  <div class="form-group">
+  <div class="form-group actions">
     <%= f.button :submit, class: 'btn btn-primary' %>
     <% if @template.id.nil? %>
       <%= link_to  t("cancel"), templates_path, class: 'btn btn-danger' %>

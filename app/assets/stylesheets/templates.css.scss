@@ -5,10 +5,13 @@
 .editHtmlForm {
   textarea {
     height: 80vh;
-    margin-bottom: 15px;
   }
   margin-left: 25px;
   margin-right: 25px;
+}
+
+.form-group.actions {
+  margin-top: 15px;
 }
 
 .text_area_field {
