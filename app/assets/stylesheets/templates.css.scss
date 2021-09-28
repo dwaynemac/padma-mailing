@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.editHtmlForm {
+  textarea {
+    height: 80vh;
+    margin-bottom: 15px;
+  }
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
 .text_area_field {
   //width: 210px;
   height: 150px;

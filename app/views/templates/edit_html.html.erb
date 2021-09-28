@@ -1,4 +1,4 @@
-<%= form_for @template do |f| %>
+<%= form_for @template, html: {class: "editHtmlForm"} do |f| %>
   <div class="form-group">
     <%= t("activerecord.attributes.template.name") %>: <%= f.text_field :name %>
   </div>
@@ -8,7 +8,7 @@
   <div class="form-group">
     <%= t("activerecord.attributes.template.subject") %>: <%= f.text_field :subject %>
   </div>
-  <%= t("activerecord.attributes.template.content_html") %>: <%= f.text_area :content, size: "80x100" %>
+  <%= t("activerecord.attributes.template.content_html") %>: <%= f.text_area :content %>
   <div class="form-group">
     <%= f.button :submit, class: 'btn btn-primary' %>
     <% if @template.id.nil? %>
