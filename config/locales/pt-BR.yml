@@ -571,6 +571,8 @@ pt-BR:
       cant_send: Preciso do contato para enviar.
       needs_data: Este modelo tem variávels dinámicas. Nāo pode ser enviado manualmente para um email. Para envia a um contato ingrese no perfil dele e utilice a opçāo 'enviar modelo de mail'
     quill:
+      html:
+        redirected_to_html_editor: Usando o editor HTML porque o conteúdo tem tags que não são suportadas pelo editor HTML básico. 
       contact:
         full_name: Nome completo
         first_name: Nome

@@ -33,14 +33,22 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: "quill" }
-      format.json { render json: @template }
+      format.json { render json: @product }
     end
   end
 
   def edit
-    @initialize_tags = mercury_tags_json
     # @template initialized by load_and_authorize_resource
-    render layout: "quill"
+
+    # if @template.content has tags that are not supported by quill editor
+    if has_unsupported_quill_tags?(@template.content)
+      # render edit_html
+      flash[:notice] = I18n.t('templates.quill.html.redirected_to_html_editor')
+      redirect_to edit_html_template_path(id: @template.id)
+    else
+      # else render quill editor
+      render layout: "quill"
+    end
   end
 
   def edit_html
@@ -140,6 +148,17 @@ class TemplatesController < ApplicationController
   end
 
   private
+
+  def has_unsupported_quill_tags?(content)
+    unsupported = false
+    %w(<html <table <xml <title).each do |ut|
+      if content.match?(/#{ut}/)
+        unsupported = true
+        break
+      end
+    end
+    return unsupported
+  end
 
   def modified_mercury_editor_tag_text
     doc = Nokogiri::HTML::DocumentFragment.parse(params[:content][:template_content][:value])

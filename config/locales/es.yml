@@ -469,6 +469,8 @@ es:
       cant_send: No puede enviar sin contacto.
       needs_data: Este modelo tiene etiquetas dinámicas. No puede ser enviado manualmente a una dirección de email. Si quiere enviarlo a un contacto ingrese a su perfil y utilice la opción 'enviar modelo de mail'
     quill:
+      html:
+        redirected_to_html_editor: Usando el editor de HTML ya que el contenido tiene etiquetas que no son soportadas por el editor simple
       contact:
         full_name: Nombre completo
         first_name: Nombre
