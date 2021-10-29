@@ -65,6 +65,8 @@ en:
       contact:
         options:
           select_tag: Select tag
+    new:
+      new_html: "New through HTML"
   triggers:
     form:
       add_filter: Add filter

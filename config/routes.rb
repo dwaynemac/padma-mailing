@@ -80,7 +80,10 @@ Mailing::Application.routes.draw do
       post 'deliver'
       put :mercury_update
     end
-    collection { put :mercury_create }
+    collection do
+      get "new_html"
+      put :mercury_create
+    end
   end
   resources :activities, only: [:destroy, :index]
 

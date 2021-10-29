@@ -33,8 +33,12 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       format.html { render layout: "quill" }
-      format.json { render json: @product }
     end
+  end
+
+  def new_html
+    @template = Template.new()
+    @template.local_account_id = current_user.current_account.id
   end
 
   def edit

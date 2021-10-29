@@ -626,6 +626,8 @@ pt-BR:
           select_tag: Selecione o dado
       insert_tag: Insertar etiqueta dinámica en el modelo
       select_tag: Escolha o valor a insertar
+    new:
+      new_html: "Novo desde HTML"
   time:
     am: am
     formats:

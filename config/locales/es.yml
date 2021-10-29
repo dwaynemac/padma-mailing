@@ -524,6 +524,8 @@ es:
           select_tag: Elija el dato
       insert_tag: Insertar etiqueta dinámica en el modelo
       select_tag: Elija el valor a insertar
+    new:
+      new_html: "Nuevo desde HTML"
   trigger:
     offset_number: Diferencia
     offset_reference: referencia
