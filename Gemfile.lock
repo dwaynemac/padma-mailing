@@ -1343,7 +1343,7 @@ GEM
     nokogiri-happymapper (0.8.1)
       nokogiri (~> 1.5)
     orm_adapter (0.5.0)
-    padma-assets (0.3.2)
+    padma-assets (0.3.6)
       railties (>= 3.1)
     padma-deployment (0.2.1)
       railties (>= 3.1)
@@ -1519,7 +1519,7 @@ DEPENDENCIES
   messaging_client (~> 0.3.0)
   nested_form
   nokogiri
-  padma-assets (= 0.3.2)
+  padma-assets (= 0.3.6)
   padma-deployment
   paperclip
   pg (= 0.21)
