@@ -30,7 +30,7 @@ jQuery ->
       [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
       [{ 'color': [] }, { 'background': [] }],
       [{ 'align': [] }],
-      ['image'],
+      [ 'link','image'],
       ['clean']
     ]
 
