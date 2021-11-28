@@ -119,6 +119,7 @@ class ScheduledMail < ActiveRecord::Base
   end
 
   def conditions_met?(contact_data)
+    return false unless account.padma.enabled?
     return true if conditions.blank?
     decoded_conditions = ActiveSupport::JSON.decode(conditions)
     conditions_count = decoded_conditions.keys.count
