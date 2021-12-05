@@ -39,7 +39,7 @@ describe PadmaMailer do
     template.save!
 
     data_hash = {
-        'persona' => ContactDrop.new(PadmaContact.new(id: "1234", first_name: "Homer", last_name: "Simpson"), PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"))
+        'persona' => ContactDrop.new(CrmLegacyContact.new(id: "1234", first_name: "Homer", last_name: "Simpson"), PadmaUser.new(email: "alex.falke@metododerose.org", username: "alex.falke"))
     }
 
     PadmaMailer.template(template, data_hash, recipient,
@@ -154,8 +154,8 @@ describe PadmaMailer do
   context "with acounts-ws and contacts-ws online" do
     before do
       Rails.cache.clear
-      allow(PadmaContact).to receive(:find).with(123,anything).and_return(
-        PadmaContact.new( first_name: 'dw', last_name: 'mac', email: 'as@co.co' )
+      allow(CrmLegacyContact).to receive(:find).with(123,anything).and_return(
+        CrmLegacyContact.new( first_name: 'dw', last_name: 'mac', email: 'as@co.co' )
       )
       allow(PadmaAccount).to receive(:find).and_return(
         PadmaAccount.new(email: 'account@mail.com', full_name: 'a', locale: "es", timezone: "Buenos Aires")
@@ -183,8 +183,8 @@ describe PadmaMailer do
   end
   context "with acounts-ws and contacts-ws online" do
     before do
-      allow(PadmaContact).to receive(:find).with(123,anything).and_return(
-        PadmaContact.new( first_name: 'dw', last_name: 'mac', gender: 'male' )
+      allow(CrmLegacyContact).to receive(:find).with(123,anything).and_return(
+        CrmLegacyContact.new( first_name: 'dw', last_name: 'mac', gender: 'male' )
       )
       allow(PadmaAccount).to receive(:find).and_return(
         PadmaAccount.new(email: 'account@mail.com', locale: "es", timezone: "Buenos Aires")

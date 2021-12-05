@@ -113,11 +113,11 @@ describe Trigger do
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before(:each) do
           trigger # create trigger
-          expect(PadmaContact).to receive(:find)
+          expect(CrmLegacyContact).to receive(:find)
                       .with(1234,
                             select: [:email],
                             account_name: 'my-account')
-                      .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+                      .and_return(CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         xit "fails with exception" do
           # specs fails when run globally but passes when run locally :-/
@@ -146,17 +146,17 @@ describe Trigger do
         let(:data){{contact_id: 1234, communicated_at: Time.now, account_name: 'my-account'}.stringify_keys!}
         before(:each) do
           trigger # create trigger
-          expect(PadmaContact).to receive(:find)
+          expect(CrmLegacyContact).to receive(:find)
                       .with(1234,
                             select: [:email],
                             account_name: 'my-account')
-                      .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+                      .and_return(CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
         end
         it "only matches triggers of 'my-account'" do
           other_trigger
           expect{Trigger.catch_message(key,data)}.to change{ScheduledMail.count}.by 1
         end
-        it "calls PadmaContact" do
+        it "calls CrmLegacyContact" do
           Trigger.catch_message(key,data)
         end
         it "creates a ScheduledEmail" do
@@ -171,11 +171,11 @@ describe Trigger do
           expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
         end
         it "ignores duplicated messages" do
-          expect(PadmaContact).to receive(:find)
+          expect(CrmLegacyContact).to receive(:find)
                       .with(1234,
                             select: [:email],
                             account_name: 'my-account')
-                      .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+                      .and_return(CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
           expect{Trigger.catch_message(key, data)}.not_to change{ScheduledMail.count}
         end
@@ -197,11 +197,11 @@ describe Trigger do
           before(:each) do
             enrollment_trigger
             enrollment_trigger.filters.create(key: "type", value: "Enrollment")
-            expect(PadmaContact).to receive(:find)
+            expect(CrmLegacyContact).to receive(:find)
                         .with(1234,
                               select: [:email],
                               account_name: 'third-account')
-                        .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+                        .and_return(CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           end
           it "creates a ScheduledMail" do
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
@@ -234,11 +234,11 @@ describe Trigger do
             before(:each) do
               next_action_trigger
               next_action_trigger.filters.create(key: "next_action_type", value: "interview")
-              expect(PadmaContact).to receive(:find)
+              expect(CrmLegacyContact).to receive(:find)
                           .with(1234,
                                 select: [:email],
                                 account_name: 'my-account')
-                          .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+                          .and_return(CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
             end
             it "creates a ScheduledMail" do
               expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
@@ -260,11 +260,11 @@ describe Trigger do
             before(:each) do
               next_action_trigger
               next_action_trigger.filters.create(key: "next_action_type", value: "interview")
-              expect(PadmaContact).to receive(:find)
+              expect(CrmLegacyContact).to receive(:find)
                           .with(1234,
                                 select: [:email],
                                 account_name: 'my-account')
-                          .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+                          .and_return(CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
             end
             it "creates a ScheduledMail" do
               expect{Trigger.catch_message(key, data)}.not_to change{ScheduledMail.count}
@@ -285,11 +285,11 @@ describe Trigger do
             }.stringify_keys!}
             before(:each) do
               next_action_trigger
-              expect(PadmaContact).to receive(:find)
+              expect(CrmLegacyContact).to receive(:find)
                           .with(1234,
                                 select: [:email],
                                 account_name: 'my-account')
-                          .and_return(PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+                          .and_return(CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
             end
             it "creates a ScheduledMail" do
               expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
@@ -309,10 +309,10 @@ describe Trigger do
                         status: 'student'}.stringify_keys!}
           before(:each) do
             birthday_trigger
-            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-                PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+            expect(CrmLegacyContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+                CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           end
-          it "calls PadmaContact" do
+          it "calls CrmLegacyContact" do
             Trigger.catch_message(key,data)
           end
           it "creates a ScheduledEmail" do
@@ -330,10 +330,10 @@ describe Trigger do
                         status: 'student'}.stringify_keys!}
           before(:each) do
             birthday_trigger
-            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-                PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+            expect(CrmLegacyContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+                CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           end
-          it "calls PadmaContact" do
+          it "calls CrmLegacyContact" do
             Trigger.catch_message(key,data)
           end
           it "should not create a ScheduledEmail" do
@@ -351,10 +351,10 @@ describe Trigger do
                         status: 'prospect'}.stringify_keys!}
           before(:each) do
             birthday_trigger
-            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-            PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
+            expect(CrmLegacyContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+            CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com'))
           end
-          it "calls PadmaContact" do
+          it "calls CrmLegacyContact" do
             Trigger.catch_message(key,data)
           end
           it "should create a ScheduledEmail" do
@@ -371,8 +371,8 @@ describe Trigger do
           }
           before(:each) do
             birthday_trigger
-            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
+            expect(CrmLegacyContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+              CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com')
             )
           end
           it "wont trigger emails" do
@@ -390,8 +390,8 @@ describe Trigger do
           }
           before(:each) do
             birthday_trigger
-            expect(PadmaContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
-              PadmaContact.new(id: 1234, email: 'dwaynemac@gmail.com')
+            expect(CrmLegacyContact).to receive(:find).with(1234,select: [:email], account_name: nil).and_return(
+              CrmLegacyContact.new(id: 1234, email: 'dwaynemac@gmail.com')
             )
           end
 
@@ -437,13 +437,13 @@ describe Trigger do
           )}
 
         before(:each) do
-          expect(PadmaContact).to receive(:find).with(
+          expect(CrmLegacyContact).to receive(:find).with(
             1234,
             account_name: nil,
             select: 
               [:email]
             ).and_return(
-              PadmaContact.new(
+              CrmLegacyContact.new(
                 id: 123,
                 email: "dwaynemac@gmail.com"
               )
@@ -459,13 +459,13 @@ describe Trigger do
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
           end
           it "should meet conditions in the Scheduled Mail" do
-            expect(PadmaContact).to receive(:find).with(
+            expect(CrmLegacyContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
               [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
             ).and_return(
-              PadmaContact.new(
+              CrmLegacyContact.new(
                 id: 123,
                 email: "dwaynemac@gmail.com",
                 first_name: "Dwayne",
@@ -481,13 +481,13 @@ describe Trigger do
             expect(s.conditions_met?(s.data_hash)).to be_truthy
           end
           it "should deliver the mail" do
-            expect(PadmaContact).to receive(:find).with(
+            expect(CrmLegacyContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
               [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
             ).and_return(
-              PadmaContact.new(
+              CrmLegacyContact.new(
                 id: 123,
                 email: "dwaynemac@gmail.com",
                 first_name: "Dwayne",
@@ -514,13 +514,13 @@ describe Trigger do
             expect{Trigger.catch_message(key, data)}.to change{ScheduledMail.count}.by 1
           end
           it "should not meet conditions in the Scheduled Mail" do
-            expect(PadmaContact).to receive(:find).with(
+            expect(CrmLegacyContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
               [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
             ).and_return(
-              PadmaContact.new(
+              CrmLegacyContact.new(
                 id: 123,
                 email: "dwaynemac@gmail.com",
                 first_name: "Dwayne",
@@ -536,13 +536,13 @@ describe Trigger do
             expect(s.conditions_met?(s.data_hash)).to be_falsey
           end
           it "should not deliver the mail" do
-            expect(PadmaContact).to receive(:find).with(
+            expect(CrmLegacyContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
               [:email, :first_name, :last_name, :gender, :global_teacher_username, :status, :coefficient]
             ).and_return(
-              PadmaContact.new(
+              CrmLegacyContact.new(
                 id: 123,
                 email: "dwaynemac@gmail.com",
                 first_name: "Dwayne",
@@ -573,13 +573,13 @@ describe Trigger do
           end
 
           it "should meet conditions" do
-            expect(PadmaContact).to receive(:find).with(
+            expect(CrmLegacyContact).to receive(:find).with(
             1234,
             account_name: "my-account",
             select: 
               [:email, :first_name, :last_name, :gender, :global_teacher_username]
             ).and_return(
-              PadmaContact.new(
+              CrmLegacyContact.new(
                 id: 123,
                 email: "dwaynemac@gmail.com",
                 first_name: "Dwayne",

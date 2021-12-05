@@ -19,7 +19,7 @@ describe MessageDoorController do
   describe "real life example" do
     before do
       Rails.cache.clear
-      allow(PadmaContact).to receive(:find).and_return PadmaContact.new email: 'dwa@asd.com'
+      allow(CrmLegacyContact).to receive(:find).and_return CrmLegacyContact.new email: 'dwa@asd.com'
       account = create(:account, name: 'testing')
       template = create(:template, account: account )
       t = create(:trigger, event_name: 'subscription_change', account: account)

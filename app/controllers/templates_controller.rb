@@ -15,7 +15,7 @@ class TemplatesController < ApplicationController
     @folders   = @account.templates_folders.for_folder(params[:folder_id])
 
     if params[:contact_id]
-      @contact = PadmaContact.find(params[:contact_id],
+      @contact = CrmLegacyContact.find(params[:contact_id],
                                    select: [:first_name, :last_name, :email],
                                    account_name: @account.name,
                                    username: current_user.username)

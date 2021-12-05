@@ -408,7 +408,7 @@ class Mailchimp::List < ActiveRecord::Base
   end
 
   def get_contact_id_by_email(email)
-    PadmaContact.search(
+    CrmLegacyContact.search(
       where: {
         email: email
       },

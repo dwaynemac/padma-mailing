@@ -21,7 +21,7 @@ describe ScheduledMail do
     context "with accounts-ws and contacts-ws online" do
       before(:each) do
         allow(PadmaUser).to receive(:find).and_return(PadmaUser.new)
-        allow(PadmaContact).to receive(:find).and_return(PadmaContact.new)
+        allow(CrmLegacyContact).to receive(:find).and_return(CrmLegacyContact.new)
       end
       context "if scheduled mail has contact_id" do
         let(:sm){create(:scheduled_mail, contact_id: 1)}
@@ -109,7 +109,7 @@ describe ScheduledMail do
   context "when it has conditions" do
     before(:each) do
         allow(PadmaUser).to receive(:find).and_return(PadmaUser.new)
-        allow(PadmaContact).to receive(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
+        allow(CrmLegacyContact).to receive(:find).and_return(CrmLegacyContact.new(status: "student", coefficient: "perfil"))
       end
     describe "and meets them" do
       let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({"status" => "student", "coefficient" => "perfil"})) }
@@ -130,7 +130,7 @@ describe ScheduledMail do
     let(:sm){ build(:scheduled_mail, contact_id: 1, conditions: ActiveSupport::JSON.encode({})) }
     before(:each) do
       allow(PadmaUser).to receive(:find).and_return(PadmaUser.new)
-      allow(PadmaContact).to receive(:find).and_return(PadmaContact.new(status: "student", coefficient: "perfil"))
+      allow(CrmLegacyContact).to receive(:find).and_return(CrmLegacyContact.new(status: "student", coefficient: "perfil"))
     end
     it "should meet conditions" do
       contact_hash = sm.data_hash

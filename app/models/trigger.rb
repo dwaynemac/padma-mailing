@@ -126,7 +126,7 @@ class Trigger < ActiveRecord::Base
   ##
   # Gets recipient email looking:
   #   1st at data[:recipient_email]
-  #   2nd at PadmaContact with id data[:contact_id]
+  #   2nd at CrmLegacyContact with id data[:contact_id]
   # @return [String] recipient email
   # @return [NilClass] if no email found.
   def self.get_recipient_email(data)
@@ -138,7 +138,7 @@ class Trigger < ActiveRecord::Base
       contact = nil
       while attempts > 0 && contact.nil? do
         attempts -= 1
-        contact = PadmaContact.find(data['contact_id'],
+        contact = CrmLegacyContact.find(data['contact_id'],
                                     select: [:email],
                                     account_name: data['account_name'])
       end

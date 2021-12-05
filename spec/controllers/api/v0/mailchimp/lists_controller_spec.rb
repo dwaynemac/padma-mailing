@@ -3,7 +3,7 @@ require 'rails_helper'
 
 describe Api::V0::Mailchimp::ListsController do
   before do
-    allow(PadmaContact).to receive(:search).and_return([PadmaContact.new(id: 1234)])
+    allow(CrmLegacyContact).to receive(:search).and_return([CrmLegacyContact.new(id: 1234)])
     allow(ActivityStream::Activity).to receive(:new)
     allow_any_instance_of(Mailchimp::List).to receive_message_chain(:mailchimp_configuration, :account).and_return(account)
     allow_any_instance_of(Mailchimp::List).to receive(:add_webhook)

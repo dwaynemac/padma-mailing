@@ -153,7 +153,7 @@ class ScheduledMail < ActiveRecord::Base
     if contact_id
       select_options = [:email, :first_name, :last_name, :gender, :global_teacher_username]
       select_options += conditions_hash.keys.map(&:to_sym) unless conditions_hash.blank?
-      contact = PadmaContact.find(contact_id, select: select_options, account_name: account.name)
+      contact = CrmLegacyContact.find(contact_id, select: select_options, account_name: account.name)
       teacher = PadmaUser.find_with_rails_cache(contact.local_teacher) if contact.try(:local_teacher)
       contact_drop = ContactDrop.new(contact, (teacher || padma_user));
       unless conditions_hash.blank?
