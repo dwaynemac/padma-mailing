@@ -29,7 +29,7 @@ gem "wysiwyg-rails"
 
 # responders gem for using respond_with
 gem 'responders', '2.4.1'
-gem 'sprockets', '3.6.3'
+gem 'sprockets', '4.0.2'
 
 gem 'nokogiri'
 
