@@ -41,7 +41,7 @@ gem 'cancan'
 
 # Delayed Job
 gem 'delayed_job_active_record' # must be declared after 'protected_attributes' gem
-gem "workless", "~> 2.2.0"
+gem "workless", "~> 2.2.0" # requires APP_NAME and WORKLESS_API_KEY in env.
 
 gem 'liquid'
 gem "nested_form"
