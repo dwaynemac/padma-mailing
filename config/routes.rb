@@ -89,5 +89,6 @@ Mailing::Application.routes.draw do
 
   post 'sns', to: 'message_door#sns'
   get 'message_door', to: 'message_door#catch'
+  get "ping", to: "message_door#ping"
   root to: 'templates#index'
 end
