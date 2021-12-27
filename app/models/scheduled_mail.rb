@@ -92,30 +92,27 @@ class ScheduledMail < ActiveRecord::Base
 
     update_attributes(new_attributes)
 
-    # Send notification to activities
-    if !self.contact_id.nil?
-      a = creation_activity
-      a.create(username: self.username, account_name: account.name)
-    end
+    post_crm_comment
   end
 
-  def creation_activity
-    account_config = account.padma
+  def post_crm_comment
+    # Send notification to activities
+    unless self.contact_id.nil?
+      account_config = account.padma
 
-    I18n.locale = account_config.locale unless account_config.nil?
-    Time.zone = account_config.timezone unless account_config.nil?
+      I18n.locale = account_config.locale unless account_config.nil?
+      Time.zone = account_config.timezone unless account_config.nil?
 
-    ActivityStream::Activity.new(target_id: self.contact_id,
-                                 target_type: 'Contact',
-                                 object_id: template.id,
-                                 object_type: 'Template',
-                                 generator: ActivityStream::LOCAL_APP_NAME,
-                                 content: "Mail sent: #{template.name}",
-                                 public: false,
-                                 username: self.username || "Mailing system",
-                                 account_name: account.name,
-                                 created_at: Time.zone.now.to_s,
-                                 updated_at: Time.zone.now.to_s )
+      PadmaCrmApi.new.create_comment(
+        comment_type: "System",
+        username: username || "mailing_system",
+        account_name: account.name,
+        contact_id: contact_id,
+        observations: "Mail sent: #{template.name}",
+        public: false,
+        commented_at: Time.zone.now
+      )
+    end
   end
 
   def conditions_met?(contact_data)
