@@ -90,20 +90,15 @@ class Mailchimp::List < ActiveRecord::Base
   def subscription_change(message, contact_id)
     return nil if contact_id.blank?
 
-    a = ActivityStream::Activity.new(
-      target_id: contact_id,
-      target_type: 'Contact',
-      object_id: id,
-      object_type: 'Mailchimp::List',
-      generator: ActivityStream::LOCAL_APP_NAME,
-      content: message,
+    PadmaCrmApi.new.create_comment(
+      comment_type: "System",
+      contact_id: contact_id,
+      observations: message,
       public: false,
-      username: "Mailing system",
+      username: "mailing_system",
       account_name: mailchimp_configuration.account.name,
-      created_at: Time.zone.now.to_s,
-      updated_at: Time.zone.now.to_s
+      commented_at: Time.zone.now
     )
-    a.create(username: "Mailing system", account_name: mailchimp_configuration.account.name)
   end
 
   def inform_campaign(campaign_name)
