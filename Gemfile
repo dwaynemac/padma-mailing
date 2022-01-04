@@ -15,7 +15,7 @@ gem 'contacts_client', '~> 0.1.0'
 gem 'accounts_client', '0.3.0'
 gem 'messaging_client', '~> 0.3.0'
 
-gem 'padma-assets', '0.3.6'
+gem 'padma-assets', '0.3.10'
 
 gem 'attendance_client', '0.0.4'
 gem 'gibbon', '~> 3.1', '>= 3.1.1'
