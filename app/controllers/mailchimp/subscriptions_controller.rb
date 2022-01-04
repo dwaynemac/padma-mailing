@@ -14,7 +14,6 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
   def new
     @monthly_value = "#{@petal.cents.to_f/100} #{@petal.currency}"
     @trial_until = get_next_invoice_date
-    register_ux_event('entered-new-mailchimp-subscription')
   end
 
   def create
@@ -27,7 +26,6 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
     created_id =  ps.create( account_name: current_user.current_account.name,
                              username: current_user.username)
     if created_id
-      register_ux_event('created-mailchimp-subscription')
       current_user.current_account.padma(false) # refresh cache of account
       redirect_to mailchimp_configuration_path, success: 'yes!'
     else
@@ -42,7 +40,6 @@ class Mailchimp::SubscriptionsController < Mailchimp::PetalController
       PetalSubscription.delete(@petal_subscription.id, username: current_user.username, account_name: current_user.current_account.name).nil?
       current_user.current_account.padma(false) # refresh cache of account
       current_user.current_account.mailchimp_configuration.try(:destroy) # remove mailchimpconfiguration
-      register_ux_event('canceled-mailchimp-subscription')
     end
 
     redirect_to mailchimp_subscription_path

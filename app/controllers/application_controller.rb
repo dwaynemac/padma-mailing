@@ -3,7 +3,6 @@ require 'padma_user'
 class ApplicationController < ActionController::Base
   # protect_from_forgery
 
-  include UXEventsHelper
   include SsoSessionsHelper
 
   before_filter :get_sso_session
