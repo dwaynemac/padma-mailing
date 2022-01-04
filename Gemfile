@@ -21,9 +21,6 @@ gem 'attendance_client', '0.0.4'
 gem 'gibbon', '~> 3.1', '>= 3.1.1'
 gem 'rails_12factor'
 
-gem 'intercom', '~> 3.7.6'
-gem 'intercom-rails'
-
 # gem 'mercury-rails', path: "~/workspace/my_forks/mercury" #git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
 gem "wysiwyg-rails"
 

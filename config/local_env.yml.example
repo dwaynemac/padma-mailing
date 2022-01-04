@@ -8,7 +8,7 @@ contacts_key: secret
 attendance_key: secret
 GMAIL_USERNAME: "cucu@gmail.com"
 GMAIL_PASSWORD: "1234"
-intercom_secret: secret
 log_level: debug
 crm_v0_api_key: secret
 crm_contacts_v0_api_key: secret
+support_email: asd@sd.co
