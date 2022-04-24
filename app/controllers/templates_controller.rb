@@ -71,7 +71,6 @@ class TemplatesController < ApplicationController
     @template = Template.find params[:id]
     # @template initialized by load_and_authorize_resource
     if params[:template].has_key?(:attachment)
-      debugger
       @attachment = @template.attachments.new(template_params)
       params[:template].delete :attachment
     end
