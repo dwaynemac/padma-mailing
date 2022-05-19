@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/dwaynemac/yard-rest-plugin.git
+  remote: https://github.com/dwaynemac/yard-rest-plugin.git
   revision: 33ac0b0cfe8667e8aa8bac02d59eada21ba4b72c
   specs:
     yard-rest (0.3.0)
@@ -1334,7 +1334,7 @@ GEM
       nokogiri (~> 1)
       rake
     mini_mime (1.1.1)
-    mini_portile2 (2.7.1)
+    mini_portile2 (2.8.0)
     minitest (5.15.0)
     moneta (1.0.0)
     multi_json (1.15.0)
@@ -1342,8 +1342,8 @@ GEM
     nested_form (0.3.2)
     netrc (0.11.0)
     nio4r (2.5.8)
-    nokogiri (1.13.1)
-      mini_portile2 (~> 2.7.0)
+    nokogiri (1.13.5)
+      mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     nokogiri-happymapper (0.8.1)
       nokogiri (~> 1.5)
