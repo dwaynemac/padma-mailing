@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/dwaynemac/yard-rest-plugin.git
+  remote: https://github.com/dwaynemac/yard-rest-plugin.git
   revision: 33ac0b0cfe8667e8aa8bac02d59eada21ba4b72c
   specs:
     yard-rest (0.3.0)
@@ -1485,7 +1485,7 @@ GEM
       sync
     typhoeus (0.6.4)
       ethon (~> 0.6.0)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
