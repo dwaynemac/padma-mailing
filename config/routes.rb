@@ -30,6 +30,22 @@ Mailing::Application.routes.draw do
           end
         end
       end
+      resources :accounts do
+        resources :templates_folders, only: [:index, :show]
+        resources :templates, only: [:index, :show] do
+          member do
+            get :attachments
+          end
+        end
+        resources :triggers, only: [:index, :show] do
+          member do
+            get :templates_triggerses
+            get :filters
+            get :conditions
+          end
+        end
+        resources :scheduled_mails, only: [:index, :show]
+      end
     end
   end
 
