@@ -38,7 +38,7 @@ class Api::V0::TemplatesController < Api::V0::ApiController
         local_account = Account.where(name: params[:account_id])
         local_account.empty? ? [] : Template.where(local_account_id: local_account.first.id)
       else
-        Template.scoped
+        Template
       end
     end
 

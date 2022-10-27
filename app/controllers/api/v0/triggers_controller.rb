@@ -52,7 +52,7 @@ class Api::V0::TriggersController < Api::V0::ApiController
         local_account = Account.where(name: params[:account_id])
         local_account.empty? ? [] : Trigger.where(local_account_id: local_account.first.id)
       else
-        Trigger.scoped
+        Trigger
       end
     end
 

@@ -30,7 +30,7 @@ class Api::V0::TemplatesFoldersController < Api::V0::ApiController
         local_account = Account.where(name: params[:account_id])
         local_account.empty? ? [] : TemplatesFolder.where(local_account_id: local_account.first.id)
       else
-        TemplatesFolder.scoped
+        TemplatesFolder
       end
     end
 

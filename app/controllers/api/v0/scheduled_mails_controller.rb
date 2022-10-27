@@ -28,7 +28,7 @@ class Api::V0::ScheduledMailsController < Api::V0::ApiController
         local_account = Account.where(name: params[:account_name])
         local_account.empty? ? [] : ScheduledMail.where(local_account_id: local_account.first.id)
       else
-        ScheduledMail.scoped
+        ScheduledMail
       end
     end
 
