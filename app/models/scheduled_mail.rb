@@ -130,7 +130,7 @@ class ScheduledMail < ActiveRecord::Base
 
     json = super options
 
-    json[:template_name] = self.template.name
+    json[:template_name] = self.template.nil? ? '[DELETED]' : self.template.name
     json
   end
 
