@@ -50,9 +50,9 @@ class Api::V0::TriggersController < Api::V0::ApiController
     def set_scope
       @scope = if params[:account_id]
         local_account = Account.where(name: params[:account_id])
-        local_account.empty? ? [] : Trigger.where(local_account_id: local_account.first.id)
+        local_account.empty? ? [] : Trigger.joins(:templates).where(local_account_id: local_account.first.id)
       else
-        Trigger
+        Trigger.joins(:templates)
       end
     end
 
