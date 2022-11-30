@@ -27,7 +27,7 @@ class Api::V0::TemplatesController < Api::V0::ApiController
   def attachments
     template = Template.find(params[:id])
     respond_to do |format|
-      format.json { render json: { collection: template.attachments.map{|a| a.remote_url}, total: template.attachments.count }.as_json }
+      format.json { render json: { collection: template.attachments.map{|a| a.attachment.url}, total: template.attachments.count }.as_json }
     end
   end
 
