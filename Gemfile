@@ -91,6 +91,6 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rake', '< 12'
+  gem 'rake', '< 14'
   gem 'coveralls', require: false
 end
