@@ -12,10 +12,10 @@ gem 'rack-cors'
 gem 'logical_model', '0.7.1'
 gem 'activity_stream_client', '0.1.0'
 gem 'contacts_client', '~> 0.1.0'
-gem 'accounts_client', '0.3.0'
+gem 'accounts_client', '0.3.4'
 gem 'messaging_client', '~> 0.3.0'
 
-gem 'padma-assets', '0.3.20'
+gem 'padma-assets', '0.3.21'
 
 gem 'attendance_client', '0.0.4'
 gem 'gibbon', '~> 3.1', '>= 3.1.1'
