@@ -31,7 +31,7 @@ gem 'sprockets', '3.6.3'
 gem 'nokogiri'
 
 # CAS authentication
-gem 'devise', '4.4.0'
+gem 'devise', '4.8.0'
 
 # authorization
 gem 'cancan'
