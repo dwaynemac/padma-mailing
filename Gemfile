@@ -18,7 +18,7 @@ gem 'messaging_client', '~> 0.3.0'
 gem 'padma-assets', '0.3.21'
 
 gem 'attendance_client', '0.0.4'
-gem 'gibbon', '~> 3.1', '>= 3.1.1'
+gem 'gibbon', '~> 3.4'
 gem 'rails_12factor'
 
 # gem 'mercury-rails', path: "~/workspace/my_forks/mercury" #git: 'git://github.com/afalkear/mercury.git', branch: 'upgrade-paths'
