@@ -53,49 +53,53 @@ class Trigger < ActiveRecord::Base
 
       trigger_scope.where(event_name: key_name).each do |trigger|
         if trigger.account.padma.enabled?
-          if trigger.filters_match?(data)
-            trigger.templates_triggerses.includes(:template).each do |tt|
-              if (send_at = tt.delivery_time(data)) && send_at.to_date >= Time.zone.now.to_date
-                if ScheduledMail.pending.where(template_id: tt.template_id,
-                                      local_account_id: tt.template.local_account_id,
-                                      recipient_email: recipient_email,
-                                      contact_id: data['contact_id'],
-                                      username: data['username'],
-                                      send_at: send_at.beginning_of_day..send_at.end_of_day
-                                              ).count == 0
-                  sm = ScheduledMail.new(
-                      template_id: tt.template_id,
-                      local_account_id: tt.template.local_account_id,
-                      recipient_email: recipient_email,
-                      bccs: tt.bccs,
-                      contact_id: data['contact_id'],
-                      username: data['username'],
-                      from_display_name: tt.from_display_name,
-                      from_email_address: tt.from_email_address,
-                      send_at: send_at,
-                      event_key: key_name,
-                      data: ActiveSupport::JSON.encode(data),
-                      conditions: encode_conditions(trigger.conditions)
-                  )
-                  sm_key = sm.inspect.to_param # before save to avoid id. 
-                  if Rails.env.production? && Rails.cache.read("saved_sm:#{sm_key}") 
-                    Rails.logger.warn "[notify-sysadmin] Prevented duplicate to #{sm.inspect}"
-                  else
-                    if sm.save
-                      Rails.cache.write("saved_sm:#{sm_key}",true)
+          unless trigger.account.padma.local_mailing
+            if trigger.filters_match?(data)
+              trigger.templates_triggerses.includes(:template).each do |tt|
+                if (send_at = tt.delivery_time(data)) && send_at.to_date >= Time.zone.now.to_date
+                  if ScheduledMail.pending.where(template_id: tt.template_id,
+                                        local_account_id: tt.template.local_account_id,
+                                        recipient_email: recipient_email,
+                                        contact_id: data['contact_id'],
+                                        username: data['username'],
+                                        send_at: send_at.beginning_of_day..send_at.end_of_day
+                                                ).count == 0
+                    sm = ScheduledMail.new(
+                        template_id: tt.template_id,
+                        local_account_id: tt.template.local_account_id,
+                        recipient_email: recipient_email,
+                        bccs: tt.bccs,
+                        contact_id: data['contact_id'],
+                        username: data['username'],
+                        from_display_name: tt.from_display_name,
+                        from_email_address: tt.from_email_address,
+                        send_at: send_at,
+                        event_key: key_name,
+                        data: ActiveSupport::JSON.encode(data),
+                        conditions: encode_conditions(trigger.conditions)
+                    )
+                    sm_key = sm.inspect.to_param # before save to avoid id. 
+                    if Rails.env.production? && Rails.cache.read("saved_sm:#{sm_key}") 
+                      Rails.logger.warn "[notify-sysadmin] Prevented duplicate to #{sm.inspect}"
                     else
-                      Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+                      if sm.save
+                        Rails.cache.write("saved_sm:#{sm_key}",true)
+                      else
+                        Rails.logger.warn "[notify-sysadmin] Couldnt save schedule mail #{sm.inspect}"
+                      end
                     end
+                  else
+                    Rails.logger.debug "ignoring duplicated message"
                   end
                 else
-                  Rails.logger.debug "ignoring duplicated message"
+                  Rails.logger.debug "ignoring future e-mail"
                 end
-              else
-                Rails.logger.debug "ignoring future e-mail"
               end
+            else
+              Rails.logger.debug "message didnt match filters"
             end
           else
-            Rails.logger.debug "message didnt match filters"
+            Rails.logger.debug "triggers account sends mail in CRM"
           end
         else
           Rails.logger.debug "trigger's account is not enabled"
