@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/dwaynemac/yard-rest-plugin.git
+  remote: https://github.com/dwaynemac/yard-rest-plugin.git
   revision: 33ac0b0cfe8667e8aa8bac02d59eada21ba4b72c
   specs:
     yard-rest (0.3.0)
@@ -1290,7 +1290,7 @@ GEM
       concurrent-ruby (~> 1.0)
     i18n-js (3.9.0)
       i18n (>= 0.6.6)
-    jmespath (1.4.0)
+    jmespath (1.6.1)
     jquery-fileupload-rails (1.0.0)
       actionpack (>= 3.1)
       railties (>= 3.1)
