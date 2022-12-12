@@ -69,6 +69,14 @@ class ScheduledMail < ActiveRecord::Base
         delivered_at: Time.now })
     end
 
+    if account.padma.local_mailing 
+      Rails.logger.info "Mail with data #{contact_data} cancelled, account sends mail from CRM."
+
+      update_attributes({
+        cancelled: true,
+        delivered_at: Time.now })
+    end
+
     return unless delivered_at.nil?
 
     # freeze FROM address for history
