@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/dwaynemac/yard-rest-plugin.git
+  remote: https://github.com/dwaynemac/yard-rest-plugin.git
   revision: 33ac0b0cfe8667e8aa8bac02d59eada21ba4b72c
   specs:
     yard-rest (0.3.0)
@@ -1320,7 +1320,7 @@ GEM
       ethon (= 0.6.3)
       kaminari (~> 1.2.1)
       typhoeus (= 0.6.4)
-    loofah (2.13.0)
+    loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -1372,7 +1372,7 @@ GEM
     public_suffix (4.0.6)
     puma (5.5.0)
       nio4r (~> 2.0)
-    racc (1.6.0)
+    racc (1.6.1)
     rack (1.6.13)
     rack-cors (1.0.6)
       rack (>= 1.6.0)
